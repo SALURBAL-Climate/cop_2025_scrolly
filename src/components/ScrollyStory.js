@@ -37,7 +37,11 @@ const ScrollyStory = () => {
 
     // Configure scrollama with imported settings and define step behavior
     scroller
-      .setup(scrollamaConfig) // Uses config from storyData.js
+      .setup({
+        step: '.step',
+        offset: 0.5,
+        debug: false,
+      }) // Uses config from storyData.js
       .onStepEnter((response) => {
         // Extract step index from scrollama response
         const stepIndex = response.index;
@@ -72,7 +76,7 @@ const ScrollyStory = () => {
   return (
     <div className="scrolly-container">
       {/* ===================================================================
-          STICKY VISUAL AREA - Left column, stays fixed during scroll
+          RED: STICKY VISUAL AREA - Left column, stays fixed during scroll 
           ================================================================= */}
       <figure ref={figureRef} className="sticky-figure">
         <div className="visual-container">
@@ -89,7 +93,7 @@ const ScrollyStory = () => {
       </figure>
 
       {/* ===================================================================
-          SCROLLING CONTENT AREA - Right column, drives scroll interactions
+          ORANGE: SCROLLING CONTENT AREA - Right column, drives scroll interactions
           ================================================================= */}
       <article ref={scrollerRef} className="scroller">
         {/* Introduction section */}

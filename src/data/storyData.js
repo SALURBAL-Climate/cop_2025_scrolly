@@ -86,13 +86,7 @@ export const storySteps = [
     visual: "action"
   }
 ];
-
-export const scrollamaConfig = {
-  step: '.step',
-  offset: 0.5,
-  debug: false,
-};
-
+ 
 export const animationConfig = {
   enter: {
     opacity: 1,
