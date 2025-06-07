@@ -152,8 +152,10 @@ const DefaultVisual = () => (
 // Landing section that introduces the story theme
 const IntroSection = () => (
   <div className="intro-section">
-    <h1 className="main-title">COP30: Urban Health & Climate Action</h1>
-    <p className="intro-text">
+    <h1 className="text-6xl font-extrabold mb-4 leading-tight drop-shadow-lg">
+      COP30: Urban Health & Climate Action
+    </h1>
+    <p className="text-xl max-w-2xl leading-relaxed opacity-90">
       Exploring how climate conferences work and the role of public health research.
     </p>
   </div>
@@ -166,8 +168,8 @@ const IntroSection = () => (
 const StoryStep = ({ step, index }) => (
   <div className="step" data-step={index}>
     <div className="step-content">
-      <h2>{step.title}</h2>
-      <p>{step.content}</p>
+      <h2 className="text-4xl font-bold mb-6 text-gray-800 leading-tight">{step.title}</h2>
+      <p className="text-lg leading-relaxed text-gray-600">{step.content}</p>
     </div>
   </div>
 );
@@ -178,8 +180,8 @@ const StoryStep = ({ step, index }) => (
 // Concluding section with call-to-action
 const OutroSection = () => (
   <div className="outro-section">
-    <h2>Taking Action</h2>
-    <p>
+    <h2 className="text-5xl font-bold mb-6">Taking Action</h2>
+    <p className="text-xl max-w-3xl leading-relaxed mb-8 opacity-90">
       COP30 represents a critical moment for urban climate action. 
       The health of our cities and communities depends on the decisions made today.
     </p>
