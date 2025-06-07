@@ -73,8 +73,11 @@ const ScrollyStory = () => {
         setCurrentStep(stepIndex);
         
         // ===================================================================
-        // VISUAL TRANSITION ORCHESTRATION
+        // VISUAL TRANSITION ORCHESTRATION - WITH OVERLAP PREVENTION
         // ===================================================================
+        // Kill all existing animations to prevent overlap
+        gsap.killTweensOf('.visual-container [class*="visual-"]');
+        
         // Mobile uses full-screen background approach, desktop uses side-by-side
         const mobileAnimationConfig = isMobile ? {
           enter: { 
@@ -89,15 +92,16 @@ const ScrollyStory = () => {
           }
         } : animationConfig;
         
-        // Animate the current visual into view using GSAP
-        gsap.to(`.visual-${stepIndex}`, mobileAnimationConfig.enter);
-        
-        // Hide all other visuals with exit animation
+        // First, immediately hide all visuals
         storySteps.forEach((_, index) => {
           if (index !== stepIndex) {
-            gsap.to(`.visual-${index}`, mobileAnimationConfig.exit);
+            gsap.set(`.visual-${index}`, { opacity: 0, zIndex: 1 });
           }
         });
+        
+        // Then animate the current visual into view with highest z-index
+        gsap.set(`.visual-${stepIndex}`, { zIndex: 10 });
+        gsap.to(`.visual-${stepIndex}`, mobileAnimationConfig.enter);
 
         // Mobile-specific: Add active class to current step for enhanced styling
         if (isMobile) {
