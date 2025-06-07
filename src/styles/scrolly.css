@@ -93,4 +93,241 @@
   width: 100%;
 }
 
+/* ===================================================================
+   RESPONSIVE SCROLLY STORY STYLES
+   =================================================================== */
+
+/* Base container styles */
+.scrolly-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* ===================================================================
+   DESKTOP LAYOUT (Side-by-side)
+   =================================================================== */
+.scrolly-container.desktop {
+  display: flex;
+}
+
+.scrolly-container.desktop .sticky-figure {
+  position: sticky;
+  top: 0;
+  width: 50%;
+  height: 100vh;
+  flex-shrink: 0;
+}
+
+.scrolly-container.desktop .scroller {
+  width: 50%;
+  padding: 2rem;
+}
+
+/* ===================================================================
+   MOBILE OVERLAY LAYOUT (Full-screen background + floating cards)
+   =================================================================== */
+.scrolly-container.mobile-overlay {
+  position: relative;
+}
+
+.scrolly-container.mobile-overlay .sticky-figure.mobile-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  background: #000; /* Fallback background */
+}
+
+.scrolly-container.mobile-overlay .scroller.mobile-overlay-scroller {
+  position: relative;
+  z-index: 2;
+  padding: 0;
+  background: transparent;
+  min-height: 100vh;
+}
+
+/* ===================================================================
+   VISUAL CONTAINER RESPONSIVE STYLES
+   =================================================================== */
+.visual-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Mobile background visual fills entire screen */
+.mobile-background .visual-container {
+  width: 100vw;
+  height: 100vh;
+}
+
+.mobile-background .visual-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-background .visual-wrapper > * {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Full coverage for background */
+}
+
+/* ===================================================================
+   STEP CONTENT - FLOATING CARDS ON MOBILE
+   =================================================================== */
+.step {
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile overlay step cards */
+.mobile-overlay-scroller .step {
+  margin: 2rem 1rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  transition: all 0.3s ease;
+}
+
+.mobile-overlay-scroller .step.active {
+  background: rgba(255, 255, 255, 0.98);
+  transform: scale(1.02);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Add breathing room at top and bottom */
+.mobile-overlay-scroller .intro-section {
+  height: 100vh;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 4rem;
+  background: transparent;
+}
+
+.mobile-overlay-scroller .outro-section {
+  height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 4rem;
+  background: transparent;
+}
+
+.mobile-overlay-scroller .intro-section > *,
+.mobile-overlay-scroller .outro-section > * {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  border-radius: 16px;
+  margin: 0 1rem;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===================================================================
+   DESKTOP STEP STYLES
+   =================================================================== */
+.scrolly-container.desktop .step {
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.scrolly-container.desktop .intro-section,
+.scrolly-container.desktop .outro-section {
+  padding: 3rem 2rem;
+  text-align: center;
+  background: white;
+}
+
+/* ===================================================================
+   RESPONSIVE BREAKPOINTS
+   =================================================================== */
+@media (max-width: 768px) {
+  .scrolly-container:not(.mobile-overlay) {
+    display: block !important;
+  }
+  
+  .scrolly-container:not(.mobile-overlay) .sticky-figure {
+    height: 40vh !important;
+    width: 100% !important;
+    position: sticky !important;
+    top: 0 !important;
+  }
+  
+  .scrolly-container:not(.mobile-overlay) .scroller {
+    width: 100% !important;
+    padding: 1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .mobile-overlay-scroller .step {
+    margin: 1.5rem 0.75rem;
+    padding: 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .mobile-overlay-scroller .intro-section > *,
+  .mobile-overlay-scroller .outro-section > * {
+    margin: 0 0.75rem;
+    padding: 1.5rem;
+  }
+}
+
+/* ===================================================================
+   TYPOGRAPHY ENHANCEMENTS FOR MOBILE OVERLAY
+   =================================================================== */
+.mobile-overlay-scroller .step h2,
+.mobile-overlay-scroller .step h3 {
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+}
+
+.mobile-overlay-scroller .step p {
+  color: #333;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+/* Ensure text is always readable */
+.mobile-overlay-scroller .step {
+  text-shadow: none;
+}
+
+/* Add subtle animation for card entrance */
+.mobile-overlay-scroller .step {
+  opacity: 0.8;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 

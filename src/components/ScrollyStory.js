@@ -30,6 +30,27 @@ const ScrollyStory = () => {
   const figureRef = useRef();
   // Current active step index (determines which visual is displayed)
   const [currentStep, setCurrentStep] = useState(0);
+  // Mobile detection state
+  const [isMobile, setIsMobile] = useState(false);
+
+  // ===================================================================
+  // MOBILE DETECTION & RESPONSIVE HANDLING
+  // ===================================================================
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    // Check on initial load
+    checkMobile();
+    
+    // Add resize listener
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
 
   // ===================================================================
   // SCROLLAMA SETUP & ANIMATION ORCHESTRATION
@@ -38,13 +59,13 @@ const ScrollyStory = () => {
     // Initialize scrollama instance for scroll-triggered interactions
     const scroller = scrollama();
 
-    // Configure scrollama with imported settings and define step behavior
+    // Configure scrollama with responsive settings
     scroller
       .setup({
         step: '.step',
-        offset: 0.5,
+        offset: isMobile ? 0.75 : 0.5, // Higher offset for mobile overlay approach
         debug: false,
-      }) // Uses config from storyData.js
+      })
       .onStepEnter((response) => {
         // Extract step index from scrollama response
         const stepIndex = response.index;
@@ -54,15 +75,42 @@ const ScrollyStory = () => {
         // ===================================================================
         // VISUAL TRANSITION ORCHESTRATION
         // ===================================================================
+        // Mobile uses full-screen background approach, desktop uses side-by-side
+        const mobileAnimationConfig = isMobile ? {
+          enter: { 
+            opacity: 1, 
+            duration: 0.6, 
+            ease: "power2.inOut"
+          },
+          exit: { 
+            opacity: 0, 
+            duration: 0.4, 
+            ease: "power2.inOut"
+          }
+        } : animationConfig;
+        
         // Animate the current visual into view using GSAP
-        gsap.to(`.visual-${stepIndex}`, animationConfig.enter);
+        gsap.to(`.visual-${stepIndex}`, mobileAnimationConfig.enter);
         
         // Hide all other visuals with exit animation
         storySteps.forEach((_, index) => {
           if (index !== stepIndex) {
-            gsap.to(`.visual-${index}`, animationConfig.exit);
+            gsap.to(`.visual-${index}`, mobileAnimationConfig.exit);
           }
         });
+
+        // Mobile-specific: Add active class to current step for enhanced styling
+        if (isMobile) {
+          // Remove active class from all steps
+          document.querySelectorAll('.step').forEach(step => {
+            step.classList.remove('active');
+          });
+          // Add active class to current step
+          const currentStepElement = document.querySelector(`.step[data-step="${stepIndex}"]`);
+          if (currentStepElement) {
+            currentStepElement.classList.add('active');
+          }
+        }
       });
 
     // Cleanup scrollama instance on component unmount
@@ -71,14 +119,14 @@ const ScrollyStory = () => {
         scroller.destroy();
       }
     };
-  }, []);
+  }, [isMobile]); // Re-run when mobile state changes
 
   // ===================================================================
-  // MAIN COMPONENT RENDER - DUAL COLUMN LAYOUT
+  // MAIN COMPONENT RENDER - RESPONSIVE LAYOUT
   // ===================================================================
   return (
-    <div className="scrolly-container">
-      <div ref={figureRef} className="sticky-figure">
+    <div className={`scrolly-container ${isMobile ? 'mobile-overlay' : 'desktop'}`}>
+      <div ref={figureRef} className={`sticky-figure ${isMobile ? 'mobile-background' : ''}`}>
         <div className="visual-container">
           {/* Render all visual components, positioned absolutely for smooth transitions */}
           {storySteps.map((step, index) => (
@@ -87,21 +135,28 @@ const ScrollyStory = () => {
               step={step}
               index={index}
               isActive={index === currentStep}
+              isMobile={isMobile}
             />
           ))}
         </div>
       </div>
-      <div ref={scrollerRef} className="scroller">
+      <div ref={scrollerRef} className={`scroller ${isMobile ? 'mobile-overlay-scroller' : ''}`}>
         {/* Introduction section */}
-        <IntroSection />
+        <IntroSection isMobile={isMobile} />
         
         {/* Individual story steps - each triggers scrollama when in view */}
         {storySteps.map((step, index) => (
-          <StoryStep key={step.id} step={step} index={index} />
+          <StoryStep 
+            key={step.id} 
+            step={step} 
+            index={index} 
+            isMobile={isMobile}
+            dataStep={index}
+          />
         ))}
         
         {/* Conclusion section */}
-        <OutroSection />
+        <OutroSection isMobile={isMobile} />
       </div>
     </div>
   );
