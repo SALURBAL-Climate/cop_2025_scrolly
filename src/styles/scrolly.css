@@ -4,7 +4,7 @@
   position: relative;
   min-height: 100vh;
   display: flex;
-  /* border: 8px solid navy ; */
+  border: 8px solid navy ;
 }
 
 .sticky-figure {
@@ -28,7 +28,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* border: 4px solid green; */
+  border: 4px solid green;
 }
 
 .visual {
@@ -42,10 +42,10 @@
   justify-content: center;
 }
 
-.visual-content {
+/* .visual-content {
   width: 100%;
   height: auto;
-}
+} */
 
 .visual-svg {
   width: 100%;
@@ -77,24 +77,24 @@
   padding: 2rem;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  margin-left: -50%;
+  /* margin-left: -50%; */
   width: 100%;
 }
 
-.main-title {
+/* .main-title {
   font-size: 3.5rem;
   font-weight: 800;
   margin-bottom: 1rem;
   line-height: 1.2;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
+} */
 
-.intro-text {
+/* .intro-text {
   font-size: 1.25rem;
   max-width: 600px;
   line-height: 1.6;
   opacity: 0.9;
-}
+} */
 
 .step {
   height: 100vh;
@@ -130,7 +130,7 @@
 }
 
 .outro-section {
-  height: 100vh;
+  /* height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -140,24 +140,24 @@
   background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
   color: white;
   margin-left: -50%;
-  width: 100%;
+  width: 100%; */
 }
 
 .outro-section h2 {
-  font-size: 3rem;
+  /* font-size: 3rem;
   font-weight: 700;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.5rem; */
 }
 
 .outro-section p {
-  font-size: 1.2rem;
+  /* font-size: 1.2rem;
   max-width: 700px;
   line-height: 1.6;
   margin-bottom: 2rem;
-  opacity: 0.9;
+  opacity: 0.9; */
 }
 
-.cta-button {
+/* .cta-button {
   background: linear-gradient(45deg, #667eea, #764ba2);
   color: white;
   border: none;
@@ -173,10 +173,10 @@
 .cta-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-}
+} */
 
 /* Responsive Design */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .scrolly-container {
     flex-direction: column;
   }
@@ -221,9 +221,9 @@
     text-align: center;
     align-items: center;
   }
-}
+} */
 
-@media (max-width: 480px) {
+/* @media (max-width: 480px) {
   .main-title {
     font-size: 2rem;
   }
@@ -239,4 +239,4 @@
   .intro-text {
     font-size: 1rem;
   }
-}
+} */
