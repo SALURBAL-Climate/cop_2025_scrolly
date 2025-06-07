@@ -4,7 +4,7 @@ const LeadershipVisual = () => (
           fill="#228B22" stroke="#006400" strokeWidth="2" />
     <circle cx="200" cy="130" r="12" fill="#FFD700" />
     <text x="200" y="137" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">BR</text>
-    <text x="200" y="250" textAnchor="middle" fill="#333" fontSize="16">Brazil's Leadership</text>
+    <text x="200" y="250" textAnchor="middle" fill="#333" fontSize="16">Brazil&apos;s Leadership</text>
   </svg>
 );
 
