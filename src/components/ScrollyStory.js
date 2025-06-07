@@ -75,10 +75,7 @@ const ScrollyStory = () => {
   // ===================================================================
   return (
     <div className="scrolly-container">
-      {/* ===================================================================
-          RED: STICKY VISUAL AREA - Left column, stays fixed during scroll 
-          ================================================================= */}
-      <figure ref={figureRef} className="sticky-figure">
+      <div ref={figureRef} className="sticky-figure">
         <div className="visual-container">
           {/* Render all visual components, positioned absolutely for smooth transitions */}
           {storySteps.map((step, index) => (
@@ -90,12 +87,8 @@ const ScrollyStory = () => {
             />
           ))}
         </div>
-      </figure>
-
-      {/* ===================================================================
-          ORANGE: SCROLLING CONTENT AREA - Right column, drives scroll interactions
-          ================================================================= */}
-      <article ref={scrollerRef} className="scroller">
+      </div>
+      <div ref={scrollerRef} className="scroller">
         {/* Introduction section */}
         <IntroSection />
         
@@ -106,7 +99,7 @@ const ScrollyStory = () => {
         
         {/* Conclusion section */}
         <OutroSection />
-      </article>
+      </div>
     </div>
   );
 };
