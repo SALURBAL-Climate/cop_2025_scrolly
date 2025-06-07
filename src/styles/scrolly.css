@@ -162,7 +162,7 @@
 
 /* Mobile overlay step cards - THESE ARE NEEDED for mobile overlay functionality */
 .mobile-overlay-scroller .step {
-  margin: 2rem auto;
+  margin: 16rem auto; /* Increased from 4rem to 8rem for much more vertical spacing */
   padding: 2rem;
   background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(10px);
@@ -236,7 +236,7 @@
 
 @media (max-width: 480px) {
   .mobile-overlay-scroller .step {
-    margin: 1.5rem auto;
+    margin: 6rem auto; /* Increased from 3rem to 6rem for smaller screens */
     padding: 1.5rem;
     font-size: 0.9rem;
     width: 85%;
