@@ -4,10 +4,11 @@
   position: relative;
   min-height: 100vh;
   display: flex;
-  border: 8px solid navy ;
+  /* border: 8px solid navy; */ /* Remove debug border */
   margin: 0;
   padding: 0;
   gap: 0;
+  width: 100%; /* Ensure full width */
 }
 
 .sticky-figure {
@@ -21,7 +22,7 @@
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   overflow: hidden;
   z-index: 1;
-  border: 4px solid red;
+  /* border: 4px solid red; */ /* Remove debug border */
   margin: 0;
   padding: 0;
 }
@@ -33,34 +34,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 4px solid green;
-}
-
-.visual {
-  position: absolute;
-  width: 80%;
-  max-width: 400px;
-  height: auto;
-  transition: all 0.5s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* .visual-content {
-  width: 100%;
-  height: auto;
-} */
-
-.visual-svg {
-  width: 100%;
-  height: auto;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 20px;
-  padding: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  /* border: 4px solid green; */ /* Remove debug border */
 }
 
 .scroller {
@@ -69,8 +43,8 @@
   z-index: 10;
   width: 50%;
   margin: 0;
-  margin-left: 50%;
-  border: 4px solid orange;
+  /* border: 4px solid orange; */ /* Remove debug border */
+  /* Remove margin-left: 50% since we're using flexbox */
 }
 
 .intro-section {
@@ -83,24 +57,24 @@
   padding: 2rem;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  /* margin-left: -50%; */
   width: 100%;
+  margin: 0; /* Remove any margin */
 }
 
-/* .main-title {
+.main-title {
   font-size: 3.5rem;
   font-weight: 800;
   margin-bottom: 1rem;
   line-height: 1.2;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-} */
+}
 
-/* .intro-text {
+.intro-text {
   font-size: 1.25rem;
   max-width: 600px;
   line-height: 1.6;
   opacity: 0.9;
-} */
+}
 
 .step {
   height: 100vh;
@@ -136,7 +110,7 @@
 }
 
 .outro-section {
-  /* height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -144,105 +118,22 @@
   text-align: left;
   padding: 2rem;
   background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
-  color: white;
-  margin-left: -50%;
-  width: 100%; */
+  color: white; 
+  width: 100%;
 }
 
 .outro-section h2 {
-  /* font-size: 3rem;
+  font-size: 3rem;
   font-weight: 700;
-  margin-bottom: 1.5rem; */
+  margin-bottom: 1.5rem;
 }
 
 .outro-section p {
-  /* font-size: 1.2rem;
+  font-size: 1.2rem;
   max-width: 700px;
   line-height: 1.6;
   margin-bottom: 2rem;
-  opacity: 0.9; */
+  opacity: 0.9;
 }
 
-/* .cta-button {
-  background: linear-gradient(45deg, #667eea, #764ba2);
-  color: white;
-  border: none;
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
 
-.cta-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-} */
-
-/* Responsive Design */
-/* @media (max-width: 768px) {
-  .scrolly-container {
-    flex-direction: column;
-  }
-  
-  .sticky-figure {
-    width: 100%;
-    position: relative;
-    height: 50vh;
-  }
-  
-  .scroller {
-    width: 100%;
-    margin-left: 0;
-  }
-  
-  .step {
-    padding: 1rem;
-  }
-  
-  .step-content {
-    padding: 2rem;
-    margin: 1rem;
-    margin-left: 1rem;
-  }
-  
-  .main-title {
-    font-size: 2.5rem;
-  }
-  
-  .step-content h2 {
-    font-size: 2rem;
-  }
-  
-  .visual {
-    width: 95%;
-  }
-  
-  .intro-section, .outro-section {
-    padding: 1rem;
-    margin-left: 0;
-    width: 100%;
-    text-align: center;
-    align-items: center;
-  }
-} */
-
-/* @media (max-width: 480px) {
-  .main-title {
-    font-size: 2rem;
-  }
-  
-  .step-content h2 {
-    font-size: 1.5rem;
-  }
-  
-  .step-content p {
-    font-size: 1rem;
-  }
-  
-  .intro-text {
-    font-size: 1rem;
-  }
-} */
