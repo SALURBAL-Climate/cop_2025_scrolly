@@ -18,6 +18,9 @@
   } from '../libs/@onsvisual/svelte-maps';
   import { getData, getColor, getTopo, getJson } from './utils.js';
 
+  // Scrolly stuff - ADD THIS MISSING IMPORT
+  import Scroller from './layout/Scroller.svelte';
+
   // Layout
   import { setContext } from 'svelte';
   import { themes } from './config.js';
@@ -1490,25 +1493,21 @@
   :global(svelte-scroller-foreground section div) {
     pointer-events: all !important;
   }
-  select {
-    max-width: 350px;
-  }
+  
   .sticky-legend {
     position: fixed;
     bottom: 2%;
     right: 1%;
-    /* transform: translate(-50%, -50%); */
     border-radius: 5px;
     background-color: white;
     padding: 10px;
     z-index: 9999;
-    /*Grid Stuff */
     display: grid;
     align-items: center;
     grid-template-columns: min-content 1fr;
   }
+  
   .boundary-legend-text {
-    /* max-width: 10rem; */
     padding-left: 0.5rem;
     font-size: 1.25em;
   }
@@ -1518,6 +1517,7 @@
     height: 5px;
     background-color: #8c198c;
   }
+  
   .boundary-sp-muni-legend {
     width: 2rem;
     height: 5px;
@@ -1525,47 +1525,16 @@
     margin-bottom: 15px;
     background-color: #2f8fbc;
   }
+  
   .boundary-l1-legend {
     width: 2rem;
     height: 5px;
     background-color: #bc3b2f;
   }
-  .stickDev {
-    position: fixed;
-    bottom: 10%;
-    left: 10%;
-    /* transform: translate(-50%, -50%); */
-    background-color: white;
-    color: red;
-    padding: 10px;
-    z-index: 9999;
-  }
-  .chart {
-    margin-top: 45px;
-    width: calc(100% - 5px);
-  }
-  .chart-full {
-    margin: 0 20px;
-  }
+
   .chart-sml {
     font-size: 0.85em;
     height: 350px;
-  }
-  /* The properties below make the media DIVs grey, for visual purposes in demo */
-  .media {
-    background-color: #f0f0f0;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-flow: column;
-    flex-flow: column;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    text-align: center;
-    color: #aaa;
   }
 
   .two-col-container {
@@ -1574,8 +1543,7 @@
   }
 
   .left-col {
-    flex: 3; /* Takes up 1 part of the available space */
-    /* border: 1px solid black; */
+    flex: 3;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1583,8 +1551,7 @@
   }
 
   .right-col {
-    flex: 3; /* Takes up 1 part of the available space */
-    /* border: 1px solid black; */
+    flex: 3;
     margin-top: 0.5rem;
   }
 
