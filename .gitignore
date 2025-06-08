@@ -17,6 +17,7 @@ node_modules/
 /out
 /.next/
 /public/bundle.*
+/public/build
 
 # Environment files
 .env*
