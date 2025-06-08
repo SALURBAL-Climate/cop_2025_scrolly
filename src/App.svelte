@@ -9,18 +9,32 @@
   import { setColors } from './utils.js';
   import UHCHeader from './layout/UHCHeader.svelte';
   import UHCFooter from './layout/UHCFooter.svelte';
+  import Section from './layout/Section.svelte';
   import Divider from './layout/Divider.svelte';
   
   let theme = 'light';
   setContext('theme', theme);
   setColors(themes, theme);
 
-  // State - only what's needed for coordination between components
+  // State - only what's needed in App.svelte
   let map_static_1;
   let center = {};
   let hovered;
 
-  // Scroller coordination - shared state between multiple scrolly components
+  // Data only needed for StepOneSection
+  const src__salurbal_centroid = {
+    url: './data/salurbal_l1ad_centroid.json',
+    layer: 'geog',
+    code: 'salid2',
+  };
+  let geojson_salurbal_centroid;
+  getTopo(src__salurbal_centroid.url, src__salurbal_centroid.layer).then(
+    (res) => {
+      geojson_salurbal_centroid = res;
+    }
+  );
+
+  // Scroller Setup - simplified for coordination
   let id = {}; // Object to hold visible section IDs of Scroller components
 
   // Component imports
@@ -39,6 +53,7 @@
 <HeroSection />
 <IntroSection />
 <StepOneSection 
+  {geojson_salurbal_centroid}
   bind:map_static_1
   bind:center
   bind:hovered
@@ -47,7 +62,7 @@
 <StepThreeSection />
 <CityBoundariesScrolly bind:id />
 <StepFourSection />
-<GeographicHierarchyScrolly bind:id />
+<GeographicHierarchyScrolly  bind:id />
 <Divider />
 <ConclusionSection />
 <UHCFooter />
