@@ -4,9 +4,11 @@
 -->
 
 <script>
-  // Scrolly stuff
+  // These come from node_modules (not in git, recreated with npm install)
   import { onMount } from 'svelte';
-  import Scroller from './layout/Scroller.svelte';
+  import bbox from '@turf/bbox';
+  
+  // These come from libs (IN git, custom/modified for your project)
   import {
     Map,
     MapSource,
@@ -15,7 +17,6 @@
     MapPopup,
   } from '../libs/@onsvisual/svelte-maps';
   import { getData, getColor, getTopo, getJson } from './utils.js';
-  import bbox from '@turf/bbox';
 
   // Layout
   import { setContext } from 'svelte';
