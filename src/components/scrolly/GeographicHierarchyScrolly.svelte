@@ -1,44 +1,297 @@
 <script>
+  import { onMount } from 'svelte';
   import Scroller from '../../layout/Scroller.svelte';
   import { Map, MapSource, MapLayer } from '../../../libs/@onsvisual/svelte-maps';
+  import { getTopo } from '../../utils.js';
+  import { colors, levelColors } from '../../config/colors.js';
+  import { textStyles } from '../../config/styles.js';
+  import { bounds } from '../../config/mapBounds.js';
 
   // Props passed from parent
-  export let threshold;
   export let id;
-  export let bounds;
-  export let map_scrolly_2;
-  export let zoom;
-  export let center;
-  export let custom_2;
-  
-  // Data props
-  export let geojson_municipio_centroid;
-  export let geojson_municipio;
-  export let geojson_l3;
-  export let geojson_l25;
-  export let geojson_l2;
-  export let geojson_l1ux;
-  export let geojson_l1ad;
-  export let geojson_ex_l3;
-  export let geojson_ex_l25;
-  export let geojson_ex_l2;
-  
-  // Source configs
-  export let src_municipio;
-  export let src_l3;
-  export let src_l25;
-  export let src_l2;
-  export let src_l1ux;
-  export let src_l1ad;
-  export let src_ex_l3;
-  export let src_ex_l25;
-  export let src_ex_l2;
-  
-  // Style props
-  export let style_l1;
-  export let style_l2;
-  export let style_l25;
-  export let style_l3;
+
+  // Component-specific configuration
+  const threshold = 0.7; // Different threshold for this scrolly (example)
+
+  // Internal state
+  let map_scrolly_2;
+  let zoom;
+  let center;
+
+  // Data loading for this scrolly
+  // municipio centroid (shared)
+  const src__municipio_centroid = {
+    url: './data/sao_paolo_municipio_centroid.json',
+    layer: 'geog',
+    code: 'salid2',
+  };
+  let geojson_municipio_centroid;
+  getTopo(src__municipio_centroid.url, src__municipio_centroid.layer).then(
+    (res) => {
+      geojson_municipio_centroid = res;
+    }
+  );
+
+  // Municipio boundaries (shared)
+  const src_municipio = {
+    url: './data/sao_paolo_municipio.json',
+    layer: 'geog',
+    code: 'salid2',
+  };
+  let geojson_municipio;
+  getTopo(src_municipio.url, src_municipio.layer).then((res) => {
+    geojson_municipio = res;
+  });
+
+  // Geographic hierarchy data
+  const src_l2 = {
+    url: './data/sao_paolo_l2.json',
+    layer: 'geog',
+    code: 'salid2',
+  };
+  let geojson_l2;
+  getTopo(src_l2.url, src_l2.layer).then((res) => {
+    geojson_l2 = res;
+  });
+
+  const src_l25 = {
+    url: './data/sao_paolo_l25.json',
+    layer: 'geog',
+    code: 'salid2',
+  };
+  let geojson_l25;
+  getTopo(src_l25.url, src_l25.layer).then((res) => {
+    geojson_l25 = res;
+  });
+
+  const src_l3 = {
+    url: './data/sao_paolo_l3.json',
+    layer: 'geog',
+    code: 'salid2',
+  };
+  let geojson_l3;
+  getTopo(src_l3.url, src_l3.layer).then((res) => {
+    geojson_l3 = res;
+  });
+
+  const src_l1ux = {
+    url: './data/sao_paolo_l1ux.json',
+    layer: 'geog',
+    code: 'salid1',
+  };
+  let geojson_l1ux;
+  getTopo(src_l1ux.url, src_l1ux.layer).then((res) => {
+    geojson_l1ux = res;
+  });
+
+  const src_l1ad = {
+    url: './data/sao_paolo_l1ad.json',
+    layer: 'geog',
+    code: 'salid1',
+  };
+  let geojson_l1ad;
+  getTopo(src_l1ad.url, src_l1ad.layer).then((res) => {
+    geojson_l1ad = res;
+  });
+
+  // Example data
+  const src_ex_l2 = {
+    url: './data/sao_paolo_ex_l2.json',
+    layer: 'geog',
+    code: 'salid2',
+  };
+  let geojson_ex_l2;
+  getTopo(src_ex_l2.url, src_ex_l2.layer).then((res) => {
+    geojson_ex_l2 = res;
+  });
+
+  const src_ex_l25 = {
+    url: './data/sao_paolo_ex_l25.json',
+    layer: 'geog',
+    code: 'salid2',
+  };
+  let geojson_ex_l25;
+  getTopo(src_ex_l25.url, src_ex_l25.layer).then((res) => {
+    geojson_ex_l25 = res;
+  });
+
+  const src_ex_l3 = {
+    url: './data/sao_paolo_ex_l3.json',
+    layer: 'geog',
+    code: 'salid2',
+  };
+  let geojson_ex_l3;
+  getTopo(src_ex_l3.url, src_ex_l3.layer).then((res) => {
+    geojson_ex_l3 = res;
+  });
+
+  // Map bounds function
+  function fitBounds(map, bounds) {
+    if (map) {
+      map.fitBounds(bounds, { animate: true, padding: 30 });
+    }
+  }
+
+  // Scroller setup
+  let idPrev = {};
+  onMount(() => {
+    idPrev = { ...id };
+  });
+
+  // Initial step configuration
+  const custom_2_map01 = {
+    mapid: 'map01',
+    layers: {
+      l2_line: {
+        'line-color': levelColors.l2,
+        'line-width': 2,
+        'line-opacity': 1,
+      },
+      l2_fill: {
+        'fill-color': levelColors.l1,
+        'fill-opacity': 0.5,
+      },
+      l1ad_line: {
+        'line-color': levelColors.l1,
+        'line-width': 5,
+      },
+    },
+  };
+
+  let custom_2 = custom_2_map01;
+
+  // Actions for this scrolly
+  let actions = {
+    map_scrolly_2: {
+      map01: () => {
+        fitBounds(map_scrolly_2, bounds.l1ad);
+        custom_2 = custom_2_map01;
+      },
+      map02: () => {
+        fitBounds(map_scrolly_2, bounds.l1ad);
+        custom_2 = {
+          mapid: 'map02',
+          layers: {
+            l2_line: {
+              'line-color': levelColors.l2,
+              'line-width': 5,
+              'line-opacity': 1,
+            },
+            l2_fill: {
+              'fill-color': levelColors.l1,
+              'fill-opacity': 0.15,
+            },
+            l1ad_line: {
+              'line-color': levelColors.l1,
+              'line-width': 7,
+              'line-opacity': 1,
+            },
+          },
+        };
+      },
+      map03: () => {
+        fitBounds(map_scrolly_2, bounds.l1ad);
+        custom_2 = {
+          mapid: 'map03',
+          layers: {
+            l2_line: {
+              'line-color': levelColors.l2,
+              'line-width': 5,
+              'line-opacity': 1,
+            },
+            l2_fill: {
+              'fill-color': levelColors.l1,
+              'fill-opacity': 0.1,
+            },
+            l1ad_line: {
+              'line-color': levelColors.l1,
+              'line-width': 7,
+              'line-opacity': 1,
+            },
+            l3_line: {
+              'line-color': levelColors.l3,
+              'line-width': 0.2,
+              'line-opacity': 1,
+            },
+          },
+        };
+      },
+      map04: () => {
+        fitBounds(map_scrolly_2, bounds.ex_l2);
+        custom_2 = {
+          mapid: 'map04',
+          layers: {
+            ex_l3: {
+              'line-color': levelColors.l3,
+              'line-width': 2,
+            },
+            ex_l2: {
+              'line-color': levelColors.l2,
+              'line-width': 8,
+            },
+          },
+        };
+      },
+      map05: () => {
+        fitBounds(map_scrolly_2, bounds.ex_l2);
+        custom_2 = {
+          mapid: 'map05',
+          layers: {
+            ex_l3: {
+              'line-color': levelColors.l3,
+              'line-width': 2,
+            },
+            ex_l25: {
+              'line-color': levelColors.l25,
+              'line-width': 4,
+            },
+            ex_l2: {
+              'line-color': levelColors.l2,
+              'line-width': 8,
+            },
+          },
+        };
+      },
+      map06: () => {
+        fitBounds(map_scrolly_2, bounds.l1ad);
+        custom_2 = {
+          mapid: 'map06',
+          layers: {
+            l1ad_line: {
+              'line-color': levelColors.l1,
+              'line-width': 6,
+              'line-opacity': 1,
+            },
+            l2_line: {
+              'line-color': levelColors.l2,
+              'line-width': 4,
+            },
+            l25_line: {
+              'line-color': levelColors.l25,
+              'line-width': 2,
+            },
+          },
+        };
+      },
+    },
+  };
+
+  function runActions(codes = []) {
+    codes.forEach((code) => {
+      if (id[code] != idPrev[code]) {
+        if (actions[code][id[code]]) {
+          actions[code][id[code]]();
+        }
+        idPrev[code] = id[code];
+      }
+    });
+  }
+
+  $: {
+    if (id) {
+      runActions(Object.keys(actions));
+    }
+  }
 </script>
 
 <div style="height: 3rem" />
@@ -228,7 +481,7 @@
       <div class="col-medium">
         <strong>Level 1: "Cities"</strong>
         <p>
-          The SALURBAL <span style={style_l1}>Level 1</span> for São Paulo
+          The SALURBAL <span style={textStyles.l1}>Level 1</span> for São Paulo
           encompasses all administrative units or
           <em>municípios</em> that have any overlap with the visually apparent built-up
           urban area in and around the core city of São Paulo.
@@ -239,12 +492,12 @@
       <div class="col-medium">
         <strong>Level 2: "Sub-cities"</strong>
         <p>
-          Within the São Paulo SALURBAL city <span style={style_l1}
+          Within the São Paulo SALURBAL city <span style={textStyles.l1}
             >(São Paulo L1)</span
           >, we defined sub-city units as each of the
           <em>municípios</em> that compose the São Paulo urban agglomeration.
           These are the
-          <span style={style_l2}>L2s</span>.
+          <span style={textStyles.l2}>L2s</span>.
         </p>
       </div>
     </section>
@@ -252,7 +505,7 @@
       <div class="col-medium">
         <strong>Level 3: "Neighborhoods"</strong>
         <p>
-          <span style={style_l3}>Level 3 units or neighborhoods</span> are the smallest
+          <span style={textStyles.l3}>Level 3 units or neighborhoods</span> are the smallest
           administrative units for which census data is available in each country.
         </p>
       </div>
@@ -261,7 +514,7 @@
       <div class="col-medium">
         <strong>Level 3: "Neighborhoods"</strong>
         <p>
-          As shown here, each <span style={style_l3}>L3 unit</span> in a
+          As shown here, each <span style={textStyles.l3}>L3 unit</span> in a
           Brazilian city like São Paulo corresponds to a
           <em>setor censitario</em>.
         </p>
@@ -270,12 +523,12 @@
     <section data-id="map05">
       <div class="col-medium">
         <p>
-          These <span style={style_l3}> L3 units</span> were sometimes too small
+          These <span style={textStyles.l3}> L3 units</span> were sometimes too small
           to support meaningful neighborhood-level analysis. To address this
           issue, we used larger Brazil census geographic units (<em
             >Áreas de Ponderação</em
           >) and labeled them
-          <span style={style_l25}> L2.5's</span>.
+          <span style={textStyles.l25}> L2.5's</span>.
         </p>
       </div>
     </section>
@@ -283,10 +536,10 @@
       <div class="col-medium">
         <p>
           The SALURBAL hierarchy of geographic units for Sao Paulo, Brazil
-          consists of 621 <span style={style_l25}>
+          consists of 621 <span style={textStyles.l25}>
             L2.5 neighborhood units</span
-          >, within 31 <span style={style_l2}> L2 sub-city units</span>, within
-          a single <span style={style_l1}> L1 city unit</span>.
+          >, within 31 <span style={textStyles.l2}> L2 sub-city units</span>, within
+          a single <span style={textStyles.l1}> L1 city unit</span>.
         </p>
       </div>
     </section>

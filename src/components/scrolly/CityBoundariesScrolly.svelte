@@ -1,52 +1,349 @@
 <script>
+  import { onMount } from 'svelte';
   import Scroller from '../../layout/Scroller.svelte';
   import { Map, MapSource, MapLayer, MapPopup } from '../../../libs/@onsvisual/svelte-maps';
+  import { getTopo } from '../../utils.js';
+  import { colors, levelColors } from '../../config/colors.js';
+  import { textStyles } from '../../config/styles.js';
+  import { bounds } from '../../config/mapBounds.js';
 
   // Props passed from parent
-  export let threshold;
   export let id;
-  export let bounds;
-  export let map_scrolly_1;
-  export let zoom;
-  export let center;
-  export let hovered;
-  export let custom_1;
-  
-  // Data props
-  export let geojson_municipio_centroid;
-  export let geojson_municipio;
-  export let geojson_l2;
-  export let geojson_l1ux;
-  export let geojson_l1ad;
-  export let geojson_metro;
-  export let geojson_monterrey_l2;
-  export let geojson_monterrey_unbuilt;
-  export let geojson_monterrey_l1ux;
-  export let geojson_monterrey_l1ad;
-  export let geojson_rio_cuarto_l1ad;
-  export let geojson_rio_cuarto_l2;
-  export let geojson_rio_cuarto_l1ux;
-  
-  // Source configs
-  export let src_municipio;
-  export let src_l2;
-  export let src_l1ux;
-  export let src_l1ad;
-  export let src_metro;
-  export let src_monterrey_l2;
-  export let src_monterrey_unbuilt;
-  export let src_monterrey_l1ux;
-  export let src_monterrey_l1ad;
-  export let src_rio_cuarto_l1ad;
-  export let src_rio_cuarto_l2;
-  export let src_rio_cuarto_l1ux;
-  
-  // Style props
-  export let style_l1;
-  export let style_l2;
-  export let style_ux;
-  export let style_unurban;
-  export let style_metro;
+
+  // Component-specific configuration
+  const threshold = 0.65; // Threshold for this specific scrolly
+
+  // Internal state
+  let map_scrolly_1;
+  let zoom;
+  let center;
+  let hovered;
+
+  // Data loading for this scrolly
+  // municipio centroid
+  const src__municipio_centroid = {
+    url: './data/sao_paolo_municipio_centroid.json',
+    layer: 'geog',
+    code: 'salid2',
+  };
+  let geojson_municipio_centroid;
+  getTopo(src__municipio_centroid.url, src__municipio_centroid.layer).then(
+    (res) => {
+      geojson_municipio_centroid = res;
+    }
+  );
+
+  // Municipio boundaries
+  const src_municipio = {
+    url: './data/sao_paolo_municipio.json',
+    layer: 'geog',
+    code: 'salid2',
+  };
+  let geojson_municipio;
+  getTopo(src_municipio.url, src_municipio.layer).then((res) => {
+    geojson_municipio = res;
+  });
+
+  // Metropolitan boundaries
+  const src_metro = {
+    url: './data/sao_paolo_metro.json',
+    layer: 'geog',
+    code: 'salid2',
+  };
+  let geojson_metro;
+  getTopo(src_metro.url, src_metro.layer).then((res) => {
+    geojson_metro = res;
+  });
+
+  // L1UX boundaries
+  const src_l1ux = {
+    url: './data/sao_paolo_l1ux.json',
+    layer: 'geog',
+    code: 'salid1',
+  };
+  let geojson_l1ux;
+  getTopo(src_l1ux.url, src_l1ux.layer).then((res) => {
+    geojson_l1ux = res;
+  });
+
+  // L1AD boundaries
+  const src_l1ad = {
+    url: './data/sao_paolo_l1ad.json',
+    layer: 'geog',
+    code: 'salid1',
+  };
+  let geojson_l1ad;
+  getTopo(src_l1ad.url, src_l1ad.layer).then((res) => {
+    geojson_l1ad = res;
+  });
+
+  // L2 boundaries
+  const src_l2 = {
+    url: './data/sao_paolo_l2.json',
+    layer: 'geog',
+    code: 'salid2',
+  };
+  let geojson_l2;
+  getTopo(src_l2.url, src_l2.layer).then((res) => {
+    geojson_l2 = res;
+  });
+
+  // Monterrey data
+  const src_monterrey_l1ux = {
+    url: './data/monterrey_l1ux.json',
+    layer: 'geog',
+    code: 'salid1',
+  };
+  let geojson_monterrey_l1ux;
+  getTopo(src_monterrey_l1ux.url, src_monterrey_l1ux.layer).then((res) => {
+    geojson_monterrey_l1ux = res;
+  });
+
+  const src_monterrey_l1ad = {
+    url: './data/monterrey_l1ad.json',
+    layer: 'geog',
+    code: 'salid1',
+  };
+  let geojson_monterrey_l1ad;
+  getTopo(src_monterrey_l1ad.url, src_monterrey_l1ad.layer).then((res) => {
+    geojson_monterrey_l1ad = res;
+  });
+
+  const src_monterrey_unbuilt = {
+    url: './data/monterrey_unbuilt.json',
+    layer: 'geog',
+    code: 'salid1',
+  };
+  let geojson_monterrey_unbuilt;
+  getTopo(src_monterrey_unbuilt.url, src_monterrey_unbuilt.layer).then(
+    (res) => {
+      geojson_monterrey_unbuilt = res;
+    }
+  );
+
+  const src_monterrey_l2 = {
+    url: './data/monterrey_l2.json',
+    layer: 'geog',
+    code: 'salid1',
+  };
+  let geojson_monterrey_l2;
+  getTopo(src_monterrey_l2.url, src_monterrey_l2.layer).then((res) => {
+    geojson_monterrey_l2 = res;
+  });
+
+  // Rio Cuarto data
+  const src_rio_cuarto_l1ad = {
+    url: './data/rio_cuarto_l1ad.json',
+    layer: 'geog',
+    code: 'salid1',
+  };
+  let geojson_rio_cuarto_l1ad;
+  getTopo(src_rio_cuarto_l1ad.url, src_rio_cuarto_l1ad.layer).then((res) => {
+    geojson_rio_cuarto_l1ad = res;
+  });
+
+  const src_rio_cuarto_l1ux = {
+    url: './data/rio_cuarto_l1ux.json',
+    layer: 'geog',
+    code: 'salid1',
+  };
+  let geojson_rio_cuarto_l1ux;
+  getTopo(src_rio_cuarto_l1ux.url, src_rio_cuarto_l1ux.layer).then((res) => {
+    geojson_rio_cuarto_l1ux = res;
+  });
+
+  const src_rio_cuarto_l2 = {
+    url: './data/rio_cuarto_l2.json',
+    layer: 'geog',
+    code: 'salid1',
+  };
+  let geojson_rio_cuarto_l2;
+  getTopo(src_rio_cuarto_l2.url, src_rio_cuarto_l2.layer).then((res) => {
+    geojson_rio_cuarto_l2 = res;
+  });
+
+  // Map bounds function
+  function fitBounds(map, bounds) {
+    if (map) {
+      map.fitBounds(bounds, { animate: true, padding: 30 });
+    }
+  }
+
+  // Scroller setup
+  let idPrev = {};
+  onMount(() => {
+    idPrev = { ...id };
+  });
+
+  // Initial step configurations
+  const custom_1_map01 = {
+    mapid: 'map01',
+    layers: {
+      municipio_centroid: {
+        'circle-color': levelColors.l1,
+        'circle-radius': 7,
+        'circle-stroke-color': levelColors.l1,
+        'circle-stroke-width': 1,
+      },
+      sp_popup: true,
+    },
+  };
+
+  let custom_1 = custom_1_map01;
+
+  // Actions for this scrolly
+  let actions = {
+    map_scrolly_1: {
+      map01: () => {
+        fitBounds(map_scrolly_1, bounds.southAmerica);
+        custom_1 = custom_1_map01;
+      },
+      map02: () => {
+        fitBounds(map_scrolly_1, bounds.l1ad);
+        custom_1 = {
+          mapid: 'map02',
+          layers: {
+            l2_line: {
+              'line-color': levelColors.l2,
+              'line-width': 5,
+            },
+          },
+        };
+      },
+      map04: () => {
+        fitBounds(map_scrolly_1, bounds.l1ad);
+        custom_1 = {
+          mapid: 'map04',
+          layers: {
+            l1ux: {
+              'line-color': levelColors.ux,
+              'line-width': 5,
+            },
+            l2_line: {
+              'line-color': levelColors.l2,
+              'line-width': 2,
+              'line-opacity': 1,
+            },
+            l2_fill: {
+              'fill-color': levelColors.ux,
+              'fill-opacity': 0.5,
+            },
+          },
+        };
+      },
+      map05: () => {
+        fitBounds(map_scrolly_1, bounds.l1ad);
+        custom_1 = {
+          mapid: 'map05',
+          layers: {
+            l2_line: {
+              'line-color': levelColors.l2,
+              'line-width': 2,
+              'line-opacity': 1,
+            },
+            l2_fill: {
+              'fill-color': levelColors.l1,
+              'fill-opacity': 0.5,
+            },
+            l1ad_line: {
+              'line-color': levelColors.l1,
+              'line-width': 5,
+            },
+          },
+        };
+      },
+      map06: () => {
+        fitBounds(map_scrolly_1, bounds.monterrey);
+        custom_1 = {
+          mapid: 'map06',
+          layers: {
+            monterrey_l1ad_line: {
+              'line-color': levelColors.l1,
+              'line-width': 4,
+            },
+            monterrey_l1ux_line: {
+              'line-color': 'black',
+              'line-width': 1,
+              'line-opacity': 0.5,
+            },
+            monterrey_unbuilt_fill: {
+              'fill-color': levelColors.unurban,
+              'fill-opacity': 0.2,
+            },
+            monterrey_l2_line: {
+              'line-color': levelColors.l2,
+              'line-width': 1.5,
+            },
+          },
+        };
+      },
+      map07: () => {
+        fitBounds(map_scrolly_1, bounds.rio_cuarto);
+        custom_1 = {
+          mapid: 'map07',
+          layers: {
+            rio_cuarto_l2_line: {
+              'line-color': levelColors.l2,
+              'line-width': 1.5,
+            },
+            rio_cuarto_l1ad_line: {
+              'line-color': levelColors.l1,
+              'line-width': 6,
+            },
+            rio_cuarto_l1ad_fill: {
+              'fill-color': levelColors.l1,
+              'fill-opacity': 0.25,
+            },
+            rio_cuarto_l1ux_line: {
+              'line-color': levelColors.ux,
+              'line-width': 2,
+            },
+          },
+        };
+      },
+      map08: () => {
+        fitBounds(map_scrolly_1, bounds.metro);
+        custom_1 = {
+          mapid: 'map08',
+          layers: {
+            municipio_line: {
+              'line-color': levelColors.l2,
+              'line-width': 3,
+            },
+            metro_line: {
+              'line-color': levelColors.metro,
+              'line-width': 4,
+            },
+            l1_fill: {
+              'fill-color': levelColors.l1,
+              'fill-opacity': 0.3,
+            },
+            l1ad_line: {
+              'line-color': levelColors.l1,
+              'line-width': 6,
+            },
+          },
+        };
+      },
+    },
+  };
+
+  function runActions(codes = []) {
+    codes.forEach((code) => {
+      if (id[code] != idPrev[code]) {
+        if (actions[code][id[code]]) {
+          actions[code][id[code]]();
+        }
+        idPrev[code] = id[code];
+      }
+    });
+  }
+
+  $: {
+    if (id) {
+      runActions(Object.keys(actions));
+    }
+  }
 </script>
 
 <div style="height: 3rem" />
@@ -311,7 +608,7 @@
     <section data-id="map02">
       <div class="col-medium">
         <p>
-          These are the <span style={style_l2}>administrative units</span>
+          These are the <span style={textStyles.l2}>administrative units</span>
           (<em>municípios</em>) in São Paulo, Brazil.
         </p>
       </div>
@@ -320,7 +617,7 @@
       <div class="col-medium">
         <p>
           Through visual inspection of satellite imagery, we identified <span
-            style={style_ux}
+            style={textStyles.ux}
           >
             all administrative units that included any portion of the built-up
             area</span
@@ -331,23 +628,23 @@
     <section data-id="map05">
       <div class="col-medium">
         <p>
-          The combination of these <span style={style_l2}
+          The combination of these <span style={textStyles.l2}
             >administrative units</span
           >
           is considered a
 
-          <span style={style_l1}>SALURBAL city.</span>
+          <span style={textStyles.l1}>SALURBAL city.</span>
         </p>
       </div>
     </section>
     <section data-id="map06">
       <div class="col-medium">
         <p>
-          In cases where the <span style={style_l2}>administrative units </span>
+          In cases where the <span style={textStyles.l2}>administrative units </span>
           that compose a city are very large, a
-          <span style={style_l1}>SALURBAL city</span>
+          <span style={textStyles.l1}>SALURBAL city</span>
           may include some areas that are
-          <span style={style_unurban}>not built-up or urbanized.</span> This is because
+          <span style={textStyles.unurban}>not built-up or urbanized.</span> This is because
           any administrative unit that included even a small portion of the built-up
           area was included in the geographic definition of the city.
         </p>
@@ -362,26 +659,26 @@
       <div class="col-medium">
         <p>
           While some cities are composed of many of these units, nearly half of
-          <span style={style_l1}>SALURBAL cities</span>
+          <span style={textStyles.l1}>SALURBAL cities</span>
           include only one
-          <span style={style_l2}> administrative unit</span>.
+          <span style={textStyles.l2}> administrative unit</span>.
         </p>
         <p>
           The example shown here is Rio Cuarto, Argentina with a population of
-          around 270,000 residents. The <span style={style_ux}>city</span> of
+          around 270,000 residents. The <span style={textStyles.ux}>city</span> of
           Rio Cuarto is made up of a single
-          <span style={style_l2}><em>departamento</em></span>.
+          <span style={textStyles.l2}><em>departamento</em></span>.
         </p>
       </div>
     </section>
     <section data-id="map08">
       <div class="col-medium text-medium">
         <p>
-          It is important to note that <span style={style_l1}
+          It is important to note that <span style={textStyles.l1}
             >SALURBAL cities</span
           >
           may not coincide with
-          <span style={style_metro}>political boundaries or definitions</span>
+          <span style={textStyles.metro}>political boundaries or definitions</span>
           that may be more familiar to public officials and local residents. Our
           boundaries intentionally reflect urban agglomerations that often extend
           beyond city cores.
@@ -389,14 +686,14 @@
 
         <p>
           This is the case for São Paulo, Brazil, where
-          <span style={style_l1}
+          <span style={textStyles.l1}
             >our definition based on the built-up extent</span
           >
           varies slightly compared to the
-          <span style={style_metro}
+          <span style={textStyles.metro}
             >locally defined Metropolitan Region of São Paulo</span
           >, and extends beyond the
-          <span style={style_l2}>municipalidade of São Paulo</span>. All
+          <span style={textStyles.l2}>municipalidade of São Paulo</span>. All
           SALURBAL city definitions were reviewed by SALURBAL team members in
           each country, before creating a final list of 371 cities.
         </p>
