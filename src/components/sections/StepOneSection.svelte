@@ -3,12 +3,25 @@
   import { Map, MapSource, MapLayer, MapTooltip } from '../../../libs/@onsvisual/svelte-maps';
   import { colors } from '../../config/colors.js';
   import { bounds } from '../../config/mapBounds.js';
+  import { getTopo } from '../../utils.js';
 
-  // Props from parent
-  export let geojson_salurbal_centroid;
+  // Props from parent - only the bindings needed
   export let map_static_1;
   export let center;
   export let hovered;
+
+  // Data loading for this component
+  const src__salurbal_centroid = {
+    url: './data/salurbal_l1ad_centroid.json',
+    layer: 'geog',
+    code: 'salid2',
+  };
+  let geojson_salurbal_centroid;
+  getTopo(src__salurbal_centroid.url, src__salurbal_centroid.layer).then(
+    (res) => {
+      geojson_salurbal_centroid = res;
+    }
+  );
 </script>
 
 <Section>
