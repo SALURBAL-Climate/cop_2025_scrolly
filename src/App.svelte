@@ -644,6 +644,11 @@
   const style_l1 = `color: ${hex_error}; font-weight: 900;`;
   const style_unurban = `color: ${hex_teal}; font-weight: 900;`;
   const style_metro = `color: ${hex_purple}; font-weight: 900;`;
+
+  // Component imports
+  import IntroSection from './components/sections/IntroSection.svelte';
+  import StepOneSection from './components/sections/StepOneSection.svelte';
+  import ConclusionSection from './components/sections/ConclusionSection.svelte';
 </script>
 
 <!-- 
@@ -673,96 +678,19 @@
   </p>
 </Filler>
 
-<Section>
-  <h2>Introduction</h2>
-  <p class="text-medium">
-    The SALURBAL team has developed a rigorous protocol for defining cities,
-    sub-cities, and neighborhoods. This process allows us to study and compare
-    urban environments and their health impacts across cities in 11 countries in
-    Latin America: Argentina, Brazil, Chile, Colombia, Costa Rica, El Salvador,
-    Guatemala, Mexico, Nicaragua, Panama, and Peru.
-  </p>
-  <p class="text-medium">
-    We undertook a systematic approach to identify and define SALURBAL cities.
-    The approach described below has guided the definition of geographic areas
-    to which all SALURBAL data is linked. You can read more about this process
-    in <a
-      href="https://link.springer.com/article/10.1007/s11524-018-00326-0"
-      target="_blank"
-      >“Building a Data Platform for Cross-Country Urban Health Studies.”</a
-    >
-  </p>
-</Section>
+<!-- Use abstracted components -->
+<IntroSection />
 
-<Divider />
+<StepOneSection 
+  {bounds}
+  {geojson_salurbal_centroid}
+  bind:map_static_1
+  bind:center
+  bind:hovered
+  {hex_warning}
+/>
 
-<Section>
-  <h3>Step 1. Identifying cities with a population of 100,000 or more.</h3>
-  <div class="two-col-container">
-    <div class="left-col">
-      <p class="text-medium">
-        The SALURBAL city universe was defined as all urban agglomerations with
-        at least 100,000 residents as of 2010.
-      </p>
-      <p class="text-medium">
-        We used the <a href="http://atlasofurbanexpansion.org/" target="_blank"
-          >Atlas of Urban Expansion</a
-        >
-        and country census data from
-        <a href="https://citypopulation.de/" target="_blank"
-          >citypopulation.de</a
-        > to obtain a list of all cities (as defined in these sources) with 100,000
-        residents or more in 2010. We combined both lists and eliminated duplicates.
-      </p>
-    </div>
-    <!-- 
-  # ============================================================================ #
-  # Map 1  (371 Salurbal cities)
--->
-    <div class="right-col">
-      <Media col="medium" caption="Interactive map of all 371 SALURBAL cities">
-        <div class="chart-sml">
-          <Map
-            id="static_map_1"
-            style="./data/style-osm-grey.json"
-            location={{ bounds: bounds.southAmericaShifted }}
-            controls={true}
-            scales={false}
-            dragPan={true}
-            bind:map_static_1
-            bind:center
-          >
-            <MapSource
-              map_id="static_map_1"
-              id="static_map_1-src"
-              type="geojson"
-              data={geojson_salurbal_centroid}
-              promoteId={'l1_label'}
-              maxzoom={13}
-            >
-              <MapLayer
-                map_id="static_map_1"
-                id="static_map_1-circle"
-                type="circle"
-                paint={{
-                  'circle-color': hex_warning,
-                  'circle-radius': 2.5,
-                  'circle-stroke-color': 'black',
-                  'circle-stroke-width': 0.1,
-                }}
-                hover={true}
-                bind:hovered
-              >
-                <MapTooltip map_id="static_map_1" content={`${hovered}`} />
-              </MapLayer>
-            </MapSource>
-          </Map>
-        </div>
-      </Media>
-    </div>
-  </div>
-</Section>
-
+<!-- Keep Step 2 and 3 inline for now -->
 <Section>
   <h3>Step 2: Combining neighboring cities</h3>
   <p class="text-medium">
@@ -1155,6 +1083,8 @@
     </section>
   </div>
 </Scroller>
+ 
+<!-- I ACCIDENTALLY REMOVED THIS ENTIRE SECTION - ADDING IT BACK -->
 
 <Section>
   <h3>
@@ -1163,7 +1093,7 @@
   <p class="text-medium">
     In order to capture within-city differences and accommodate data available
     for different geographic levels, we defined units at multiple geographic
-    “levels”.
+    "levels".
   </p>
   <p class="text-medium">
     Each SALURBAL city is referred to as a Level 1 unit (L1). Administrative
@@ -1179,7 +1109,7 @@
     slightly larger units. We refer to these as Level 2.5 units (L2.5s).
   </p>
   <p class="text-medium">
-    Let’s go back to São Paulo to see how these different geographic levels
+    Let's go back to São Paulo to see how these different geographic levels
     apply to a real city.
   </p>
   <div
@@ -1378,7 +1308,7 @@
   <div slot="foreground">
     <section data-id="map01">
       <div class="col-medium">
-        <strong>Level 1: “Cities”</strong>
+        <strong>Level 1: "Cities"</strong>
         <p>
           The SALURBAL <span style={style_l1}>Level 1</span> for São Paulo
           encompasses all administrative units or
@@ -1447,42 +1377,13 @@
 
 <Divider />
 
-<Section>
-  <h2>Understanding inter- and intra-city differences</h2>
-  <p class="text-medium">
-    This process was repeated for all 371 cities included in the SALURBAL
-    project. The result is an unprecedented data resource that allows us to
-    document and compare differences in health and wellbeing both between and
-    within cities across Latin America. You can find examples of analyses using
-    this data structure in our <a
-      href="https://drexel.edu/lac/data-evidence/publications/"
-      target="_blank">publications list</a
-    >.
-  </p>
-  <p class="text-medium">
-    For more information on the specific units used in each SALURBAL country,
-    see our article in the <a
-      href="https://link.springer.com/article/10.1007/s11524-018-00326-0"
-      target="_blank">Journal of Urban Health</a
-    >.
-  </p>
-  <p class="text-medium">
-    For more details and access to these boundaries please see our
-    <a href="https://data.lacurbanhealth.org/" target="_blank"
-      >spatial data repository</a
-    >
-    on the
-    <a href="https://data.lacurbanhealth.org/" target="_blank"
-      >SALURBAL data portal</a
-    >.
-  </p>
-</Section>
+<ConclusionSection />
 
 <UHCFooter />
 
 <!-- 
   # ============================================================================ #
-  #  ............... style ...............
+  #  ............... style ............... 
 -->
 
 <style>
