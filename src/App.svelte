@@ -646,9 +646,12 @@
   const style_metro = `color: ${hex_purple}; font-weight: 900;`;
 
   // Component imports
+  import HeroSection from './components/sections/HeroSection.svelte';
   import IntroSection from './components/sections/IntroSection.svelte';
   import StepOneSection from './components/sections/StepOneSection.svelte';
+  import StepFourSection from './components/sections/StepFourSection.svelte';
   import ConclusionSection from './components/sections/ConclusionSection.svelte';
+  import GeographicHierarchyScrolly from './components/scrolly/GeographicHierarchyScrolly.svelte';
 </script>
 
 <!-- 
@@ -661,22 +664,8 @@
 </div> -->
 <UHCHeader filled={true} center={false} />
 
-<Filler theme="lightblue" short={true} wide={true} center={false}>
-  <h1>What is a SALURBAL city?</h1>
-  <p class="text-big" style="margin-top: 5px">
-    SALURBAL city, sub-city, and neighborhood definition and selection
-  </p>
+<HeroSection />
 
-  <p class="text-medium">
-    Designed by: <span style={'font-weight: 900'}>
-      Usama Bilal, Katy Indvik, Steve Melly, Andrea Bolinaga, Kari Moore, Alex
-      Quistberg, Ana V. Diez Roux</span
-    >
-    <br />
-    Engineered by:
-    <span style={'font-weight: 900'}> Anuj Tanwar, Ran Li</span>
-  </p>
-</Filler>
 
 <!-- Use abstracted components -->
 <IntroSection />

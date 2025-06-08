@@ -27,7 +27,7 @@
 
 <style>
   section {
-    padding: 36px 0;
+    padding: 31px 0;
   }
   .short {
     min-height: 50vh;
