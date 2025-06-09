@@ -20,8 +20,8 @@
   import StepThreeSection from './components/sections/StepThreeSection.svelte';
   import StepFourSection from './components/sections/StepFourSection.svelte';
   import ConclusionSection from './components/sections/ConclusionSection.svelte';
-  import GeographicHierarchyScrolly from './components/scrolly/GeographicHierarchyScrolly.svelte';
-  import CityBoundariesScrolly from './components/scrolly/CityBoundariesScrolly.svelte';
+  import Step4Scrolly from './components/scrolly/Step4Scrolly.svelte';
+  import Step3Scrolly from './components/scrolly/Step3Scrolly.svelte';
 </script>
 
 
@@ -32,9 +32,9 @@
 <StepOneSection />
 <StepTwoSection />
 <StepThreeSection />
-<CityBoundariesScrolly />
+<Step3Scrolly />
 <StepFourSection/>
-<GeographicHierarchyScrolly />
+<Step4Scrolly />
 <Divider />
 <ConclusionSection />
 <UHCFooter />
