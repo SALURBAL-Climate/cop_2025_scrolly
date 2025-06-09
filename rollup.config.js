@@ -4,6 +4,8 @@ import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import babel from 'rollup-plugin-babel';
+import alias from '@rollup/plugin-alias';
+import path from 'path';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -30,14 +32,21 @@ function serve() {
 
 export default [
 	{
-		input: 'src/main.js',
-		output: {
+		input: 'src/main.js',		output: {
 			sourcemap: true,
 			format: 'iife',
 			name: 'app',
 			file: 'public/build/bundle.js'
-		},
-		plugins: [
+		},		plugins: [
+			alias({
+				entries: [
+					{ find: '@', replacement: path.resolve('./src') },
+					{ find: '@components', replacement: path.resolve('./src/components') },
+					{ find: '@layout', replacement: path.resolve('./src/layout') },
+					{ find: '@scrolly', replacement: path.resolve('./src/components/scrolly') },
+					{ find: '@data', replacement: path.resolve('./src/components/scrolly') }
+				]
+			}),
 			svelte({
 				// enable run-time checks when not in production
 				dev: !production,
@@ -71,14 +80,21 @@ export default [
 	},
 	{
 		// Output legacy code bundle for ES5 / IE11 / Chromium 59 support
-		input: 'src/main.js',
-		output: {
+		input: 'src/main.js',		output: {
 			sourcemap: true,
 			format: 'iife',
 			name: 'app',
 			file: 'public/build/bundle.legacy.js'
-		},
-		plugins: [
+		},		plugins: [
+			alias({
+				entries: [
+					{ find: '@', replacement: path.resolve('./src') },
+					{ find: '@components', replacement: path.resolve('./src/components') },
+					{ find: '@layout', replacement: path.resolve('./src/layout') },
+					{ find: '@scrolly', replacement: path.resolve('./src/components/scrolly') },
+					{ find: '@data', replacement: path.resolve('./src/components/scrolly') }
+				]
+			}),
 			svelte({
 				dev: false,
 				//output in legacy mode ES5 compatible) to support IE11

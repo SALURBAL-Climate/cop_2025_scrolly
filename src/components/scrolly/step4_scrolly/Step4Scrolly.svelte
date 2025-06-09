@@ -1,11 +1,11 @@
 <script>
   import { onMount } from 'svelte';
-  import Scroller from '../../layout/Scroller.svelte';
-  import { Map, MapSource, MapLayer } from '../../../libs/@onsvisual/svelte-maps/index.mjs';
-  import { bounds } from '../../data/mapBounds.js';
-  import { getTopo } from '../../utils.js';
-  import { brandColors, colors } from '../../layout/branding.js';
-  import { dataSources, step4DataMapping } from './data.js';
+  import Scroller from '@layout/Scroller.svelte';
+  import { Map, MapSource, MapLayer } from '@/../libs/@onsvisual/svelte-maps/index.mjs';
+  import { bounds } from '@/data/mapBounds.js';
+  import { getTopo } from '@/utils.js';
+  import { brandColors, colors } from '@layout/branding.js';
+  import { dataSources, step4DataMapping } from '@/data/data.js';
   
   // Local state instead of props from parent
   let threshold = 0.5;
