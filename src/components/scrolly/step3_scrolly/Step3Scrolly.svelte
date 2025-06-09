@@ -21,14 +21,208 @@
   // Initialize all geojson variables
   getDataSourceKeys().forEach(key => {
     geojsonData[key] = null;
-  });
-    // Style props
+  }); 
+  
+  // Style props
   let style_l1 = `color: ${colors.error}; font-weight: 900;`;
   let style_l2 = `color: ${colors.primary}; font-weight: 900;`;
   let style_ux = `color: ${colors.warning}; font-weight: 900;`;
   let style_unurban = `color: ${colors.teal}; font-weight: 900;`;
   let style_metro = `color: ${colors.purple}; font-weight: 900;`;
-    // Load data on mount
+
+  // Unified step configuration - each step contains both content and map settings
+  const scrollySteps = [
+    {
+      id: 'step1',
+      content: {
+        text: `<p>We'll use São Paulo, Brazil as an example.</p>`
+      },
+      mapConfig: {
+        bounds: bounds.southAmerica,
+        layers: {
+          municipio_centroid: {
+            'circle-color': colors.error,
+            'circle-radius': 7,
+            'circle-stroke-color': colors.error,
+            'circle-stroke-width': 1,
+          },
+          sp_popup: true,
+        }
+      }
+    },
+    {
+      id: 'step2',
+      content: {
+        text: `<p>These are the <span style="${style_l2}">administrative units</span> (<em>municípios</em>) in São Paulo, Brazil.</p>`
+      },
+      mapConfig: {
+        bounds: bounds.l1ad,
+        layers: {
+          l2_line: {
+            'line-color': colors.primary,
+            'line-width': 5,
+          },
+        }
+      }
+    },
+    {
+      id: 'step3',
+      content: {
+        text: `<p>Through visual inspection of satellite imagery, we identified <span style="${style_ux}">all administrative units that included any portion of the built-up area</span> of each SALURBAL city.</p>`
+      },
+      mapConfig: {
+        bounds: bounds.l1ad,
+        layers: {
+          l1ux: {
+            'line-color': colors.warning,
+            'line-width': 5,
+          },
+          l2_line: {
+            'line-color': colors.primary,
+            'line-width': 2,
+            'line-opacity': 1,
+          },
+          l2_fill: {
+            'fill-color': colors.warning,
+            'fill-opacity': 0.5,
+          },
+        }
+      }
+    },
+    {
+      id: 'step4',
+      content: {
+        text: `<p>The combination of these <span style="${style_l2}">administrative units</span> is considered a <span style="${style_l1}">SALURBAL city.</span></p>`
+      },
+      mapConfig: {
+        bounds: bounds.l1ad,
+        layers: {
+          l2_line: {
+            'line-color': colors.primary,
+            'line-width': 2,
+            'line-opacity': 1,
+          },
+          l2_fill: {
+            'fill-color': colors.error,
+            'fill-opacity': 0.5,
+          },
+          l1ad_line: {
+            'line-color': colors.error,
+            'line-width': 5,
+          },
+        }
+      }
+    },
+    {
+      id: 'step5',
+      content: {
+        text: `<p>In cases where the <span style="${style_l2}">administrative units</span> that compose a city are very large, a <span style="${style_l1}">SALURBAL city</span> may include some areas that are <span style="${style_unurban}">not built-up or urbanized.</span> This is because any administrative unit that included even a small portion of the built-up area was included in the geographic definition of the city.</p>
+        <p>The example shown here is Monterrey, Mexico with a population of around 5 million residents. Some of the <em>municipios</em> included as part of Monterrey have only a small portion of the city's urbanized area.</p>`
+      },
+      mapConfig: {
+        bounds: bounds.monterrey,
+        layers: {
+          monterrey_l1ad_line: {
+            'line-color': colors.error,
+            'line-width': 4,
+          },
+          monterrey_l1ux_line: {
+            'line-color': 'black',
+            'line-width': 1,
+            'line-opacity': 0.5,
+          },
+          monterrey_unbuilt_fill: {
+            'fill-color': colors.teal,
+            'fill-opacity': 0.2,
+          },
+          monterrey_l2_line: {
+            'line-color': colors.primary,
+            'line-width': 1.5,
+          },
+        }
+      }
+    },
+    {
+      id: 'step6',
+      content: {
+        text: `<p>While some cities are composed of many of these units, nearly half of <span style="${style_l1}">SALURBAL cities</span> include only one <span style="${style_l2}">administrative unit</span>.</p>
+        <p>The example shown here is Rio Cuarto, Argentina with a population of around 270,000 residents. The <span style="${style_ux}">city</span> of Rio Cuarto is made up of a single <span style="${style_l2}"><em>departamento</em></span>.</p>`
+      },
+      mapConfig: {
+        bounds: bounds.rio_cuarto,
+        layers: {
+          rio_cuarto_l2_line: {
+            'line-color': colors.primary,
+            'line-width': 1.5,
+          },
+          rio_cuarto_l1ad_line: {
+            'line-color': colors.error,
+            'line-width': 6,
+          },
+          rio_cuarto_l1ad_fill: {
+            'fill-color': colors.error,
+            'fill-opacity': 0.25,
+          },
+          rio_cuarto_l1ux_line: {
+            'line-color': colors.warning,
+            'line-width': 2,
+          },
+        }
+      }
+    },
+    {
+      id: 'step7',
+      content: {
+        text: `<p>It is important to note that <span style="${style_l1}">SALURBAL cities</span> may not coincide with <span style="${style_metro}">political boundaries or definitions</span> that may be more familiar to public officials and local residents. Our boundaries intentionally reflect urban agglomerations that often extend beyond city cores.</p>
+        <p>This is the case for São Paulo, Brazil, where <span style="${style_l1}">our definition based on the built-up extent</span> varies slightly compared to the <span style="${style_metro}">locally defined Metropolitan Region of São Paulo</span>, and extends beyond the <span style="${style_l2}">municipalidade of São Paulo</span>. All SALURBAL city definitions were reviewed by SALURBAL team members in each country, before creating a final list of 371 cities.</p>`,
+        class: 'text-medium'
+      },
+      mapConfig: {
+        bounds: bounds.metro,
+        layers: {
+          municipio_line: {
+            'line-color': colors.primary,
+            'line-width': 3,
+          },
+          metro_line: {
+            'line-color': colors.purple,
+            'line-width': 4,
+          },
+          l1_fill: {
+            'fill-color': colors.error,
+            'fill-opacity': 0.3,
+          },
+          l1ad_line: {
+            'line-color': colors.error,
+            'line-width': 6,
+          },
+        }
+      },
+      showLegend: true
+    }
+  ];
+
+  // Current step configuration
+  let currentStep = scrollySteps[0];
+  // Update map configuration when step changes
+  function updateMapForStep(stepId) {
+    const step = scrollySteps.find(s => s.id === stepId);
+    if (step && map_scrolly_1) {
+      currentStep = step;
+      fitBounds(map_scrolly_1, step.mapConfig.bounds);
+      custom_1 = {
+        mapid: stepId,
+        layers: step.mapConfig.layers
+      };
+    }
+  }
+
+  // Helper function for map bounds
+  function fitBounds(map, bounds) {
+    if (map) {
+      map.fitBounds(bounds, { animate: true, padding: 30 });
+    }
+  }// Load data on mount
   onMount(() => {
     // Load all data sources dynamically
     getDataSourceKeys().forEach(key => {
@@ -37,160 +231,26 @@
         geojsonData[key] = res;
       });
     });
+    
+    // Initialize with first step
+    updateMapForStep(scrollySteps[0].id);
   });
   
-  // Actions for scrolly steps
-  function fitBounds(map, bounds) {
-    if (map) {
-      map.fitBounds(bounds, { animate: true, padding: 30 });
-    }
-  }
-  
-  // Custom styles for different map steps
-  const custom_1_map01 = {
-    mapid: 'map01',
-    layers: {      municipio_centroid: {
-        'circle-color': colors.error,
-        'circle-radius': 7,
-        'circle-stroke-color': colors.error,
-        'circle-stroke-width': 1,
-      },
-      sp_popup: true,
-    },
-  };
-  
+  // Actions for scrolly steps - simplified to use the unified structure
   let actions = {
-    map_scrolly_1: {
-      map01: () => {
-        fitBounds(map_scrolly_1, bounds.southAmerica);
-        custom_1 = custom_1_map01;
-      },
-      map02: () => {
-        fitBounds(map_scrolly_1, bounds.l1ad);
-        custom_1 = {
-          mapid: 'map02',          layers: {
-            l2_line: {
-              'line-color': colors.primary,
-              'line-width': 5,
-            },
-          },
-        };
-      },
-      map04: () => {
-        fitBounds(map_scrolly_1, bounds.l1ad);
-        custom_1 = {
-          mapid: 'map04',          layers: {
-            l1ux: {
-              'line-color': colors.warning,
-              'line-width': 5,
-            },
-            l2_line: {
-              'line-color': colors.primary,
-              'line-width': 2,
-              'line-opacity': 1,
-            },
-            l2_fill: {
-              'fill-color': colors.warning,
-              'fill-opacity': 0.5,
-            },
-          },
-        };
-      },
-      map05: () => {
-        fitBounds(map_scrolly_1, bounds.l1ad);
-        custom_1 = {
-          mapid: 'map05',          layers: {
-            l2_line: {
-              'line-color': colors.primary,
-              'line-width': 2,
-              'line-opacity': 1,
-            },
-            l2_fill: {
-              'fill-color': colors.error,
-              'fill-opacity': 0.5,
-            },
-            l1ad_line: {
-              'line-color': colors.error,
-              'line-width': 5,
-            },
-          },
-        };
-      },
-      map06: () => {
-        fitBounds(map_scrolly_1, bounds.monterrey);
-        custom_1 = {
-          mapid: 'map06',          layers: {
-            monterrey_l1ad_line: {
-              'line-color': colors.error,
-              'line-width': 4,
-            },
-            monterrey_l1ux_line: {
-              'line-color': 'black',
-              'line-width': 1,
-              'line-opacity': 0.5,
-            },
-            monterrey_unbuilt_fill: {
-              'fill-color': colors.teal,
-              'fill-opacity': 0.2,
-            },
-            monterrey_l2_line: {
-              'line-color': colors.primary,
-              'line-width': 1.5,
-            },
-          },
-        };
-      },
-      map07: () => {
-        fitBounds(map_scrolly_1, bounds.rio_cuarto);
-        custom_1 = {
-          mapid: 'map07',          layers: {
-            rio_cuarto_l2_line: {
-              'line-color': colors.primary,
-              'line-width': 1.5,
-            },
-            rio_cuarto_l1ad_line: {
-              'line-color': colors.error,
-              'line-width': 6,
-            },
-            rio_cuarto_l1ad_fill: {
-              'fill-color': colors.error,
-              'fill-opacity': 0.25,
-            },
-            rio_cuarto_l1ux_line: {
-              'line-color': colors.warning,
-              'line-width': 2,
-            },
-          },
-        };
-      },
-      map08: () => {
-        fitBounds(map_scrolly_1, bounds.metro);
-        custom_1 = {
-          mapid: 'map08',          layers: {
-            municipio_line: {
-              'line-color': colors.primary,
-              'line-width': 3,
-            },
-            metro_line: {
-              'line-color': colors.purple,
-              'line-width': 4,
-            },
-            l1_fill: {
-              'fill-color': colors.error,
-              'fill-opacity': 0.3,
-            },
-            l1ad_line: {
-              'line-color': colors.error,
-              'line-width': 6,
-            },
-          },
-        };
-      },
-    },
+    map_scrolly_1: {}
   };
   
-  // Initialize custom styles
-  custom_1 = custom_1_map01;
+  // Populate actions from scrollySteps
+  scrollySteps.forEach(step => {
+    actions.map_scrolly_1[step.id] = () => updateMapForStep(step.id);
+  });
+  
+  // Initialize custom styles with first step
+  custom_1 = {
+    mapid: scrollySteps[0].id,
+    layers: scrollySteps[0].mapConfig.layers
+  };
   
   // Track previous IDs for actions
   let idPrev = { map_scrolly_1: null };
@@ -229,9 +289,8 @@
           bind:hovered
           bind:map={map_scrolly_1}
           bind:zoom
-          bind:center
-        >
-          {#if id == 'map08'}
+          bind:center        >
+          {#if currentStep.showLegend}
             <div class="sticky-legend">
               <div class="boundary-metro-legend" />
               <div class="boundary-legend-text">
@@ -244,7 +303,7 @@
                 SALURBAL defined city of São Paulo
               </div>
             </div>
-          {/if}          <MapSource
+          {/if}<MapSource
             map_id="map_scrolly_1"
             id="municipio_centroid"
             type="geojson"
@@ -463,107 +522,14 @@
       </div>
     </figure>
   </div>
-
   <div slot="foreground">
-    <section data-id="map01">
-      <div class="col-medium">
-        <p>We'll use São Paulo, Brazil as an example.</p>
-      </div>
-    </section>
-    <section data-id="map02">
-      <div class="col-medium">
-        <p>
-          These are the <span style={style_l2}>administrative units</span>
-          (<em>municípios</em>) in São Paulo, Brazil.
-        </p>
-      </div>
-    </section>
-    <section data-id="map04">
-      <div class="col-medium">
-        <p>
-          Through visual inspection of satellite imagery, we identified <span
-            style={style_ux}
-          >
-            all administrative units that included any portion of the built-up
-            area</span
-          > of each SALURBAL city.
-        </p>
-      </div>
-    </section>
-    <section data-id="map05">
-      <div class="col-medium">
-        <p>
-          The combination of these <span style={style_l2}
-            >administrative units</span
-          >
-          is considered a
-
-          <span style={style_l1}>SALURBAL city.</span>
-        </p>
-      </div>
-    </section>
-    <section data-id="map06">
-      <div class="col-medium">
-        <p>
-          In cases where the <span style={style_l2}>administrative units </span>
-          that compose a city are very large, a
-          <span style={style_l1}>SALURBAL city</span>
-          may include some areas that are
-          <span style={style_unurban}>not built-up or urbanized.</span> This is because
-          any administrative unit that included even a small portion of the built-up
-          area was included in the geographic definition of the city.
-        </p>
-        <p>
-          The example shown here is Monterrey, Mexico with a population of
-          around 5 million residents. Some of the <em>municipios</em> included as
-          part of Monterrey have only a small portion of the city's urbanized area.
-        </p>
-      </div>
-    </section>
-    <section data-id="map07">
-      <div class="col-medium">
-        <p>
-          While some cities are composed of many of these units, nearly half of
-          <span style={style_l1}>SALURBAL cities</span>
-          include only one
-          <span style={style_l2}> administrative unit</span>.
-        </p>
-        <p>
-          The example shown here is Rio Cuarto, Argentina with a population of
-          around 270,000 residents. The <span style={style_ux}>city</span> of
-          Rio Cuarto is made up of a single
-          <span style={style_l2}><em>departamento</em></span>.
-        </p>
-      </div>
-    </section>
-    <section data-id="map08">
-      <div class="col-medium text-medium">
-        <p>
-          It is important to note that <span style={style_l1}
-            >SALURBAL cities</span
-          >
-          may not coincide with
-          <span style={style_metro}>political boundaries or definitions</span>
-          that may be more familiar to public officials and local residents. Our
-          boundaries intentionally reflect urban agglomerations that often extend
-          beyond city cores.
-        </p>
-
-        <p>
-          This is the case for São Paulo, Brazil, where
-          <span style={style_l1}
-            >our definition based on the built-up extent</span
-          >
-          varies slightly compared to the
-          <span style={style_metro}
-            >locally defined Metropolitan Region of São Paulo</span
-          >, and extends beyond the
-          <span style={style_l2}>municipalidade of São Paulo</span>. All
-          SALURBAL city definitions were reviewed by SALURBAL team members in
-          each country, before creating a final list of 371 cities.
-        </p>
-      </div>
-    </section>
+    {#each scrollySteps as step}
+      <section data-id={step.id}>
+        <div class="col-medium {step.content.class || ''}">
+          {@html step.content.text}
+        </div>
+      </section>
+    {/each}
   </div>
 </Scroller>
 
