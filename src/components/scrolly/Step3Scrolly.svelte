@@ -3,7 +3,8 @@
   import { Map, MapSource, MapLayer, MapPopup } from '../../../libs/@onsvisual/svelte-maps/index.mjs';
   import { bounds } from '../../data/mapBounds.js';
   import { getTopo } from '../../utils.js';
-  import { hex_primary, hex_secondary, hex_error, hex_warning, hex_teal, hex_purple } from '../../layout/branding.js';
+  import { colors } from '../../layout/branding.js';
+  import { dataSources, getDataSourceKeys } from './data.js';
 
   // Local state instead of props from parent
   let threshold = 0.5;
@@ -14,147 +15,27 @@
   let hovered;
   let custom_1;
   
-  // Data sources and geojson variables
-  const src__municipio_centroid = {
-    url: './data/sao_paolo_municipio_centroid.json',
-    layer: 'geog',
-    code: 'salid2',
-  };
-  let geojson_municipio_centroid;
+  // GeoJSON data storage - dynamically created based on data sources
+  const geojsonData = {};
   
-  const src_municipio = {
-    url: './data/sao_paolo_municipio.json',
-    layer: 'geog',
-    code: 'salid2',
-  };
-  let geojson_municipio;
-  
-  const src_metro = {
-    url: './data/sao_paolo_metro.json',
-    layer: 'geog',
-    code: 'salid2',
-  };
-  let geojson_metro;
-  
-  const src_l1ux = {
-    url: './data/sao_paolo_l1ux.json',
-    layer: 'geog',
-    code: 'salid1',
-  };
-  let geojson_l1ux;
-  
-  const src_l1ad = {
-    url: './data/sao_paolo_l1ad.json',
-    layer: 'geog',
-    code: 'salid1',
-  };
-  let geojson_l1ad;
-  
-  const src_l2 = {
-    url: './data/sao_paolo_l2.json',
-    layer: 'geog',
-    code: 'salid2',
-  };
-  let geojson_l2;
-  
-  // Case 1 (Monterrey) data sources
-  const src_monterrey_l1ux = {
-    url: './data/monterrey_l1ux.json',
-    layer: 'geog',
-    code: 'salid1',
-  };
-  let geojson_monterrey_l1ux;
-  
-  const src_monterrey_l1ad = {
-    url: './data/monterrey_l1ad.json',
-    layer: 'geog',
-    code: 'salid1',
-  };
-  let geojson_monterrey_l1ad;
-  
-  const src_monterrey_unbuilt = {
-    url: './data/monterrey_unbuilt.json',
-    layer: 'geog',
-    code: 'salid1',
-  };
-  let geojson_monterrey_unbuilt;
-  
-  const src_monterrey_l2 = {
-    url: './data/monterrey_l2.json',
-    layer: 'geog',
-    code: 'salid1',
-  };
-  let geojson_monterrey_l2;
-  
-  // Case 2 (Rio Cuarto) data sources
-  const src_rio_cuarto_l1ad = {
-    url: './data/rio_cuarto_l1ad.json',
-    layer: 'geog',
-    code: 'salid1',
-  };
-  let geojson_rio_cuarto_l1ad;
-  
-  const src_rio_cuarto_l1ux = {
-    url: './data/rio_cuarto_l1ux.json',
-    layer: 'geog',
-    code: 'salid1',
-  };
-  let geojson_rio_cuarto_l1ux;
-  
-  const src_rio_cuarto_l2 = {
-    url: './data/rio_cuarto_l2.json',
-    layer: 'geog',
-    code: 'salid1',
-  };
-  let geojson_rio_cuarto_l2;
-  
-  // Style props
-  let style_l1 = `color: ${hex_error}; font-weight: 900;`;
-  let style_l2 = `color: ${hex_primary}; font-weight: 900;`;
-  let style_ux = `color: ${hex_warning}; font-weight: 900;`;
-  let style_unurban = `color: ${hex_teal}; font-weight: 900;`;
-  let style_metro = `color: ${hex_purple}; font-weight: 900;`;
-  
-  // Load data on mount
+  // Initialize all geojson variables
+  getDataSourceKeys().forEach(key => {
+    geojsonData[key] = null;
+  });
+    // Style props
+  let style_l1 = `color: ${colors.error}; font-weight: 900;`;
+  let style_l2 = `color: ${colors.primary}; font-weight: 900;`;
+  let style_ux = `color: ${colors.warning}; font-weight: 900;`;
+  let style_unurban = `color: ${colors.teal}; font-weight: 900;`;
+  let style_metro = `color: ${colors.purple}; font-weight: 900;`;
+    // Load data on mount
   onMount(() => {
-    getTopo(src__municipio_centroid.url, src__municipio_centroid.layer).then((res) => {
-      geojson_municipio_centroid = res;
-    });
-    getTopo(src_municipio.url, src_municipio.layer).then((res) => {
-      geojson_municipio = res;
-    });
-    getTopo(src_metro.url, src_metro.layer).then((res) => {
-      geojson_metro = res;
-    });
-    getTopo(src_l1ux.url, src_l1ux.layer).then((res) => {
-      geojson_l1ux = res;
-    });
-    getTopo(src_l1ad.url, src_l1ad.layer).then((res) => {
-      geojson_l1ad = res;
-    });
-    getTopo(src_l2.url, src_l2.layer).then((res) => {
-      geojson_l2 = res;
-    });
-    getTopo(src_monterrey_l1ux.url, src_monterrey_l1ux.layer).then((res) => {
-      geojson_monterrey_l1ux = res;
-    });
-    getTopo(src_monterrey_l1ad.url, src_monterrey_l1ad.layer).then((res) => {
-      geojson_monterrey_l1ad = res;
-    });
-    getTopo(src_monterrey_unbuilt.url, src_monterrey_unbuilt.layer).then((res) => {
-      geojson_monterrey_unbuilt = res;
-    });
-    getTopo(src_monterrey_l2.url, src_monterrey_l2.layer).then((res) => {
-      geojson_monterrey_l2 = res;
-    });
-    getTopo(src_rio_cuarto_l1ad.url, src_rio_cuarto_l1ad.layer).then((res) => {
-      geojson_rio_cuarto_l1ad = res;
-    });
-    getTopo(src_rio_cuarto_l1ux.url, src_rio_cuarto_l1ux.layer).then((res) => {
-      geojson_rio_cuarto_l1ux = res;
-    });
-    getTopo(src_rio_cuarto_l2.url, src_rio_cuarto_l2.layer).then((res) => {
-      geojson_rio_cuarto_l2 = res;
+    // Load all data sources dynamically
+    getDataSourceKeys().forEach(key => {
+      const source = dataSources[key];
+      getTopo(source.url, source.layer).then((res) => {
+        geojsonData[key] = res;
+      });
     });
   });
   
@@ -168,13 +49,12 @@
   // Custom styles for different map steps
   const custom_1_map01 = {
     mapid: 'map01',
-    layers: {
-      municipio_centroid: {
-        'circle-color': hex_error,
+    layers: {      municipio_centroid: {
+        'circle-color': colors.error,
         'circle-radius': 7,
-        'circle-stroke-color': hex_error,
+        'circle-stroke-color': colors.error,
         'circle-stroke-width': 1,
-      },      
+      },
       sp_popup: true,
     },
   };
@@ -188,10 +68,9 @@
       map02: () => {
         fitBounds(map_scrolly_1, bounds.l1ad);
         custom_1 = {
-          mapid: 'map02',
-          layers: {
+          mapid: 'map02',          layers: {
             l2_line: {
-              'line-color': hex_primary,
+              'line-color': colors.primary,
               'line-width': 5,
             },
           },
@@ -200,19 +79,18 @@
       map04: () => {
         fitBounds(map_scrolly_1, bounds.l1ad);
         custom_1 = {
-          mapid: 'map04',
-          layers: {
+          mapid: 'map04',          layers: {
             l1ux: {
-              'line-color': hex_warning,
+              'line-color': colors.warning,
               'line-width': 5,
             },
             l2_line: {
-              'line-color': hex_primary,
+              'line-color': colors.primary,
               'line-width': 2,
               'line-opacity': 1,
             },
             l2_fill: {
-              'fill-color': hex_warning,
+              'fill-color': colors.warning,
               'fill-opacity': 0.5,
             },
           },
@@ -221,19 +99,18 @@
       map05: () => {
         fitBounds(map_scrolly_1, bounds.l1ad);
         custom_1 = {
-          mapid: 'map05',
-          layers: {
+          mapid: 'map05',          layers: {
             l2_line: {
-              'line-color': hex_primary,
+              'line-color': colors.primary,
               'line-width': 2,
               'line-opacity': 1,
             },
             l2_fill: {
-              'fill-color': hex_error,
+              'fill-color': colors.error,
               'fill-opacity': 0.5,
             },
             l1ad_line: {
-              'line-color': hex_error,
+              'line-color': colors.error,
               'line-width': 5,
             },
           },
@@ -242,10 +119,9 @@
       map06: () => {
         fitBounds(map_scrolly_1, bounds.monterrey);
         custom_1 = {
-          mapid: 'map06',
-          layers: {
+          mapid: 'map06',          layers: {
             monterrey_l1ad_line: {
-              'line-color': hex_error,
+              'line-color': colors.error,
               'line-width': 4,
             },
             monterrey_l1ux_line: {
@@ -254,11 +130,11 @@
               'line-opacity': 0.5,
             },
             monterrey_unbuilt_fill: {
-              'fill-color': hex_teal,
+              'fill-color': colors.teal,
               'fill-opacity': 0.2,
             },
             monterrey_l2_line: {
-              'line-color': hex_primary,
+              'line-color': colors.primary,
               'line-width': 1.5,
             },
           },
@@ -267,22 +143,21 @@
       map07: () => {
         fitBounds(map_scrolly_1, bounds.rio_cuarto);
         custom_1 = {
-          mapid: 'map07',
-          layers: {
+          mapid: 'map07',          layers: {
             rio_cuarto_l2_line: {
-              'line-color': hex_primary,
+              'line-color': colors.primary,
               'line-width': 1.5,
             },
             rio_cuarto_l1ad_line: {
-              'line-color': hex_error,
+              'line-color': colors.error,
               'line-width': 6,
             },
             rio_cuarto_l1ad_fill: {
-              'fill-color': hex_error,
+              'fill-color': colors.error,
               'fill-opacity': 0.25,
             },
             rio_cuarto_l1ux_line: {
-              'line-color': hex_warning,
+              'line-color': colors.warning,
               'line-width': 2,
             },
           },
@@ -291,22 +166,21 @@
       map08: () => {
         fitBounds(map_scrolly_1, bounds.metro);
         custom_1 = {
-          mapid: 'map08',
-          layers: {
+          mapid: 'map08',          layers: {
             municipio_line: {
-              'line-color': hex_primary,
+              'line-color': colors.primary,
               'line-width': 3,
             },
             metro_line: {
-              'line-color': hex_purple,
+              'line-color': colors.purple,
               'line-width': 4,
             },
             l1_fill: {
-              'fill-color': hex_error,
+              'fill-color': colors.error,
               'fill-opacity': 0.3,
             },
             l1ad_line: {
-              'line-color': hex_error,
+              'line-color': colors.error,
               'line-width': 6,
             },
           },
@@ -370,12 +244,11 @@
                 SALURBAL defined city of São Paulo
               </div>
             </div>
-          {/if}
-          <MapSource
+          {/if}          <MapSource
             map_id="map_scrolly_1"
             id="municipio_centroid"
             type="geojson"
-            data={geojson_municipio_centroid}
+            data={geojsonData.municipio_centroid}
             promoteId={'municipio_centroid'}
             maxzoom={13}
           >
@@ -391,8 +264,8 @@
             map_id="map_scrolly_1"
             id="municipio"
             type="geojson"
-            data={geojson_municipio}
-            promoteId={src_municipio.code}
+            data={geojsonData.municipio}
+            promoteId={dataSources.municipio.code}
             maxzoom={13}
           >
             <MapLayer
@@ -407,8 +280,8 @@
             map_id="map_scrolly_1"
             id="l2"
             type="geojson"
-            data={geojson_l2}
-            promoteId={src_l2.code}
+            data={geojsonData.l2}
+            promoteId={dataSources.l2.code}
             maxzoom={13}
           >
             <MapLayer
@@ -428,8 +301,8 @@
             map_id="map_scrolly_1"
             id="l1ux"
             type="geojson"
-            data={geojson_l1ux}
-            promoteId={src_l1ux.code}
+            data={geojsonData.l1ux}
+            promoteId={dataSources.l1ux.code}
             maxzoom={13}
           >
             <MapLayer
@@ -443,8 +316,8 @@
             map_id="map_scrolly_1"
             id="l1ad"
             type="geojson"
-            data={geojson_l1ad}
-            promoteId={src_l1ad.code}
+            data={geojsonData.l1ad}
+            promoteId={dataSources.l1ad.code}
             maxzoom={13}
           >
             <MapLayer
@@ -464,8 +337,8 @@
             map_id="map_scrolly_1"
             id="metro"
             type="geojson"
-            data={geojson_metro}
-            promoteId={src_metro.code}
+            data={geojsonData.metro}
+            promoteId={dataSources.metro.code}
             maxzoom={13}
           >
             <MapLayer
@@ -474,13 +347,12 @@
               custom={custom_1}
               type="line"
             />
-          </MapSource>
-          <MapSource
+          </MapSource>          <MapSource
             map_id="map_scrolly_1"
             id="monterrey_l2"
             type="geojson"
-            data={geojson_monterrey_l2}
-            promoteId={src_monterrey_l2.code}
+            data={geojsonData.monterrey_l2}
+            promoteId={dataSources.monterrey_l2.code}
             maxzoom={13}
           >
             <MapLayer
@@ -494,8 +366,8 @@
             map_id="map_scrolly_1"
             id="monterrey_unbuilt"
             type="geojson"
-            data={geojson_monterrey_unbuilt}
-            promoteId={src_monterrey_unbuilt.code}
+            data={geojsonData.monterrey_unbuilt}
+            promoteId={dataSources.monterrey_unbuilt.code}
             maxzoom={13}
           >
             <MapLayer
@@ -510,8 +382,8 @@
             map_id="map_scrolly_1"
             id="monterrey_l1ux"
             type="geojson"
-            data={geojson_monterrey_l1ux}
-            promoteId={src_monterrey_l1ux.code}
+            data={geojsonData.monterrey_l1ux}
+            promoteId={dataSources.monterrey_l1ux.code}
             maxzoom={13}
           >
             <MapLayer
@@ -525,8 +397,8 @@
             map_id="map_scrolly_1"
             id="monterrey_l1ad"
             type="geojson"
-            data={geojson_monterrey_l1ad}
-            promoteId={src_monterrey_l1ad.code}
+            data={geojsonData.monterrey_l1ad}
+            promoteId={dataSources.monterrey_l1ad.code}
             maxzoom={13}
           >
             <MapLayer
@@ -540,8 +412,8 @@
             map_id="map_scrolly_1"
             id="rio_cuarto_l1ad"
             type="geojson"
-            data={geojson_rio_cuarto_l1ad}
-            promoteId={src_rio_cuarto_l1ad.code}
+            data={geojsonData.rio_cuarto_l1ad}
+            promoteId={dataSources.rio_cuarto_l1ad.code}
             maxzoom={13}
           >
             <MapLayer
@@ -561,8 +433,8 @@
             map_id="map_scrolly_1"
             id="rio_cuarto_l2"
             type="geojson"
-            data={geojson_rio_cuarto_l2}
-            promoteId={src_rio_cuarto_l2.code}
+            data={geojsonData.rio_cuarto_l2}
+            promoteId={dataSources.rio_cuarto_l2.code}
             maxzoom={13}
           >
             <MapLayer
@@ -576,8 +448,8 @@
             map_id="map_scrolly_1"
             id="rio_cuarto_l1ux"
             type="geojson"
-            data={geojson_rio_cuarto_l1ux}
-            promoteId={src_rio_cuarto_l1ux.code}
+            data={geojsonData.rio_cuarto_l1ux}
+            promoteId={dataSources.rio_cuarto_l1ux.code}
             maxzoom={13}
           >
             <MapLayer
@@ -712,9 +584,7 @@
   .boundary-legend-text {
     padding-left: 0.5rem;
     font-size: 1.25em;
-  }
-
-  .boundary-metro-legend {
+  }  .boundary-metro-legend {
     width: 2rem;
     height: 5px;
     background-color: #8c198c;

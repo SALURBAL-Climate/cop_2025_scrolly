@@ -4,7 +4,9 @@
   import { Map, MapSource, MapLayer } from '../../../libs/@onsvisual/svelte-maps/index.mjs';
   import { bounds } from '../../data/mapBounds.js';
   import { getTopo } from '../../utils.js';
-  import { hex_primary, hex_secondary, hex_error, hex_warning, hex_teal, hex_purple } from '../../layout/branding.js';
+  import { brandColors, colors } from '../../layout/branding.js';
+  import { dataSources, step4DataMapping } from './data.js';
+  
   // Local state instead of props from parent
   let threshold = 0.5;
   let id = { map_scrolly_2: null }; // Initialize with scrolly key
@@ -13,114 +15,26 @@
   let center;
   let custom_2;
    
-  // Data sources and geojson variables
-  const src_municipio = {
-    url: './data/sao_paolo_municipio_centroid.json',
-    layer: 'geog',
-    code: 'salid2',
-  };
-  let geojson_municipio_centroid;
+  // Dynamic geojson data object - will be populated on mount
+  let geojsonData = {};
   
-  const src_municipio_boundaries = {
-    url: './data/sao_paolo_municipio.json',
-    layer: 'geog', 
-    code: 'salid2',
-  };
-  let geojson_municipio;
-  
-  const src_l3 = {
-    url: './data/sao_paolo_l3.json',
-    layer: 'geog',
-    code: 'salid2',
-  };
-  let geojson_l3;
-  
-  const src_l25 = {
-    url: './data/sao_paolo_l25.json',
-    layer: 'geog',
-    code: 'salid2',
-  };
-  let geojson_l25;
-  
-  const src_l2 = {
-    url: './data/sao_paolo_l2.json',
-    layer: 'geog',
-    code: 'salid2',
-  };
-  let geojson_l2;
-  
-  const src_l1ux = {
-    url: './data/sao_paolo_l1ux.json',
-    layer: 'geog',
-    code: 'salid1',
-  };
-  let geojson_l1ux;
-  
-  const src_l1ad = {
-    url: './data/sao_paolo_l1ad.json',
-    layer: 'geog',
-    code: 'salid1',
-  };
-  let geojson_l1ad;
-  
-  const src_ex_l3 = {
-    url: './data/sao_paolo_ex_l3.json',
-    layer: 'geog',
-    code: 'salid2',
-  };
-  let geojson_ex_l3;
-  
-  const src_ex_l25 = {
-    url: './data/sao_paolo_ex_l25.json',
-    layer: 'geog',
-    code: 'salid2',
-  };
-  let geojson_ex_l25;
-  
-  const src_ex_l2 = {
-    url: './data/sao_paolo_ex_l2.json',
-    layer: 'geog',
-    code: 'salid2',
-  };
-  let geojson_ex_l2;
-  
-  // Style props
-  let style_l1 = 'color: #bc3b2f; font-weight: bold;';
-  let style_l2 = 'color: #2f8fbc; font-weight: bold;';
-  let style_l25 = 'color: #4caf50; font-weight: bold;';
-  let style_l3 = 'color: #ff9800; font-weight: bold;';
-  
-  // Load data on mount
+  // Style props using semantic colors
+  let style_l1 = `color: ${colors.primary}; font-weight: bold;`;
+  let style_l2 = `color: ${colors.secondary}; font-weight: bold;`;
+  let style_l25 = `color: ${colors.success}; font-weight: bold;`;
+  let style_l3 = `color: ${colors.warning}; font-weight: bold;`;
+    // Load data on mount using centralized data sources
   onMount(() => {
-    getTopo(src_municipio.url, src_municipio.layer).then((res) => {
-      geojson_municipio_centroid = res;
-    });
-    getTopo(src_municipio_boundaries.url, src_municipio_boundaries.layer).then((res) => {
-      geojson_municipio = res;
-    });
-    getTopo(src_l3.url, src_l3.layer).then((res) => {
-      geojson_l3 = res;
-    });
-    getTopo(src_l25.url, src_l25.layer).then((res) => {
-      geojson_l25 = res;
-    });
-    getTopo(src_l2.url, src_l2.layer).then((res) => {
-      geojson_l2 = res;
-    });
-    getTopo(src_l1ux.url, src_l1ux.layer).then((res) => {
-      geojson_l1ux = res;
-    });
-    getTopo(src_l1ad.url, src_l1ad.layer).then((res) => {
-      geojson_l1ad = res;
-    });
-    getTopo(src_ex_l3.url, src_ex_l3.layer).then((res) => {
-      geojson_ex_l3 = res;
-    });
-    getTopo(src_ex_l25.url, src_ex_l25.layer).then((res) => {
-      geojson_ex_l25 = res;
-    });
-    getTopo(src_ex_l2.url, src_ex_l2.layer).then((res) => {
-      geojson_ex_l2 = res;
+    // Load all Step4 data sources dynamically
+    Object.keys(step4DataMapping).forEach((key) => {
+      const dataSourceKey = step4DataMapping[key];
+      const dataSource = dataSources[dataSourceKey];
+      
+      if (dataSource) {
+        getTopo(dataSource.url, dataSource.layer).then((res) => {
+          geojsonData[key] = res;
+        });
+      }
     });
   });
   
@@ -130,22 +44,21 @@
       map.fitBounds(bounds, { animate: true, padding: 30 });
     }
   }
-  
-  // Custom styles for different map steps
+    // Custom styles for different map steps
   const custom_2_map01 = {
     mapid: 'map01',
     layers: {
       l2_line: {
-        'line-color': hex_primary,
+        'line-color': colors.primary,
         'line-width': 2,
         'line-opacity': 1,
       },
       l2_fill: {
-        'fill-color': hex_error,
+        'fill-color': colors.error,
         'fill-opacity': 0.5,
       },
       l1ad_line: {
-        'line-color': hex_error,
+        'line-color': colors.error,
         'line-width': 5,
       },
     },
@@ -158,17 +71,16 @@
         custom_2 = custom_2_map01;
       },
       map02: () => {
-        fitBounds(map_scrolly_2, bounds.l1ad);
-        custom_2 = {
+        fitBounds(map_scrolly_2, bounds.l1ad);        custom_2 = {
           mapid: 'map02',
           layers: {
             l2_line: {
-              'line-color': hex_primary,
+              'line-color': colors.primary,
               'line-width': 5,
               'line-opacity': 1,
             },
             l2_fill: {
-              'fill-color': hex_primary,
+              'fill-color': colors.primary,
               'fill-opacity': 0.5,
             },
           },
@@ -180,7 +92,7 @@
           mapid: 'map03',
           layers: {
             l3_line: {
-              'line-color': hex_teal,
+              'line-color': colors.info,
               'line-width': 2,
             },
           },
@@ -189,50 +101,47 @@
       map04: () => {
         fitBounds(map_scrolly_2, bounds.ex_l2);
         custom_2 = {
-          mapid: 'map04',
-          layers: {
+          mapid: 'map04',          layers: {
             ex_l3: {
-              'line-color': hex_teal,
+              'line-color': colors.info,
               'line-width': 2,
             },
             ex_l2: {
-              'line-color': hex_primary,
+              'line-color': colors.primary,
               'line-width': 8,
             },
           },
         };
       },
       map05: () => {
-        fitBounds(map_scrolly_2, bounds.ex_l2);
-        custom_2 = {
+        fitBounds(map_scrolly_2, bounds.ex_l2);        custom_2 = {
           mapid: 'map05',
           layers: {
             ex_l25: {
-              'line-color': '#4caf50',
+              'line-color': colors.success,
               'line-width': 4,
             },
             ex_l2: {
-              'line-color': hex_primary,
+              'line-color': colors.primary,
               'line-width': 8,
             },
           },
         };
       },
       map06: () => {
-        fitBounds(map_scrolly_2, bounds.l1ad);
-        custom_2 = {
+        fitBounds(map_scrolly_2, bounds.l1ad);        custom_2 = {
           mapid: 'map06',
           layers: {
             l25_line: {
-              'line-color': '#4caf50',
+              'line-color': colors.success,
               'line-width': 2,
             },
             l2_line: {
-              'line-color': hex_primary,
+              'line-color': colors.primary,
               'line-width': 3,
             },
             l1ad_line: {
-              'line-color': hex_error,
+              'line-color': colors.error,
               'line-width': 5,
             },
           },
@@ -278,13 +187,12 @@
           bind:map={map_scrolly_2}
           bind:zoom
           bind:center
-        >
-          <MapSource
+        >          <MapSource
             map_id="map_scrolly_2"
             id="municipio_centroid"
             type="geojson"
-            data={geojson_municipio_centroid}
-            promoteId={'municipio_centroid'}
+            data={geojsonData.municipio}
+            promoteId={dataSources[step4DataMapping.municipio].code}
             maxzoom={13}
           >
             <MapLayer
@@ -298,8 +206,8 @@
             map_id="map_scrolly_2"
             id="municipio"
             type="geojson"
-            data={geojson_municipio}
-            promoteId={src_municipio.code}
+            data={geojsonData.municipio_boundaries}
+            promoteId={dataSources[step4DataMapping.municipio_boundaries].code}
             maxzoom={13}
           >
             <MapLayer
@@ -308,13 +216,12 @@
               custom={custom_2}
               type="line"
             />
-          </MapSource>
-          <MapSource
+          </MapSource>          <MapSource
             map_id="map_scrolly_2"
             id="l3"
             type="geojson"
-            data={geojson_l3}
-            promoteId={src_l3.code}
+            data={geojsonData.l3}
+            promoteId={dataSources[step4DataMapping.l3].code}
             maxzoom={13}
           >
             <MapLayer
@@ -328,8 +235,8 @@
             map_id="map_scrolly_2"
             id="l25"
             type="geojson"
-            data={geojson_l25}
-            promoteId={src_l25.code}
+            data={geojsonData.l25}
+            promoteId={dataSources[step4DataMapping.l25].code}
             maxzoom={13}
           >
             <MapLayer
@@ -343,8 +250,8 @@
             map_id="map_scrolly_2"
             id="l2"
             type="geojson"
-            data={geojson_l2}
-            promoteId={src_l2.code}
+            data={geojsonData.l2}
+            promoteId={dataSources[step4DataMapping.l2].code}
             maxzoom={13}
           >
             <MapLayer
@@ -359,13 +266,12 @@
               custom={custom_2}
               type="fill"
             />
-          </MapSource>
-          <MapSource
+          </MapSource>          <MapSource
             map_id="map_scrolly_2"
             id="l1ux"
             type="geojson"
-            data={geojson_l1ux}
-            promoteId={src_l1ux.code}
+            data={geojsonData.l1ux}
+            promoteId={dataSources[step4DataMapping.l1ux].code}
             maxzoom={13}
           >
             <MapLayer
@@ -379,8 +285,8 @@
             map_id="map_scrolly_2"
             id="l1ad"
             type="geojson"
-            data={geojson_l1ad}
-            promoteId={src_l1ad.code}
+            data={geojsonData.l1ad}
+            promoteId={dataSources[step4DataMapping.l1ad].code}
             maxzoom={13}
           >
             <MapLayer
@@ -395,13 +301,12 @@
               custom={custom_2}
               type="fill"
             />
-          </MapSource>
-          <MapSource
+          </MapSource>          <MapSource
             map_id="map_scrolly_2"
             id="ex_l3"
             type="geojson"
-            data={geojson_ex_l3}
-            promoteId={src_ex_l3.code}
+            data={geojsonData.ex_l3}
+            promoteId={dataSources[step4DataMapping.ex_l3].code}
             maxzoom={13}
           >
             <MapLayer
@@ -415,8 +320,8 @@
             map_id="map_scrolly_2"
             id="ex_l25"
             type="geojson"
-            data={geojson_ex_l25}
-            promoteId={src_ex_l25.code}
+            data={geojsonData.ex_l25}
+            promoteId={dataSources[step4DataMapping.ex_l25].code}
             maxzoom={13}
           >
             <MapLayer
@@ -430,8 +335,8 @@
             map_id="map_scrolly_2"
             id="ex_l2"
             type="geojson"
-            data={geojson_ex_l2}
-            promoteId={src_ex_l2.code}
+            data={geojsonData.ex_l2}
+            promoteId={dataSources[step4DataMapping.ex_l2].code}
             maxzoom={13}
           >
             <MapLayer

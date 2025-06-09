@@ -14,7 +14,9 @@ export const brandColors = {
   hex_teal: '#00BB9E',
   hex_purple: '#8C198C',
   hex_green: '#305145',
-  hex_background: '#d8e6ed'
+  hex_background: '#d8e6ed',
+  hex_bright_green: '#4CAF50',
+  hex_bright_orange: '#FF9800'
 };
 
 // Color aliases for semantic usage
@@ -26,7 +28,9 @@ export const colors = {
   teal: brandColors.hex_teal,
   purple: brandColors.hex_purple,
   green: brandColors.hex_green,
-  background: brandColors.hex_background
+  background: brandColors.hex_background,
+  brightGreen: brandColors.hex_bright_green,
+  brightOrange: brandColors.hex_bright_orange
 };
 
 // Export individual colors for backward compatibility
@@ -38,5 +42,7 @@ export const {
   hex_teal,
   hex_purple,
   hex_green,
-  hex_background
+  hex_background,
+  hex_bright_green,
+  hex_bright_orange
 } = brandColors;
