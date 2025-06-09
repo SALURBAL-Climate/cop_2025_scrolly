@@ -11,29 +11,29 @@
   let theme = 'light';
   setContext('theme', theme);
   setColors(themes, theme);
-
   // Component imports
-  import HeroSection from './components/sections/HeroSection.svelte';
-  import IntroSection from './components/sections/IntroSection.svelte';
-  import StepOneSection from './components/sections/StepOneSection.svelte';
-  import StepTwoSection from './components/sections/StepTwoSection.svelte';
-  import StepThreeSection from './components/sections/StepThreeSection.svelte';
-  import StepFourSection from './components/sections/StepFourSection.svelte';
-  import ConclusionSection from './components/sections/ConclusionSection.svelte';
-  import Step3Scrolly from './components/scrolly/step3_scrolly/Step3Scrolly.svelte';
+  import HeroSection from './components/sections/0_Hero.svelte';
+  import IntroSection from './components/sections/1_Intro.svelte';  import SectionOneText from './components/sections/1_SectionText.svelte';
+  import GenericSection from './components/sections/GenericSection.svelte';
+  import SectionTwoScrolly from './components/scrolly/step_map/StepMapScrolly.svelte';
+  import StepCardScrolly from './components/scrolly/step_card/StepCardScrolly.svelte';
+  import ContinuousRouteScrolly from './components/scrolly/continuous_route/ContinuousRouteScrolly.svelte';
+  import ConclusionSection from './components/sections/99_ConclusionText.svelte';
 </script>
 
-
- 
 <UHCHeader filled={true} center={false} />
 <HeroSection />
 <IntroSection />
-<StepOneSection />
-<StepTwoSection />
-<StepThreeSection />
-<Step3Scrolly />
-<StepFourSection/>
+<SectionOneText />
+<GenericSection title = "1. Step Map Scrolly"  arrow={true}  />
+<SectionTwoScrolly />
 <Divider />
+<GenericSection title = "2. Step Card Scrolly"    arrow={false}  />
+<StepCardScrolly />
+<Divider />
+<GenericSection title = "3. Continuous Route Journey" arrow={true} />
+<ContinuousRouteScrolly />
+<Divider /> 
 <ConclusionSection />
 <UHCFooter />
 
