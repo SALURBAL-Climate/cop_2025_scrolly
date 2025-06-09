@@ -596,13 +596,6 @@ var app = (function () {
         else
             dispatch_dev('SvelteDOMSetAttribute', { node, attribute, value });
     }
-    function set_data_dev(text, data) {
-        data = '' + data;
-        if (text.wholeText === data)
-            return;
-        dispatch_dev('SvelteDOMSetData', { node: text, data });
-        text.data = data;
-    }
     function validate_slots(name, slot, keys) {
         for (const slot_key of Object.keys(slot)) {
             if (!~keys.indexOf(slot_key)) {
@@ -629,6 +622,28 @@ var app = (function () {
         $capture_state() { }
         $inject_state() { }
     }
+
+    // CORE CONFIG
+    const themes = {
+      'light': {
+        'text': '#222',
+        'muted': '#777',
+        'pale': '#f0f0f0',
+        'background': '#fff'
+      },
+      'dark': {
+        'text': '#fff',
+        'muted': '#bbb',
+        'pale': '#333',
+        'background': '#222'
+      },
+      'lightblue': {
+        'text': '#206095',
+        'muted': '#707070',
+        'pale': '#f0f0f0',
+        'background': 'rgb(188, 207, 222)'
+      }
+    };
 
     function identity(x) {
       return x;
@@ -738,28 +753,6 @@ var app = (function () {
         document.documentElement.style.setProperty('--' + color, themes[theme][color]);
       }
     }
-
-    // CORE CONFIG
-    const themes = {
-      'light': {
-        'text': '#222',
-        'muted': '#777',
-        'pale': '#f0f0f0',
-        'background': '#fff'
-      },
-      'dark': {
-        'text': '#fff',
-        'muted': '#bbb',
-        'pale': '#333',
-        'background': '#222'
-      },
-      'lightblue': {
-        'text': '#206095',
-        'muted': '#707070',
-        'pale': '#f0f0f0',
-        'background': 'rgb(188, 207, 222)'
-      }
-    };
 
     const matchIconName = /^[a-z0-9]+(-[a-z0-9]+)*$/;
     const stringToIcon = (value, validate, allowSimpleName, provider = "") => {
@@ -4123,7 +4116,7 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			h1 = element("h1");
-    			h1.textContent = "DEV SCROLYY";
+    			h1.textContent = "What is a SALURBAL city?";
     			t1 = space();
     			p0 = element("p");
     			p0.textContent = "SALURBAL city, sub-city, and neighborhood definition and selection";
@@ -4140,14 +4133,14 @@ var app = (function () {
     			add_location(h1, file$5, 5, 2, 145);
     			attr_dev(p0, "class", "text-big");
     			set_style(p0, "margin-top", "5px");
-    			add_location(p0, file$5, 6, 2, 169);
+    			add_location(p0, file$5, 6, 2, 182);
     			attr_dev(span0, "style", span0_style_value = 'font-weight: 900');
-    			add_location(span0, file$5, 11, 17, 341);
-    			add_location(br, file$5, 15, 4, 508);
+    			add_location(span0, file$5, 11, 17, 354);
+    			add_location(br, file$5, 15, 4, 521);
     			attr_dev(span1, "style", span1_style_value = 'font-weight: 900');
-    			add_location(span1, file$5, 17, 4, 540);
+    			add_location(span1, file$5, 17, 4, 553);
     			attr_dev(p1, "class", "text-medium");
-    			add_location(p1, file$5, 10, 2, 299);
+    			add_location(p1, file$5, 10, 2, 312);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, h1, anchor);
@@ -4560,6 +4553,641 @@ var app = (function () {
     			options,
     			id: create_fragment$7.name
     		});
+    	}
+    }
+
+    /**
+     * Returns a function, that, as long as it continues to be invoked, will not
+     * be triggered. The function will be called after it stops being called for
+     * N milliseconds. If `immediate` is passed, trigger the function on the
+     * leading edge, instead of the trailing. The function also has a property 'clear' 
+     * that is a function which will clear the timer to prevent previously scheduled executions. 
+     *
+     * @source underscore.js
+     * @see http://unscriptable.com/2009/03/20/debouncing-javascript-methods/
+     * @param {Function} function to wrap
+     * @param {Number} timeout in ms (`100`)
+     * @param {Boolean} whether to execute at the beginning (`false`)
+     * @api public
+     */
+    function debounce(func, wait, immediate){
+      var timeout, args, context, timestamp, result;
+      if (null == wait) wait = 100;
+
+      function later() {
+        var last = Date.now() - timestamp;
+
+        if (last < wait && last >= 0) {
+          timeout = setTimeout(later, wait - last);
+        } else {
+          timeout = null;
+          if (!immediate) {
+            result = func.apply(context, args);
+            context = args = null;
+          }
+        }
+      }
+      var debounced = function(){
+        context = this;
+        args = arguments;
+        timestamp = Date.now();
+        var callNow = immediate && !timeout;
+        if (!timeout) timeout = setTimeout(later, wait);
+        if (callNow) {
+          result = func.apply(context, args);
+          context = args = null;
+        }
+
+        return result;
+      };
+
+      debounced.clear = function() {
+        if (timeout) {
+          clearTimeout(timeout);
+          timeout = null;
+        }
+      };
+      
+      debounced.flush = function() {
+        if (timeout) {
+          result = func.apply(context, args);
+          context = args = null;
+          
+          clearTimeout(timeout);
+          timeout = null;
+        }
+      };
+
+      return debounced;
+    }
+    // Adds compatibility for ES modules
+    debounce.debounce = debounce;
+
+    var debounce_1 = debounce;
+
+    /* src\layout\Media.svelte generated by Svelte v3.44.1 */
+    const file$8 = "src\\layout\\Media.svelte";
+
+    // (95:0) {:else}
+    function create_else_block$2(ctx) {
+    	let figure;
+    	let div1;
+    	let div0;
+    	let div0_class_value;
+    	let div1_class_value;
+    	let current;
+    	const default_slot_template = /*#slots*/ ctx[13].default;
+    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[12], null);
+
+    	const block = {
+    		c: function create() {
+    			figure = element("figure");
+    			div1 = element("div");
+    			div0 = element("div");
+    			if (default_slot) default_slot.c();
+    			attr_dev(div0, "class", div0_class_value = "grid" + /*gridClass*/ ctx[5] + " svelte-15qq8ff");
+    			set_style(div0, "grid-gap", /*gridGap*/ ctx[8]);
+    			set_style(div0, "min-height", /*rowHeight*/ ctx[7]);
+    			add_location(div0, file$8, 97, 2, 2518);
+    			attr_dev(div1, "class", div1_class_value = "col-" + /*col*/ ctx[1] + " svelte-15qq8ff");
+    			add_location(div1, file$8, 96, 1, 2491);
+    			set_style(figure, "color", themes[/*theme*/ ctx[0]]['text']);
+    			set_style(figure, "background-color", themes[/*theme*/ ctx[0]]['background']);
+    			add_location(figure, file$8, 95, 0, 2391);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, figure, anchor);
+    			append_dev(figure, div1);
+    			append_dev(div1, div0);
+
+    			if (default_slot) {
+    				default_slot.m(div0, null);
+    			}
+
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			if (default_slot) {
+    				if (default_slot.p && (!current || dirty & /*$$scope*/ 4096)) {
+    					update_slot_base(
+    						default_slot,
+    						default_slot_template,
+    						ctx,
+    						/*$$scope*/ ctx[12],
+    						!current
+    						? get_all_dirty_from_scope(/*$$scope*/ ctx[12])
+    						: get_slot_changes(default_slot_template, /*$$scope*/ ctx[12], dirty, null),
+    						null
+    					);
+    				}
+    			}
+
+    			if (!current || dirty & /*col*/ 2 && div1_class_value !== (div1_class_value = "col-" + /*col*/ ctx[1] + " svelte-15qq8ff")) {
+    				attr_dev(div1, "class", div1_class_value);
+    			}
+
+    			if (!current || dirty & /*theme*/ 1) {
+    				set_style(figure, "color", themes[/*theme*/ ctx[0]]['text']);
+    			}
+
+    			if (!current || dirty & /*theme*/ 1) {
+    				set_style(figure, "background-color", themes[/*theme*/ ctx[0]]['background']);
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(default_slot, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(default_slot, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(figure);
+    			if (default_slot) default_slot.d(detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block$2.name,
+    		type: "else",
+    		source: "(95:0) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (87:0) {#if nogrid}
+    function create_if_block_1$1(ctx) {
+    	let figure;
+    	let div1;
+    	let div0;
+    	let div0_resize_listener;
+    	let div1_class_value;
+    	let current;
+    	const default_slot_template = /*#slots*/ ctx[13].default;
+    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[12], null);
+
+    	const block = {
+    		c: function create() {
+    			figure = element("figure");
+    			div1 = element("div");
+    			div0 = element("div");
+    			if (default_slot) default_slot.c();
+    			attr_dev(div0, "class", "grid-ms svelte-15qq8ff");
+    			add_render_callback(() => /*div0_elementresize_handler*/ ctx[15].call(div0));
+    			add_location(div0, file$8, 89, 2, 2267);
+    			attr_dev(div1, "class", div1_class_value = "col-" + /*col*/ ctx[1] + " svelte-15qq8ff");
+    			add_location(div1, file$8, 88, 1, 2240);
+    			set_style(figure, "color", themes[/*theme*/ ctx[0]]['text']);
+    			set_style(figure, "background-color", themes[/*theme*/ ctx[0]]['background']);
+    			add_location(figure, file$8, 87, 0, 2140);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, figure, anchor);
+    			append_dev(figure, div1);
+    			append_dev(div1, div0);
+
+    			if (default_slot) {
+    				default_slot.m(div0, null);
+    			}
+
+    			/*div0_binding*/ ctx[14](div0);
+    			div0_resize_listener = add_resize_listener(div0, /*div0_elementresize_handler*/ ctx[15].bind(div0));
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			if (default_slot) {
+    				if (default_slot.p && (!current || dirty & /*$$scope*/ 4096)) {
+    					update_slot_base(
+    						default_slot,
+    						default_slot_template,
+    						ctx,
+    						/*$$scope*/ ctx[12],
+    						!current
+    						? get_all_dirty_from_scope(/*$$scope*/ ctx[12])
+    						: get_slot_changes(default_slot_template, /*$$scope*/ ctx[12], dirty, null),
+    						null
+    					);
+    				}
+    			}
+
+    			if (!current || dirty & /*col*/ 2 && div1_class_value !== (div1_class_value = "col-" + /*col*/ ctx[1] + " svelte-15qq8ff")) {
+    				attr_dev(div1, "class", div1_class_value);
+    			}
+
+    			if (!current || dirty & /*theme*/ 1) {
+    				set_style(figure, "color", themes[/*theme*/ ctx[0]]['text']);
+    			}
+
+    			if (!current || dirty & /*theme*/ 1) {
+    				set_style(figure, "background-color", themes[/*theme*/ ctx[0]]['background']);
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(default_slot, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(default_slot, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(figure);
+    			if (default_slot) default_slot.d(detaching);
+    			/*div0_binding*/ ctx[14](null);
+    			div0_resize_listener();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_1$1.name,
+    		type: "if",
+    		source: "(87:0) {#if nogrid}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (104:0) {#if caption}
+    function create_if_block$2(ctx) {
+    	let caption_1;
+    	let div1;
+    	let div0;
+
+    	const block = {
+    		c: function create() {
+    			caption_1 = element("caption");
+    			div1 = element("div");
+    			div0 = element("div");
+    			attr_dev(div0, "class", "caption");
+    			add_location(div0, file$8, 106, 3, 2805);
+    			attr_dev(div1, "class", "col-medium");
+    			add_location(div1, file$8, 105, 2, 2776);
+    			set_style(caption_1, "color", themes[/*theme*/ ctx[0]]['text']);
+    			set_style(caption_1, "background-color", themes[/*theme*/ ctx[0]]['background']);
+    			add_location(caption_1, file$8, 104, 1, 2674);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, caption_1, anchor);
+    			append_dev(caption_1, div1);
+    			append_dev(div1, div0);
+    			div0.innerHTML = /*caption*/ ctx[2];
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*caption*/ 4) div0.innerHTML = /*caption*/ ctx[2];
+    			if (dirty & /*theme*/ 1) {
+    				set_style(caption_1, "color", themes[/*theme*/ ctx[0]]['text']);
+    			}
+
+    			if (dirty & /*theme*/ 1) {
+    				set_style(caption_1, "background-color", themes[/*theme*/ ctx[0]]['background']);
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(caption_1);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$2.name,
+    		type: "if",
+    		source: "(104:0) {#if caption}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$8(ctx) {
+    	let current_block_type_index;
+    	let if_block0;
+    	let t;
+    	let if_block1_anchor;
+    	let current;
+    	const if_block_creators = [create_if_block_1$1, create_else_block$2];
+    	const if_blocks = [];
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*nogrid*/ ctx[6]) return 0;
+    		return 1;
+    	}
+
+    	current_block_type_index = select_block_type(ctx);
+    	if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    	let if_block1 = /*caption*/ ctx[2] && create_if_block$2(ctx);
+
+    	const block = {
+    		c: function create() {
+    			if_block0.c();
+    			t = space();
+    			if (if_block1) if_block1.c();
+    			if_block1_anchor = empty();
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			if_blocks[current_block_type_index].m(target, anchor);
+    			insert_dev(target, t, anchor);
+    			if (if_block1) if_block1.m(target, anchor);
+    			insert_dev(target, if_block1_anchor, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if_block0.p(ctx, dirty);
+
+    			if (/*caption*/ ctx[2]) {
+    				if (if_block1) {
+    					if_block1.p(ctx, dirty);
+    				} else {
+    					if_block1 = create_if_block$2(ctx);
+    					if_block1.c();
+    					if_block1.m(if_block1_anchor.parentNode, if_block1_anchor);
+    				}
+    			} else if (if_block1) {
+    				if_block1.d(1);
+    				if_block1 = null;
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(if_block0);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(if_block0);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if_blocks[current_block_type_index].d(detaching);
+    			if (detaching) detach_dev(t);
+    			if (if_block1) if_block1.d(detaching);
+    			if (detaching) detach_dev(if_block1_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$8.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$8($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('Media', slots, ['default']);
+    	const colWidths = { narrow: 200, medium: 300, wide: 500 };
+    	let { theme = getContext("theme") } = $$props;
+    	let { col = "medium" } = $$props;
+    	let { grid = null } = $$props;
+    	let { caption = null } = $$props;
+    	let { height = 200 } = $$props;
+    	let { gap = 12 } = $$props;
+    	let gridClass = grid ? ` grid-${grid}` : '';
+    	let nogrid = !("grid-gap" in document.body.style);
+    	let rowHeight = !Number.isNaN(height) ? height + "px" : height;
+    	let gridGap = !Number.isNaN(gap) ? gap + "px" : gap;
+
+    	// The code below this point mimics CSS Grid functionality in IE 11
+    	const minWidth = grid && colWidths[grid] ? colWidths[grid] : null;
+
+    	let gridWidth;
+    	let cols;
+    	let el;
+    	let divs;
+    	let count;
+
+    	if (nogrid) {
+    		onMount(() => {
+    			resize();
+    		});
+    	}
+
+    	const update = debounce_1.debounce(resize, 200);
+
+    	function resize() {
+    		if (el && !divs) {
+    			let arr = [];
+    			let children = el.childNodes;
+
+    			children.forEach(child => {
+    				if (child.nodeName == "DIV") {
+    					arr.push(child);
+    				}
+    			});
+
+    			divs = arr;
+    		}
+
+    		count = divs.length;
+
+    		cols = !minWidth || gridWidth <= minWidth
+    		? 1
+    		: Math.floor(gridWidth / minWidth);
+
+    		makeCols();
+    	}
+
+    	function makeCols() {
+    		let r = Math.ceil(count / cols) > 1
+    		? `-ms-grid-rows: 1fr (${gap}px 1fr)[${Math.ceil(count / cols) - 1}]; grid-template-rows: 1fr repeat(${Math.ceil(count / cols) - 1}, ${gap}px 1fr);`
+    		: `-ms-grid-rows: 1fr; grid-template-rows: 1fr;`;
+
+    		let c = cols > 1
+    		? `-ms-grid-columns: 1fr (${gap}px 1fr)[${cols - 1}]; grid-template-columns: 1fr repeat(${cols - 1}, ${gap}px 1fr);`
+    		: "";
+
+    		$$invalidate(4, el.style.cssText = r + c, el);
+
+    		divs.forEach((div, i) => {
+    			let col = i % cols * 2 + 1;
+    			let row = Math.floor(i / cols) * 2 + 1;
+    			div.style.cssText = `-ms-grid-column: ${col}; -ms-grid-row: ${row}; grid-column: ${col}; grid-row: ${row}; min-height: ${rowHeight};`;
+    		});
+    	}
+
+    	const writable_props = ['theme', 'col', 'grid', 'caption', 'height', 'gap'];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Media> was created with unknown prop '${key}'`);
+    	});
+
+    	function div0_binding($$value) {
+    		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
+    			el = $$value;
+    			$$invalidate(4, el);
+    		});
+    	}
+
+    	function div0_elementresize_handler() {
+    		gridWidth = this.clientWidth;
+    		$$invalidate(3, gridWidth);
+    	}
+
+    	$$self.$$set = $$props => {
+    		if ('theme' in $$props) $$invalidate(0, theme = $$props.theme);
+    		if ('col' in $$props) $$invalidate(1, col = $$props.col);
+    		if ('grid' in $$props) $$invalidate(9, grid = $$props.grid);
+    		if ('caption' in $$props) $$invalidate(2, caption = $$props.caption);
+    		if ('height' in $$props) $$invalidate(10, height = $$props.height);
+    		if ('gap' in $$props) $$invalidate(11, gap = $$props.gap);
+    		if ('$$scope' in $$props) $$invalidate(12, $$scope = $$props.$$scope);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		themes,
+    		onMount,
+    		getContext,
+    		debounce: debounce_1.debounce,
+    		colWidths,
+    		theme,
+    		col,
+    		grid,
+    		caption,
+    		height,
+    		gap,
+    		gridClass,
+    		nogrid,
+    		rowHeight,
+    		gridGap,
+    		minWidth,
+    		gridWidth,
+    		cols,
+    		el,
+    		divs,
+    		count,
+    		update,
+    		resize,
+    		makeCols
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('theme' in $$props) $$invalidate(0, theme = $$props.theme);
+    		if ('col' in $$props) $$invalidate(1, col = $$props.col);
+    		if ('grid' in $$props) $$invalidate(9, grid = $$props.grid);
+    		if ('caption' in $$props) $$invalidate(2, caption = $$props.caption);
+    		if ('height' in $$props) $$invalidate(10, height = $$props.height);
+    		if ('gap' in $$props) $$invalidate(11, gap = $$props.gap);
+    		if ('gridClass' in $$props) $$invalidate(5, gridClass = $$props.gridClass);
+    		if ('nogrid' in $$props) $$invalidate(6, nogrid = $$props.nogrid);
+    		if ('rowHeight' in $$props) $$invalidate(7, rowHeight = $$props.rowHeight);
+    		if ('gridGap' in $$props) $$invalidate(8, gridGap = $$props.gridGap);
+    		if ('gridWidth' in $$props) $$invalidate(3, gridWidth = $$props.gridWidth);
+    		if ('cols' in $$props) cols = $$props.cols;
+    		if ('el' in $$props) $$invalidate(4, el = $$props.el);
+    		if ('divs' in $$props) divs = $$props.divs;
+    		if ('count' in $$props) count = $$props.count;
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*gridWidth*/ 8) {
+    			 nogrid && (minWidth || gridWidth) && update();
+    		}
+    	};
+
+    	return [
+    		theme,
+    		col,
+    		caption,
+    		gridWidth,
+    		el,
+    		gridClass,
+    		nogrid,
+    		rowHeight,
+    		gridGap,
+    		grid,
+    		height,
+    		gap,
+    		$$scope,
+    		slots,
+    		div0_binding,
+    		div0_elementresize_handler
+    	];
+    }
+
+    class Media extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+
+    		init(this, options, instance$8, create_fragment$8, safe_not_equal, {
+    			theme: 0,
+    			col: 1,
+    			grid: 9,
+    			caption: 2,
+    			height: 10,
+    			gap: 11
+    		});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Media",
+    			options,
+    			id: create_fragment$8.name
+    		});
+    	}
+
+    	get theme() {
+    		throw new Error("<Media>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set theme(value) {
+    		throw new Error("<Media>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get col() {
+    		throw new Error("<Media>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set col(value) {
+    		throw new Error("<Media>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get grid() {
+    		throw new Error("<Media>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set grid(value) {
+    		throw new Error("<Media>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get caption() {
+    		throw new Error("<Media>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set caption(value) {
+    		throw new Error("<Media>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get height() {
+    		throw new Error("<Media>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set height(value) {
+    		throw new Error("<Media>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get gap() {
+    		throw new Error("<Media>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set gap(value) {
+    		throw new Error("<Media>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
 
@@ -5064,10 +5692,10 @@ uniform `+P+" "+z+" u_"+k+`;
     /* libs\@onsvisual\svelte-maps\src\Map.svelte generated by Svelte v3.44.1 */
 
     const { console: console_1 } = globals;
-    const file$8 = "libs\\@onsvisual\\svelte-maps\\src\\Map.svelte";
+    const file$9 = "libs\\@onsvisual\\svelte-maps\\src\\Map.svelte";
 
     // (133:2) {#if loaded}
-    function create_if_block$2(ctx) {
+    function create_if_block$3(ctx) {
     	let current;
     	const default_slot_template = /*#slots*/ ctx[19].default;
     	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[18], null);
@@ -5115,7 +5743,7 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$2.name,
+    		id: create_if_block$3.name,
     		type: "if",
     		source: "(133:2) {#if loaded}",
     		ctx
@@ -5124,11 +5752,11 @@ uniform `+P+" "+z+" u_"+k+`;
     	return block;
     }
 
-    function create_fragment$8(ctx) {
+    function create_fragment$9(ctx) {
     	let div;
     	let div_resize_listener;
     	let current;
-    	let if_block = /*loaded*/ ctx[4] && create_if_block$2(ctx);
+    	let if_block = /*loaded*/ ctx[4] && create_if_block$3(ctx);
 
     	const block = {
     		c: function create() {
@@ -5137,7 +5765,7 @@ uniform `+P+" "+z+" u_"+k+`;
     			attr_dev(div, "id", /*id*/ ctx[0]);
     			attr_dev(div, "class", "svelte-78euky");
     			add_render_callback(() => /*div_elementresize_handler*/ ctx[20].call(div));
-    			add_location(div, file$8, 131, 0, 3310);
+    			add_location(div, file$9, 131, 0, 3310);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -5158,7 +5786,7 @@ uniform `+P+" "+z+" u_"+k+`;
     						transition_in(if_block, 1);
     					}
     				} else {
-    					if_block = create_if_block$2(ctx);
+    					if_block = create_if_block$3(ctx);
     					if_block.c();
     					transition_in(if_block, 1);
     					if_block.m(div, null);
@@ -5196,7 +5824,7 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$8.name,
+    		id: create_fragment$9.name,
     		type: "component",
     		source: "",
     		ctx
@@ -5205,7 +5833,7 @@ uniform `+P+" "+z+" u_"+k+`;
     	return block;
     }
 
-    function instance$8($$self, $$props, $$invalidate) {
+    function instance$9($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Map', slots, ['default']);
     	let { map } = $$props;
@@ -5461,7 +6089,7 @@ uniform `+P+" "+z+" u_"+k+`;
     	constructor(options) {
     		super(options);
 
-    		init(this, options, instance$8, create_fragment$8, safe_not_equal, {
+    		init(this, options, instance$9, create_fragment$9, safe_not_equal, {
     			map: 5,
     			id: 0,
     			location: 8,
@@ -5482,7 +6110,7 @@ uniform `+P+" "+z+" u_"+k+`;
     			component: this,
     			tagName: "Map",
     			options,
-    			id: create_fragment$8.name
+    			id: create_fragment$9.name
     		});
 
     		const { ctx } = this.$$;
@@ -5615,7 +6243,7 @@ uniform `+P+" "+z+" u_"+k+`;
     const { console: console_1$1 } = globals;
 
     // (105:0) {#if loaded}
-    function create_if_block$3(ctx) {
+    function create_if_block$4(ctx) {
     	let current;
     	const default_slot_template = /*#slots*/ ctx[12].default;
     	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[11], null);
@@ -5663,7 +6291,7 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$3.name,
+    		id: create_if_block$4.name,
     		type: "if",
     		source: "(105:0) {#if loaded}",
     		ctx
@@ -5672,10 +6300,10 @@ uniform `+P+" "+z+" u_"+k+`;
     	return block;
     }
 
-    function create_fragment$9(ctx) {
+    function create_fragment$a(ctx) {
     	let if_block_anchor;
     	let current;
-    	let if_block = /*loaded*/ ctx[0] && create_if_block$3(ctx);
+    	let if_block = /*loaded*/ ctx[0] && create_if_block$4(ctx);
 
     	const block = {
     		c: function create() {
@@ -5699,7 +6327,7 @@ uniform `+P+" "+z+" u_"+k+`;
     						transition_in(if_block, 1);
     					}
     				} else {
-    					if_block = create_if_block$3(ctx);
+    					if_block = create_if_block$4(ctx);
     					if_block.c();
     					transition_in(if_block, 1);
     					if_block.m(if_block_anchor.parentNode, if_block_anchor);
@@ -5731,7 +6359,7 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$9.name,
+    		id: create_fragment$a.name,
     		type: "component",
     		source: "",
     		ctx
@@ -5740,7 +6368,7 @@ uniform `+P+" "+z+" u_"+k+`;
     	return block;
     }
 
-    function instance$9($$self, $$props, $$invalidate) {
+    function instance$a($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('MapSource', slots, ['default']);
     	let { map_id } = $$props;
@@ -5927,7 +6555,7 @@ uniform `+P+" "+z+" u_"+k+`;
     	constructor(options) {
     		super(options);
 
-    		init(this, options, instance$9, create_fragment$9, safe_not_equal, {
+    		init(this, options, instance$a, create_fragment$a, safe_not_equal, {
     			map_id: 2,
     			id: 3,
     			type: 4,
@@ -5944,7 +6572,7 @@ uniform `+P+" "+z+" u_"+k+`;
     			component: this,
     			tagName: "MapSource",
     			options,
-    			id: create_fragment$9.name
+    			id: create_fragment$a.name
     		});
 
     		const { ctx } = this.$$;
@@ -6099,7 +6727,7 @@ uniform `+P+" "+z+" u_"+k+`;
     const get_default_slot_context = ctx => ({ hovered: /*hovered*/ ctx[0] });
 
     // (270:0) {#if hover}
-    function create_if_block$4(ctx) {
+    function create_if_block$5(ctx) {
     	let current;
     	const default_slot_template = /*#slots*/ ctx[30].default;
     	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[29], get_default_slot_context);
@@ -6147,7 +6775,7 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$4.name,
+    		id: create_if_block$5.name,
     		type: "if",
     		source: "(270:0) {#if hover}",
     		ctx
@@ -6156,10 +6784,10 @@ uniform `+P+" "+z+" u_"+k+`;
     	return block;
     }
 
-    function create_fragment$a(ctx) {
+    function create_fragment$b(ctx) {
     	let if_block_anchor;
     	let current;
-    	let if_block = /*hover*/ ctx[1] && create_if_block$4(ctx);
+    	let if_block = /*hover*/ ctx[1] && create_if_block$5(ctx);
 
     	const block = {
     		c: function create() {
@@ -6183,7 +6811,7 @@ uniform `+P+" "+z+" u_"+k+`;
     						transition_in(if_block, 1);
     					}
     				} else {
-    					if_block = create_if_block$4(ctx);
+    					if_block = create_if_block$5(ctx);
     					if_block.c();
     					transition_in(if_block, 1);
     					if_block.m(if_block_anchor.parentNode, if_block_anchor);
@@ -6215,7 +6843,7 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$a.name,
+    		id: create_fragment$b.name,
     		type: "component",
     		source: "",
     		ctx
@@ -6224,7 +6852,7 @@ uniform `+P+" "+z+" u_"+k+`;
     	return block;
     }
 
-    function instance$a($$self, $$props, $$invalidate) {
+    function instance$b($$self, $$props, $$invalidate) {
     	let $hoverObj;
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('MapLayer', slots, ['default']);
@@ -6623,8 +7251,8 @@ uniform `+P+" "+z+" u_"+k+`;
     		init(
     			this,
     			options,
-    			instance$a,
-    			create_fragment$a,
+    			instance$b,
+    			create_fragment$b,
     			safe_not_equal,
     			{
     				map_id: 6,
@@ -6661,7 +7289,7 @@ uniform `+P+" "+z+" u_"+k+`;
     			component: this,
     			tagName: "MapLayer",
     			options,
-    			id: create_fragment$a.name
+    			id: create_fragment$b.name
     		});
 
     		const { ctx } = this.$$;
@@ -6887,7 +7515,7 @@ uniform `+P+" "+z+" u_"+k+`;
 
     /* libs\@onsvisual\svelte-maps\src\MapTooltip.svelte generated by Svelte v3.44.1 */
 
-    function create_fragment$b(ctx) {
+    function create_fragment$c(ctx) {
     	const block = {
     		c: noop,
     		l: function claim(nodes) {
@@ -6902,7 +7530,7 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$b.name,
+    		id: create_fragment$c.name,
     		type: "component",
     		source: "",
     		ctx
@@ -6911,7 +7539,7 @@ uniform `+P+" "+z+" u_"+k+`;
     	return block;
     }
 
-    function instance$b($$self, $$props, $$invalidate) {
+    function instance$c($$self, $$props, $$invalidate) {
     	let $hoverObj;
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('MapTooltip', slots, []);
@@ -6977,13 +7605,13 @@ uniform `+P+" "+z+" u_"+k+`;
     class MapTooltip extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$b, create_fragment$b, safe_not_equal, { content: 1, map_id: 2 });
+    		init(this, options, instance$c, create_fragment$c, safe_not_equal, { content: 1, map_id: 2 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "MapTooltip",
     			options,
-    			id: create_fragment$b.name
+    			id: create_fragment$c.name
     		});
 
     		const { ctx } = this.$$;
@@ -7019,7 +7647,7 @@ uniform `+P+" "+z+" u_"+k+`;
 
     const { console: console_1$2 } = globals;
 
-    function create_fragment$c(ctx) {
+    function create_fragment$d(ctx) {
     	const block = {
     		c: noop,
     		l: function claim(nodes) {
@@ -7034,7 +7662,7 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$c.name,
+    		id: create_fragment$d.name,
     		type: "component",
     		source: "",
     		ctx
@@ -7043,7 +7671,7 @@ uniform `+P+" "+z+" u_"+k+`;
     	return block;
     }
 
-    function instance$c($$self, $$props, $$invalidate) {
+    function instance$d($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('MapPopup', slots, []);
     	let { content } = $$props;
@@ -7117,7 +7745,7 @@ uniform `+P+" "+z+" u_"+k+`;
     	constructor(options) {
     		super(options);
 
-    		init(this, options, instance$c, create_fragment$c, safe_not_equal, {
+    		init(this, options, instance$d, create_fragment$d, safe_not_equal, {
     			content: 0,
     			map_id: 1,
     			popup_id: 2,
@@ -7128,7 +7756,7 @@ uniform `+P+" "+z+" u_"+k+`;
     			component: this,
     			tagName: "MapPopup",
     			options,
-    			id: create_fragment$c.name
+    			id: create_fragment$d.name
     		});
 
     		const { ctx } = this.$$;
@@ -7184,113 +7812,253 @@ uniform `+P+" "+z+" u_"+k+`;
     	}
     }
 
-    // Primary color palette
-    const colors = {
-      primary: '#2F8FBC',
-      secondary: '#00BB9E',
-      error: '#BC3B2F',
-      warning: '#BC812F',
-      teal: '#00BB9E',
-      purple: '#8C198C',
-      green: '#305145',
-      background: '#d8e6ed'
-    };
-
-    // Semantic color mapping for SALURBAL levels
-    const levelColors = {
-      l1: colors.error,    // Cities (red)
-      l2: colors.primary,  // Sub-cities (blue)
-      l25: colors.purple,  // Neighborhoods L2.5 (purple)
-      l3: colors.teal,     // Neighborhoods L3 (teal)
-      ux: colors.warning,  // Urban extent (orange)
-      metro: colors.purple, // Metropolitan (purple)
-      unurban: colors.teal  // Non-urban (teal)
-    };
-
     const bounds = {
       southAmerica: [
-        [-109.4, -56.0], // Southwest coordinates
-        [-34.7, 12.5]    // Northeast coordinates
+        [-117.157278, -55.058347], // Southwest coordinates
+        [-66.273339, 34], // Northeast coordinates
       ],
-      l1ad: [
-        [-47.0, -24.0],
-        [-46.0, -23.0]
+      southAmericaShifted: [
+        [-97.157278, -55.058347], // Southwest coordinates (shifted)
+        [-46.273339, 34], // Northeast coordinates (shifted)
       ],
-      l1ux: [
-        [-46.8, -23.8],
-        [-46.3, -23.3]
+      municipio: [
+        [-46.826191, -24.008374],
+        [-46.365357, -23.357529],
       ],
       metro: [
-        [-47.2, -24.2],
-        [-45.8, -22.8]
+        [-47.2054645, -24.0642507],
+        [-45.6952955, -23.184244],
       ],
-      monterrey: [
-        [-100.8, 25.2],
-        [-99.8, 26.2]
-      ],
-      rio_cuarto: [
-        [-64.8, -33.2],
-        [-63.8, -32.2]
+      l1ad: [
+        [-47.084742, -24.008374],
+        [-46.051954, -23.183419],
       ],
       ex_l2: [
-        [-46.55, -23.65],
-        [-46.45, -23.55]
-      ]
+        [-46.584936, -23.650164],
+        [-46.544989, -23.600327],
+      ],
+      monterrey: [
+        [-100.8619014, 25.2237859], // Southwest coordinates
+        [-99.6864261, 26.3951673], // Northeast coordinates
+      ],
+      rio_cuarto: [
+        [-65.1437809, -34.2456892], // Southwest coordinates
+        [-63.8864557, -32.3048849], // Northeast coordinates
+      ],
     };
 
     /* src\components\sections\StepOneSection.svelte generated by Svelte v3.44.1 */
-    const file$9 = "src\\components\\sections\\StepOneSection.svelte";
+    const file$a = "src\\components\\sections\\StepOneSection.svelte";
 
-    // (70:12) <MapTooltip let:data>
-    function create_default_slot_3(ctx) {
-    	let div;
-    	let strong;
-    	let t0_value = /*data*/ ctx[8].salid1_name + "";
-    	let t0;
-    	let br0;
-    	let t1;
-    	let t2_value = /*data*/ ctx[8].country_name + "";
-    	let t2;
-    	let br1;
-    	let t3;
-    	let t4_value = /*data*/ ctx[8].population_100k + "";
-    	let t4;
+    // (51:10) {#if geojson_salurbal_centroid}
+    function create_if_block$6(ctx) {
+    	let map;
+    	let updating_map;
+    	let updating_center;
+    	let current;
+
+    	function map_map_binding(value) {
+    		/*map_map_binding*/ ctx[5](value);
+    	}
+
+    	function map_center_binding(value) {
+    		/*map_center_binding*/ ctx[6](value);
+    	}
+
+    	let map_props = {
+    		id: "static_map_1",
+    		style: "./data/style-osm-grey.json",
+    		location: { bounds: bounds.southAmericaShifted },
+    		controls: true,
+    		scales: false,
+    		dragPan: true,
+    		$$slots: { default: [create_default_slot_2] },
+    		$$scope: { ctx }
+    	};
+
+    	if (/*map_static_1*/ ctx[0] !== void 0) {
+    		map_props.map = /*map_static_1*/ ctx[0];
+    	}
+
+    	if (/*center*/ ctx[1] !== void 0) {
+    		map_props.center = /*center*/ ctx[1];
+    	}
+
+    	map = new Map$1({ props: map_props, $$inline: true });
+    	binding_callbacks.push(() => bind(map, 'map', map_map_binding));
+    	binding_callbacks.push(() => bind(map, 'center', map_center_binding));
 
     	const block = {
     		c: function create() {
-    			div = element("div");
-    			strong = element("strong");
-    			t0 = text(t0_value);
-    			br0 = element("br");
-    			t1 = space();
-    			t2 = text(t2_value);
-    			br1 = element("br");
-    			t3 = text("\r\n                Population: ");
-    			t4 = text(t4_value);
-    			add_location(strong, file$9, 71, 16, 2165);
-    			add_location(br0, file$9, 71, 51, 2200);
-    			add_location(br1, file$9, 72, 35, 2243);
-    			attr_dev(div, "class", "map-tooltip");
-    			add_location(div, file$9, 70, 14, 2122);
+    			create_component(map.$$.fragment);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			append_dev(div, strong);
-    			append_dev(strong, t0);
-    			append_dev(div, br0);
-    			append_dev(div, t1);
-    			append_dev(div, t2);
-    			append_dev(div, br1);
-    			append_dev(div, t3);
-    			append_dev(div, t4);
+    			mount_component(map, target, anchor);
+    			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*data*/ 256 && t0_value !== (t0_value = /*data*/ ctx[8].salid1_name + "")) set_data_dev(t0, t0_value);
-    			if (dirty & /*data*/ 256 && t2_value !== (t2_value = /*data*/ ctx[8].country_name + "")) set_data_dev(t2, t2_value);
-    			if (dirty & /*data*/ 256 && t4_value !== (t4_value = /*data*/ ctx[8].population_100k + "")) set_data_dev(t4, t4_value);
+    			const map_changes = {};
+
+    			if (dirty & /*$$scope, geojson_salurbal_centroid, hovered*/ 268) {
+    				map_changes.$$scope = { dirty, ctx };
+    			}
+
+    			if (!updating_map && dirty & /*map_static_1*/ 1) {
+    				updating_map = true;
+    				map_changes.map = /*map_static_1*/ ctx[0];
+    				add_flush_callback(() => updating_map = false);
+    			}
+
+    			if (!updating_center && dirty & /*center*/ 2) {
+    				updating_center = true;
+    				map_changes.center = /*center*/ ctx[1];
+    				add_flush_callback(() => updating_center = false);
+    			}
+
+    			map.$set(map_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(map.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(map.$$.fragment, local);
+    			current = false;
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div);
+    			destroy_component(map, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$6.name,
+    		type: "if",
+    		source: "(51:10) {#if geojson_salurbal_centroid}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (70:16) <MapLayer                    map_id="static_map_1"                    id="static_map_1-circle"                    type="circle"                    paint={{                      'circle-color': hex_warning,                      'circle-radius': 2.5,                      'circle-stroke-color': 'black',                      'circle-stroke-width': 0.1,                    }}                    hover={true}                    bind:hovered                  >
+    function create_default_slot_4(ctx) {
+    	let maptooltip;
+    	let current;
+
+    	maptooltip = new MapTooltip({
+    			props: {
+    				map_id: "static_map_1",
+    				content: `${/*hovered*/ ctx[2]}`
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(maptooltip.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(maptooltip, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const maptooltip_changes = {};
+    			if (dirty & /*hovered*/ 4) maptooltip_changes.content = `${/*hovered*/ ctx[2]}`;
+    			maptooltip.$set(maptooltip_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(maptooltip.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(maptooltip.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(maptooltip, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_4.name,
+    		type: "slot",
+    		source: "(70:16) <MapLayer                    map_id=\\\"static_map_1\\\"                    id=\\\"static_map_1-circle\\\"                    type=\\\"circle\\\"                    paint={{                      'circle-color': hex_warning,                      'circle-radius': 2.5,                      'circle-stroke-color': 'black',                      'circle-stroke-width': 0.1,                    }}                    hover={true}                    bind:hovered                  >",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (62:14) <MapSource                  map_id="static_map_1"                  id="static_map_1-src"                  type="geojson"                  data={geojson_salurbal_centroid}                  promoteId={'l1_label'}                  maxzoom={13}                >
+    function create_default_slot_3(ctx) {
+    	let maplayer;
+    	let updating_hovered;
+    	let current;
+
+    	function maplayer_hovered_binding(value) {
+    		/*maplayer_hovered_binding*/ ctx[4](value);
+    	}
+
+    	let maplayer_props = {
+    		map_id: "static_map_1",
+    		id: "static_map_1-circle",
+    		type: "circle",
+    		paint: {
+    			'circle-color': hex_warning,
+    			'circle-radius': 2.5,
+    			'circle-stroke-color': 'black',
+    			'circle-stroke-width': 0.1
+    		},
+    		hover: true,
+    		$$slots: { default: [create_default_slot_4] },
+    		$$scope: { ctx }
+    	};
+
+    	if (/*hovered*/ ctx[2] !== void 0) {
+    		maplayer_props.hovered = /*hovered*/ ctx[2];
+    	}
+
+    	maplayer = new MapLayer({ props: maplayer_props, $$inline: true });
+    	binding_callbacks.push(() => bind(maplayer, 'hovered', maplayer_hovered_binding));
+
+    	const block = {
+    		c: function create() {
+    			create_component(maplayer.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(maplayer, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const maplayer_changes = {};
+
+    			if (dirty & /*$$scope, hovered*/ 260) {
+    				maplayer_changes.$$scope = { dirty, ctx };
+    			}
+
+    			if (!updating_hovered && dirty & /*hovered*/ 4) {
+    				updating_hovered = true;
+    				maplayer_changes.hovered = /*hovered*/ ctx[2];
+    				add_flush_callback(() => updating_hovered = false);
+    			}
+
+    			maplayer.$set(maplayer_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(maplayer.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(maplayer.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(maplayer, detaching);
     		}
     	};
 
@@ -7298,111 +8066,27 @@ uniform `+P+" "+z+" u_"+k+`;
     		block,
     		id: create_default_slot_3.name,
     		type: "slot",
-    		source: "(70:12) <MapTooltip let:data>",
+    		source: "(62:14) <MapSource                  map_id=\\\"static_map_1\\\"                  id=\\\"static_map_1-src\\\"                  type=\\\"geojson\\\"                  data={geojson_salurbal_centroid}                  promoteId={'l1_label'}                  maxzoom={13}                >",
     		ctx
     	});
 
     	return block;
     }
 
-    // (43:10) <MapSource              id="salurbal_centroid"              type="geojson"              data={geojson_salurbal_centroid}              promoteId="salid1"              maxzoom={13}            >
+    // (52:12) <Map                id="static_map_1"                style="./data/style-osm-grey.json"                location={{ bounds: bounds.southAmericaShifted }}                controls={true}                scales={false}                dragPan={true}                bind:map={map_static_1}                bind:center              >
     function create_default_slot_2(ctx) {
-    	let maplayer;
-    	let t;
-    	let maptooltip;
-    	let current;
-
-    	maplayer = new MapLayer({
-    			props: {
-    				id: "salurbal_centroid",
-    				type: "circle",
-    				paint: {
-    					'circle-color': colors.warning,
-    					'circle-radius': ['interpolate', ['linear'], ['zoom'], 1, 1, 4, 4, 8, 8],
-    					'circle-stroke-color': 'white',
-    					'circle-stroke-width': 0.5
-    				}
-    			},
-    			$$inline: true
-    		});
-
-    	maptooltip = new MapTooltip({
-    			props: {
-    				$$slots: {
-    					default: [
-    						create_default_slot_3,
-    						({ data }) => ({ 8: data }),
-    						({ data }) => data ? 256 : 0
-    					]
-    				},
-    				$$scope: { ctx }
-    			},
-    			$$inline: true
-    		});
-
-    	const block = {
-    		c: function create() {
-    			create_component(maplayer.$$.fragment);
-    			t = space();
-    			create_component(maptooltip.$$.fragment);
-    		},
-    		m: function mount(target, anchor) {
-    			mount_component(maplayer, target, anchor);
-    			insert_dev(target, t, anchor);
-    			mount_component(maptooltip, target, anchor);
-    			current = true;
-    		},
-    		p: function update(ctx, dirty) {
-    			const maptooltip_changes = {};
-
-    			if (dirty & /*$$scope, data*/ 768) {
-    				maptooltip_changes.$$scope = { dirty, ctx };
-    			}
-
-    			maptooltip.$set(maptooltip_changes);
-    		},
-    		i: function intro(local) {
-    			if (current) return;
-    			transition_in(maplayer.$$.fragment, local);
-    			transition_in(maptooltip.$$.fragment, local);
-    			current = true;
-    		},
-    		o: function outro(local) {
-    			transition_out(maplayer.$$.fragment, local);
-    			transition_out(maptooltip.$$.fragment, local);
-    			current = false;
-    		},
-    		d: function destroy(detaching) {
-    			destroy_component(maplayer, detaching);
-    			if (detaching) detach_dev(t);
-    			destroy_component(maptooltip, detaching);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_default_slot_2.name,
-    		type: "slot",
-    		source: "(43:10) <MapSource              id=\\\"salurbal_centroid\\\"              type=\\\"geojson\\\"              data={geojson_salurbal_centroid}              promoteId=\\\"salid1\\\"              maxzoom={13}            >",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (32:8) <Map            id="map_static_1"            style="./data/style-esri-world-imagery.json"            location={{ bounds: bounds.southAmerica }}            controls={true}            scales={true}            hover={true}            bind:map={map_static_1}            bind:center            bind:hovered          >
-    function create_default_slot_1(ctx) {
     	let mapsource;
     	let current;
 
     	mapsource = new MapSource({
     			props: {
-    				id: "salurbal_centroid",
+    				map_id: "static_map_1",
+    				id: "static_map_1-src",
     				type: "geojson",
     				data: /*geojson_salurbal_centroid*/ ctx[3],
-    				promoteId: "salid1",
+    				promoteId: 'l1_label',
     				maxzoom: 13,
-    				$$slots: { default: [create_default_slot_2] },
+    				$$slots: { default: [create_default_slot_3] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -7420,7 +8104,7 @@ uniform `+P+" "+z+" u_"+k+`;
     			const mapsource_changes = {};
     			if (dirty & /*geojson_salurbal_centroid*/ 8) mapsource_changes.data = /*geojson_salurbal_centroid*/ ctx[3];
 
-    			if (dirty & /*$$scope*/ 512) {
+    			if (dirty & /*$$scope, hovered*/ 260) {
     				mapsource_changes.$$scope = { dirty, ctx };
     			}
 
@@ -7442,143 +8126,192 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_1.name,
+    		id: create_default_slot_2.name,
     		type: "slot",
-    		source: "(32:8) <Map            id=\\\"map_static_1\\\"            style=\\\"./data/style-esri-world-imagery.json\\\"            location={{ bounds: bounds.southAmerica }}            controls={true}            scales={true}            hover={true}            bind:map={map_static_1}            bind:center            bind:hovered          >",
+    		source: "(52:12) <Map                id=\\\"static_map_1\\\"                style=\\\"./data/style-osm-grey.json\\\"                location={{ bounds: bounds.southAmericaShifted }}                controls={true}                scales={false}                dragPan={true}                bind:map={map_static_1}                bind:center              >",
     		ctx
     	});
 
     	return block;
     }
 
-    // (27:0) <Section>
+    // (49:6) <Media col="medium" caption="Interactive map of all 371 SALURBAL cities">
+    function create_default_slot_1(ctx) {
+    	let div;
+    	let current;
+    	let if_block = /*geojson_salurbal_centroid*/ ctx[3] && create_if_block$6(ctx);
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			if (if_block) if_block.c();
+    			attr_dev(div, "class", "chart-sml svelte-1pylzw");
+    			add_location(div, file$a, 49, 8, 1767);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			if (if_block) if_block.m(div, null);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			if (/*geojson_salurbal_centroid*/ ctx[3]) {
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
+
+    					if (dirty & /*geojson_salurbal_centroid*/ 8) {
+    						transition_in(if_block, 1);
+    					}
+    				} else {
+    					if_block = create_if_block$6(ctx);
+    					if_block.c();
+    					transition_in(if_block, 1);
+    					if_block.m(div, null);
+    				}
+    			} else if (if_block) {
+    				group_outros();
+
+    				transition_out(if_block, 1, 1, () => {
+    					if_block = null;
+    				});
+
+    				check_outros();
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(if_block);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(if_block);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			if (if_block) if_block.d();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_1.name,
+    		type: "slot",
+    		source: "(49:6) <Media col=\\\"medium\\\" caption=\\\"Interactive map of all 371 SALURBAL cities\\\">",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (30:0) <Section>
     function create_default_slot$2(ctx) {
     	let h3;
     	let t1;
-    	let div3;
-    	let div1;
-    	let div0;
-    	let map;
-    	let updating_map;
-    	let updating_center;
-    	let updating_hovered;
-    	let t2;
     	let div2;
+    	let div0;
+    	let p0;
+    	let t3;
+    	let p1;
+    	let t4;
+    	let a0;
+    	let t6;
+    	let a1;
+    	let t8;
+    	let t9;
+    	let div1;
+    	let media;
     	let current;
 
-    	function map_map_binding(value) {
-    		/*map_map_binding*/ ctx[4](value);
-    	}
-
-    	function map_center_binding(value) {
-    		/*map_center_binding*/ ctx[5](value);
-    	}
-
-    	function map_hovered_binding(value) {
-    		/*map_hovered_binding*/ ctx[6](value);
-    	}
-
-    	let map_props = {
-    		id: "map_static_1",
-    		style: "./data/style-esri-world-imagery.json",
-    		location: { bounds: bounds.southAmerica },
-    		controls: true,
-    		scales: true,
-    		hover: true,
-    		$$slots: { default: [create_default_slot_1] },
-    		$$scope: { ctx }
-    	};
-
-    	if (/*map_static_1*/ ctx[0] !== void 0) {
-    		map_props.map = /*map_static_1*/ ctx[0];
-    	}
-
-    	if (/*center*/ ctx[1] !== void 0) {
-    		map_props.center = /*center*/ ctx[1];
-    	}
-
-    	if (/*hovered*/ ctx[2] !== void 0) {
-    		map_props.hovered = /*hovered*/ ctx[2];
-    	}
-
-    	map = new Map$1({ props: map_props, $$inline: true });
-    	binding_callbacks.push(() => bind(map, 'map', map_map_binding));
-    	binding_callbacks.push(() => bind(map, 'center', map_center_binding));
-    	binding_callbacks.push(() => bind(map, 'hovered', map_hovered_binding));
+    	media = new Media({
+    			props: {
+    				col: "medium",
+    				caption: "Interactive map of all 371 SALURBAL cities",
+    				$$slots: { default: [create_default_slot_1] },
+    				$$scope: { ctx }
+    			},
+    			$$inline: true
+    		});
 
     	const block = {
     		c: function create() {
     			h3 = element("h3");
-    			h3.textContent = "Step 1: Identifying cities with ≥100,000 inhabitants";
+    			h3.textContent = "Step 1. Identifying cities with a population of 100,000 or more.";
     			t1 = space();
-    			div3 = element("div");
-    			div1 = element("div");
-    			div0 = element("div");
-    			create_component(map.$$.fragment);
-    			t2 = space();
     			div2 = element("div");
-    			add_location(h3, file$9, 27, 2, 813);
-    			set_style(div0, "height", "400px");
-    			add_location(div0, file$9, 30, 6, 945);
-    			attr_dev(div1, "class", "left-col svelte-1pylzw");
-    			add_location(div1, file$9, 29, 4, 915);
-    			attr_dev(div2, "class", "right-col svelte-1pylzw");
-    			add_location(div2, file$9, 80, 4, 2422);
-    			attr_dev(div3, "class", "two-col-container svelte-1pylzw");
-    			add_location(div3, file$9, 28, 2, 878);
+    			div0 = element("div");
+    			p0 = element("p");
+    			p0.textContent = "The SALURBAL city universe was defined as all urban agglomerations with\r\n        at least 100,000 residents as of 2010.";
+    			t3 = space();
+    			p1 = element("p");
+    			t4 = text("We used the ");
+    			a0 = element("a");
+    			a0.textContent = "Atlas of Urban Expansion";
+    			t6 = text("\r\n        and country census data from\r\n        ");
+    			a1 = element("a");
+    			a1.textContent = "citypopulation.de";
+    			t8 = text(" to obtain a list of all cities (as defined in these sources) with 100,000\r\n        residents or more in 2010. We combined both lists and eliminated duplicates.");
+    			t9 = space();
+    			div1 = element("div");
+    			create_component(media.$$.fragment);
+    			add_location(h3, file$a, 30, 2, 850);
+    			attr_dev(p0, "class", "text-medium");
+    			add_location(p0, file$a, 33, 6, 994);
+    			attr_dev(a0, "href", "http://atlasofurbanexpansion.org/");
+    			attr_dev(a0, "target", "_blank");
+    			add_location(a0, file$a, 38, 20, 1211);
+    			attr_dev(a1, "href", "https://citypopulation.de/");
+    			attr_dev(a1, "target", "_blank");
+    			add_location(a1, file$a, 42, 8, 1369);
+    			attr_dev(p1, "class", "text-medium");
+    			add_location(p1, file$a, 37, 6, 1166);
+    			attr_dev(div0, "class", "left-col svelte-1pylzw");
+    			add_location(div0, file$a, 32, 4, 964);
+    			attr_dev(div1, "class", "right-col svelte-1pylzw");
+    			add_location(div1, file$a, 47, 14, 1653);
+    			attr_dev(div2, "class", "two-col-container svelte-1pylzw");
+    			add_location(div2, file$a, 31, 2, 927);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, h3, anchor);
     			insert_dev(target, t1, anchor);
-    			insert_dev(target, div3, anchor);
-    			append_dev(div3, div1);
-    			append_dev(div1, div0);
-    			mount_component(map, div0, null);
-    			append_dev(div3, t2);
-    			append_dev(div3, div2);
+    			insert_dev(target, div2, anchor);
+    			append_dev(div2, div0);
+    			append_dev(div0, p0);
+    			append_dev(div0, t3);
+    			append_dev(div0, p1);
+    			append_dev(p1, t4);
+    			append_dev(p1, a0);
+    			append_dev(p1, t6);
+    			append_dev(p1, a1);
+    			append_dev(p1, t8);
+    			append_dev(div2, t9);
+    			append_dev(div2, div1);
+    			mount_component(media, div1, null);
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			const map_changes = {};
+    			const media_changes = {};
 
-    			if (dirty & /*$$scope, geojson_salurbal_centroid*/ 520) {
-    				map_changes.$$scope = { dirty, ctx };
+    			if (dirty & /*$$scope, map_static_1, center, geojson_salurbal_centroid, hovered*/ 271) {
+    				media_changes.$$scope = { dirty, ctx };
     			}
 
-    			if (!updating_map && dirty & /*map_static_1*/ 1) {
-    				updating_map = true;
-    				map_changes.map = /*map_static_1*/ ctx[0];
-    				add_flush_callback(() => updating_map = false);
-    			}
-
-    			if (!updating_center && dirty & /*center*/ 2) {
-    				updating_center = true;
-    				map_changes.center = /*center*/ ctx[1];
-    				add_flush_callback(() => updating_center = false);
-    			}
-
-    			if (!updating_hovered && dirty & /*hovered*/ 4) {
-    				updating_hovered = true;
-    				map_changes.hovered = /*hovered*/ ctx[2];
-    				add_flush_callback(() => updating_hovered = false);
-    			}
-
-    			map.$set(map_changes);
+    			media.$set(media_changes);
     		},
     		i: function intro(local) {
     			if (current) return;
-    			transition_in(map.$$.fragment, local);
+    			transition_in(media.$$.fragment, local);
     			current = true;
     		},
     		o: function outro(local) {
-    			transition_out(map.$$.fragment, local);
+    			transition_out(media.$$.fragment, local);
     			current = false;
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(h3);
     			if (detaching) detach_dev(t1);
-    			if (detaching) detach_dev(div3);
-    			destroy_component(map);
+    			if (detaching) detach_dev(div2);
+    			destroy_component(media);
     		}
     	};
 
@@ -7586,14 +8319,14 @@ uniform `+P+" "+z+" u_"+k+`;
     		block,
     		id: create_default_slot$2.name,
     		type: "slot",
-    		source: "(27:0) <Section>",
+    		source: "(30:0) <Section>",
     		ctx
     	});
 
     	return block;
     }
 
-    function create_fragment$d(ctx) {
+    function create_fragment$e(ctx) {
     	let section;
     	let current;
 
@@ -7619,7 +8352,7 @@ uniform `+P+" "+z+" u_"+k+`;
     		p: function update(ctx, [dirty]) {
     			const section_changes = {};
 
-    			if (dirty & /*$$scope, map_static_1, center, hovered, geojson_salurbal_centroid*/ 527) {
+    			if (dirty & /*$$scope, map_static_1, center, geojson_salurbal_centroid, hovered*/ 271) {
     				section_changes.$$scope = { dirty, ctx };
     			}
 
@@ -7641,7 +8374,7 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$d.name,
+    		id: create_fragment$e.name,
     		type: "component",
     		source: "",
     		ctx
@@ -7650,14 +8383,16 @@ uniform `+P+" "+z+" u_"+k+`;
     	return block;
     }
 
-    function instance$d($$self, $$props, $$invalidate) {
+    const hex_warning = '#BC812F';
+
+    function instance$e($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('StepOneSection', slots, []);
-    	let { map_static_1 } = $$props;
-    	let { center } = $$props;
-    	let { hovered } = $$props;
+    	let map_static_1;
+    	let center;
+    	let hovered;
 
-    	// Data loading for this component
+    	// Data source for SALURBAL centroids
     	const src__salurbal_centroid = {
     		url: './data/salurbal_l1ad_centroid.json',
     		layer: 'geog',
@@ -7670,11 +8405,16 @@ uniform `+P+" "+z+" u_"+k+`;
     		$$invalidate(3, geojson_salurbal_centroid = res);
     	});
 
-    	const writable_props = ['map_static_1', 'center', 'hovered'];
+    	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<StepOneSection> was created with unknown prop '${key}'`);
     	});
+
+    	function maplayer_hovered_binding(value) {
+    		hovered = value;
+    		$$invalidate(2, hovered);
+    	}
 
     	function map_map_binding(value) {
     		map_static_1 = value;
@@ -7686,29 +8426,19 @@ uniform `+P+" "+z+" u_"+k+`;
     		$$invalidate(1, center);
     	}
 
-    	function map_hovered_binding(value) {
-    		hovered = value;
-    		$$invalidate(2, hovered);
-    	}
-
-    	$$self.$$set = $$props => {
-    		if ('map_static_1' in $$props) $$invalidate(0, map_static_1 = $$props.map_static_1);
-    		if ('center' in $$props) $$invalidate(1, center = $$props.center);
-    		if ('hovered' in $$props) $$invalidate(2, hovered = $$props.hovered);
-    	};
-
     	$$self.$capture_state = () => ({
     		Section,
+    		Media,
     		Map: Map$1,
     		MapSource,
     		MapLayer,
     		MapTooltip,
-    		colors,
     		bounds,
     		getTopo,
     		map_static_1,
     		center,
     		hovered,
+    		hex_warning,
     		src__salurbal_centroid,
     		geojson_salurbal_centroid
     	});
@@ -7729,69 +8459,30 @@ uniform `+P+" "+z+" u_"+k+`;
     		center,
     		hovered,
     		geojson_salurbal_centroid,
+    		maplayer_hovered_binding,
     		map_map_binding,
-    		map_center_binding,
-    		map_hovered_binding
+    		map_center_binding
     	];
     }
 
     class StepOneSection extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$d, create_fragment$d, safe_not_equal, { map_static_1: 0, center: 1, hovered: 2 });
+    		init(this, options, instance$e, create_fragment$e, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "StepOneSection",
     			options,
-    			id: create_fragment$d.name
+    			id: create_fragment$e.name
     		});
-
-    		const { ctx } = this.$$;
-    		const props = options.props || {};
-
-    		if (/*map_static_1*/ ctx[0] === undefined && !('map_static_1' in props)) {
-    			console.warn("<StepOneSection> was created without expected prop 'map_static_1'");
-    		}
-
-    		if (/*center*/ ctx[1] === undefined && !('center' in props)) {
-    			console.warn("<StepOneSection> was created without expected prop 'center'");
-    		}
-
-    		if (/*hovered*/ ctx[2] === undefined && !('hovered' in props)) {
-    			console.warn("<StepOneSection> was created without expected prop 'hovered'");
-    		}
-    	}
-
-    	get map_static_1() {
-    		throw new Error("<StepOneSection>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set map_static_1(value) {
-    		throw new Error("<StepOneSection>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	get center() {
-    		throw new Error("<StepOneSection>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set center(value) {
-    		throw new Error("<StepOneSection>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	get hovered() {
-    		throw new Error("<StepOneSection>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set hovered(value) {
-    		throw new Error("<StepOneSection>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
 
     /* src\components\sections\StepTwoSection.svelte generated by Svelte v3.44.1 */
-    const file$a = "src\\components\\sections\\StepTwoSection.svelte";
+    const file$b = "src\\components\\sections\\StepTwoSection.svelte";
 
-    // (5:0) <Section>
+    // (16:0) <Section>
     function create_default_slot$3(ctx) {
     	let h3;
     	let t1;
@@ -7804,9 +8495,9 @@ uniform `+P+" "+z+" u_"+k+`;
     			t1 = space();
     			p = element("p");
     			p.textContent = "Cities that were initially considered separate cities were combined into one\r\n    city if they were part of the same agglomeration, that is, if their built-up\r\n    areas were connected. We used the name of the city with the larger\r\n    population to label these units. In a few cases where the populations were\r\n    nearly equal, we assigned a hyphenated name (e.g., Valparaiso-Viña del Mar,\r\n    Chile). This process resulted in 371 cities, which we refer to as \"SALURBAL\r\n    cities.\"";
-    			add_location(h3, file$a, 5, 2, 90);
+    			add_location(h3, file$b, 16, 2, 482);
     			attr_dev(p, "class", "text-medium");
-    			add_location(p, file$a, 6, 2, 139);
+    			add_location(p, file$b, 17, 2, 531);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, h3, anchor);
@@ -7824,14 +8515,14 @@ uniform `+P+" "+z+" u_"+k+`;
     		block,
     		id: create_default_slot$3.name,
     		type: "slot",
-    		source: "(5:0) <Section>",
+    		source: "(16:0) <Section>",
     		ctx
     	});
 
     	return block;
     }
 
-    function create_fragment$e(ctx) {
+    function create_fragment$f(ctx) {
     	let section;
     	let current;
 
@@ -7879,7 +8570,7 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$e.name,
+    		id: create_fragment$f.name,
     		type: "component",
     		source: "",
     		ctx
@@ -7888,7 +8579,7 @@ uniform `+P+" "+z+" u_"+k+`;
     	return block;
     }
 
-    function instance$e($$self, $$props, $$invalidate) {
+    function instance$f($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('StepTwoSection', slots, []);
     	const writable_props = [];
@@ -7904,23 +8595,23 @@ uniform `+P+" "+z+" u_"+k+`;
     class StepTwoSection extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$e, create_fragment$e, safe_not_equal, {});
+    		init(this, options, instance$f, create_fragment$f, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "StepTwoSection",
     			options,
-    			id: create_fragment$e.name
+    			id: create_fragment$f.name
     		});
     	}
     }
 
     /* src\ui\Arrow.svelte generated by Svelte v3.44.1 */
 
-    const file$b = "src\\ui\\Arrow.svelte";
+    const file$c = "src\\ui\\Arrow.svelte";
 
     // (20:0) {:else}
-    function create_else_block$2(ctx) {
+    function create_else_block$3(ctx) {
     	let img;
     	let img_src_value;
     	let current;
@@ -7936,7 +8627,7 @@ uniform `+P+" "+z+" u_"+k+`;
     			attr_dev(img, "alt", "");
     			attr_dev(img, "aria-hidden", "true");
     			toggle_class(img, "bounce", /*animation*/ ctx[1]);
-    			add_location(img, file$b, 20, 2, 393);
+    			add_location(img, file$c, 20, 2, 393);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, img, anchor);
@@ -7988,7 +8679,7 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_else_block$2.name,
+    		id: create_else_block$3.name,
     		type: "else",
     		source: "(20:0) {:else}",
     		ctx
@@ -7998,7 +8689,7 @@ uniform `+P+" "+z+" u_"+k+`;
     }
 
     // (11:0) {#if center}
-    function create_if_block$5(ctx) {
+    function create_if_block$7(ctx) {
     	let br;
     	let t;
     	let img;
@@ -8013,13 +8704,13 @@ uniform `+P+" "+z+" u_"+k+`;
     			br = element("br");
     			t = space();
     			img = element("img");
-    			add_location(br, file$b, 11, 10, 234);
+    			add_location(br, file$c, 11, 10, 234);
     			if (!src_url_equal(img.src, img_src_value = "./img/scroll-down-" + /*color*/ ctx[0] + ".svg")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "class", "arrow svelte-1twz261");
     			attr_dev(img, "alt", "");
     			attr_dev(img, "aria-hidden", "true");
     			toggle_class(img, "bounce", /*animation*/ ctx[1]);
-    			add_location(img, file$b, 12, 2, 244);
+    			add_location(img, file$c, 12, 2, 244);
     		},
     		m: function mount(target, anchor) {
     			if (default_slot) {
@@ -8074,7 +8765,7 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$5.name,
+    		id: create_if_block$7.name,
     		type: "if",
     		source: "(11:0) {#if center}",
     		ctx
@@ -8083,12 +8774,12 @@ uniform `+P+" "+z+" u_"+k+`;
     	return block;
     }
 
-    function create_fragment$f(ctx) {
+    function create_fragment$g(ctx) {
     	let current_block_type_index;
     	let if_block;
     	let if_block_anchor;
     	let current;
-    	const if_block_creators = [create_if_block$5, create_else_block$2];
+    	const if_block_creators = [create_if_block$7, create_else_block$3];
     	const if_blocks = [];
 
     	function select_block_type(ctx, dirty) {
@@ -8156,7 +8847,7 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$f.name,
+    		id: create_fragment$g.name,
     		type: "component",
     		source: "",
     		ctx
@@ -8165,7 +8856,7 @@ uniform `+P+" "+z+" u_"+k+`;
     	return block;
     }
 
-    function instance$f($$self, $$props, $$invalidate) {
+    function instance$g($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Arrow', slots, ['default']);
     	let { color = 'black' } = $$props;
@@ -8204,13 +8895,13 @@ uniform `+P+" "+z+" u_"+k+`;
     class Arrow extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$f, create_fragment$f, safe_not_equal, { color: 0, animation: 1, center: 2 });
+    		init(this, options, instance$g, create_fragment$g, safe_not_equal, { color: 0, animation: 1, center: 2 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Arrow",
     			options,
-    			id: create_fragment$f.name
+    			id: create_fragment$g.name
     		});
     	}
 
@@ -8240,9 +8931,9 @@ uniform `+P+" "+z+" u_"+k+`;
     }
 
     /* src\components\sections\StepThreeSection.svelte generated by Svelte v3.44.1 */
-    const file$c = "src\\components\\sections\\StepThreeSection.svelte";
+    const file$d = "src\\components\\sections\\StepThreeSection.svelte";
 
-    // (6:0) <Section>
+    // (17:0) <Section>
     function create_default_slot$4(ctx) {
     	let h3;
     	let t1;
@@ -8278,15 +8969,15 @@ uniform `+P+" "+z+" u_"+k+`;
     			t7 = space();
     			div = element("div");
     			create_component(arrow.$$.fragment);
-    			add_location(h3, file$c, 6, 2, 136);
-    			add_location(em0, file$c, 10, 48, 439);
-    			add_location(em1, file$c, 11, 4, 465);
+    			add_location(h3, file$d, 17, 2, 549);
+    			add_location(em0, file$d, 21, 48, 852);
+    			add_location(em1, file$d, 22, 4, 878);
     			attr_dev(p, "class", "text-medium");
-    			add_location(p, file$c, 7, 2, 205);
+    			add_location(p, file$d, 18, 2, 618);
     			set_style(div, "display", "flex");
     			set_style(div, "justify-content", "center");
     			set_style(div, "align-items", "center");
-    			add_location(div, file$c, 13, 2, 534);
+    			add_location(div, file$d, 24, 2, 947);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, h3, anchor);
@@ -8326,15 +9017,17 @@ uniform `+P+" "+z+" u_"+k+`;
     		block,
     		id: create_default_slot$4.name,
     		type: "slot",
-    		source: "(6:0) <Section>",
+    		source: "(17:0) <Section>",
     		ctx
     	});
 
     	return block;
     }
 
-    function create_fragment$g(ctx) {
+    function create_fragment$h(ctx) {
     	let section;
+    	let t;
+    	let div;
     	let current;
 
     	section = new Section({
@@ -8348,12 +9041,18 @@ uniform `+P+" "+z+" u_"+k+`;
     	const block = {
     		c: function create() {
     			create_component(section.$$.fragment);
+    			t = space();
+    			div = element("div");
+    			set_style(div, "height", "3rem");
+    			add_location(div, file$d, 29, 0, 1093);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
     			mount_component(section, target, anchor);
+    			insert_dev(target, t, anchor);
+    			insert_dev(target, div, anchor);
     			current = true;
     		},
     		p: function update(ctx, [dirty]) {
@@ -8376,12 +9075,14 @@ uniform `+P+" "+z+" u_"+k+`;
     		},
     		d: function destroy(detaching) {
     			destroy_component(section, detaching);
+    			if (detaching) detach_dev(t);
+    			if (detaching) detach_dev(div);
     		}
     	};
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$g.name,
+    		id: create_fragment$h.name,
     		type: "component",
     		source: "",
     		ctx
@@ -8390,7 +9091,7 @@ uniform `+P+" "+z+" u_"+k+`;
     	return block;
     }
 
-    function instance$g($$self, $$props, $$invalidate) {
+    function instance$h($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('StepThreeSection', slots, []);
     	const writable_props = [];
@@ -8406,19 +9107,19 @@ uniform `+P+" "+z+" u_"+k+`;
     class StepThreeSection extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$g, create_fragment$g, safe_not_equal, {});
+    		init(this, options, instance$h, create_fragment$h, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "StepThreeSection",
     			options,
-    			id: create_fragment$g.name
+    			id: create_fragment$h.name
     		});
     	}
     }
 
     /* src\components\sections\StepFourSection.svelte generated by Svelte v3.44.1 */
-    const file$d = "src\\components\\sections\\StepFourSection.svelte";
+    const file$e = "src\\components\\sections\\StepFourSection.svelte";
 
     // (6:0) <Section>
     function create_default_slot$5(ctx) {
@@ -8460,20 +9161,20 @@ uniform `+P+" "+z+" u_"+k+`;
     			t9 = space();
     			div = element("div");
     			create_component(arrow.$$.fragment);
-    			add_location(h3, file$d, 6, 2, 136);
+    			add_location(h3, file$e, 6, 2, 136);
     			attr_dev(p0, "class", "text-medium");
-    			add_location(p0, file$d, 9, 2, 233);
+    			add_location(p0, file$e, 9, 2, 233);
     			attr_dev(p1, "class", "text-medium");
-    			add_location(p1, file$d, 14, 2, 441);
+    			add_location(p1, file$e, 14, 2, 441);
     			attr_dev(p2, "class", "text-medium");
-    			add_location(p2, file$d, 21, 2, 810);
+    			add_location(p2, file$e, 21, 2, 810);
     			attr_dev(p3, "class", "text-medium");
-    			add_location(p3, file$d, 27, 2, 1159);
+    			add_location(p3, file$e, 27, 2, 1159);
     			set_style(div, "display", "flex");
     			set_style(div, "justify-content", "center");
     			set_style(div, "align-items", "center");
     			set_style(div, "margin-top", "1rem");
-    			add_location(div, file$d, 31, 2, 1298);
+    			add_location(div, file$e, 31, 2, 1298);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, h3, anchor);
@@ -8527,208 +9228,13 @@ uniform `+P+" "+z+" u_"+k+`;
     	return block;
     }
 
-    function create_fragment$h(ctx) {
-    	let section;
-    	let current;
-
-    	section = new Section({
-    			props: {
-    				$$slots: { default: [create_default_slot$5] },
-    				$$scope: { ctx }
-    			},
-    			$$inline: true
-    		});
-
-    	const block = {
-    		c: function create() {
-    			create_component(section.$$.fragment);
-    		},
-    		l: function claim(nodes) {
-    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
-    		},
-    		m: function mount(target, anchor) {
-    			mount_component(section, target, anchor);
-    			current = true;
-    		},
-    		p: function update(ctx, [dirty]) {
-    			const section_changes = {};
-
-    			if (dirty & /*$$scope*/ 1) {
-    				section_changes.$$scope = { dirty, ctx };
-    			}
-
-    			section.$set(section_changes);
-    		},
-    		i: function intro(local) {
-    			if (current) return;
-    			transition_in(section.$$.fragment, local);
-    			current = true;
-    		},
-    		o: function outro(local) {
-    			transition_out(section.$$.fragment, local);
-    			current = false;
-    		},
-    		d: function destroy(detaching) {
-    			destroy_component(section, detaching);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_fragment$h.name,
-    		type: "component",
-    		source: "",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    function instance$h($$self, $$props, $$invalidate) {
-    	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots('StepFourSection', slots, []);
-    	const writable_props = [];
-
-    	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<StepFourSection> was created with unknown prop '${key}'`);
-    	});
-
-    	$$self.$capture_state = () => ({ Section, Arrow });
-    	return [];
-    }
-
-    class StepFourSection extends SvelteComponentDev {
-    	constructor(options) {
-    		super(options);
-    		init(this, options, instance$h, create_fragment$h, safe_not_equal, {});
-
-    		dispatch_dev("SvelteRegisterComponent", {
-    			component: this,
-    			tagName: "StepFourSection",
-    			options,
-    			id: create_fragment$h.name
-    		});
-    	}
-    }
-
-    /* src\components\sections\ConclusionSection.svelte generated by Svelte v3.44.1 */
-    const file$e = "src\\components\\sections\\ConclusionSection.svelte";
-
-    // (5:0) <Section>
-    function create_default_slot$6(ctx) {
-    	let h2;
-    	let t1;
-    	let p0;
-    	let t2;
-    	let a0;
-    	let t4;
-    	let t5;
-    	let p1;
-    	let t6;
-    	let a1;
-    	let t8;
-    	let t9;
-    	let p2;
-    	let t10;
-    	let a2;
-    	let t12;
-    	let a3;
-    	let t14;
-
-    	const block = {
-    		c: function create() {
-    			h2 = element("h2");
-    			h2.textContent = "Understanding inter- and intra-city differences";
-    			t1 = space();
-    			p0 = element("p");
-    			t2 = text("This process was repeated for all 371 cities included in the SALURBAL\r\n    project. The result is an unprecedented data resource that allows us to\r\n    document and compare differences in health and wellbeing both between and\r\n    within cities across Latin America. You can find examples of analyses using\r\n    this data structure in our ");
-    			a0 = element("a");
-    			a0.textContent = "publications list";
-    			t4 = text(".");
-    			t5 = space();
-    			p1 = element("p");
-    			t6 = text("For more information on the specific units used in each SALURBAL country,\r\n    see our article in the ");
-    			a1 = element("a");
-    			a1.textContent = "Journal of Urban Health";
-    			t8 = text(".");
-    			t9 = space();
-    			p2 = element("p");
-    			t10 = text("For more details and access to these boundaries please see our\r\n    ");
-    			a2 = element("a");
-    			a2.textContent = "spatial data repository";
-    			t12 = text("\r\n    on the\r\n    ");
-    			a3 = element("a");
-    			a3.textContent = "SALURBAL data portal";
-    			t14 = text(".");
-    			add_location(h2, file$e, 5, 2, 90);
-    			attr_dev(a0, "href", "https://drexel.edu/lac/data-evidence/publications/");
-    			attr_dev(a0, "target", "_blank");
-    			add_location(a0, file$e, 11, 31, 518);
-    			attr_dev(p0, "class", "text-medium");
-    			add_location(p0, file$e, 6, 2, 150);
-    			attr_dev(a1, "href", "https://link.springer.com/article/10.1007/s11524-018-00326-0");
-    			attr_dev(a1, "target", "_blank");
-    			add_location(a1, file$e, 18, 27, 780);
-    			attr_dev(p1, "class", "text-medium");
-    			add_location(p1, file$e, 16, 2, 649);
-    			attr_dev(a2, "href", "https://data.lacurbanhealth.org/");
-    			attr_dev(a2, "target", "_blank");
-    			add_location(a2, file$e, 25, 4, 1024);
-    			attr_dev(a3, "href", "https://data.lacurbanhealth.org/");
-    			attr_dev(a3, "target", "_blank");
-    			add_location(a3, file$e, 29, 4, 1142);
-    			attr_dev(p2, "class", "text-medium");
-    			add_location(p2, file$e, 23, 2, 927);
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, h2, anchor);
-    			insert_dev(target, t1, anchor);
-    			insert_dev(target, p0, anchor);
-    			append_dev(p0, t2);
-    			append_dev(p0, a0);
-    			append_dev(p0, t4);
-    			insert_dev(target, t5, anchor);
-    			insert_dev(target, p1, anchor);
-    			append_dev(p1, t6);
-    			append_dev(p1, a1);
-    			append_dev(p1, t8);
-    			insert_dev(target, t9, anchor);
-    			insert_dev(target, p2, anchor);
-    			append_dev(p2, t10);
-    			append_dev(p2, a2);
-    			append_dev(p2, t12);
-    			append_dev(p2, a3);
-    			append_dev(p2, t14);
-    		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(h2);
-    			if (detaching) detach_dev(t1);
-    			if (detaching) detach_dev(p0);
-    			if (detaching) detach_dev(t5);
-    			if (detaching) detach_dev(p1);
-    			if (detaching) detach_dev(t9);
-    			if (detaching) detach_dev(p2);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_default_slot$6.name,
-    		type: "slot",
-    		source: "(5:0) <Section>",
-    		ctx
-    	});
-
-    	return block;
-    }
-
     function create_fragment$i(ctx) {
     	let section;
     	let current;
 
     	section = new Section({
     			props: {
-    				$$slots: { default: [create_default_slot$6] },
+    				$$slots: { default: [create_default_slot$5] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -8781,6 +9287,201 @@ uniform `+P+" "+z+" u_"+k+`;
 
     function instance$i($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('StepFourSection', slots, []);
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<StepFourSection> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$capture_state = () => ({ Section, Arrow });
+    	return [];
+    }
+
+    class StepFourSection extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$i, create_fragment$i, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "StepFourSection",
+    			options,
+    			id: create_fragment$i.name
+    		});
+    	}
+    }
+
+    /* src\components\sections\ConclusionSection.svelte generated by Svelte v3.44.1 */
+    const file$f = "src\\components\\sections\\ConclusionSection.svelte";
+
+    // (5:0) <Section>
+    function create_default_slot$6(ctx) {
+    	let h2;
+    	let t1;
+    	let p0;
+    	let t2;
+    	let a0;
+    	let t4;
+    	let t5;
+    	let p1;
+    	let t6;
+    	let a1;
+    	let t8;
+    	let t9;
+    	let p2;
+    	let t10;
+    	let a2;
+    	let t12;
+    	let a3;
+    	let t14;
+
+    	const block = {
+    		c: function create() {
+    			h2 = element("h2");
+    			h2.textContent = "Understanding inter- and intra-city differences";
+    			t1 = space();
+    			p0 = element("p");
+    			t2 = text("This process was repeated for all 371 cities included in the SALURBAL\r\n    project. The result is an unprecedented data resource that allows us to\r\n    document and compare differences in health and wellbeing both between and\r\n    within cities across Latin America. You can find examples of analyses using\r\n    this data structure in our ");
+    			a0 = element("a");
+    			a0.textContent = "publications list";
+    			t4 = text(".");
+    			t5 = space();
+    			p1 = element("p");
+    			t6 = text("For more information on the specific units used in each SALURBAL country,\r\n    see our article in the ");
+    			a1 = element("a");
+    			a1.textContent = "Journal of Urban Health";
+    			t8 = text(".");
+    			t9 = space();
+    			p2 = element("p");
+    			t10 = text("For more details and access to these boundaries please see our\r\n    ");
+    			a2 = element("a");
+    			a2.textContent = "spatial data repository";
+    			t12 = text("\r\n    on the\r\n    ");
+    			a3 = element("a");
+    			a3.textContent = "SALURBAL data portal";
+    			t14 = text(".");
+    			add_location(h2, file$f, 5, 2, 90);
+    			attr_dev(a0, "href", "https://drexel.edu/lac/data-evidence/publications/");
+    			attr_dev(a0, "target", "_blank");
+    			add_location(a0, file$f, 11, 31, 518);
+    			attr_dev(p0, "class", "text-medium");
+    			add_location(p0, file$f, 6, 2, 150);
+    			attr_dev(a1, "href", "https://link.springer.com/article/10.1007/s11524-018-00326-0");
+    			attr_dev(a1, "target", "_blank");
+    			add_location(a1, file$f, 18, 27, 780);
+    			attr_dev(p1, "class", "text-medium");
+    			add_location(p1, file$f, 16, 2, 649);
+    			attr_dev(a2, "href", "https://data.lacurbanhealth.org/");
+    			attr_dev(a2, "target", "_blank");
+    			add_location(a2, file$f, 25, 4, 1024);
+    			attr_dev(a3, "href", "https://data.lacurbanhealth.org/");
+    			attr_dev(a3, "target", "_blank");
+    			add_location(a3, file$f, 29, 4, 1142);
+    			attr_dev(p2, "class", "text-medium");
+    			add_location(p2, file$f, 23, 2, 927);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, h2, anchor);
+    			insert_dev(target, t1, anchor);
+    			insert_dev(target, p0, anchor);
+    			append_dev(p0, t2);
+    			append_dev(p0, a0);
+    			append_dev(p0, t4);
+    			insert_dev(target, t5, anchor);
+    			insert_dev(target, p1, anchor);
+    			append_dev(p1, t6);
+    			append_dev(p1, a1);
+    			append_dev(p1, t8);
+    			insert_dev(target, t9, anchor);
+    			insert_dev(target, p2, anchor);
+    			append_dev(p2, t10);
+    			append_dev(p2, a2);
+    			append_dev(p2, t12);
+    			append_dev(p2, a3);
+    			append_dev(p2, t14);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(h2);
+    			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(p0);
+    			if (detaching) detach_dev(t5);
+    			if (detaching) detach_dev(p1);
+    			if (detaching) detach_dev(t9);
+    			if (detaching) detach_dev(p2);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot$6.name,
+    		type: "slot",
+    		source: "(5:0) <Section>",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$j(ctx) {
+    	let section;
+    	let current;
+
+    	section = new Section({
+    			props: {
+    				$$slots: { default: [create_default_slot$6] },
+    				$$scope: { ctx }
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(section.$$.fragment);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(section, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, [dirty]) {
+    			const section_changes = {};
+
+    			if (dirty & /*$$scope*/ 1) {
+    				section_changes.$$scope = { dirty, ctx };
+    			}
+
+    			section.$set(section_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(section.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(section.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(section, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$j.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$j($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('ConclusionSection', slots, []);
     	const writable_props = [];
 
@@ -8795,13 +9496,13 @@ uniform `+P+" "+z+" u_"+k+`;
     class ConclusionSection extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$i, create_fragment$i, safe_not_equal, {});
+    		init(this, options, instance$j, create_fragment$j, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "ConclusionSection",
     			options,
-    			id: create_fragment$i.name
+    			id: create_fragment$j.name
     		});
     	}
     }
@@ -8809,13 +9510,13 @@ uniform `+P+" "+z+" u_"+k+`;
     /* src\layout\Scroller.svelte generated by Svelte v3.44.1 */
 
     const { window: window_1 } = globals;
-    const file$f = "src\\layout\\Scroller.svelte";
+    const file$g = "src\\layout\\Scroller.svelte";
     const get_foreground_slot_changes = dirty => ({});
     const get_foreground_slot_context = ctx => ({});
     const get_background_slot_changes = dirty => ({});
     const get_background_slot_context = ctx => ({});
 
-    function create_fragment$j(ctx) {
+    function create_fragment$k(ctx) {
     	let svelte_scroller_outer;
     	let svelte_scroller_background_container;
     	let svelte_scroller_background;
@@ -8840,14 +9541,14 @@ uniform `+P+" "+z+" u_"+k+`;
     			svelte_scroller_foreground = element("svelte-scroller-foreground");
     			if (foreground_slot) foreground_slot.c();
     			set_custom_element_data(svelte_scroller_background, "class", "svelte-3stote");
-    			add_location(svelte_scroller_background, file$f, 186, 2, 4913);
+    			add_location(svelte_scroller_background, file$g, 186, 2, 4913);
     			set_custom_element_data(svelte_scroller_background_container, "class", "background-container svelte-3stote");
-    			add_location(svelte_scroller_background_container, file$f, 185, 1, 4818);
+    			add_location(svelte_scroller_background_container, file$g, 185, 1, 4818);
     			set_custom_element_data(svelte_scroller_foreground, "class", "svelte-3stote");
-    			add_location(svelte_scroller_foreground, file$f, 191, 1, 5080);
+    			add_location(svelte_scroller_foreground, file$g, 191, 1, 5080);
     			set_custom_element_data(svelte_scroller_outer, "class", "svelte-3stote");
     			toggle_class(svelte_scroller_outer, "splitscreen", /*splitscreen*/ ctx[0]);
-    			add_location(svelte_scroller_outer, file$f, 184, 0, 4756);
+    			add_location(svelte_scroller_outer, file$g, 184, 0, 4756);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -8940,7 +9641,7 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$j.name,
+    		id: create_fragment$k.name,
     		type: "component",
     		source: "",
     		ctx
@@ -9005,7 +9706,7 @@ uniform `+P+" "+z+" u_"+k+`;
     	};
     }
 
-    function instance$j($$self, $$props, $$invalidate) {
+    function instance$k($$self, $$props, $$invalidate) {
     	let top_px;
     	let bottom_px;
     	let threshold_px;
@@ -9299,8 +10000,8 @@ uniform `+P+" "+z+" u_"+k+`;
     		init(
     			this,
     			options,
-    			instance$j,
-    			create_fragment$j,
+    			instance$k,
+    			create_fragment$k,
     			safe_not_equal,
     			{
     				top: 12,
@@ -9324,7 +10025,7 @@ uniform `+P+" "+z+" u_"+k+`;
     			component: this,
     			tagName: "Scroller",
     			options,
-    			id: create_fragment$j.name
+    			id: create_fragment$k.name
     		});
     	}
 
@@ -9425,24 +10126,1908 @@ uniform `+P+" "+z+" u_"+k+`;
     	}
     }
 
-    // Generate inline styles for text highlighting
-    const textStyles = {
-      l1: `color: ${levelColors.l1}; font-weight: 900;`,
-      l2: `color: ${levelColors.l2}; font-weight: 900;`,
-      l25: `color: ${levelColors.l25}; font-weight: 900;`,
-      l3: `color: ${levelColors.l3}; font-weight: 900;`,
-      ux: `color: ${levelColors.ux}; font-weight: 900;`,
-      metro: `color: ${levelColors.metro}; font-weight: 900;`,
-      unurban: `color: ${levelColors.unurban}; font-weight: 900;`
-    };
+    /* src\components\scrolly\GeographicHierarchyScrolly.svelte generated by Svelte v3.44.1 */
+
+    const { Object: Object_1$1 } = globals;
+    const file$h = "src\\components\\scrolly\\GeographicHierarchyScrolly.svelte";
+
+    // (288:10) <MapSource              map_id="map_scrolly_2"              id="municipio_centroid"              type="geojson"              data={geojson_municipio_centroid}              promoteId={'municipio_centroid'}              maxzoom={13}            >
+    function create_default_slot_10(ctx) {
+    	let maplayer;
+    	let current;
+
+    	maplayer = new MapLayer({
+    			props: {
+    				map_id: "map_scrolly_2",
+    				id: "municipio_centroid",
+    				custom: /*custom_2*/ ctx[4],
+    				type: "circle"
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(maplayer.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(maplayer, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const maplayer_changes = {};
+    			if (dirty[0] & /*custom_2*/ 16) maplayer_changes.custom = /*custom_2*/ ctx[4];
+    			maplayer.$set(maplayer_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(maplayer.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(maplayer.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(maplayer, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_10.name,
+    		type: "slot",
+    		source: "(288:10) <MapSource              map_id=\\\"map_scrolly_2\\\"              id=\\\"municipio_centroid\\\"              type=\\\"geojson\\\"              data={geojson_municipio_centroid}              promoteId={'municipio_centroid'}              maxzoom={13}            >",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (303:10) <MapSource              map_id="map_scrolly_2"              id="municipio"              type="geojson"              data={geojson_municipio}              promoteId={src_municipio.code}              maxzoom={13}            >
+    function create_default_slot_9(ctx) {
+    	let maplayer;
+    	let current;
+
+    	maplayer = new MapLayer({
+    			props: {
+    				map_id: "map_scrolly_2",
+    				id: "municipio",
+    				custom: /*custom_2*/ ctx[4],
+    				type: "line"
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(maplayer.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(maplayer, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const maplayer_changes = {};
+    			if (dirty[0] & /*custom_2*/ 16) maplayer_changes.custom = /*custom_2*/ ctx[4];
+    			maplayer.$set(maplayer_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(maplayer.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(maplayer.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(maplayer, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_9.name,
+    		type: "slot",
+    		source: "(303:10) <MapSource              map_id=\\\"map_scrolly_2\\\"              id=\\\"municipio\\\"              type=\\\"geojson\\\"              data={geojson_municipio}              promoteId={src_municipio.code}              maxzoom={13}            >",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (318:10) <MapSource              map_id="map_scrolly_2"              id="l3"              type="geojson"              data={geojson_l3}              promoteId={src_l3.code}              maxzoom={13}            >
+    function create_default_slot_8(ctx) {
+    	let maplayer;
+    	let current;
+
+    	maplayer = new MapLayer({
+    			props: {
+    				map_id: "map_scrolly_2",
+    				id: "l3_line",
+    				custom: /*custom_2*/ ctx[4],
+    				type: "line"
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(maplayer.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(maplayer, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const maplayer_changes = {};
+    			if (dirty[0] & /*custom_2*/ 16) maplayer_changes.custom = /*custom_2*/ ctx[4];
+    			maplayer.$set(maplayer_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(maplayer.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(maplayer.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(maplayer, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_8.name,
+    		type: "slot",
+    		source: "(318:10) <MapSource              map_id=\\\"map_scrolly_2\\\"              id=\\\"l3\\\"              type=\\\"geojson\\\"              data={geojson_l3}              promoteId={src_l3.code}              maxzoom={13}            >",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (333:10) <MapSource              map_id="map_scrolly_2"              id="l25"              type="geojson"              data={geojson_l25}              promoteId={src_l25.code}              maxzoom={13}            >
+    function create_default_slot_7(ctx) {
+    	let maplayer;
+    	let current;
+
+    	maplayer = new MapLayer({
+    			props: {
+    				map_id: "map_scrolly_2",
+    				id: "l25_line",
+    				custom: /*custom_2*/ ctx[4],
+    				type: "line"
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(maplayer.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(maplayer, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const maplayer_changes = {};
+    			if (dirty[0] & /*custom_2*/ 16) maplayer_changes.custom = /*custom_2*/ ctx[4];
+    			maplayer.$set(maplayer_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(maplayer.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(maplayer.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(maplayer, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_7.name,
+    		type: "slot",
+    		source: "(333:10) <MapSource              map_id=\\\"map_scrolly_2\\\"              id=\\\"l25\\\"              type=\\\"geojson\\\"              data={geojson_l25}              promoteId={src_l25.code}              maxzoom={13}            >",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (348:10) <MapSource              map_id="map_scrolly_2"              id="l2"              type="geojson"              data={geojson_l2}              promoteId={src_l2.code}              maxzoom={13}            >
+    function create_default_slot_6(ctx) {
+    	let maplayer0;
+    	let t;
+    	let maplayer1;
+    	let current;
+
+    	maplayer0 = new MapLayer({
+    			props: {
+    				map_id: "map_scrolly_2",
+    				id: "l2_line",
+    				custom: /*custom_2*/ ctx[4],
+    				type: "line"
+    			},
+    			$$inline: true
+    		});
+
+    	maplayer1 = new MapLayer({
+    			props: {
+    				map_id: "map_scrolly_2",
+    				id: "l2_fill",
+    				custom: /*custom_2*/ ctx[4],
+    				type: "fill"
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(maplayer0.$$.fragment);
+    			t = space();
+    			create_component(maplayer1.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(maplayer0, target, anchor);
+    			insert_dev(target, t, anchor);
+    			mount_component(maplayer1, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const maplayer0_changes = {};
+    			if (dirty[0] & /*custom_2*/ 16) maplayer0_changes.custom = /*custom_2*/ ctx[4];
+    			maplayer0.$set(maplayer0_changes);
+    			const maplayer1_changes = {};
+    			if (dirty[0] & /*custom_2*/ 16) maplayer1_changes.custom = /*custom_2*/ ctx[4];
+    			maplayer1.$set(maplayer1_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(maplayer0.$$.fragment, local);
+    			transition_in(maplayer1.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(maplayer0.$$.fragment, local);
+    			transition_out(maplayer1.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(maplayer0, detaching);
+    			if (detaching) detach_dev(t);
+    			destroy_component(maplayer1, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_6.name,
+    		type: "slot",
+    		source: "(348:10) <MapSource              map_id=\\\"map_scrolly_2\\\"              id=\\\"l2\\\"              type=\\\"geojson\\\"              data={geojson_l2}              promoteId={src_l2.code}              maxzoom={13}            >",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (369:10) <MapSource              map_id="map_scrolly_2"              id="l1ux"              type="geojson"              data={geojson_l1ux}              promoteId={src_l1ux.code}              maxzoom={13}            >
+    function create_default_slot_5(ctx) {
+    	let maplayer;
+    	let current;
+
+    	maplayer = new MapLayer({
+    			props: {
+    				map_id: "map_scrolly_2",
+    				id: "l1ux",
+    				custom: /*custom_2*/ ctx[4],
+    				type: "line"
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(maplayer.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(maplayer, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const maplayer_changes = {};
+    			if (dirty[0] & /*custom_2*/ 16) maplayer_changes.custom = /*custom_2*/ ctx[4];
+    			maplayer.$set(maplayer_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(maplayer.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(maplayer.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(maplayer, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_5.name,
+    		type: "slot",
+    		source: "(369:10) <MapSource              map_id=\\\"map_scrolly_2\\\"              id=\\\"l1ux\\\"              type=\\\"geojson\\\"              data={geojson_l1ux}              promoteId={src_l1ux.code}              maxzoom={13}            >",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (384:10) <MapSource              map_id="map_scrolly_2"              id="l1ad"              type="geojson"              data={geojson_l1ad}              promoteId={src_l1ad.code}              maxzoom={13}            >
+    function create_default_slot_4$1(ctx) {
+    	let maplayer0;
+    	let t;
+    	let maplayer1;
+    	let current;
+
+    	maplayer0 = new MapLayer({
+    			props: {
+    				map_id: "map_scrolly_2",
+    				id: "l1ad_line",
+    				custom: /*custom_2*/ ctx[4],
+    				type: "line"
+    			},
+    			$$inline: true
+    		});
+
+    	maplayer1 = new MapLayer({
+    			props: {
+    				map_id: "map_scrolly_2",
+    				id: "l1_fill",
+    				custom: /*custom_2*/ ctx[4],
+    				type: "fill"
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(maplayer0.$$.fragment);
+    			t = space();
+    			create_component(maplayer1.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(maplayer0, target, anchor);
+    			insert_dev(target, t, anchor);
+    			mount_component(maplayer1, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const maplayer0_changes = {};
+    			if (dirty[0] & /*custom_2*/ 16) maplayer0_changes.custom = /*custom_2*/ ctx[4];
+    			maplayer0.$set(maplayer0_changes);
+    			const maplayer1_changes = {};
+    			if (dirty[0] & /*custom_2*/ 16) maplayer1_changes.custom = /*custom_2*/ ctx[4];
+    			maplayer1.$set(maplayer1_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(maplayer0.$$.fragment, local);
+    			transition_in(maplayer1.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(maplayer0.$$.fragment, local);
+    			transition_out(maplayer1.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(maplayer0, detaching);
+    			if (detaching) detach_dev(t);
+    			destroy_component(maplayer1, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_4$1.name,
+    		type: "slot",
+    		source: "(384:10) <MapSource              map_id=\\\"map_scrolly_2\\\"              id=\\\"l1ad\\\"              type=\\\"geojson\\\"              data={geojson_l1ad}              promoteId={src_l1ad.code}              maxzoom={13}            >",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (405:10) <MapSource              map_id="map_scrolly_2"              id="ex_l3"              type="geojson"              data={geojson_ex_l3}              promoteId={src_ex_l3.code}              maxzoom={13}            >
+    function create_default_slot_3$1(ctx) {
+    	let maplayer;
+    	let current;
+
+    	maplayer = new MapLayer({
+    			props: {
+    				map_id: "map_scrolly_2",
+    				id: "ex_l3",
+    				custom: /*custom_2*/ ctx[4],
+    				type: "line"
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(maplayer.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(maplayer, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const maplayer_changes = {};
+    			if (dirty[0] & /*custom_2*/ 16) maplayer_changes.custom = /*custom_2*/ ctx[4];
+    			maplayer.$set(maplayer_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(maplayer.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(maplayer.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(maplayer, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_3$1.name,
+    		type: "slot",
+    		source: "(405:10) <MapSource              map_id=\\\"map_scrolly_2\\\"              id=\\\"ex_l3\\\"              type=\\\"geojson\\\"              data={geojson_ex_l3}              promoteId={src_ex_l3.code}              maxzoom={13}            >",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (420:10) <MapSource              map_id="map_scrolly_2"              id="ex_l25"              type="geojson"              data={geojson_ex_l25}              promoteId={src_ex_l25.code}              maxzoom={13}            >
+    function create_default_slot_2$1(ctx) {
+    	let maplayer;
+    	let current;
+
+    	maplayer = new MapLayer({
+    			props: {
+    				map_id: "map_scrolly_2",
+    				id: "ex_l25",
+    				custom: /*custom_2*/ ctx[4],
+    				type: "line"
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(maplayer.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(maplayer, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const maplayer_changes = {};
+    			if (dirty[0] & /*custom_2*/ 16) maplayer_changes.custom = /*custom_2*/ ctx[4];
+    			maplayer.$set(maplayer_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(maplayer.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(maplayer.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(maplayer, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_2$1.name,
+    		type: "slot",
+    		source: "(420:10) <MapSource              map_id=\\\"map_scrolly_2\\\"              id=\\\"ex_l25\\\"              type=\\\"geojson\\\"              data={geojson_ex_l25}              promoteId={src_ex_l25.code}              maxzoom={13}            >",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (435:10) <MapSource              map_id="map_scrolly_2"              id="ex_l2"              type="geojson"              data={geojson_ex_l2}              promoteId={src_ex_l2.code}              maxzoom={13}            >
+    function create_default_slot_1$1(ctx) {
+    	let maplayer;
+    	let current;
+
+    	maplayer = new MapLayer({
+    			props: {
+    				map_id: "map_scrolly_2",
+    				id: "ex_l2",
+    				custom: /*custom_2*/ ctx[4],
+    				type: "line"
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(maplayer.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(maplayer, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const maplayer_changes = {};
+    			if (dirty[0] & /*custom_2*/ 16) maplayer_changes.custom = /*custom_2*/ ctx[4];
+    			maplayer.$set(maplayer_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(maplayer.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(maplayer.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(maplayer, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_1$1.name,
+    		type: "slot",
+    		source: "(435:10) <MapSource              map_id=\\\"map_scrolly_2\\\"              id=\\\"ex_l2\\\"              type=\\\"geojson\\\"              data={geojson_ex_l2}              promoteId={src_ex_l2.code}              maxzoom={13}            >",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (278:8) <Map            id="map_scrolly_2"            style="./data/style-esri-world-imagery.json"            location={{ bounds: bounds.l1ad }}            controls={false}            scales={true}            bind:map={map_scrolly_2}            bind:zoom            bind:center          >
+    function create_default_slot$7(ctx) {
+    	let mapsource0;
+    	let t0;
+    	let mapsource1;
+    	let t1;
+    	let mapsource2;
+    	let t2;
+    	let mapsource3;
+    	let t3;
+    	let mapsource4;
+    	let t4;
+    	let mapsource5;
+    	let t5;
+    	let mapsource6;
+    	let t6;
+    	let mapsource7;
+    	let t7;
+    	let mapsource8;
+    	let t8;
+    	let mapsource9;
+    	let current;
+
+    	mapsource0 = new MapSource({
+    			props: {
+    				map_id: "map_scrolly_2",
+    				id: "municipio_centroid",
+    				type: "geojson",
+    				data: /*geojson_municipio_centroid*/ ctx[5],
+    				promoteId: 'municipio_centroid',
+    				maxzoom: 13,
+    				$$slots: { default: [create_default_slot_10] },
+    				$$scope: { ctx }
+    			},
+    			$$inline: true
+    		});
+
+    	mapsource1 = new MapSource({
+    			props: {
+    				map_id: "map_scrolly_2",
+    				id: "municipio",
+    				type: "geojson",
+    				data: /*geojson_municipio*/ ctx[6],
+    				promoteId: /*src_municipio*/ ctx[16].code,
+    				maxzoom: 13,
+    				$$slots: { default: [create_default_slot_9] },
+    				$$scope: { ctx }
+    			},
+    			$$inline: true
+    		});
+
+    	mapsource2 = new MapSource({
+    			props: {
+    				map_id: "map_scrolly_2",
+    				id: "l3",
+    				type: "geojson",
+    				data: /*geojson_l3*/ ctx[7],
+    				promoteId: /*src_l3*/ ctx[17].code,
+    				maxzoom: 13,
+    				$$slots: { default: [create_default_slot_8] },
+    				$$scope: { ctx }
+    			},
+    			$$inline: true
+    		});
+
+    	mapsource3 = new MapSource({
+    			props: {
+    				map_id: "map_scrolly_2",
+    				id: "l25",
+    				type: "geojson",
+    				data: /*geojson_l25*/ ctx[8],
+    				promoteId: /*src_l25*/ ctx[18].code,
+    				maxzoom: 13,
+    				$$slots: { default: [create_default_slot_7] },
+    				$$scope: { ctx }
+    			},
+    			$$inline: true
+    		});
+
+    	mapsource4 = new MapSource({
+    			props: {
+    				map_id: "map_scrolly_2",
+    				id: "l2",
+    				type: "geojson",
+    				data: /*geojson_l2*/ ctx[9],
+    				promoteId: /*src_l2*/ ctx[19].code,
+    				maxzoom: 13,
+    				$$slots: { default: [create_default_slot_6] },
+    				$$scope: { ctx }
+    			},
+    			$$inline: true
+    		});
+
+    	mapsource5 = new MapSource({
+    			props: {
+    				map_id: "map_scrolly_2",
+    				id: "l1ux",
+    				type: "geojson",
+    				data: /*geojson_l1ux*/ ctx[10],
+    				promoteId: /*src_l1ux*/ ctx[20].code,
+    				maxzoom: 13,
+    				$$slots: { default: [create_default_slot_5] },
+    				$$scope: { ctx }
+    			},
+    			$$inline: true
+    		});
+
+    	mapsource6 = new MapSource({
+    			props: {
+    				map_id: "map_scrolly_2",
+    				id: "l1ad",
+    				type: "geojson",
+    				data: /*geojson_l1ad*/ ctx[11],
+    				promoteId: /*src_l1ad*/ ctx[21].code,
+    				maxzoom: 13,
+    				$$slots: { default: [create_default_slot_4$1] },
+    				$$scope: { ctx }
+    			},
+    			$$inline: true
+    		});
+
+    	mapsource7 = new MapSource({
+    			props: {
+    				map_id: "map_scrolly_2",
+    				id: "ex_l3",
+    				type: "geojson",
+    				data: /*geojson_ex_l3*/ ctx[12],
+    				promoteId: /*src_ex_l3*/ ctx[22].code,
+    				maxzoom: 13,
+    				$$slots: { default: [create_default_slot_3$1] },
+    				$$scope: { ctx }
+    			},
+    			$$inline: true
+    		});
+
+    	mapsource8 = new MapSource({
+    			props: {
+    				map_id: "map_scrolly_2",
+    				id: "ex_l25",
+    				type: "geojson",
+    				data: /*geojson_ex_l25*/ ctx[13],
+    				promoteId: /*src_ex_l25*/ ctx[23].code,
+    				maxzoom: 13,
+    				$$slots: { default: [create_default_slot_2$1] },
+    				$$scope: { ctx }
+    			},
+    			$$inline: true
+    		});
+
+    	mapsource9 = new MapSource({
+    			props: {
+    				map_id: "map_scrolly_2",
+    				id: "ex_l2",
+    				type: "geojson",
+    				data: /*geojson_ex_l2*/ ctx[14],
+    				promoteId: /*src_ex_l2*/ ctx[24].code,
+    				maxzoom: 13,
+    				$$slots: { default: [create_default_slot_1$1] },
+    				$$scope: { ctx }
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(mapsource0.$$.fragment);
+    			t0 = space();
+    			create_component(mapsource1.$$.fragment);
+    			t1 = space();
+    			create_component(mapsource2.$$.fragment);
+    			t2 = space();
+    			create_component(mapsource3.$$.fragment);
+    			t3 = space();
+    			create_component(mapsource4.$$.fragment);
+    			t4 = space();
+    			create_component(mapsource5.$$.fragment);
+    			t5 = space();
+    			create_component(mapsource6.$$.fragment);
+    			t6 = space();
+    			create_component(mapsource7.$$.fragment);
+    			t7 = space();
+    			create_component(mapsource8.$$.fragment);
+    			t8 = space();
+    			create_component(mapsource9.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(mapsource0, target, anchor);
+    			insert_dev(target, t0, anchor);
+    			mount_component(mapsource1, target, anchor);
+    			insert_dev(target, t1, anchor);
+    			mount_component(mapsource2, target, anchor);
+    			insert_dev(target, t2, anchor);
+    			mount_component(mapsource3, target, anchor);
+    			insert_dev(target, t3, anchor);
+    			mount_component(mapsource4, target, anchor);
+    			insert_dev(target, t4, anchor);
+    			mount_component(mapsource5, target, anchor);
+    			insert_dev(target, t5, anchor);
+    			mount_component(mapsource6, target, anchor);
+    			insert_dev(target, t6, anchor);
+    			mount_component(mapsource7, target, anchor);
+    			insert_dev(target, t7, anchor);
+    			mount_component(mapsource8, target, anchor);
+    			insert_dev(target, t8, anchor);
+    			mount_component(mapsource9, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const mapsource0_changes = {};
+    			if (dirty[0] & /*geojson_municipio_centroid*/ 32) mapsource0_changes.data = /*geojson_municipio_centroid*/ ctx[5];
+
+    			if (dirty[0] & /*custom_2*/ 16 | dirty[1] & /*$$scope*/ 128) {
+    				mapsource0_changes.$$scope = { dirty, ctx };
+    			}
+
+    			mapsource0.$set(mapsource0_changes);
+    			const mapsource1_changes = {};
+    			if (dirty[0] & /*geojson_municipio*/ 64) mapsource1_changes.data = /*geojson_municipio*/ ctx[6];
+
+    			if (dirty[0] & /*custom_2*/ 16 | dirty[1] & /*$$scope*/ 128) {
+    				mapsource1_changes.$$scope = { dirty, ctx };
+    			}
+
+    			mapsource1.$set(mapsource1_changes);
+    			const mapsource2_changes = {};
+    			if (dirty[0] & /*geojson_l3*/ 128) mapsource2_changes.data = /*geojson_l3*/ ctx[7];
+
+    			if (dirty[0] & /*custom_2*/ 16 | dirty[1] & /*$$scope*/ 128) {
+    				mapsource2_changes.$$scope = { dirty, ctx };
+    			}
+
+    			mapsource2.$set(mapsource2_changes);
+    			const mapsource3_changes = {};
+    			if (dirty[0] & /*geojson_l25*/ 256) mapsource3_changes.data = /*geojson_l25*/ ctx[8];
+
+    			if (dirty[0] & /*custom_2*/ 16 | dirty[1] & /*$$scope*/ 128) {
+    				mapsource3_changes.$$scope = { dirty, ctx };
+    			}
+
+    			mapsource3.$set(mapsource3_changes);
+    			const mapsource4_changes = {};
+    			if (dirty[0] & /*geojson_l2*/ 512) mapsource4_changes.data = /*geojson_l2*/ ctx[9];
+
+    			if (dirty[0] & /*custom_2*/ 16 | dirty[1] & /*$$scope*/ 128) {
+    				mapsource4_changes.$$scope = { dirty, ctx };
+    			}
+
+    			mapsource4.$set(mapsource4_changes);
+    			const mapsource5_changes = {};
+    			if (dirty[0] & /*geojson_l1ux*/ 1024) mapsource5_changes.data = /*geojson_l1ux*/ ctx[10];
+
+    			if (dirty[0] & /*custom_2*/ 16 | dirty[1] & /*$$scope*/ 128) {
+    				mapsource5_changes.$$scope = { dirty, ctx };
+    			}
+
+    			mapsource5.$set(mapsource5_changes);
+    			const mapsource6_changes = {};
+    			if (dirty[0] & /*geojson_l1ad*/ 2048) mapsource6_changes.data = /*geojson_l1ad*/ ctx[11];
+
+    			if (dirty[0] & /*custom_2*/ 16 | dirty[1] & /*$$scope*/ 128) {
+    				mapsource6_changes.$$scope = { dirty, ctx };
+    			}
+
+    			mapsource6.$set(mapsource6_changes);
+    			const mapsource7_changes = {};
+    			if (dirty[0] & /*geojson_ex_l3*/ 4096) mapsource7_changes.data = /*geojson_ex_l3*/ ctx[12];
+
+    			if (dirty[0] & /*custom_2*/ 16 | dirty[1] & /*$$scope*/ 128) {
+    				mapsource7_changes.$$scope = { dirty, ctx };
+    			}
+
+    			mapsource7.$set(mapsource7_changes);
+    			const mapsource8_changes = {};
+    			if (dirty[0] & /*geojson_ex_l25*/ 8192) mapsource8_changes.data = /*geojson_ex_l25*/ ctx[13];
+
+    			if (dirty[0] & /*custom_2*/ 16 | dirty[1] & /*$$scope*/ 128) {
+    				mapsource8_changes.$$scope = { dirty, ctx };
+    			}
+
+    			mapsource8.$set(mapsource8_changes);
+    			const mapsource9_changes = {};
+    			if (dirty[0] & /*geojson_ex_l2*/ 16384) mapsource9_changes.data = /*geojson_ex_l2*/ ctx[14];
+
+    			if (dirty[0] & /*custom_2*/ 16 | dirty[1] & /*$$scope*/ 128) {
+    				mapsource9_changes.$$scope = { dirty, ctx };
+    			}
+
+    			mapsource9.$set(mapsource9_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(mapsource0.$$.fragment, local);
+    			transition_in(mapsource1.$$.fragment, local);
+    			transition_in(mapsource2.$$.fragment, local);
+    			transition_in(mapsource3.$$.fragment, local);
+    			transition_in(mapsource4.$$.fragment, local);
+    			transition_in(mapsource5.$$.fragment, local);
+    			transition_in(mapsource6.$$.fragment, local);
+    			transition_in(mapsource7.$$.fragment, local);
+    			transition_in(mapsource8.$$.fragment, local);
+    			transition_in(mapsource9.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(mapsource0.$$.fragment, local);
+    			transition_out(mapsource1.$$.fragment, local);
+    			transition_out(mapsource2.$$.fragment, local);
+    			transition_out(mapsource3.$$.fragment, local);
+    			transition_out(mapsource4.$$.fragment, local);
+    			transition_out(mapsource5.$$.fragment, local);
+    			transition_out(mapsource6.$$.fragment, local);
+    			transition_out(mapsource7.$$.fragment, local);
+    			transition_out(mapsource8.$$.fragment, local);
+    			transition_out(mapsource9.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(mapsource0, detaching);
+    			if (detaching) detach_dev(t0);
+    			destroy_component(mapsource1, detaching);
+    			if (detaching) detach_dev(t1);
+    			destroy_component(mapsource2, detaching);
+    			if (detaching) detach_dev(t2);
+    			destroy_component(mapsource3, detaching);
+    			if (detaching) detach_dev(t3);
+    			destroy_component(mapsource4, detaching);
+    			if (detaching) detach_dev(t4);
+    			destroy_component(mapsource5, detaching);
+    			if (detaching) detach_dev(t5);
+    			destroy_component(mapsource6, detaching);
+    			if (detaching) detach_dev(t6);
+    			destroy_component(mapsource7, detaching);
+    			if (detaching) detach_dev(t7);
+    			destroy_component(mapsource8, detaching);
+    			if (detaching) detach_dev(t8);
+    			destroy_component(mapsource9, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot$7.name,
+    		type: "slot",
+    		source: "(278:8) <Map            id=\\\"map_scrolly_2\\\"            style=\\\"./data/style-esri-world-imagery.json\\\"            location={{ bounds: bounds.l1ad }}            controls={false}            scales={true}            bind:map={map_scrolly_2}            bind:zoom            bind:center          >",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (275:2) 
+    function create_background_slot(ctx) {
+    	let div1;
+    	let figure;
+    	let div0;
+    	let map;
+    	let updating_map;
+    	let updating_zoom;
+    	let updating_center;
+    	let current;
+
+    	function map_map_binding(value) {
+    		/*map_map_binding*/ ctx[29](value);
+    	}
+
+    	function map_zoom_binding(value) {
+    		/*map_zoom_binding*/ ctx[30](value);
+    	}
+
+    	function map_center_binding(value) {
+    		/*map_center_binding*/ ctx[31](value);
+    	}
+
+    	let map_props = {
+    		id: "map_scrolly_2",
+    		style: "./data/style-esri-world-imagery.json",
+    		location: { bounds: bounds.l1ad },
+    		controls: false,
+    		scales: true,
+    		$$slots: { default: [create_default_slot$7] },
+    		$$scope: { ctx }
+    	};
+
+    	if (/*map_scrolly_2*/ ctx[1] !== void 0) {
+    		map_props.map = /*map_scrolly_2*/ ctx[1];
+    	}
+
+    	if (/*zoom*/ ctx[2] !== void 0) {
+    		map_props.zoom = /*zoom*/ ctx[2];
+    	}
+
+    	if (/*center*/ ctx[3] !== void 0) {
+    		map_props.center = /*center*/ ctx[3];
+    	}
+
+    	map = new Map$1({ props: map_props, $$inline: true });
+    	binding_callbacks.push(() => bind(map, 'map', map_map_binding));
+    	binding_callbacks.push(() => bind(map, 'zoom', map_zoom_binding));
+    	binding_callbacks.push(() => bind(map, 'center', map_center_binding));
+
+    	const block = {
+    		c: function create() {
+    			div1 = element("div");
+    			figure = element("figure");
+    			div0 = element("div");
+    			create_component(map.$$.fragment);
+    			attr_dev(div0, "class", "col-full height-full");
+    			add_location(div0, file$h, 276, 6, 6876);
+    			add_location(figure, file$h, 275, 4, 6860);
+    			attr_dev(div1, "slot", "background");
+    			add_location(div1, file$h, 274, 2, 6831);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div1, anchor);
+    			append_dev(div1, figure);
+    			append_dev(figure, div0);
+    			mount_component(map, div0, null);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const map_changes = {};
+
+    			if (dirty[0] & /*geojson_ex_l2, custom_2, geojson_ex_l25, geojson_ex_l3, geojson_l1ad, geojson_l1ux, geojson_l2, geojson_l25, geojson_l3, geojson_municipio, geojson_municipio_centroid*/ 32752 | dirty[1] & /*$$scope*/ 128) {
+    				map_changes.$$scope = { dirty, ctx };
+    			}
+
+    			if (!updating_map && dirty[0] & /*map_scrolly_2*/ 2) {
+    				updating_map = true;
+    				map_changes.map = /*map_scrolly_2*/ ctx[1];
+    				add_flush_callback(() => updating_map = false);
+    			}
+
+    			if (!updating_zoom && dirty[0] & /*zoom*/ 4) {
+    				updating_zoom = true;
+    				map_changes.zoom = /*zoom*/ ctx[2];
+    				add_flush_callback(() => updating_zoom = false);
+    			}
+
+    			if (!updating_center && dirty[0] & /*center*/ 8) {
+    				updating_center = true;
+    				map_changes.center = /*center*/ ctx[3];
+    				add_flush_callback(() => updating_center = false);
+    			}
+
+    			map.$set(map_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(map.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(map.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div1);
+    			destroy_component(map);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_background_slot.name,
+    		type: "slot",
+    		source: "(275:2) ",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (455:2) 
+    function create_foreground_slot(ctx) {
+    	let div6;
+    	let section0;
+    	let div0;
+    	let strong0;
+    	let t1;
+    	let p0;
+    	let t2;
+    	let span0;
+    	let t3;
+    	let t4;
+    	let em0;
+    	let t6;
+    	let t7;
+    	let section1;
+    	let div1;
+    	let strong1;
+    	let t9;
+    	let p1;
+    	let t10;
+    	let span1;
+    	let t11;
+    	let t12;
+    	let em1;
+    	let t14;
+    	let span2;
+    	let t15;
+    	let t16;
+    	let t17;
+    	let section2;
+    	let div2;
+    	let strong2;
+    	let t19;
+    	let p2;
+    	let span3;
+    	let t20;
+    	let t21;
+    	let t22;
+    	let section3;
+    	let div3;
+    	let strong3;
+    	let t24;
+    	let p3;
+    	let t25;
+    	let span4;
+    	let t26;
+    	let t27;
+    	let em2;
+    	let t29;
+    	let t30;
+    	let section4;
+    	let div4;
+    	let p4;
+    	let t31;
+    	let span5;
+    	let t32;
+    	let t33;
+    	let em3;
+    	let t35;
+    	let span6;
+    	let t36;
+    	let t37;
+    	let t38;
+    	let section5;
+    	let div5;
+    	let p5;
+    	let t39;
+    	let span7;
+    	let t40;
+    	let t41;
+    	let span8;
+    	let t42;
+    	let t43;
+    	let span9;
+    	let t44;
+    	let t45;
+
+    	const block = {
+    		c: function create() {
+    			div6 = element("div");
+    			section0 = element("section");
+    			div0 = element("div");
+    			strong0 = element("strong");
+    			strong0.textContent = "Level 1: \"Cities\"";
+    			t1 = space();
+    			p0 = element("p");
+    			t2 = text("The SALURBAL ");
+    			span0 = element("span");
+    			t3 = text("Level 1");
+    			t4 = text(" for São Paulo\r\n          encompasses all administrative units or\r\n          ");
+    			em0 = element("em");
+    			em0.textContent = "municípios";
+    			t6 = text(" that have any overlap with the visually apparent built-up\r\n          urban area in and around the core city of São Paulo.");
+    			t7 = space();
+    			section1 = element("section");
+    			div1 = element("div");
+    			strong1 = element("strong");
+    			strong1.textContent = "Level 2: \"Sub-cities\"";
+    			t9 = space();
+    			p1 = element("p");
+    			t10 = text("Within the São Paulo SALURBAL city ");
+    			span1 = element("span");
+    			t11 = text("(São Paulo L1)");
+    			t12 = text(", we defined sub-city units as each of the\r\n          ");
+    			em1 = element("em");
+    			em1.textContent = "municípios";
+    			t14 = text(" that compose the São Paulo urban agglomeration.\r\n          These are the\r\n          ");
+    			span2 = element("span");
+    			t15 = text("L2s");
+    			t16 = text(".");
+    			t17 = space();
+    			section2 = element("section");
+    			div2 = element("div");
+    			strong2 = element("strong");
+    			strong2.textContent = "Level 3: \"Neighborhoods\"";
+    			t19 = space();
+    			p2 = element("p");
+    			span3 = element("span");
+    			t20 = text("Level 3 units or neighborhoods");
+    			t21 = text(" are the smallest\r\n          administrative units for which census data is available in each country.");
+    			t22 = space();
+    			section3 = element("section");
+    			div3 = element("div");
+    			strong3 = element("strong");
+    			strong3.textContent = "Level 3: \"Neighborhoods\"";
+    			t24 = space();
+    			p3 = element("p");
+    			t25 = text("As shown here, each ");
+    			span4 = element("span");
+    			t26 = text("L3 unit");
+    			t27 = text(" in a\r\n          Brazilian city like São Paulo corresponds to a\r\n          ");
+    			em2 = element("em");
+    			em2.textContent = "setor censitario";
+    			t29 = text(".");
+    			t30 = space();
+    			section4 = element("section");
+    			div4 = element("div");
+    			p4 = element("p");
+    			t31 = text("These ");
+    			span5 = element("span");
+    			t32 = text("L3 units");
+    			t33 = text(" were sometimes too small\r\n          to support meaningful neighborhood-level analysis. To address this\r\n          issue, we used larger Brazil census geographic units (");
+    			em3 = element("em");
+    			em3.textContent = "Áreas de Ponderação";
+    			t35 = text(") and labeled them\r\n          ");
+    			span6 = element("span");
+    			t36 = text("L2.5's");
+    			t37 = text(".");
+    			t38 = space();
+    			section5 = element("section");
+    			div5 = element("div");
+    			p5 = element("p");
+    			t39 = text("The SALURBAL hierarchy of geographic units for Sao Paulo, Brazil\r\n          consists of 621 ");
+    			span7 = element("span");
+    			t40 = text("L2.5 neighborhood units");
+    			t41 = text(", within 31 ");
+    			span8 = element("span");
+    			t42 = text("L2 sub-city units");
+    			t43 = text(", within\r\n          a single ");
+    			span9 = element("span");
+    			t44 = text("L1 city unit");
+    			t45 = text(".");
+    			add_location(strong0, file$h, 457, 8, 11834);
+    			attr_dev(span0, "style", /*style_l1*/ ctx[25]);
+    			add_location(span0, file$h, 459, 23, 11906);
+    			add_location(em0, file$h, 461, 10, 12020);
+    			add_location(p0, file$h, 458, 8, 11878);
+    			attr_dev(div0, "class", "col-medium");
+    			add_location(div0, file$h, 456, 6, 11800);
+    			attr_dev(section0, "data-id", "map01");
+    			add_location(section0, file$h, 455, 4, 11767);
+    			add_location(strong1, file$h, 468, 8, 12278);
+    			attr_dev(span1, "style", /*style_l1*/ ctx[25]);
+    			add_location(span1, file$h, 470, 45, 12376);
+    			add_location(em1, file$h, 473, 10, 12500);
+    			attr_dev(span2, "style", /*style_l2*/ ctx[26]);
+    			add_location(span2, file$h, 475, 10, 12604);
+    			add_location(p1, file$h, 469, 8, 12326);
+    			attr_dev(div1, "class", "col-medium");
+    			add_location(div1, file$h, 467, 6, 12244);
+    			attr_dev(section1, "data-id", "map02");
+    			add_location(section1, file$h, 466, 4, 12211);
+    			add_location(strong2, file$h, 481, 8, 12755);
+    			attr_dev(span3, "style", /*style_l3*/ ctx[28]);
+    			add_location(span3, file$h, 483, 10, 12821);
+    			add_location(p2, file$h, 482, 8, 12806);
+    			attr_dev(div2, "class", "col-medium");
+    			add_location(div2, file$h, 480, 6, 12721);
+    			attr_dev(section2, "data-id", "map03");
+    			add_location(section2, file$h, 479, 4, 12688);
+    			add_location(strong3, file$h, 490, 8, 13099);
+    			attr_dev(span4, "style", /*style_l3*/ ctx[28]);
+    			add_location(span4, file$h, 492, 30, 13185);
+    			add_location(em2, file$h, 494, 10, 13297);
+    			add_location(p3, file$h, 491, 8, 13150);
+    			attr_dev(div3, "class", "col-medium");
+    			add_location(div3, file$h, 489, 6, 13065);
+    			attr_dev(section3, "data-id", "map04");
+    			add_location(section3, file$h, 488, 4, 13032);
+    			attr_dev(span5, "style", /*style_l3*/ ctx[28]);
+    			add_location(span5, file$h, 501, 16, 13461);
+    			add_location(em3, file$h, 503, 64, 13669);
+    			attr_dev(span6, "style", /*style_l25*/ ctx[27]);
+    			add_location(span6, file$h, 506, 10, 13753);
+    			add_location(p4, file$h, 500, 8, 13440);
+    			attr_dev(div4, "class", "col-medium");
+    			add_location(div4, file$h, 499, 6, 13406);
+    			attr_dev(section4, "data-id", "map05");
+    			add_location(section4, file$h, 498, 4, 13373);
+    			attr_dev(span7, "style", /*style_l25*/ ctx[27]);
+    			add_location(span7, file$h, 514, 26, 14016);
+    			attr_dev(span8, "style", /*style_l2*/ ctx[26]);
+    			add_location(span8, file$h, 516, 23, 14108);
+    			attr_dev(span9, "style", /*style_l1*/ ctx[25]);
+    			add_location(span9, file$h, 517, 19, 14185);
+    			add_location(p5, file$h, 512, 8, 13909);
+    			attr_dev(div5, "class", "col-medium");
+    			add_location(div5, file$h, 511, 6, 13875);
+    			attr_dev(section5, "data-id", "map06");
+    			add_location(section5, file$h, 510, 4, 13842);
+    			attr_dev(div6, "slot", "foreground");
+    			add_location(div6, file$h, 454, 2, 11738);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div6, anchor);
+    			append_dev(div6, section0);
+    			append_dev(section0, div0);
+    			append_dev(div0, strong0);
+    			append_dev(div0, t1);
+    			append_dev(div0, p0);
+    			append_dev(p0, t2);
+    			append_dev(p0, span0);
+    			append_dev(span0, t3);
+    			append_dev(p0, t4);
+    			append_dev(p0, em0);
+    			append_dev(p0, t6);
+    			append_dev(div6, t7);
+    			append_dev(div6, section1);
+    			append_dev(section1, div1);
+    			append_dev(div1, strong1);
+    			append_dev(div1, t9);
+    			append_dev(div1, p1);
+    			append_dev(p1, t10);
+    			append_dev(p1, span1);
+    			append_dev(span1, t11);
+    			append_dev(p1, t12);
+    			append_dev(p1, em1);
+    			append_dev(p1, t14);
+    			append_dev(p1, span2);
+    			append_dev(span2, t15);
+    			append_dev(p1, t16);
+    			append_dev(div6, t17);
+    			append_dev(div6, section2);
+    			append_dev(section2, div2);
+    			append_dev(div2, strong2);
+    			append_dev(div2, t19);
+    			append_dev(div2, p2);
+    			append_dev(p2, span3);
+    			append_dev(span3, t20);
+    			append_dev(p2, t21);
+    			append_dev(div6, t22);
+    			append_dev(div6, section3);
+    			append_dev(section3, div3);
+    			append_dev(div3, strong3);
+    			append_dev(div3, t24);
+    			append_dev(div3, p3);
+    			append_dev(p3, t25);
+    			append_dev(p3, span4);
+    			append_dev(span4, t26);
+    			append_dev(p3, t27);
+    			append_dev(p3, em2);
+    			append_dev(p3, t29);
+    			append_dev(div6, t30);
+    			append_dev(div6, section4);
+    			append_dev(section4, div4);
+    			append_dev(div4, p4);
+    			append_dev(p4, t31);
+    			append_dev(p4, span5);
+    			append_dev(span5, t32);
+    			append_dev(p4, t33);
+    			append_dev(p4, em3);
+    			append_dev(p4, t35);
+    			append_dev(p4, span6);
+    			append_dev(span6, t36);
+    			append_dev(p4, t37);
+    			append_dev(div6, t38);
+    			append_dev(div6, section5);
+    			append_dev(section5, div5);
+    			append_dev(div5, p5);
+    			append_dev(p5, t39);
+    			append_dev(p5, span7);
+    			append_dev(span7, t40);
+    			append_dev(p5, t41);
+    			append_dev(p5, span8);
+    			append_dev(span8, t42);
+    			append_dev(p5, t43);
+    			append_dev(p5, span9);
+    			append_dev(span9, t44);
+    			append_dev(p5, t45);
+    		},
+    		p: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div6);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_foreground_slot.name,
+    		type: "slot",
+    		source: "(455:2) ",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$l(ctx) {
+    	let div;
+    	let t;
+    	let scroller;
+    	let updating_id;
+    	let current;
+
+    	function scroller_id_binding(value) {
+    		/*scroller_id_binding*/ ctx[32](value);
+    	}
+
+    	let scroller_props = {
+    		threshold: /*threshold*/ ctx[15],
+    		splitscreen: true,
+    		$$slots: {
+    			foreground: [create_foreground_slot],
+    			background: [create_background_slot]
+    		},
+    		$$scope: { ctx }
+    	};
+
+    	if (/*id*/ ctx[0]['map_scrolly_2'] !== void 0) {
+    		scroller_props.id = /*id*/ ctx[0]['map_scrolly_2'];
+    	}
+
+    	scroller = new Scroller({ props: scroller_props, $$inline: true });
+    	binding_callbacks.push(() => bind(scroller, 'id', scroller_id_binding));
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			t = space();
+    			create_component(scroller.$$.fragment);
+    			set_style(div, "height", "3rem");
+    			add_location(div, file$h, 272, 0, 6726);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			insert_dev(target, t, anchor);
+    			mount_component(scroller, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const scroller_changes = {};
+
+    			if (dirty[0] & /*map_scrolly_2, zoom, center, geojson_ex_l2, custom_2, geojson_ex_l25, geojson_ex_l3, geojson_l1ad, geojson_l1ux, geojson_l2, geojson_l25, geojson_l3, geojson_municipio, geojson_municipio_centroid*/ 32766 | dirty[1] & /*$$scope*/ 128) {
+    				scroller_changes.$$scope = { dirty, ctx };
+    			}
+
+    			if (!updating_id && dirty[0] & /*id*/ 1) {
+    				updating_id = true;
+    				scroller_changes.id = /*id*/ ctx[0]['map_scrolly_2'];
+    				add_flush_callback(() => updating_id = false);
+    			}
+
+    			scroller.$set(scroller_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(scroller.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(scroller.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			if (detaching) detach_dev(t);
+    			destroy_component(scroller, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$l.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    const hex_primary = '#2F8FBC';
+    const hex_secondary = '#00BB9E';
+    const hex_error = '#BC3B2F';
+    const hex_warning$1 = '#BC812F';
+    const hex_teal = '#00BB9E';
+
+    // Actions for scrolly steps
+    function fitBounds(map, bounds) {
+    	if (map) {
+    		map.fitBounds(bounds, { animate: true, padding: 30 });
+    	}
+    }
+
+    function instance$l($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots('GeographicHierarchyScrolly', slots, []);
+    	let threshold = 0.5;
+    	let id = { map_scrolly_2: null }; // Initialize with scrolly key
+    	let map_scrolly_2;
+    	let zoom;
+    	let center;
+    	let custom_2;
+
+    	// Data sources and geojson variables
+    	const src_municipio = {
+    		url: './data/sao_paolo_municipio_centroid.json',
+    		layer: 'geog',
+    		code: 'salid2'
+    	};
+
+    	let geojson_municipio_centroid;
+
+    	const src_municipio_boundaries = {
+    		url: './data/sao_paolo_municipio.json',
+    		layer: 'geog',
+    		code: 'salid2'
+    	};
+
+    	let geojson_municipio;
+
+    	const src_l3 = {
+    		url: './data/sao_paolo_l3.json',
+    		layer: 'geog',
+    		code: 'salid2'
+    	};
+
+    	let geojson_l3;
+
+    	const src_l25 = {
+    		url: './data/sao_paolo_l25.json',
+    		layer: 'geog',
+    		code: 'salid2'
+    	};
+
+    	let geojson_l25;
+
+    	const src_l2 = {
+    		url: './data/sao_paolo_l2.json',
+    		layer: 'geog',
+    		code: 'salid2'
+    	};
+
+    	let geojson_l2;
+
+    	const src_l1ux = {
+    		url: './data/sao_paolo_l1ux.json',
+    		layer: 'geog',
+    		code: 'salid1'
+    	};
+
+    	let geojson_l1ux;
+
+    	const src_l1ad = {
+    		url: './data/sao_paolo_l1ad.json',
+    		layer: 'geog',
+    		code: 'salid1'
+    	};
+
+    	let geojson_l1ad;
+
+    	const src_ex_l3 = {
+    		url: './data/sao_paolo_ex_l3.json',
+    		layer: 'geog',
+    		code: 'salid2'
+    	};
+
+    	let geojson_ex_l3;
+
+    	const src_ex_l25 = {
+    		url: './data/sao_paolo_ex_l25.json',
+    		layer: 'geog',
+    		code: 'salid2'
+    	};
+
+    	let geojson_ex_l25;
+
+    	const src_ex_l2 = {
+    		url: './data/sao_paolo_ex_l2.json',
+    		layer: 'geog',
+    		code: 'salid2'
+    	};
+
+    	let geojson_ex_l2;
+
+    	// Style props
+    	let style_l1 = 'color: #bc3b2f; font-weight: bold;';
+
+    	let style_l2 = 'color: #2f8fbc; font-weight: bold;';
+    	let style_l25 = 'color: #4caf50; font-weight: bold;';
+    	let style_l3 = 'color: #ff9800; font-weight: bold;';
+
+    	// Load data on mount
+    	onMount(() => {
+    		getTopo(src_municipio.url, src_municipio.layer).then(res => {
+    			$$invalidate(5, geojson_municipio_centroid = res);
+    		});
+
+    		getTopo(src_municipio_boundaries.url, src_municipio_boundaries.layer).then(res => {
+    			$$invalidate(6, geojson_municipio = res);
+    		});
+
+    		getTopo(src_l3.url, src_l3.layer).then(res => {
+    			$$invalidate(7, geojson_l3 = res);
+    		});
+
+    		getTopo(src_l25.url, src_l25.layer).then(res => {
+    			$$invalidate(8, geojson_l25 = res);
+    		});
+
+    		getTopo(src_l2.url, src_l2.layer).then(res => {
+    			$$invalidate(9, geojson_l2 = res);
+    		});
+
+    		getTopo(src_l1ux.url, src_l1ux.layer).then(res => {
+    			$$invalidate(10, geojson_l1ux = res);
+    		});
+
+    		getTopo(src_l1ad.url, src_l1ad.layer).then(res => {
+    			$$invalidate(11, geojson_l1ad = res);
+    		});
+
+    		getTopo(src_ex_l3.url, src_ex_l3.layer).then(res => {
+    			$$invalidate(12, geojson_ex_l3 = res);
+    		});
+
+    		getTopo(src_ex_l25.url, src_ex_l25.layer).then(res => {
+    			$$invalidate(13, geojson_ex_l25 = res);
+    		});
+
+    		getTopo(src_ex_l2.url, src_ex_l2.layer).then(res => {
+    			$$invalidate(14, geojson_ex_l2 = res);
+    		});
+    	});
+
+    	// Custom styles for different map steps
+    	const custom_2_map01 = {
+    		mapid: 'map01',
+    		layers: {
+    			l2_line: {
+    				'line-color': hex_primary,
+    				'line-width': 2,
+    				'line-opacity': 1
+    			},
+    			l2_fill: {
+    				'fill-color': hex_error,
+    				'fill-opacity': 0.5
+    			},
+    			l1ad_line: { 'line-color': hex_error, 'line-width': 5 }
+    		}
+    	};
+
+    	let actions = {
+    		map_scrolly_2: {
+    			map01: () => {
+    				fitBounds(map_scrolly_2, bounds.l1ad);
+    				$$invalidate(4, custom_2 = custom_2_map01);
+    			},
+    			map02: () => {
+    				fitBounds(map_scrolly_2, bounds.l1ad);
+
+    				$$invalidate(4, custom_2 = {
+    					mapid: 'map02',
+    					layers: {
+    						l2_line: {
+    							'line-color': hex_primary,
+    							'line-width': 5,
+    							'line-opacity': 1
+    						},
+    						l2_fill: {
+    							'fill-color': hex_primary,
+    							'fill-opacity': 0.5
+    						}
+    					}
+    				});
+    			},
+    			map03: () => {
+    				fitBounds(map_scrolly_2, bounds.l1ad);
+
+    				$$invalidate(4, custom_2 = {
+    					mapid: 'map03',
+    					layers: {
+    						l3_line: { 'line-color': hex_teal, 'line-width': 2 }
+    					}
+    				});
+    			},
+    			map04: () => {
+    				fitBounds(map_scrolly_2, bounds.ex_l2);
+
+    				$$invalidate(4, custom_2 = {
+    					mapid: 'map04',
+    					layers: {
+    						ex_l3: { 'line-color': hex_teal, 'line-width': 2 },
+    						ex_l2: {
+    							'line-color': hex_primary,
+    							'line-width': 8
+    						}
+    					}
+    				});
+    			},
+    			map05: () => {
+    				fitBounds(map_scrolly_2, bounds.ex_l2);
+
+    				$$invalidate(4, custom_2 = {
+    					mapid: 'map05',
+    					layers: {
+    						ex_l25: { 'line-color': '#4caf50', 'line-width': 4 },
+    						ex_l2: {
+    							'line-color': hex_primary,
+    							'line-width': 8
+    						}
+    					}
+    				});
+    			},
+    			map06: () => {
+    				fitBounds(map_scrolly_2, bounds.l1ad);
+
+    				$$invalidate(4, custom_2 = {
+    					mapid: 'map06',
+    					layers: {
+    						l25_line: { 'line-color': '#4caf50', 'line-width': 2 },
+    						l2_line: {
+    							'line-color': hex_primary,
+    							'line-width': 3
+    						},
+    						l1ad_line: { 'line-color': hex_error, 'line-width': 5 }
+    					}
+    				});
+    			}
+    		}
+    	};
+
+    	// Initialize custom styles
+    	custom_2 = custom_2_map01;
+
+    	// Track previous IDs for actions
+    	let idPrev = { map_scrolly_2: null };
+
+    	function runActions(codes = []) {
+    		codes.forEach(code => {
+    			if (id[code] != idPrev[code]) {
+    				if (actions[code][id[code]]) {
+    					actions[code][id[code]]();
+    				}
+
+    				idPrev[code] = id[code];
+    			}
+    		});
+    	}
+
+    	const writable_props = [];
+
+    	Object_1$1.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<GeographicHierarchyScrolly> was created with unknown prop '${key}'`);
+    	});
+
+    	function map_map_binding(value) {
+    		map_scrolly_2 = value;
+    		$$invalidate(1, map_scrolly_2);
+    	}
+
+    	function map_zoom_binding(value) {
+    		zoom = value;
+    		$$invalidate(2, zoom);
+    	}
+
+    	function map_center_binding(value) {
+    		center = value;
+    		$$invalidate(3, center);
+    	}
+
+    	function scroller_id_binding(value) {
+    		if ($$self.$$.not_equal(id['map_scrolly_2'], value)) {
+    			id['map_scrolly_2'] = value;
+    			$$invalidate(0, id);
+    		}
+    	}
+
+    	$$self.$capture_state = () => ({
+    		onMount,
+    		Scroller,
+    		Map: Map$1,
+    		MapSource,
+    		MapLayer,
+    		bounds,
+    		getTopo,
+    		threshold,
+    		id,
+    		map_scrolly_2,
+    		zoom,
+    		center,
+    		custom_2,
+    		hex_primary,
+    		hex_secondary,
+    		hex_error,
+    		hex_warning: hex_warning$1,
+    		hex_teal,
+    		src_municipio,
+    		geojson_municipio_centroid,
+    		src_municipio_boundaries,
+    		geojson_municipio,
+    		src_l3,
+    		geojson_l3,
+    		src_l25,
+    		geojson_l25,
+    		src_l2,
+    		geojson_l2,
+    		src_l1ux,
+    		geojson_l1ux,
+    		src_l1ad,
+    		geojson_l1ad,
+    		src_ex_l3,
+    		geojson_ex_l3,
+    		src_ex_l25,
+    		geojson_ex_l25,
+    		src_ex_l2,
+    		geojson_ex_l2,
+    		style_l1,
+    		style_l2,
+    		style_l25,
+    		style_l3,
+    		fitBounds,
+    		custom_2_map01,
+    		actions,
+    		idPrev,
+    		runActions
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('threshold' in $$props) $$invalidate(15, threshold = $$props.threshold);
+    		if ('id' in $$props) $$invalidate(0, id = $$props.id);
+    		if ('map_scrolly_2' in $$props) $$invalidate(1, map_scrolly_2 = $$props.map_scrolly_2);
+    		if ('zoom' in $$props) $$invalidate(2, zoom = $$props.zoom);
+    		if ('center' in $$props) $$invalidate(3, center = $$props.center);
+    		if ('custom_2' in $$props) $$invalidate(4, custom_2 = $$props.custom_2);
+    		if ('geojson_municipio_centroid' in $$props) $$invalidate(5, geojson_municipio_centroid = $$props.geojson_municipio_centroid);
+    		if ('geojson_municipio' in $$props) $$invalidate(6, geojson_municipio = $$props.geojson_municipio);
+    		if ('geojson_l3' in $$props) $$invalidate(7, geojson_l3 = $$props.geojson_l3);
+    		if ('geojson_l25' in $$props) $$invalidate(8, geojson_l25 = $$props.geojson_l25);
+    		if ('geojson_l2' in $$props) $$invalidate(9, geojson_l2 = $$props.geojson_l2);
+    		if ('geojson_l1ux' in $$props) $$invalidate(10, geojson_l1ux = $$props.geojson_l1ux);
+    		if ('geojson_l1ad' in $$props) $$invalidate(11, geojson_l1ad = $$props.geojson_l1ad);
+    		if ('geojson_ex_l3' in $$props) $$invalidate(12, geojson_ex_l3 = $$props.geojson_ex_l3);
+    		if ('geojson_ex_l25' in $$props) $$invalidate(13, geojson_ex_l25 = $$props.geojson_ex_l25);
+    		if ('geojson_ex_l2' in $$props) $$invalidate(14, geojson_ex_l2 = $$props.geojson_ex_l2);
+    		if ('style_l1' in $$props) $$invalidate(25, style_l1 = $$props.style_l1);
+    		if ('style_l2' in $$props) $$invalidate(26, style_l2 = $$props.style_l2);
+    		if ('style_l25' in $$props) $$invalidate(27, style_l25 = $$props.style_l25);
+    		if ('style_l3' in $$props) $$invalidate(28, style_l3 = $$props.style_l3);
+    		if ('actions' in $$props) $$invalidate(36, actions = $$props.actions);
+    		if ('idPrev' in $$props) idPrev = $$props.idPrev;
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty[0] & /*id*/ 1) {
+    			 {
+    				if (id) {
+    					runActions(Object.keys(actions));
+    				}
+    			}
+    		}
+    	};
+
+    	return [
+    		id,
+    		map_scrolly_2,
+    		zoom,
+    		center,
+    		custom_2,
+    		geojson_municipio_centroid,
+    		geojson_municipio,
+    		geojson_l3,
+    		geojson_l25,
+    		geojson_l2,
+    		geojson_l1ux,
+    		geojson_l1ad,
+    		geojson_ex_l3,
+    		geojson_ex_l25,
+    		geojson_ex_l2,
+    		threshold,
+    		src_municipio,
+    		src_l3,
+    		src_l25,
+    		src_l2,
+    		src_l1ux,
+    		src_l1ad,
+    		src_ex_l3,
+    		src_ex_l25,
+    		src_ex_l2,
+    		style_l1,
+    		style_l2,
+    		style_l25,
+    		style_l3,
+    		map_map_binding,
+    		map_zoom_binding,
+    		map_center_binding,
+    		scroller_id_binding
+    	];
+    }
+
+    class GeographicHierarchyScrolly extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$l, create_fragment$l, safe_not_equal, {}, null, [-1, -1]);
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "GeographicHierarchyScrolly",
+    			options,
+    			id: create_fragment$l.name
+    		});
+    	}
+    }
 
     /* src\components\scrolly\CityBoundariesScrolly.svelte generated by Svelte v3.44.1 */
 
-    const { Object: Object_1$1 } = globals;
-    const file$g = "src\\components\\scrolly\\CityBoundariesScrolly.svelte";
+    const { Object: Object_1$2 } = globals;
+    const file$i = "src\\components\\scrolly\\CityBoundariesScrolly.svelte";
 
-    // (367:10) {#if id.map_scrolly_1 == 'map08'}
-    function create_if_block$6(ctx) {
+    // (368:10) {#if id == 'map08'}
+    function create_if_block$8(ctx) {
     	let div6;
     	let div0;
     	let t0;
@@ -9474,19 +12059,19 @@ uniform `+P+" "+z+" u_"+k+`;
     			div5 = element("div");
     			div5.textContent = "SALURBAL defined city of São Paulo";
     			attr_dev(div0, "class", "boundary-metro-legend svelte-8glsxg");
-    			add_location(div0, file$g, 368, 14, 9601);
+    			add_location(div0, file$i, 369, 14, 9944);
     			attr_dev(div1, "class", "boundary-legend-text svelte-8glsxg");
-    			add_location(div1, file$g, 369, 14, 9654);
+    			add_location(div1, file$i, 370, 14, 9997);
     			attr_dev(div2, "class", "boundary-sp-muni-legend svelte-8glsxg");
-    			add_location(div2, file$g, 372, 14, 9792);
+    			add_location(div2, file$i, 373, 14, 10135);
     			attr_dev(div3, "class", "boundary-legend-text svelte-8glsxg");
-    			add_location(div3, file$g, 373, 14, 9847);
+    			add_location(div3, file$i, 374, 14, 10190);
     			attr_dev(div4, "class", "boundary-l1-legend svelte-8glsxg");
-    			add_location(div4, file$g, 374, 14, 9929);
+    			add_location(div4, file$i, 375, 14, 10272);
     			attr_dev(div5, "class", "boundary-legend-text svelte-8glsxg");
-    			add_location(div5, file$g, 375, 14, 9979);
+    			add_location(div5, file$i, 376, 14, 10322);
     			attr_dev(div6, "class", "sticky-legend svelte-8glsxg");
-    			add_location(div6, file$g, 367, 12, 9558);
+    			add_location(div6, file$i, 368, 12, 9901);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div6, anchor);
@@ -9509,16 +12094,16 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$6.name,
+    		id: create_if_block$8.name,
     		type: "if",
-    		source: "(367:10) {#if id.map_scrolly_1 == 'map08'}",
+    		source: "(368:10) {#if id == 'map08'}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (381:10) <MapSource              map_id="map_scrolly_1"              id="municipio_centroid"              type="geojson"              data={geojson_municipio_centroid}              promoteId={'municipio_centroid'}              maxzoom={13}            >
+    // (382:10) <MapSource              map_id="map_scrolly_1"              id="municipio_centroid"              type="geojson"              data={geojson_municipio_centroid}              promoteId={'municipio_centroid'}              maxzoom={13}            >
     function create_default_slot_13(ctx) {
     	let maplayer;
     	let t;
@@ -9529,7 +12114,7 @@ uniform `+P+" "+z+" u_"+k+`;
     			props: {
     				map_id: "map_scrolly_1",
     				id: "municipio_centroid",
-    				custom: /*custom_1*/ ctx[18],
+    				custom: /*custom_1*/ ctx[5],
     				type: "circle"
     			},
     			$$inline: true
@@ -9538,7 +12123,7 @@ uniform `+P+" "+z+" u_"+k+`;
     	mappopup = new MapPopup({
     			props: {
     				map_id: "map_scrolly_1",
-    				custom: /*custom_1*/ ctx[18]
+    				custom: /*custom_1*/ ctx[5]
     			},
     			$$inline: true
     		});
@@ -9557,10 +12142,10 @@ uniform `+P+" "+z+" u_"+k+`;
     		},
     		p: function update(ctx, dirty) {
     			const maplayer_changes = {};
-    			if (dirty[0] & /*custom_1*/ 262144) maplayer_changes.custom = /*custom_1*/ ctx[18];
+    			if (dirty[0] & /*custom_1*/ 32) maplayer_changes.custom = /*custom_1*/ ctx[5];
     			maplayer.$set(maplayer_changes);
     			const mappopup_changes = {};
-    			if (dirty[0] & /*custom_1*/ 262144) mappopup_changes.custom = /*custom_1*/ ctx[18];
+    			if (dirty[0] & /*custom_1*/ 32) mappopup_changes.custom = /*custom_1*/ ctx[5];
     			mappopup.$set(mappopup_changes);
     		},
     		i: function intro(local) {
@@ -9585,14 +12170,14 @@ uniform `+P+" "+z+" u_"+k+`;
     		block,
     		id: create_default_slot_13.name,
     		type: "slot",
-    		source: "(381:10) <MapSource              map_id=\\\"map_scrolly_1\\\"              id=\\\"municipio_centroid\\\"              type=\\\"geojson\\\"              data={geojson_municipio_centroid}              promoteId={'municipio_centroid'}              maxzoom={13}            >",
+    		source: "(382:10) <MapSource              map_id=\\\"map_scrolly_1\\\"              id=\\\"municipio_centroid\\\"              type=\\\"geojson\\\"              data={geojson_municipio_centroid}              promoteId={'municipio_centroid'}              maxzoom={13}            >",
     		ctx
     	});
 
     	return block;
     }
 
-    // (397:10) <MapSource              map_id="map_scrolly_1"              id="municipio"              type="geojson"              data={geojson_municipio}              promoteId={src_municipio.code}              maxzoom={13}            >
+    // (398:10) <MapSource              map_id="map_scrolly_1"              id="municipio"              type="geojson"              data={geojson_municipio}              promoteId={src_municipio.code}              maxzoom={13}            >
     function create_default_slot_12(ctx) {
     	let maplayer;
     	let current;
@@ -9601,7 +12186,7 @@ uniform `+P+" "+z+" u_"+k+`;
     			props: {
     				map_id: "map_scrolly_1",
     				id: "municipio_line",
-    				custom: /*custom_1*/ ctx[18],
+    				custom: /*custom_1*/ ctx[5],
     				type: "line"
     			},
     			$$inline: true
@@ -9617,7 +12202,7 @@ uniform `+P+" "+z+" u_"+k+`;
     		},
     		p: function update(ctx, dirty) {
     			const maplayer_changes = {};
-    			if (dirty[0] & /*custom_1*/ 262144) maplayer_changes.custom = /*custom_1*/ ctx[18];
+    			if (dirty[0] & /*custom_1*/ 32) maplayer_changes.custom = /*custom_1*/ ctx[5];
     			maplayer.$set(maplayer_changes);
     		},
     		i: function intro(local) {
@@ -9638,14 +12223,14 @@ uniform `+P+" "+z+" u_"+k+`;
     		block,
     		id: create_default_slot_12.name,
     		type: "slot",
-    		source: "(397:10) <MapSource              map_id=\\\"map_scrolly_1\\\"              id=\\\"municipio\\\"              type=\\\"geojson\\\"              data={geojson_municipio}              promoteId={src_municipio.code}              maxzoom={13}            >",
+    		source: "(398:10) <MapSource              map_id=\\\"map_scrolly_1\\\"              id=\\\"municipio\\\"              type=\\\"geojson\\\"              data={geojson_municipio}              promoteId={src_municipio.code}              maxzoom={13}            >",
     		ctx
     	});
 
     	return block;
     }
 
-    // (413:10) <MapSource              map_id="map_scrolly_1"              id="l2"              type="geojson"              data={geojson_l2}              promoteId={src_l2.code}              maxzoom={13}            >
+    // (414:10) <MapSource              map_id="map_scrolly_1"              id="l2"              type="geojson"              data={geojson_l2}              promoteId={src_l2.code}              maxzoom={13}            >
     function create_default_slot_11(ctx) {
     	let maplayer0;
     	let t;
@@ -9656,7 +12241,7 @@ uniform `+P+" "+z+" u_"+k+`;
     			props: {
     				map_id: "map_scrolly_1",
     				id: "l2_line",
-    				custom: /*custom_1*/ ctx[18],
+    				custom: /*custom_1*/ ctx[5],
     				type: "line"
     			},
     			$$inline: true
@@ -9666,7 +12251,7 @@ uniform `+P+" "+z+" u_"+k+`;
     			props: {
     				map_id: "map_scrolly_1",
     				id: "l2_fill",
-    				custom: /*custom_1*/ ctx[18],
+    				custom: /*custom_1*/ ctx[5],
     				type: "fill"
     			},
     			$$inline: true
@@ -9686,10 +12271,10 @@ uniform `+P+" "+z+" u_"+k+`;
     		},
     		p: function update(ctx, dirty) {
     			const maplayer0_changes = {};
-    			if (dirty[0] & /*custom_1*/ 262144) maplayer0_changes.custom = /*custom_1*/ ctx[18];
+    			if (dirty[0] & /*custom_1*/ 32) maplayer0_changes.custom = /*custom_1*/ ctx[5];
     			maplayer0.$set(maplayer0_changes);
     			const maplayer1_changes = {};
-    			if (dirty[0] & /*custom_1*/ 262144) maplayer1_changes.custom = /*custom_1*/ ctx[18];
+    			if (dirty[0] & /*custom_1*/ 32) maplayer1_changes.custom = /*custom_1*/ ctx[5];
     			maplayer1.$set(maplayer1_changes);
     		},
     		i: function intro(local) {
@@ -9714,15 +12299,15 @@ uniform `+P+" "+z+" u_"+k+`;
     		block,
     		id: create_default_slot_11.name,
     		type: "slot",
-    		source: "(413:10) <MapSource              map_id=\\\"map_scrolly_1\\\"              id=\\\"l2\\\"              type=\\\"geojson\\\"              data={geojson_l2}              promoteId={src_l2.code}              maxzoom={13}            >",
+    		source: "(414:10) <MapSource              map_id=\\\"map_scrolly_1\\\"              id=\\\"l2\\\"              type=\\\"geojson\\\"              data={geojson_l2}              promoteId={src_l2.code}              maxzoom={13}            >",
     		ctx
     	});
 
     	return block;
     }
 
-    // (434:10) <MapSource              map_id="map_scrolly_1"              id="l1ux"              type="geojson"              data={geojson_l1ux}              promoteId={src_l1ux.code}              maxzoom={13}            >
-    function create_default_slot_10(ctx) {
+    // (435:10) <MapSource              map_id="map_scrolly_1"              id="l1ux"              type="geojson"              data={geojson_l1ux}              promoteId={src_l1ux.code}              maxzoom={13}            >
+    function create_default_slot_10$1(ctx) {
     	let maplayer;
     	let current;
 
@@ -9730,7 +12315,7 @@ uniform `+P+" "+z+" u_"+k+`;
     			props: {
     				map_id: "map_scrolly_1",
     				id: "l1ux",
-    				custom: /*custom_1*/ ctx[18],
+    				custom: /*custom_1*/ ctx[5],
     				type: "line"
     			},
     			$$inline: true
@@ -9746,7 +12331,7 @@ uniform `+P+" "+z+" u_"+k+`;
     		},
     		p: function update(ctx, dirty) {
     			const maplayer_changes = {};
-    			if (dirty[0] & /*custom_1*/ 262144) maplayer_changes.custom = /*custom_1*/ ctx[18];
+    			if (dirty[0] & /*custom_1*/ 32) maplayer_changes.custom = /*custom_1*/ ctx[5];
     			maplayer.$set(maplayer_changes);
     		},
     		i: function intro(local) {
@@ -9765,17 +12350,17 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_10.name,
+    		id: create_default_slot_10$1.name,
     		type: "slot",
-    		source: "(434:10) <MapSource              map_id=\\\"map_scrolly_1\\\"              id=\\\"l1ux\\\"              type=\\\"geojson\\\"              data={geojson_l1ux}              promoteId={src_l1ux.code}              maxzoom={13}            >",
+    		source: "(435:10) <MapSource              map_id=\\\"map_scrolly_1\\\"              id=\\\"l1ux\\\"              type=\\\"geojson\\\"              data={geojson_l1ux}              promoteId={src_l1ux.code}              maxzoom={13}            >",
     		ctx
     	});
 
     	return block;
     }
 
-    // (449:10) <MapSource              map_id="map_scrolly_1"              id="l1ad"              type="geojson"              data={geojson_l1ad}              promoteId={src_l1ad.code}              maxzoom={13}            >
-    function create_default_slot_9(ctx) {
+    // (450:10) <MapSource              map_id="map_scrolly_1"              id="l1ad"              type="geojson"              data={geojson_l1ad}              promoteId={src_l1ad.code}              maxzoom={13}            >
+    function create_default_slot_9$1(ctx) {
     	let maplayer0;
     	let t;
     	let maplayer1;
@@ -9785,7 +12370,7 @@ uniform `+P+" "+z+" u_"+k+`;
     			props: {
     				map_id: "map_scrolly_1",
     				id: "l1ad_line",
-    				custom: /*custom_1*/ ctx[18],
+    				custom: /*custom_1*/ ctx[5],
     				type: "line"
     			},
     			$$inline: true
@@ -9795,7 +12380,7 @@ uniform `+P+" "+z+" u_"+k+`;
     			props: {
     				map_id: "map_scrolly_1",
     				id: "l1_fill",
-    				custom: /*custom_1*/ ctx[18],
+    				custom: /*custom_1*/ ctx[5],
     				type: "fill"
     			},
     			$$inline: true
@@ -9815,10 +12400,10 @@ uniform `+P+" "+z+" u_"+k+`;
     		},
     		p: function update(ctx, dirty) {
     			const maplayer0_changes = {};
-    			if (dirty[0] & /*custom_1*/ 262144) maplayer0_changes.custom = /*custom_1*/ ctx[18];
+    			if (dirty[0] & /*custom_1*/ 32) maplayer0_changes.custom = /*custom_1*/ ctx[5];
     			maplayer0.$set(maplayer0_changes);
     			const maplayer1_changes = {};
-    			if (dirty[0] & /*custom_1*/ 262144) maplayer1_changes.custom = /*custom_1*/ ctx[18];
+    			if (dirty[0] & /*custom_1*/ 32) maplayer1_changes.custom = /*custom_1*/ ctx[5];
     			maplayer1.$set(maplayer1_changes);
     		},
     		i: function intro(local) {
@@ -9841,17 +12426,17 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_9.name,
+    		id: create_default_slot_9$1.name,
     		type: "slot",
-    		source: "(449:10) <MapSource              map_id=\\\"map_scrolly_1\\\"              id=\\\"l1ad\\\"              type=\\\"geojson\\\"              data={geojson_l1ad}              promoteId={src_l1ad.code}              maxzoom={13}            >",
+    		source: "(450:10) <MapSource              map_id=\\\"map_scrolly_1\\\"              id=\\\"l1ad\\\"              type=\\\"geojson\\\"              data={geojson_l1ad}              promoteId={src_l1ad.code}              maxzoom={13}            >",
     		ctx
     	});
 
     	return block;
     }
 
-    // (470:10) <MapSource              map_id="map_scrolly_1"              id="metro"              type="geojson"              data={geojson_metro}              promoteId={src_metro.code}              maxzoom={13}            >
-    function create_default_slot_8(ctx) {
+    // (471:10) <MapSource              map_id="map_scrolly_1"              id="metro"              type="geojson"              data={geojson_metro}              promoteId={src_metro.code}              maxzoom={13}            >
+    function create_default_slot_8$1(ctx) {
     	let maplayer;
     	let current;
 
@@ -9859,7 +12444,7 @@ uniform `+P+" "+z+" u_"+k+`;
     			props: {
     				map_id: "map_scrolly_1",
     				id: "metro_line",
-    				custom: /*custom_1*/ ctx[18],
+    				custom: /*custom_1*/ ctx[5],
     				type: "line"
     			},
     			$$inline: true
@@ -9875,7 +12460,7 @@ uniform `+P+" "+z+" u_"+k+`;
     		},
     		p: function update(ctx, dirty) {
     			const maplayer_changes = {};
-    			if (dirty[0] & /*custom_1*/ 262144) maplayer_changes.custom = /*custom_1*/ ctx[18];
+    			if (dirty[0] & /*custom_1*/ 32) maplayer_changes.custom = /*custom_1*/ ctx[5];
     			maplayer.$set(maplayer_changes);
     		},
     		i: function intro(local) {
@@ -9894,17 +12479,17 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_8.name,
+    		id: create_default_slot_8$1.name,
     		type: "slot",
-    		source: "(470:10) <MapSource              map_id=\\\"map_scrolly_1\\\"              id=\\\"metro\\\"              type=\\\"geojson\\\"              data={geojson_metro}              promoteId={src_metro.code}              maxzoom={13}            >",
+    		source: "(471:10) <MapSource              map_id=\\\"map_scrolly_1\\\"              id=\\\"metro\\\"              type=\\\"geojson\\\"              data={geojson_metro}              promoteId={src_metro.code}              maxzoom={13}            >",
     		ctx
     	});
 
     	return block;
     }
 
-    // (485:10) <MapSource              map_id="map_scrolly_1"              id="monterrey_l2"              type="geojson"              data={geojson_monterrey_l2}              promoteId={src_monterrey_l2.code}              maxzoom={13}            >
-    function create_default_slot_7(ctx) {
+    // (486:10) <MapSource              map_id="map_scrolly_1"              id="monterrey_l2"              type="geojson"              data={geojson_monterrey_l2}              promoteId={src_monterrey_l2.code}              maxzoom={13}            >
+    function create_default_slot_7$1(ctx) {
     	let maplayer;
     	let current;
 
@@ -9912,7 +12497,7 @@ uniform `+P+" "+z+" u_"+k+`;
     			props: {
     				map_id: "map_scrolly_1",
     				id: "monterrey_l2_line",
-    				custom: /*custom_1*/ ctx[18],
+    				custom: /*custom_1*/ ctx[5],
     				type: "line"
     			},
     			$$inline: true
@@ -9928,7 +12513,7 @@ uniform `+P+" "+z+" u_"+k+`;
     		},
     		p: function update(ctx, dirty) {
     			const maplayer_changes = {};
-    			if (dirty[0] & /*custom_1*/ 262144) maplayer_changes.custom = /*custom_1*/ ctx[18];
+    			if (dirty[0] & /*custom_1*/ 32) maplayer_changes.custom = /*custom_1*/ ctx[5];
     			maplayer.$set(maplayer_changes);
     		},
     		i: function intro(local) {
@@ -9947,17 +12532,17 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_7.name,
+    		id: create_default_slot_7$1.name,
     		type: "slot",
-    		source: "(485:10) <MapSource              map_id=\\\"map_scrolly_1\\\"              id=\\\"monterrey_l2\\\"              type=\\\"geojson\\\"              data={geojson_monterrey_l2}              promoteId={src_monterrey_l2.code}              maxzoom={13}            >",
+    		source: "(486:10) <MapSource              map_id=\\\"map_scrolly_1\\\"              id=\\\"monterrey_l2\\\"              type=\\\"geojson\\\"              data={geojson_monterrey_l2}              promoteId={src_monterrey_l2.code}              maxzoom={13}            >",
     		ctx
     	});
 
     	return block;
     }
 
-    // (500:10) <MapSource              map_id="map_scrolly_1"              id="monterrey_unbuilt"              type="geojson"              data={geojson_monterrey_unbuilt}              promoteId={src_monterrey_unbuilt.code}              maxzoom={13}            >
-    function create_default_slot_6(ctx) {
+    // (501:10) <MapSource              map_id="map_scrolly_1"              id="monterrey_unbuilt"              type="geojson"              data={geojson_monterrey_unbuilt}              promoteId={src_monterrey_unbuilt.code}              maxzoom={13}            >
+    function create_default_slot_6$1(ctx) {
     	let maplayer;
     	let current;
 
@@ -9965,7 +12550,7 @@ uniform `+P+" "+z+" u_"+k+`;
     			props: {
     				map_id: "map_scrolly_1",
     				id: "monterrey_unbuilt_fill",
-    				custom: /*custom_1*/ ctx[18],
+    				custom: /*custom_1*/ ctx[5],
     				type: "fill"
     			},
     			$$inline: true
@@ -9981,7 +12566,7 @@ uniform `+P+" "+z+" u_"+k+`;
     		},
     		p: function update(ctx, dirty) {
     			const maplayer_changes = {};
-    			if (dirty[0] & /*custom_1*/ 262144) maplayer_changes.custom = /*custom_1*/ ctx[18];
+    			if (dirty[0] & /*custom_1*/ 32) maplayer_changes.custom = /*custom_1*/ ctx[5];
     			maplayer.$set(maplayer_changes);
     		},
     		i: function intro(local) {
@@ -10000,17 +12585,17 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_6.name,
+    		id: create_default_slot_6$1.name,
     		type: "slot",
-    		source: "(500:10) <MapSource              map_id=\\\"map_scrolly_1\\\"              id=\\\"monterrey_unbuilt\\\"              type=\\\"geojson\\\"              data={geojson_monterrey_unbuilt}              promoteId={src_monterrey_unbuilt.code}              maxzoom={13}            >",
+    		source: "(501:10) <MapSource              map_id=\\\"map_scrolly_1\\\"              id=\\\"monterrey_unbuilt\\\"              type=\\\"geojson\\\"              data={geojson_monterrey_unbuilt}              promoteId={src_monterrey_unbuilt.code}              maxzoom={13}            >",
     		ctx
     	});
 
     	return block;
     }
 
-    // (516:10) <MapSource              map_id="map_scrolly_1"              id="monterrey_l1ux"              type="geojson"              data={geojson_monterrey_l1ux}              promoteId={src_monterrey_l1ux.code}              maxzoom={13}            >
-    function create_default_slot_5(ctx) {
+    // (517:10) <MapSource              map_id="map_scrolly_1"              id="monterrey_l1ux"              type="geojson"              data={geojson_monterrey_l1ux}              promoteId={src_monterrey_l1ux.code}              maxzoom={13}            >
+    function create_default_slot_5$1(ctx) {
     	let maplayer;
     	let current;
 
@@ -10018,7 +12603,7 @@ uniform `+P+" "+z+" u_"+k+`;
     			props: {
     				map_id: "map_scrolly_1",
     				id: "monterrey_l1ux_line",
-    				custom: /*custom_1*/ ctx[18],
+    				custom: /*custom_1*/ ctx[5],
     				type: "line"
     			},
     			$$inline: true
@@ -10034,7 +12619,7 @@ uniform `+P+" "+z+" u_"+k+`;
     		},
     		p: function update(ctx, dirty) {
     			const maplayer_changes = {};
-    			if (dirty[0] & /*custom_1*/ 262144) maplayer_changes.custom = /*custom_1*/ ctx[18];
+    			if (dirty[0] & /*custom_1*/ 32) maplayer_changes.custom = /*custom_1*/ ctx[5];
     			maplayer.$set(maplayer_changes);
     		},
     		i: function intro(local) {
@@ -10053,17 +12638,17 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_5.name,
+    		id: create_default_slot_5$1.name,
     		type: "slot",
-    		source: "(516:10) <MapSource              map_id=\\\"map_scrolly_1\\\"              id=\\\"monterrey_l1ux\\\"              type=\\\"geojson\\\"              data={geojson_monterrey_l1ux}              promoteId={src_monterrey_l1ux.code}              maxzoom={13}            >",
+    		source: "(517:10) <MapSource              map_id=\\\"map_scrolly_1\\\"              id=\\\"monterrey_l1ux\\\"              type=\\\"geojson\\\"              data={geojson_monterrey_l1ux}              promoteId={src_monterrey_l1ux.code}              maxzoom={13}            >",
     		ctx
     	});
 
     	return block;
     }
 
-    // (531:10) <MapSource              map_id="map_scrolly_1"              id="monterrey_l1ad"              type="geojson"              data={geojson_monterrey_l1ad}              promoteId={src_monterrey_l1ad.code}              maxzoom={13}            >
-    function create_default_slot_4(ctx) {
+    // (532:10) <MapSource              map_id="map_scrolly_1"              id="monterrey_l1ad"              type="geojson"              data={geojson_monterrey_l1ad}              promoteId={src_monterrey_l1ad.code}              maxzoom={13}            >
+    function create_default_slot_4$2(ctx) {
     	let maplayer;
     	let current;
 
@@ -10071,7 +12656,7 @@ uniform `+P+" "+z+" u_"+k+`;
     			props: {
     				map_id: "map_scrolly_1",
     				id: "monterrey_l1ad_line",
-    				custom: /*custom_1*/ ctx[18],
+    				custom: /*custom_1*/ ctx[5],
     				type: "line"
     			},
     			$$inline: true
@@ -10087,7 +12672,7 @@ uniform `+P+" "+z+" u_"+k+`;
     		},
     		p: function update(ctx, dirty) {
     			const maplayer_changes = {};
-    			if (dirty[0] & /*custom_1*/ 262144) maplayer_changes.custom = /*custom_1*/ ctx[18];
+    			if (dirty[0] & /*custom_1*/ 32) maplayer_changes.custom = /*custom_1*/ ctx[5];
     			maplayer.$set(maplayer_changes);
     		},
     		i: function intro(local) {
@@ -10106,17 +12691,17 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_4.name,
+    		id: create_default_slot_4$2.name,
     		type: "slot",
-    		source: "(531:10) <MapSource              map_id=\\\"map_scrolly_1\\\"              id=\\\"monterrey_l1ad\\\"              type=\\\"geojson\\\"              data={geojson_monterrey_l1ad}              promoteId={src_monterrey_l1ad.code}              maxzoom={13}            >",
+    		source: "(532:10) <MapSource              map_id=\\\"map_scrolly_1\\\"              id=\\\"monterrey_l1ad\\\"              type=\\\"geojson\\\"              data={geojson_monterrey_l1ad}              promoteId={src_monterrey_l1ad.code}              maxzoom={13}            >",
     		ctx
     	});
 
     	return block;
     }
 
-    // (546:10) <MapSource              map_id="map_scrolly_1"              id="rio_cuarto_l1ad"              type="geojson"              data={geojson_rio_cuarto_l1ad}              promoteId={src_rio_cuarto_l1ad.code}              maxzoom={13}            >
-    function create_default_slot_3$1(ctx) {
+    // (547:10) <MapSource              map_id="map_scrolly_1"              id="rio_cuarto_l1ad"              type="geojson"              data={geojson_rio_cuarto_l1ad}              promoteId={src_rio_cuarto_l1ad.code}              maxzoom={13}            >
+    function create_default_slot_3$2(ctx) {
     	let maplayer0;
     	let t;
     	let maplayer1;
@@ -10126,7 +12711,7 @@ uniform `+P+" "+z+" u_"+k+`;
     			props: {
     				map_id: "map_scrolly_1",
     				id: "rio_cuarto_l1ad_line",
-    				custom: /*custom_1*/ ctx[18],
+    				custom: /*custom_1*/ ctx[5],
     				type: "line"
     			},
     			$$inline: true
@@ -10136,7 +12721,7 @@ uniform `+P+" "+z+" u_"+k+`;
     			props: {
     				map_id: "map_scrolly_1",
     				id: "rio_cuarto_l1ad_fill",
-    				custom: /*custom_1*/ ctx[18],
+    				custom: /*custom_1*/ ctx[5],
     				type: "fill"
     			},
     			$$inline: true
@@ -10156,10 +12741,10 @@ uniform `+P+" "+z+" u_"+k+`;
     		},
     		p: function update(ctx, dirty) {
     			const maplayer0_changes = {};
-    			if (dirty[0] & /*custom_1*/ 262144) maplayer0_changes.custom = /*custom_1*/ ctx[18];
+    			if (dirty[0] & /*custom_1*/ 32) maplayer0_changes.custom = /*custom_1*/ ctx[5];
     			maplayer0.$set(maplayer0_changes);
     			const maplayer1_changes = {};
-    			if (dirty[0] & /*custom_1*/ 262144) maplayer1_changes.custom = /*custom_1*/ ctx[18];
+    			if (dirty[0] & /*custom_1*/ 32) maplayer1_changes.custom = /*custom_1*/ ctx[5];
     			maplayer1.$set(maplayer1_changes);
     		},
     		i: function intro(local) {
@@ -10182,17 +12767,17 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_3$1.name,
+    		id: create_default_slot_3$2.name,
     		type: "slot",
-    		source: "(546:10) <MapSource              map_id=\\\"map_scrolly_1\\\"              id=\\\"rio_cuarto_l1ad\\\"              type=\\\"geojson\\\"              data={geojson_rio_cuarto_l1ad}              promoteId={src_rio_cuarto_l1ad.code}              maxzoom={13}            >",
+    		source: "(547:10) <MapSource              map_id=\\\"map_scrolly_1\\\"              id=\\\"rio_cuarto_l1ad\\\"              type=\\\"geojson\\\"              data={geojson_rio_cuarto_l1ad}              promoteId={src_rio_cuarto_l1ad.code}              maxzoom={13}            >",
     		ctx
     	});
 
     	return block;
     }
 
-    // (567:10) <MapSource              map_id="map_scrolly_1"              id="rio_cuarto_l2"              type="geojson"              data={geojson_rio_cuarto_l2}              promoteId={src_rio_cuarto_l2.code}              maxzoom={13}            >
-    function create_default_slot_2$1(ctx) {
+    // (568:10) <MapSource              map_id="map_scrolly_1"              id="rio_cuarto_l2"              type="geojson"              data={geojson_rio_cuarto_l2}              promoteId={src_rio_cuarto_l2.code}              maxzoom={13}            >
+    function create_default_slot_2$2(ctx) {
     	let maplayer;
     	let current;
 
@@ -10200,7 +12785,7 @@ uniform `+P+" "+z+" u_"+k+`;
     			props: {
     				map_id: "map_scrolly_1",
     				id: "rio_cuarto_l2_line",
-    				custom: /*custom_1*/ ctx[18],
+    				custom: /*custom_1*/ ctx[5],
     				type: "line"
     			},
     			$$inline: true
@@ -10216,7 +12801,7 @@ uniform `+P+" "+z+" u_"+k+`;
     		},
     		p: function update(ctx, dirty) {
     			const maplayer_changes = {};
-    			if (dirty[0] & /*custom_1*/ 262144) maplayer_changes.custom = /*custom_1*/ ctx[18];
+    			if (dirty[0] & /*custom_1*/ 32) maplayer_changes.custom = /*custom_1*/ ctx[5];
     			maplayer.$set(maplayer_changes);
     		},
     		i: function intro(local) {
@@ -10235,17 +12820,17 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_2$1.name,
+    		id: create_default_slot_2$2.name,
     		type: "slot",
-    		source: "(567:10) <MapSource              map_id=\\\"map_scrolly_1\\\"              id=\\\"rio_cuarto_l2\\\"              type=\\\"geojson\\\"              data={geojson_rio_cuarto_l2}              promoteId={src_rio_cuarto_l2.code}              maxzoom={13}            >",
+    		source: "(568:10) <MapSource              map_id=\\\"map_scrolly_1\\\"              id=\\\"rio_cuarto_l2\\\"              type=\\\"geojson\\\"              data={geojson_rio_cuarto_l2}              promoteId={src_rio_cuarto_l2.code}              maxzoom={13}            >",
     		ctx
     	});
 
     	return block;
     }
 
-    // (582:10) <MapSource              map_id="map_scrolly_1"              id="rio_cuarto_l1ux"              type="geojson"              data={geojson_rio_cuarto_l1ux}              promoteId={src_rio_cuarto_l1ux.code}              maxzoom={13}            >
-    function create_default_slot_1$1(ctx) {
+    // (583:10) <MapSource              map_id="map_scrolly_1"              id="rio_cuarto_l1ux"              type="geojson"              data={geojson_rio_cuarto_l1ux}              promoteId={src_rio_cuarto_l1ux.code}              maxzoom={13}            >
+    function create_default_slot_1$2(ctx) {
     	let maplayer;
     	let current;
 
@@ -10253,7 +12838,7 @@ uniform `+P+" "+z+" u_"+k+`;
     			props: {
     				map_id: "map_scrolly_1",
     				id: "rio_cuarto_l1ux_line",
-    				custom: /*custom_1*/ ctx[18],
+    				custom: /*custom_1*/ ctx[5],
     				type: "line"
     			},
     			$$inline: true
@@ -10269,7 +12854,7 @@ uniform `+P+" "+z+" u_"+k+`;
     		},
     		p: function update(ctx, dirty) {
     			const maplayer_changes = {};
-    			if (dirty[0] & /*custom_1*/ 262144) maplayer_changes.custom = /*custom_1*/ ctx[18];
+    			if (dirty[0] & /*custom_1*/ 32) maplayer_changes.custom = /*custom_1*/ ctx[5];
     			maplayer.$set(maplayer_changes);
     		},
     		i: function intro(local) {
@@ -10288,17 +12873,17 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_1$1.name,
+    		id: create_default_slot_1$2.name,
     		type: "slot",
-    		source: "(582:10) <MapSource              map_id=\\\"map_scrolly_1\\\"              id=\\\"rio_cuarto_l1ux\\\"              type=\\\"geojson\\\"              data={geojson_rio_cuarto_l1ux}              promoteId={src_rio_cuarto_l1ux.code}              maxzoom={13}            >",
+    		source: "(583:10) <MapSource              map_id=\\\"map_scrolly_1\\\"              id=\\\"rio_cuarto_l1ux\\\"              type=\\\"geojson\\\"              data={geojson_rio_cuarto_l1ux}              promoteId={src_rio_cuarto_l1ux.code}              maxzoom={13}            >",
     		ctx
     	});
 
     	return block;
     }
 
-    // (355:8) <Map            id="map_scrolly_1"            style="./data/style-esri-world-imagery.json"            location={{ bounds: bounds.southAmerica }}            controls={false}            scales={true}            hover={true}            bind:hovered            bind:map={map_scrolly_1}            bind:zoom            bind:center          >
-    function create_default_slot$7(ctx) {
+    // (356:8) <Map            id="map_scrolly_1"            style="./data/style-esri-world-imagery.json"            location={{ bounds: bounds.southAmerica }}            controls={false}            scales={true}            hover={true}            bind:hovered            bind:map={map_scrolly_1}            bind:zoom            bind:center          >
+    function create_default_slot$8(ctx) {
     	let t0;
     	let mapsource0;
     	let t1;
@@ -10326,14 +12911,14 @@ uniform `+P+" "+z+" u_"+k+`;
     	let t12;
     	let mapsource12;
     	let current;
-    	let if_block = /*id*/ ctx[0].map_scrolly_1 == 'map08' && create_if_block$6(ctx);
+    	let if_block = /*id*/ ctx[0] == 'map08' && create_if_block$8(ctx);
 
     	mapsource0 = new MapSource({
     			props: {
     				map_id: "map_scrolly_1",
     				id: "municipio_centroid",
     				type: "geojson",
-    				data: /*geojson_municipio_centroid*/ ctx[5],
+    				data: /*geojson_municipio_centroid*/ ctx[6],
     				promoteId: 'municipio_centroid',
     				maxzoom: 13,
     				$$slots: { default: [create_default_slot_13] },
@@ -10347,8 +12932,8 @@ uniform `+P+" "+z+" u_"+k+`;
     				map_id: "map_scrolly_1",
     				id: "municipio",
     				type: "geojson",
-    				data: /*geojson_municipio*/ ctx[6],
-    				promoteId: /*src_municipio*/ ctx[19].code,
+    				data: /*geojson_municipio*/ ctx[7],
+    				promoteId: /*src_municipio*/ ctx[20].code,
     				maxzoom: 13,
     				$$slots: { default: [create_default_slot_12] },
     				$$scope: { ctx }
@@ -10361,8 +12946,8 @@ uniform `+P+" "+z+" u_"+k+`;
     				map_id: "map_scrolly_1",
     				id: "l2",
     				type: "geojson",
-    				data: /*geojson_l2*/ ctx[10],
-    				promoteId: /*src_l2*/ ctx[23].code,
+    				data: /*geojson_l2*/ ctx[11],
+    				promoteId: /*src_l2*/ ctx[24].code,
     				maxzoom: 13,
     				$$slots: { default: [create_default_slot_11] },
     				$$scope: { ctx }
@@ -10375,10 +12960,10 @@ uniform `+P+" "+z+" u_"+k+`;
     				map_id: "map_scrolly_1",
     				id: "l1ux",
     				type: "geojson",
-    				data: /*geojson_l1ux*/ ctx[8],
-    				promoteId: /*src_l1ux*/ ctx[21].code,
+    				data: /*geojson_l1ux*/ ctx[9],
+    				promoteId: /*src_l1ux*/ ctx[22].code,
     				maxzoom: 13,
-    				$$slots: { default: [create_default_slot_10] },
+    				$$slots: { default: [create_default_slot_10$1] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -10389,10 +12974,10 @@ uniform `+P+" "+z+" u_"+k+`;
     				map_id: "map_scrolly_1",
     				id: "l1ad",
     				type: "geojson",
-    				data: /*geojson_l1ad*/ ctx[9],
-    				promoteId: /*src_l1ad*/ ctx[22].code,
+    				data: /*geojson_l1ad*/ ctx[10],
+    				promoteId: /*src_l1ad*/ ctx[23].code,
     				maxzoom: 13,
-    				$$slots: { default: [create_default_slot_9] },
+    				$$slots: { default: [create_default_slot_9$1] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -10403,10 +12988,10 @@ uniform `+P+" "+z+" u_"+k+`;
     				map_id: "map_scrolly_1",
     				id: "metro",
     				type: "geojson",
-    				data: /*geojson_metro*/ ctx[7],
-    				promoteId: /*src_metro*/ ctx[20].code,
+    				data: /*geojson_metro*/ ctx[8],
+    				promoteId: /*src_metro*/ ctx[21].code,
     				maxzoom: 13,
-    				$$slots: { default: [create_default_slot_8] },
+    				$$slots: { default: [create_default_slot_8$1] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -10417,10 +13002,10 @@ uniform `+P+" "+z+" u_"+k+`;
     				map_id: "map_scrolly_1",
     				id: "monterrey_l2",
     				type: "geojson",
-    				data: /*geojson_monterrey_l2*/ ctx[14],
-    				promoteId: /*src_monterrey_l2*/ ctx[27].code,
+    				data: /*geojson_monterrey_l2*/ ctx[15],
+    				promoteId: /*src_monterrey_l2*/ ctx[28].code,
     				maxzoom: 13,
-    				$$slots: { default: [create_default_slot_7] },
+    				$$slots: { default: [create_default_slot_7$1] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -10431,10 +13016,10 @@ uniform `+P+" "+z+" u_"+k+`;
     				map_id: "map_scrolly_1",
     				id: "monterrey_unbuilt",
     				type: "geojson",
-    				data: /*geojson_monterrey_unbuilt*/ ctx[13],
-    				promoteId: /*src_monterrey_unbuilt*/ ctx[26].code,
+    				data: /*geojson_monterrey_unbuilt*/ ctx[14],
+    				promoteId: /*src_monterrey_unbuilt*/ ctx[27].code,
     				maxzoom: 13,
-    				$$slots: { default: [create_default_slot_6] },
+    				$$slots: { default: [create_default_slot_6$1] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -10445,10 +13030,10 @@ uniform `+P+" "+z+" u_"+k+`;
     				map_id: "map_scrolly_1",
     				id: "monterrey_l1ux",
     				type: "geojson",
-    				data: /*geojson_monterrey_l1ux*/ ctx[11],
-    				promoteId: /*src_monterrey_l1ux*/ ctx[24].code,
+    				data: /*geojson_monterrey_l1ux*/ ctx[12],
+    				promoteId: /*src_monterrey_l1ux*/ ctx[25].code,
     				maxzoom: 13,
-    				$$slots: { default: [create_default_slot_5] },
+    				$$slots: { default: [create_default_slot_5$1] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -10459,10 +13044,10 @@ uniform `+P+" "+z+" u_"+k+`;
     				map_id: "map_scrolly_1",
     				id: "monterrey_l1ad",
     				type: "geojson",
-    				data: /*geojson_monterrey_l1ad*/ ctx[12],
-    				promoteId: /*src_monterrey_l1ad*/ ctx[25].code,
+    				data: /*geojson_monterrey_l1ad*/ ctx[13],
+    				promoteId: /*src_monterrey_l1ad*/ ctx[26].code,
     				maxzoom: 13,
-    				$$slots: { default: [create_default_slot_4] },
+    				$$slots: { default: [create_default_slot_4$2] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -10473,10 +13058,10 @@ uniform `+P+" "+z+" u_"+k+`;
     				map_id: "map_scrolly_1",
     				id: "rio_cuarto_l1ad",
     				type: "geojson",
-    				data: /*geojson_rio_cuarto_l1ad*/ ctx[15],
-    				promoteId: /*src_rio_cuarto_l1ad*/ ctx[28].code,
+    				data: /*geojson_rio_cuarto_l1ad*/ ctx[16],
+    				promoteId: /*src_rio_cuarto_l1ad*/ ctx[29].code,
     				maxzoom: 13,
-    				$$slots: { default: [create_default_slot_3$1] },
+    				$$slots: { default: [create_default_slot_3$2] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -10487,10 +13072,10 @@ uniform `+P+" "+z+" u_"+k+`;
     				map_id: "map_scrolly_1",
     				id: "rio_cuarto_l2",
     				type: "geojson",
-    				data: /*geojson_rio_cuarto_l2*/ ctx[17],
-    				promoteId: /*src_rio_cuarto_l2*/ ctx[30].code,
+    				data: /*geojson_rio_cuarto_l2*/ ctx[18],
+    				promoteId: /*src_rio_cuarto_l2*/ ctx[31].code,
     				maxzoom: 13,
-    				$$slots: { default: [create_default_slot_2$1] },
+    				$$slots: { default: [create_default_slot_2$2] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -10501,10 +13086,10 @@ uniform `+P+" "+z+" u_"+k+`;
     				map_id: "map_scrolly_1",
     				id: "rio_cuarto_l1ux",
     				type: "geojson",
-    				data: /*geojson_rio_cuarto_l1ux*/ ctx[16],
-    				promoteId: /*src_rio_cuarto_l1ux*/ ctx[29].code,
+    				data: /*geojson_rio_cuarto_l1ux*/ ctx[17],
+    				promoteId: /*src_rio_cuarto_l1ux*/ ctx[30].code,
     				maxzoom: 13,
-    				$$slots: { default: [create_default_slot_1$1] },
+    				$$slots: { default: [create_default_slot_1$2] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -10571,9 +13156,9 @@ uniform `+P+" "+z+" u_"+k+`;
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if (/*id*/ ctx[0].map_scrolly_1 == 'map08') {
+    			if (/*id*/ ctx[0] == 'map08') {
     				if (if_block) ; else {
-    					if_block = create_if_block$6(ctx);
+    					if_block = create_if_block$8(ctx);
     					if_block.c();
     					if_block.m(t0.parentNode, t0);
     				}
@@ -10583,105 +13168,105 @@ uniform `+P+" "+z+" u_"+k+`;
     			}
 
     			const mapsource0_changes = {};
-    			if (dirty[0] & /*geojson_municipio_centroid*/ 32) mapsource0_changes.data = /*geojson_municipio_centroid*/ ctx[5];
+    			if (dirty[0] & /*geojson_municipio_centroid*/ 64) mapsource0_changes.data = /*geojson_municipio_centroid*/ ctx[6];
 
-    			if (dirty[0] & /*custom_1*/ 262144 | dirty[1] & /*$$scope*/ 1024) {
+    			if (dirty[0] & /*custom_1*/ 32 | dirty[1] & /*$$scope*/ 65536) {
     				mapsource0_changes.$$scope = { dirty, ctx };
     			}
 
     			mapsource0.$set(mapsource0_changes);
     			const mapsource1_changes = {};
-    			if (dirty[0] & /*geojson_municipio*/ 64) mapsource1_changes.data = /*geojson_municipio*/ ctx[6];
+    			if (dirty[0] & /*geojson_municipio*/ 128) mapsource1_changes.data = /*geojson_municipio*/ ctx[7];
 
-    			if (dirty[0] & /*custom_1*/ 262144 | dirty[1] & /*$$scope*/ 1024) {
+    			if (dirty[0] & /*custom_1*/ 32 | dirty[1] & /*$$scope*/ 65536) {
     				mapsource1_changes.$$scope = { dirty, ctx };
     			}
 
     			mapsource1.$set(mapsource1_changes);
     			const mapsource2_changes = {};
-    			if (dirty[0] & /*geojson_l2*/ 1024) mapsource2_changes.data = /*geojson_l2*/ ctx[10];
+    			if (dirty[0] & /*geojson_l2*/ 2048) mapsource2_changes.data = /*geojson_l2*/ ctx[11];
 
-    			if (dirty[0] & /*custom_1*/ 262144 | dirty[1] & /*$$scope*/ 1024) {
+    			if (dirty[0] & /*custom_1*/ 32 | dirty[1] & /*$$scope*/ 65536) {
     				mapsource2_changes.$$scope = { dirty, ctx };
     			}
 
     			mapsource2.$set(mapsource2_changes);
     			const mapsource3_changes = {};
-    			if (dirty[0] & /*geojson_l1ux*/ 256) mapsource3_changes.data = /*geojson_l1ux*/ ctx[8];
+    			if (dirty[0] & /*geojson_l1ux*/ 512) mapsource3_changes.data = /*geojson_l1ux*/ ctx[9];
 
-    			if (dirty[0] & /*custom_1*/ 262144 | dirty[1] & /*$$scope*/ 1024) {
+    			if (dirty[0] & /*custom_1*/ 32 | dirty[1] & /*$$scope*/ 65536) {
     				mapsource3_changes.$$scope = { dirty, ctx };
     			}
 
     			mapsource3.$set(mapsource3_changes);
     			const mapsource4_changes = {};
-    			if (dirty[0] & /*geojson_l1ad*/ 512) mapsource4_changes.data = /*geojson_l1ad*/ ctx[9];
+    			if (dirty[0] & /*geojson_l1ad*/ 1024) mapsource4_changes.data = /*geojson_l1ad*/ ctx[10];
 
-    			if (dirty[0] & /*custom_1*/ 262144 | dirty[1] & /*$$scope*/ 1024) {
+    			if (dirty[0] & /*custom_1*/ 32 | dirty[1] & /*$$scope*/ 65536) {
     				mapsource4_changes.$$scope = { dirty, ctx };
     			}
 
     			mapsource4.$set(mapsource4_changes);
     			const mapsource5_changes = {};
-    			if (dirty[0] & /*geojson_metro*/ 128) mapsource5_changes.data = /*geojson_metro*/ ctx[7];
+    			if (dirty[0] & /*geojson_metro*/ 256) mapsource5_changes.data = /*geojson_metro*/ ctx[8];
 
-    			if (dirty[0] & /*custom_1*/ 262144 | dirty[1] & /*$$scope*/ 1024) {
+    			if (dirty[0] & /*custom_1*/ 32 | dirty[1] & /*$$scope*/ 65536) {
     				mapsource5_changes.$$scope = { dirty, ctx };
     			}
 
     			mapsource5.$set(mapsource5_changes);
     			const mapsource6_changes = {};
-    			if (dirty[0] & /*geojson_monterrey_l2*/ 16384) mapsource6_changes.data = /*geojson_monterrey_l2*/ ctx[14];
+    			if (dirty[0] & /*geojson_monterrey_l2*/ 32768) mapsource6_changes.data = /*geojson_monterrey_l2*/ ctx[15];
 
-    			if (dirty[0] & /*custom_1*/ 262144 | dirty[1] & /*$$scope*/ 1024) {
+    			if (dirty[0] & /*custom_1*/ 32 | dirty[1] & /*$$scope*/ 65536) {
     				mapsource6_changes.$$scope = { dirty, ctx };
     			}
 
     			mapsource6.$set(mapsource6_changes);
     			const mapsource7_changes = {};
-    			if (dirty[0] & /*geojson_monterrey_unbuilt*/ 8192) mapsource7_changes.data = /*geojson_monterrey_unbuilt*/ ctx[13];
+    			if (dirty[0] & /*geojson_monterrey_unbuilt*/ 16384) mapsource7_changes.data = /*geojson_monterrey_unbuilt*/ ctx[14];
 
-    			if (dirty[0] & /*custom_1*/ 262144 | dirty[1] & /*$$scope*/ 1024) {
+    			if (dirty[0] & /*custom_1*/ 32 | dirty[1] & /*$$scope*/ 65536) {
     				mapsource7_changes.$$scope = { dirty, ctx };
     			}
 
     			mapsource7.$set(mapsource7_changes);
     			const mapsource8_changes = {};
-    			if (dirty[0] & /*geojson_monterrey_l1ux*/ 2048) mapsource8_changes.data = /*geojson_monterrey_l1ux*/ ctx[11];
+    			if (dirty[0] & /*geojson_monterrey_l1ux*/ 4096) mapsource8_changes.data = /*geojson_monterrey_l1ux*/ ctx[12];
 
-    			if (dirty[0] & /*custom_1*/ 262144 | dirty[1] & /*$$scope*/ 1024) {
+    			if (dirty[0] & /*custom_1*/ 32 | dirty[1] & /*$$scope*/ 65536) {
     				mapsource8_changes.$$scope = { dirty, ctx };
     			}
 
     			mapsource8.$set(mapsource8_changes);
     			const mapsource9_changes = {};
-    			if (dirty[0] & /*geojson_monterrey_l1ad*/ 4096) mapsource9_changes.data = /*geojson_monterrey_l1ad*/ ctx[12];
+    			if (dirty[0] & /*geojson_monterrey_l1ad*/ 8192) mapsource9_changes.data = /*geojson_monterrey_l1ad*/ ctx[13];
 
-    			if (dirty[0] & /*custom_1*/ 262144 | dirty[1] & /*$$scope*/ 1024) {
+    			if (dirty[0] & /*custom_1*/ 32 | dirty[1] & /*$$scope*/ 65536) {
     				mapsource9_changes.$$scope = { dirty, ctx };
     			}
 
     			mapsource9.$set(mapsource9_changes);
     			const mapsource10_changes = {};
-    			if (dirty[0] & /*geojson_rio_cuarto_l1ad*/ 32768) mapsource10_changes.data = /*geojson_rio_cuarto_l1ad*/ ctx[15];
+    			if (dirty[0] & /*geojson_rio_cuarto_l1ad*/ 65536) mapsource10_changes.data = /*geojson_rio_cuarto_l1ad*/ ctx[16];
 
-    			if (dirty[0] & /*custom_1*/ 262144 | dirty[1] & /*$$scope*/ 1024) {
+    			if (dirty[0] & /*custom_1*/ 32 | dirty[1] & /*$$scope*/ 65536) {
     				mapsource10_changes.$$scope = { dirty, ctx };
     			}
 
     			mapsource10.$set(mapsource10_changes);
     			const mapsource11_changes = {};
-    			if (dirty[0] & /*geojson_rio_cuarto_l2*/ 131072) mapsource11_changes.data = /*geojson_rio_cuarto_l2*/ ctx[17];
+    			if (dirty[0] & /*geojson_rio_cuarto_l2*/ 262144) mapsource11_changes.data = /*geojson_rio_cuarto_l2*/ ctx[18];
 
-    			if (dirty[0] & /*custom_1*/ 262144 | dirty[1] & /*$$scope*/ 1024) {
+    			if (dirty[0] & /*custom_1*/ 32 | dirty[1] & /*$$scope*/ 65536) {
     				mapsource11_changes.$$scope = { dirty, ctx };
     			}
 
     			mapsource11.$set(mapsource11_changes);
     			const mapsource12_changes = {};
-    			if (dirty[0] & /*geojson_rio_cuarto_l1ux*/ 65536) mapsource12_changes.data = /*geojson_rio_cuarto_l1ux*/ ctx[16];
+    			if (dirty[0] & /*geojson_rio_cuarto_l1ux*/ 131072) mapsource12_changes.data = /*geojson_rio_cuarto_l1ux*/ ctx[17];
 
-    			if (dirty[0] & /*custom_1*/ 262144 | dirty[1] & /*$$scope*/ 1024) {
+    			if (dirty[0] & /*custom_1*/ 32 | dirty[1] & /*$$scope*/ 65536) {
     				mapsource12_changes.$$scope = { dirty, ctx };
     			}
 
@@ -10753,17 +13338,17 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot$7.name,
+    		id: create_default_slot$8.name,
     		type: "slot",
-    		source: "(355:8) <Map            id=\\\"map_scrolly_1\\\"            style=\\\"./data/style-esri-world-imagery.json\\\"            location={{ bounds: bounds.southAmerica }}            controls={false}            scales={true}            hover={true}            bind:hovered            bind:map={map_scrolly_1}            bind:zoom            bind:center          >",
+    		source: "(356:8) <Map            id=\\\"map_scrolly_1\\\"            style=\\\"./data/style-esri-world-imagery.json\\\"            location={{ bounds: bounds.southAmerica }}            controls={false}            scales={true}            hover={true}            bind:hovered            bind:map={map_scrolly_1}            bind:zoom            bind:center          >",
     		ctx
     	});
 
     	return block;
     }
 
-    // (352:2) 
-    function create_background_slot(ctx) {
+    // (353:2) 
+    function create_background_slot$1(ctx) {
     	let div1;
     	let figure;
     	let div0;
@@ -10775,19 +13360,19 @@ uniform `+P+" "+z+" u_"+k+`;
     	let current;
 
     	function map_hovered_binding(value) {
-    		/*map_hovered_binding*/ ctx[31](value);
+    		/*map_hovered_binding*/ ctx[37](value);
     	}
 
     	function map_map_binding(value) {
-    		/*map_map_binding*/ ctx[32](value);
+    		/*map_map_binding*/ ctx[38](value);
     	}
 
     	function map_zoom_binding(value) {
-    		/*map_zoom_binding*/ ctx[33](value);
+    		/*map_zoom_binding*/ ctx[39](value);
     	}
 
     	function map_center_binding(value) {
-    		/*map_center_binding*/ ctx[34](value);
+    		/*map_center_binding*/ ctx[40](value);
     	}
 
     	let map_props = {
@@ -10797,7 +13382,7 @@ uniform `+P+" "+z+" u_"+k+`;
     		controls: false,
     		scales: true,
     		hover: true,
-    		$$slots: { default: [create_default_slot$7] },
+    		$$slots: { default: [create_default_slot$8] },
     		$$scope: { ctx }
     	};
 
@@ -10830,10 +13415,10 @@ uniform `+P+" "+z+" u_"+k+`;
     			div0 = element("div");
     			create_component(map.$$.fragment);
     			attr_dev(div0, "class", "col-full height-full");
-    			add_location(div0, file$g, 353, 6, 9119);
-    			add_location(figure, file$g, 352, 4, 9103);
+    			add_location(div0, file$i, 354, 6, 9476);
+    			add_location(figure, file$i, 353, 4, 9460);
     			attr_dev(div1, "slot", "background");
-    			add_location(div1, file$g, 351, 2, 9074);
+    			add_location(div1, file$i, 352, 2, 9431);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div1, anchor);
@@ -10845,7 +13430,7 @@ uniform `+P+" "+z+" u_"+k+`;
     		p: function update(ctx, dirty) {
     			const map_changes = {};
 
-    			if (dirty[0] & /*geojson_rio_cuarto_l1ux, custom_1, geojson_rio_cuarto_l2, geojson_rio_cuarto_l1ad, geojson_monterrey_l1ad, geojson_monterrey_l1ux, geojson_monterrey_unbuilt, geojson_monterrey_l2, geojson_metro, geojson_l1ad, geojson_l1ux, geojson_l2, geojson_municipio, geojson_municipio_centroid, id*/ 524257 | dirty[1] & /*$$scope*/ 1024) {
+    			if (dirty[0] & /*geojson_rio_cuarto_l1ux, custom_1, geojson_rio_cuarto_l2, geojson_rio_cuarto_l1ad, geojson_monterrey_l1ad, geojson_monterrey_l1ux, geojson_monterrey_unbuilt, geojson_monterrey_l2, geojson_metro, geojson_l1ad, geojson_l1ux, geojson_l2, geojson_municipio, geojson_municipio_centroid, id*/ 524257 | dirty[1] & /*$$scope*/ 65536) {
     				map_changes.$$scope = { dirty, ctx };
     			}
 
@@ -10892,17 +13477,17 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_background_slot.name,
+    		id: create_background_slot$1.name,
     		type: "slot",
-    		source: "(352:2) ",
+    		source: "(353:2) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (602:2) 
-    function create_foreground_slot(ctx) {
+    // (603:2) 
+    function create_foreground_slot$1(ctx) {
     	let div7;
     	let section0;
     	let div0;
@@ -10914,7 +13499,6 @@ uniform `+P+" "+z+" u_"+k+`;
     	let t2;
     	let span0;
     	let t3;
-    	let span0_style_value;
     	let t4;
     	let em0;
     	let t6;
@@ -10925,7 +13509,6 @@ uniform `+P+" "+z+" u_"+k+`;
     	let t8;
     	let span1;
     	let t9;
-    	let span1_style_value;
     	let t10;
     	let t11;
     	let section3;
@@ -10934,11 +13517,9 @@ uniform `+P+" "+z+" u_"+k+`;
     	let t12;
     	let span2;
     	let t13;
-    	let span2_style_value;
     	let t14;
     	let span3;
     	let t15;
-    	let span3_style_value;
     	let t16;
     	let section4;
     	let div4;
@@ -10946,15 +13527,12 @@ uniform `+P+" "+z+" u_"+k+`;
     	let t17;
     	let span4;
     	let t18;
-    	let span4_style_value;
     	let t19;
     	let span5;
     	let t20;
-    	let span5_style_value;
     	let t21;
     	let span6;
     	let t22;
-    	let span6_style_value;
     	let t23;
     	let t24;
     	let p5;
@@ -10968,22 +13546,18 @@ uniform `+P+" "+z+" u_"+k+`;
     	let t29;
     	let span7;
     	let t30;
-    	let span7_style_value;
     	let t31;
     	let span8;
     	let t32;
-    	let span8_style_value;
     	let t33;
     	let t34;
     	let p7;
     	let t35;
     	let span9;
     	let t36;
-    	let span9_style_value;
     	let t37;
     	let span10;
     	let em2;
-    	let span10_style_value;
     	let t39;
     	let t40;
     	let section6;
@@ -10992,26 +13566,21 @@ uniform `+P+" "+z+" u_"+k+`;
     	let t41;
     	let span11;
     	let t42;
-    	let span11_style_value;
     	let t43;
     	let span12;
     	let t44;
-    	let span12_style_value;
     	let t45;
     	let t46;
     	let p9;
     	let t47;
     	let span13;
     	let t48;
-    	let span13_style_value;
     	let t49;
     	let span14;
     	let t50;
-    	let span14_style_value;
     	let t51;
     	let span15;
     	let t52;
-    	let span15_style_value;
     	let t53;
 
     	const block = {
@@ -11114,81 +13683,81 @@ uniform `+P+" "+z+" u_"+k+`;
     			span15 = element("span");
     			t52 = text("municipalidade of São Paulo");
     			t53 = text(". All\r\n          SALURBAL city definitions were reviewed by SALURBAL team members in\r\n          each country, before creating a final list of 371 cities.");
-    			add_location(p0, file$g, 604, 8, 16548);
+    			add_location(p0, file$i, 605, 8, 16891);
     			attr_dev(div0, "class", "col-medium");
-    			add_location(div0, file$g, 603, 6, 16514);
+    			add_location(div0, file$i, 604, 6, 16857);
     			attr_dev(section0, "data-id", "map01");
-    			add_location(section0, file$g, 602, 4, 16481);
-    			attr_dev(span0, "style", span0_style_value = textStyles.l2);
-    			add_location(span0, file$g, 610, 24, 16729);
-    			add_location(em0, file$g, 611, 11, 16797);
-    			add_location(p1, file$g, 609, 8, 16700);
+    			add_location(section0, file$i, 603, 4, 16824);
+    			attr_dev(span0, "style", /*style_l2*/ ctx[33]);
+    			add_location(span0, file$i, 611, 24, 17072);
+    			add_location(em0, file$i, 612, 11, 17135);
+    			add_location(p1, file$i, 610, 8, 17043);
     			attr_dev(div1, "class", "col-medium");
-    			add_location(div1, file$g, 608, 6, 16666);
+    			add_location(div1, file$i, 609, 6, 17009);
     			attr_dev(section1, "data-id", "map02");
-    			add_location(section1, file$g, 607, 4, 16633);
-    			attr_dev(span1, "style", span1_style_value = textStyles.ux);
-    			add_location(span1, file$g, 618, 72, 17033);
-    			add_location(p2, file$g, 617, 8, 16956);
+    			add_location(section1, file$i, 608, 4, 16976);
+    			attr_dev(span1, "style", /*style_ux*/ ctx[34]);
+    			add_location(span1, file$i, 619, 72, 17371);
+    			add_location(p2, file$i, 618, 8, 17294);
     			attr_dev(div2, "class", "col-medium");
-    			add_location(div2, file$g, 616, 6, 16922);
+    			add_location(div2, file$i, 617, 6, 17260);
     			attr_dev(section2, "data-id", "map04");
-    			add_location(section2, file$g, 615, 4, 16889);
-    			attr_dev(span2, "style", span2_style_value = textStyles.l2);
-    			add_location(span2, file$g, 630, 35, 17383);
-    			attr_dev(span3, "style", span3_style_value = textStyles.l1);
-    			add_location(span3, file$g, 635, 10, 17505);
-    			add_location(p3, file$g, 629, 8, 17343);
+    			add_location(section2, file$i, 616, 4, 17227);
+    			attr_dev(span2, "style", /*style_l2*/ ctx[33]);
+    			add_location(span2, file$i, 631, 35, 17716);
+    			attr_dev(span3, "style", /*style_l1*/ ctx[32]);
+    			add_location(span3, file$i, 636, 10, 17833);
+    			add_location(p3, file$i, 630, 8, 17676);
     			attr_dev(div3, "class", "col-medium");
-    			add_location(div3, file$g, 628, 6, 17309);
+    			add_location(div3, file$i, 629, 6, 17642);
     			attr_dev(section3, "data-id", "map05");
-    			add_location(section3, file$g, 627, 4, 17276);
-    			attr_dev(span4, "style", span4_style_value = textStyles.l2);
-    			add_location(span4, file$g, 642, 29, 17705);
-    			attr_dev(span5, "style", span5_style_value = textStyles.l1);
-    			add_location(span5, file$g, 644, 10, 17822);
-    			attr_dev(span6, "style", span6_style_value = textStyles.unurban);
-    			add_location(span6, file$g, 646, 10, 17925);
-    			add_location(p4, file$g, 641, 8, 17671);
-    			add_location(em1, file$g, 652, 50, 18319);
-    			add_location(p5, file$g, 650, 8, 18188);
+    			add_location(section3, file$i, 628, 4, 17609);
+    			attr_dev(span4, "style", /*style_l2*/ ctx[33]);
+    			add_location(span4, file$i, 643, 29, 18028);
+    			attr_dev(span5, "style", /*style_l1*/ ctx[32]);
+    			add_location(span5, file$i, 645, 10, 18140);
+    			attr_dev(span6, "style", /*style_unurban*/ ctx[35]);
+    			add_location(span6, file$i, 647, 10, 18238);
+    			add_location(p4, file$i, 642, 8, 17994);
+    			add_location(em1, file$i, 653, 50, 18627);
+    			add_location(p5, file$i, 651, 8, 18496);
     			attr_dev(div4, "class", "col-medium");
-    			add_location(div4, file$g, 640, 6, 17637);
+    			add_location(div4, file$i, 641, 6, 17960);
     			attr_dev(section4, "data-id", "map06");
-    			add_location(section4, file$g, 639, 4, 17604);
-    			attr_dev(span7, "style", span7_style_value = textStyles.l1);
-    			add_location(span7, file$g, 661, 10, 18648);
-    			attr_dev(span8, "style", span8_style_value = textStyles.l2);
-    			add_location(span8, file$g, 663, 10, 18738);
-    			add_location(p6, file$g, 659, 8, 18552);
-    			attr_dev(span9, "style", span9_style_value = textStyles.ux);
-    			add_location(span9, file$g, 667, 40, 18943);
-    			add_location(em2, file$g, 669, 38, 19070);
-    			attr_dev(span10, "style", span10_style_value = textStyles.l2);
-    			add_location(span10, file$g, 669, 10, 19042);
-    			add_location(p7, file$g, 665, 8, 18818);
+    			add_location(section4, file$i, 640, 4, 17927);
+    			attr_dev(span7, "style", /*style_l1*/ ctx[32]);
+    			add_location(span7, file$i, 662, 10, 18956);
+    			attr_dev(span8, "style", /*style_l2*/ ctx[33]);
+    			add_location(span8, file$i, 664, 10, 19041);
+    			add_location(p6, file$i, 660, 8, 18860);
+    			attr_dev(span9, "style", /*style_ux*/ ctx[34]);
+    			add_location(span9, file$i, 668, 40, 19241);
+    			add_location(em2, file$i, 670, 33, 19358);
+    			attr_dev(span10, "style", /*style_l2*/ ctx[33]);
+    			add_location(span10, file$i, 670, 10, 19335);
+    			add_location(p7, file$i, 666, 8, 19116);
     			attr_dev(div5, "class", "col-medium");
-    			add_location(div5, file$g, 658, 6, 18518);
+    			add_location(div5, file$i, 659, 6, 18826);
     			attr_dev(section5, "data-id", "map07");
-    			add_location(section5, file$g, 657, 4, 18485);
-    			attr_dev(span11, "style", span11_style_value = textStyles.l1);
-    			add_location(span11, file$g, 676, 39, 19272);
-    			attr_dev(span12, "style", span12_style_value = textStyles.metro);
-    			add_location(span12, file$g, 680, 10, 19393);
-    			add_location(p8, file$g, 675, 8, 19228);
-    			attr_dev(span13, "style", span13_style_value = textStyles.l1);
-    			add_location(span13, file$g, 688, 10, 19759);
-    			attr_dev(span14, "style", span14_style_value = textStyles.metro);
-    			add_location(span14, file$g, 692, 10, 19918);
-    			attr_dev(span15, "style", span15_style_value = textStyles.l2);
-    			add_location(span15, file$g, 695, 10, 20066);
-    			add_location(p9, file$g, 686, 8, 19687);
+    			add_location(section5, file$i, 658, 4, 18793);
+    			attr_dev(span11, "style", /*style_l1*/ ctx[32]);
+    			add_location(span11, file$i, 677, 39, 19560);
+    			attr_dev(span12, "style", /*style_metro*/ ctx[36]);
+    			add_location(span12, file$i, 681, 10, 19676);
+    			add_location(p8, file$i, 676, 8, 19516);
+    			attr_dev(span13, "style", /*style_l1*/ ctx[32]);
+    			add_location(span13, file$i, 689, 10, 20037);
+    			attr_dev(span14, "style", /*style_metro*/ ctx[36]);
+    			add_location(span14, file$i, 693, 10, 20191);
+    			attr_dev(span15, "style", /*style_l2*/ ctx[33]);
+    			add_location(span15, file$i, 696, 10, 20334);
+    			add_location(p9, file$i, 687, 8, 19965);
     			attr_dev(div6, "class", "col-medium text-medium");
-    			add_location(div6, file$g, 674, 6, 19182);
+    			add_location(div6, file$i, 675, 6, 19470);
     			attr_dev(section6, "data-id", "map08");
-    			add_location(section6, file$g, 673, 4, 19149);
+    			add_location(section6, file$i, 674, 4, 19437);
     			attr_dev(div7, "slot", "foreground");
-    			add_location(div7, file$g, 601, 2, 16452);
+    			add_location(div7, file$i, 602, 2, 16795);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div7, anchor);
@@ -11294,16 +13863,16 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_foreground_slot.name,
+    		id: create_foreground_slot$1.name,
     		type: "slot",
-    		source: "(602:2) ",
+    		source: "(603:2) ",
     		ctx
     	});
 
     	return block;
     }
 
-    function create_fragment$k(ctx) {
+    function create_fragment$m(ctx) {
     	let div;
     	let t;
     	let scroller;
@@ -11311,15 +13880,15 @@ uniform `+P+" "+z+" u_"+k+`;
     	let current;
 
     	function scroller_id_binding(value) {
-    		/*scroller_id_binding*/ ctx[35](value);
+    		/*scroller_id_binding*/ ctx[41](value);
     	}
 
     	let scroller_props = {
-    		threshold,
+    		threshold: /*threshold*/ ctx[19],
     		splitscreen: true,
     		$$slots: {
-    			foreground: [create_foreground_slot],
-    			background: [create_background_slot]
+    			foreground: [create_foreground_slot$1],
+    			background: [create_background_slot$1]
     		},
     		$$scope: { ctx }
     	};
@@ -11337,7 +13906,7 @@ uniform `+P+" "+z+" u_"+k+`;
     			t = space();
     			create_component(scroller.$$.fragment);
     			set_style(div, "height", "3rem");
-    			add_location(div, file$g, 348, 0, 8967);
+    			add_location(div, file$i, 349, 0, 9324);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -11351,7 +13920,7 @@ uniform `+P+" "+z+" u_"+k+`;
     		p: function update(ctx, dirty) {
     			const scroller_changes = {};
 
-    			if (dirty[0] & /*hovered, map_scrolly_1, zoom, center, geojson_rio_cuarto_l1ux, custom_1, geojson_rio_cuarto_l2, geojson_rio_cuarto_l1ad, geojson_monterrey_l1ad, geojson_monterrey_l1ux, geojson_monterrey_unbuilt, geojson_monterrey_l2, geojson_metro, geojson_l1ad, geojson_l1ux, geojson_l2, geojson_municipio, geojson_municipio_centroid, id*/ 524287 | dirty[1] & /*$$scope*/ 1024) {
+    			if (dirty[0] & /*hovered, map_scrolly_1, zoom, center, geojson_rio_cuarto_l1ux, custom_1, geojson_rio_cuarto_l2, geojson_rio_cuarto_l1ad, geojson_monterrey_l1ad, geojson_monterrey_l1ux, geojson_monterrey_unbuilt, geojson_monterrey_l2, geojson_metro, geojson_l1ad, geojson_l1ux, geojson_l2, geojson_municipio, geojson_municipio_centroid, id*/ 524287 | dirty[1] & /*$$scope*/ 65536) {
     				scroller_changes.$$scope = { dirty, ctx };
     			}
 
@@ -11381,7 +13950,7 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$k.name,
+    		id: create_fragment$m.name,
     		type: "component",
     		source: "",
     		ctx
@@ -11390,29 +13959,32 @@ uniform `+P+" "+z+" u_"+k+`;
     	return block;
     }
 
-    const threshold = 0.65; // Threshold for this specific scrolly
+    const hex_primary$1 = '#2F8FBC';
+    const hex_secondary$1 = '#00BB9E';
+    const hex_error$1 = '#BC3B2F';
+    const hex_warning$2 = '#BC812F';
+    const hex_teal$1 = '#00BB9E';
+    const hex_purple = '#8C198C';
 
-    // Map bounds function
-    function fitBounds(map, bounds) {
+    // Actions for scrolly steps
+    function fitBounds$1(map, bounds) {
     	if (map) {
     		map.fitBounds(bounds, { animate: true, padding: 30 });
     	}
     }
 
-    function instance$k($$self, $$props, $$invalidate) {
+    function instance$m($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('CityBoundariesScrolly', slots, []);
-    	let { id } = $$props;
-
-    	// Internal state
+    	let threshold = 0.5;
+    	let id = { map_scrolly_1: null }; // Initialize with scrolly key
     	let map_scrolly_1;
-
     	let zoom;
     	let center;
     	let hovered;
+    	let custom_1;
 
-    	// Data loading for this scrolly
-    	// municipio centroid
+    	// Data sources and geojson variables
     	const src__municipio_centroid = {
     		url: './data/sao_paolo_municipio_centroid.json',
     		layer: 'geog',
@@ -11421,11 +13993,6 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	let geojson_municipio_centroid;
 
-    	getTopo(src__municipio_centroid.url, src__municipio_centroid.layer).then(res => {
-    		$$invalidate(5, geojson_municipio_centroid = res);
-    	});
-
-    	// Municipio boundaries
     	const src_municipio = {
     		url: './data/sao_paolo_municipio.json',
     		layer: 'geog',
@@ -11434,11 +14001,6 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	let geojson_municipio;
 
-    	getTopo(src_municipio.url, src_municipio.layer).then(res => {
-    		$$invalidate(6, geojson_municipio = res);
-    	});
-
-    	// Metropolitan boundaries
     	const src_metro = {
     		url: './data/sao_paolo_metro.json',
     		layer: 'geog',
@@ -11447,11 +14009,6 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	let geojson_metro;
 
-    	getTopo(src_metro.url, src_metro.layer).then(res => {
-    		$$invalidate(7, geojson_metro = res);
-    	});
-
-    	// L1UX boundaries
     	const src_l1ux = {
     		url: './data/sao_paolo_l1ux.json',
     		layer: 'geog',
@@ -11460,11 +14017,6 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	let geojson_l1ux;
 
-    	getTopo(src_l1ux.url, src_l1ux.layer).then(res => {
-    		$$invalidate(8, geojson_l1ux = res);
-    	});
-
-    	// L1AD boundaries
     	const src_l1ad = {
     		url: './data/sao_paolo_l1ad.json',
     		layer: 'geog',
@@ -11473,11 +14025,6 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	let geojson_l1ad;
 
-    	getTopo(src_l1ad.url, src_l1ad.layer).then(res => {
-    		$$invalidate(9, geojson_l1ad = res);
-    	});
-
-    	// L2 boundaries
     	const src_l2 = {
     		url: './data/sao_paolo_l2.json',
     		layer: 'geog',
@@ -11486,11 +14033,7 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	let geojson_l2;
 
-    	getTopo(src_l2.url, src_l2.layer).then(res => {
-    		$$invalidate(10, geojson_l2 = res);
-    	});
-
-    	// Monterrey data
+    	// Case 1 (Monterrey) data sources
     	const src_monterrey_l1ux = {
     		url: './data/monterrey_l1ux.json',
     		layer: 'geog',
@@ -11498,10 +14041,6 @@ uniform `+P+" "+z+" u_"+k+`;
     	};
 
     	let geojson_monterrey_l1ux;
-
-    	getTopo(src_monterrey_l1ux.url, src_monterrey_l1ux.layer).then(res => {
-    		$$invalidate(11, geojson_monterrey_l1ux = res);
-    	});
 
     	const src_monterrey_l1ad = {
     		url: './data/monterrey_l1ad.json',
@@ -11511,10 +14050,6 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	let geojson_monterrey_l1ad;
 
-    	getTopo(src_monterrey_l1ad.url, src_monterrey_l1ad.layer).then(res => {
-    		$$invalidate(12, geojson_monterrey_l1ad = res);
-    	});
-
     	const src_monterrey_unbuilt = {
     		url: './data/monterrey_unbuilt.json',
     		layer: 'geog',
@@ -11522,10 +14057,6 @@ uniform `+P+" "+z+" u_"+k+`;
     	};
 
     	let geojson_monterrey_unbuilt;
-
-    	getTopo(src_monterrey_unbuilt.url, src_monterrey_unbuilt.layer).then(res => {
-    		$$invalidate(13, geojson_monterrey_unbuilt = res);
-    	});
 
     	const src_monterrey_l2 = {
     		url: './data/monterrey_l2.json',
@@ -11535,11 +14066,7 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	let geojson_monterrey_l2;
 
-    	getTopo(src_monterrey_l2.url, src_monterrey_l2.layer).then(res => {
-    		$$invalidate(14, geojson_monterrey_l2 = res);
-    	});
-
-    	// Rio Cuarto data
+    	// Case 2 (Rio Cuarto) data sources
     	const src_rio_cuarto_l1ad = {
     		url: './data/rio_cuarto_l1ad.json',
     		layer: 'geog',
@@ -11547,10 +14074,6 @@ uniform `+P+" "+z+" u_"+k+`;
     	};
 
     	let geojson_rio_cuarto_l1ad;
-
-    	getTopo(src_rio_cuarto_l1ad.url, src_rio_cuarto_l1ad.layer).then(res => {
-    		$$invalidate(15, geojson_rio_cuarto_l1ad = res);
-    	});
 
     	const src_rio_cuarto_l1ux = {
     		url: './data/rio_cuarto_l1ux.json',
@@ -11560,10 +14083,6 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	let geojson_rio_cuarto_l1ux;
 
-    	getTopo(src_rio_cuarto_l1ux.url, src_rio_cuarto_l1ux.layer).then(res => {
-    		$$invalidate(16, geojson_rio_cuarto_l1ux = res);
-    	});
-
     	const src_rio_cuarto_l2 = {
     		url: './data/rio_cuarto_l2.json',
     		layer: 'geog',
@@ -11572,175 +14091,218 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	let geojson_rio_cuarto_l2;
 
-    	getTopo(src_rio_cuarto_l2.url, src_rio_cuarto_l2.layer).then(res => {
-    		$$invalidate(17, geojson_rio_cuarto_l2 = res);
-    	});
+    	// Style props
+    	let style_l1 = `color: ${hex_error$1}; font-weight: 900;`;
 
-    	// Scroller setup
-    	let idPrev = {};
+    	let style_l2 = `color: ${hex_primary$1}; font-weight: 900;`;
+    	let style_ux = `color: ${hex_warning$2}; font-weight: 900;`;
+    	let style_unurban = `color: ${hex_teal$1}; font-weight: 900;`;
+    	let style_metro = `color: ${hex_purple}; font-weight: 900;`;
 
+    	// Load data on mount
     	onMount(() => {
-    		idPrev = { ...id };
+    		getTopo(src__municipio_centroid.url, src__municipio_centroid.layer).then(res => {
+    			$$invalidate(6, geojson_municipio_centroid = res);
+    		});
+
+    		getTopo(src_municipio.url, src_municipio.layer).then(res => {
+    			$$invalidate(7, geojson_municipio = res);
+    		});
+
+    		getTopo(src_metro.url, src_metro.layer).then(res => {
+    			$$invalidate(8, geojson_metro = res);
+    		});
+
+    		getTopo(src_l1ux.url, src_l1ux.layer).then(res => {
+    			$$invalidate(9, geojson_l1ux = res);
+    		});
+
+    		getTopo(src_l1ad.url, src_l1ad.layer).then(res => {
+    			$$invalidate(10, geojson_l1ad = res);
+    		});
+
+    		getTopo(src_l2.url, src_l2.layer).then(res => {
+    			$$invalidate(11, geojson_l2 = res);
+    		});
+
+    		getTopo(src_monterrey_l1ux.url, src_monterrey_l1ux.layer).then(res => {
+    			$$invalidate(12, geojson_monterrey_l1ux = res);
+    		});
+
+    		getTopo(src_monterrey_l1ad.url, src_monterrey_l1ad.layer).then(res => {
+    			$$invalidate(13, geojson_monterrey_l1ad = res);
+    		});
+
+    		getTopo(src_monterrey_unbuilt.url, src_monterrey_unbuilt.layer).then(res => {
+    			$$invalidate(14, geojson_monterrey_unbuilt = res);
+    		});
+
+    		getTopo(src_monterrey_l2.url, src_monterrey_l2.layer).then(res => {
+    			$$invalidate(15, geojson_monterrey_l2 = res);
+    		});
+
+    		getTopo(src_rio_cuarto_l1ad.url, src_rio_cuarto_l1ad.layer).then(res => {
+    			$$invalidate(16, geojson_rio_cuarto_l1ad = res);
+    		});
+
+    		getTopo(src_rio_cuarto_l1ux.url, src_rio_cuarto_l1ux.layer).then(res => {
+    			$$invalidate(17, geojson_rio_cuarto_l1ux = res);
+    		});
+
+    		getTopo(src_rio_cuarto_l2.url, src_rio_cuarto_l2.layer).then(res => {
+    			$$invalidate(18, geojson_rio_cuarto_l2 = res);
+    		});
     	});
 
-    	// Initial step configurations
+    	// Custom styles for different map steps
     	const custom_1_map01 = {
     		mapid: 'map01',
     		layers: {
     			municipio_centroid: {
-    				'circle-color': levelColors.l1,
+    				'circle-color': hex_error$1,
     				'circle-radius': 7,
-    				'circle-stroke-color': levelColors.l1,
+    				'circle-stroke-color': hex_error$1,
     				'circle-stroke-width': 1
     			},
     			sp_popup: true
     		}
     	};
 
-    	let custom_1 = custom_1_map01;
-
-    	// Actions for this scrolly
     	let actions = {
     		map_scrolly_1: {
     			map01: () => {
-    				fitBounds(map_scrolly_1, bounds.southAmerica);
-    				$$invalidate(18, custom_1 = custom_1_map01);
+    				fitBounds$1(map_scrolly_1, bounds.southAmerica);
+    				$$invalidate(5, custom_1 = custom_1_map01);
     			},
     			map02: () => {
-    				fitBounds(map_scrolly_1, bounds.l1ad);
+    				fitBounds$1(map_scrolly_1, bounds.l1ad);
 
-    				$$invalidate(18, custom_1 = {
+    				$$invalidate(5, custom_1 = {
     					mapid: 'map02',
     					layers: {
     						l2_line: {
-    							'line-color': levelColors.l2,
+    							'line-color': hex_primary$1,
     							'line-width': 5
     						}
     					}
     				});
     			},
     			map04: () => {
-    				fitBounds(map_scrolly_1, bounds.l1ad);
+    				fitBounds$1(map_scrolly_1, bounds.l1ad);
 
-    				$$invalidate(18, custom_1 = {
+    				$$invalidate(5, custom_1 = {
     					mapid: 'map04',
     					layers: {
     						l1ux: {
-    							'line-color': levelColors.ux,
+    							'line-color': hex_warning$2,
     							'line-width': 5
     						},
     						l2_line: {
-    							'line-color': levelColors.l2,
+    							'line-color': hex_primary$1,
     							'line-width': 2,
     							'line-opacity': 1
     						},
     						l2_fill: {
-    							'fill-color': levelColors.ux,
+    							'fill-color': hex_warning$2,
     							'fill-opacity': 0.5
     						}
     					}
     				});
     			},
     			map05: () => {
-    				fitBounds(map_scrolly_1, bounds.l1ad);
+    				fitBounds$1(map_scrolly_1, bounds.l1ad);
 
-    				$$invalidate(18, custom_1 = {
+    				$$invalidate(5, custom_1 = {
     					mapid: 'map05',
     					layers: {
     						l2_line: {
-    							'line-color': levelColors.l2,
+    							'line-color': hex_primary$1,
     							'line-width': 2,
     							'line-opacity': 1
     						},
     						l2_fill: {
-    							'fill-color': levelColors.l1,
+    							'fill-color': hex_error$1,
     							'fill-opacity': 0.5
     						},
-    						l1ad_line: {
-    							'line-color': levelColors.l1,
-    							'line-width': 5
-    						}
+    						l1ad_line: { 'line-color': hex_error$1, 'line-width': 5 }
     					}
     				});
     			},
     			map06: () => {
-    				fitBounds(map_scrolly_1, bounds.monterrey);
+    				fitBounds$1(map_scrolly_1, bounds.monterrey);
 
-    				$$invalidate(18, custom_1 = {
+    				$$invalidate(5, custom_1 = {
     					mapid: 'map06',
     					layers: {
-    						monterrey_l1ad_line: {
-    							'line-color': levelColors.l1,
-    							'line-width': 4
-    						},
+    						monterrey_l1ad_line: { 'line-color': hex_error$1, 'line-width': 4 },
     						monterrey_l1ux_line: {
     							'line-color': 'black',
     							'line-width': 1,
     							'line-opacity': 0.5
     						},
     						monterrey_unbuilt_fill: {
-    							'fill-color': levelColors.unurban,
+    							'fill-color': hex_teal$1,
     							'fill-opacity': 0.2
     						},
     						monterrey_l2_line: {
-    							'line-color': levelColors.l2,
+    							'line-color': hex_primary$1,
     							'line-width': 1.5
     						}
     					}
     				});
     			},
     			map07: () => {
-    				fitBounds(map_scrolly_1, bounds.rio_cuarto);
+    				fitBounds$1(map_scrolly_1, bounds.rio_cuarto);
 
-    				$$invalidate(18, custom_1 = {
+    				$$invalidate(5, custom_1 = {
     					mapid: 'map07',
     					layers: {
     						rio_cuarto_l2_line: {
-    							'line-color': levelColors.l2,
+    							'line-color': hex_primary$1,
     							'line-width': 1.5
     						},
-    						rio_cuarto_l1ad_line: {
-    							'line-color': levelColors.l1,
-    							'line-width': 6
-    						},
+    						rio_cuarto_l1ad_line: { 'line-color': hex_error$1, 'line-width': 6 },
     						rio_cuarto_l1ad_fill: {
-    							'fill-color': levelColors.l1,
+    							'fill-color': hex_error$1,
     							'fill-opacity': 0.25
     						},
     						rio_cuarto_l1ux_line: {
-    							'line-color': levelColors.ux,
+    							'line-color': hex_warning$2,
     							'line-width': 2
     						}
     					}
     				});
     			},
     			map08: () => {
-    				fitBounds(map_scrolly_1, bounds.metro);
+    				fitBounds$1(map_scrolly_1, bounds.metro);
 
-    				$$invalidate(18, custom_1 = {
+    				$$invalidate(5, custom_1 = {
     					mapid: 'map08',
     					layers: {
     						municipio_line: {
-    							'line-color': levelColors.l2,
+    							'line-color': hex_primary$1,
     							'line-width': 3
     						},
     						metro_line: {
-    							'line-color': levelColors.metro,
+    							'line-color': hex_purple,
     							'line-width': 4
     						},
     						l1_fill: {
-    							'fill-color': levelColors.l1,
+    							'fill-color': hex_error$1,
     							'fill-opacity': 0.3
     						},
-    						l1ad_line: {
-    							'line-color': levelColors.l1,
-    							'line-width': 6
-    						}
+    						l1ad_line: { 'line-color': hex_error$1, 'line-width': 6 }
     					}
     				});
     			}
     		}
     	};
+
+    	// Initialize custom styles
+    	custom_1 = custom_1_map01;
+
+    	// Track previous IDs for actions
+    	let idPrev = { map_scrolly_1: null };
 
     	function runActions(codes = []) {
     		codes.forEach(code => {
@@ -11754,9 +14316,9 @@ uniform `+P+" "+z+" u_"+k+`;
     		});
     	}
 
-    	const writable_props = ['id'];
+    	const writable_props = [];
 
-    	Object_1$1.keys($$props).forEach(key => {
+    	Object_1$2.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<CityBoundariesScrolly> was created with unknown prop '${key}'`);
     	});
 
@@ -11787,10 +14349,6 @@ uniform `+P+" "+z+" u_"+k+`;
     		}
     	}
 
-    	$$self.$$set = $$props => {
-    		if ('id' in $$props) $$invalidate(0, id = $$props.id);
-    	};
-
     	$$self.$capture_state = () => ({
     		onMount,
     		Scroller,
@@ -11798,17 +14356,21 @@ uniform `+P+" "+z+" u_"+k+`;
     		MapSource,
     		MapLayer,
     		MapPopup,
-    		getTopo,
-    		colors,
-    		levelColors,
-    		textStyles,
     		bounds,
-    		id,
+    		getTopo,
     		threshold,
+    		id,
     		map_scrolly_1,
     		zoom,
     		center,
     		hovered,
+    		custom_1,
+    		hex_primary: hex_primary$1,
+    		hex_secondary: hex_secondary$1,
+    		hex_error: hex_error$1,
+    		hex_warning: hex_warning$2,
+    		hex_teal: hex_teal$1,
+    		hex_purple,
     		src__municipio_centroid,
     		geojson_municipio_centroid,
     		src_municipio,
@@ -11835,36 +14397,46 @@ uniform `+P+" "+z+" u_"+k+`;
     		geojson_rio_cuarto_l1ux,
     		src_rio_cuarto_l2,
     		geojson_rio_cuarto_l2,
-    		fitBounds,
-    		idPrev,
+    		style_l1,
+    		style_l2,
+    		style_ux,
+    		style_unurban,
+    		style_metro,
+    		fitBounds: fitBounds$1,
     		custom_1_map01,
-    		custom_1,
     		actions,
+    		idPrev,
     		runActions
     	});
 
     	$$self.$inject_state = $$props => {
+    		if ('threshold' in $$props) $$invalidate(19, threshold = $$props.threshold);
     		if ('id' in $$props) $$invalidate(0, id = $$props.id);
     		if ('map_scrolly_1' in $$props) $$invalidate(1, map_scrolly_1 = $$props.map_scrolly_1);
     		if ('zoom' in $$props) $$invalidate(2, zoom = $$props.zoom);
     		if ('center' in $$props) $$invalidate(3, center = $$props.center);
     		if ('hovered' in $$props) $$invalidate(4, hovered = $$props.hovered);
-    		if ('geojson_municipio_centroid' in $$props) $$invalidate(5, geojson_municipio_centroid = $$props.geojson_municipio_centroid);
-    		if ('geojson_municipio' in $$props) $$invalidate(6, geojson_municipio = $$props.geojson_municipio);
-    		if ('geojson_metro' in $$props) $$invalidate(7, geojson_metro = $$props.geojson_metro);
-    		if ('geojson_l1ux' in $$props) $$invalidate(8, geojson_l1ux = $$props.geojson_l1ux);
-    		if ('geojson_l1ad' in $$props) $$invalidate(9, geojson_l1ad = $$props.geojson_l1ad);
-    		if ('geojson_l2' in $$props) $$invalidate(10, geojson_l2 = $$props.geojson_l2);
-    		if ('geojson_monterrey_l1ux' in $$props) $$invalidate(11, geojson_monterrey_l1ux = $$props.geojson_monterrey_l1ux);
-    		if ('geojson_monterrey_l1ad' in $$props) $$invalidate(12, geojson_monterrey_l1ad = $$props.geojson_monterrey_l1ad);
-    		if ('geojson_monterrey_unbuilt' in $$props) $$invalidate(13, geojson_monterrey_unbuilt = $$props.geojson_monterrey_unbuilt);
-    		if ('geojson_monterrey_l2' in $$props) $$invalidate(14, geojson_monterrey_l2 = $$props.geojson_monterrey_l2);
-    		if ('geojson_rio_cuarto_l1ad' in $$props) $$invalidate(15, geojson_rio_cuarto_l1ad = $$props.geojson_rio_cuarto_l1ad);
-    		if ('geojson_rio_cuarto_l1ux' in $$props) $$invalidate(16, geojson_rio_cuarto_l1ux = $$props.geojson_rio_cuarto_l1ux);
-    		if ('geojson_rio_cuarto_l2' in $$props) $$invalidate(17, geojson_rio_cuarto_l2 = $$props.geojson_rio_cuarto_l2);
+    		if ('custom_1' in $$props) $$invalidate(5, custom_1 = $$props.custom_1);
+    		if ('geojson_municipio_centroid' in $$props) $$invalidate(6, geojson_municipio_centroid = $$props.geojson_municipio_centroid);
+    		if ('geojson_municipio' in $$props) $$invalidate(7, geojson_municipio = $$props.geojson_municipio);
+    		if ('geojson_metro' in $$props) $$invalidate(8, geojson_metro = $$props.geojson_metro);
+    		if ('geojson_l1ux' in $$props) $$invalidate(9, geojson_l1ux = $$props.geojson_l1ux);
+    		if ('geojson_l1ad' in $$props) $$invalidate(10, geojson_l1ad = $$props.geojson_l1ad);
+    		if ('geojson_l2' in $$props) $$invalidate(11, geojson_l2 = $$props.geojson_l2);
+    		if ('geojson_monterrey_l1ux' in $$props) $$invalidate(12, geojson_monterrey_l1ux = $$props.geojson_monterrey_l1ux);
+    		if ('geojson_monterrey_l1ad' in $$props) $$invalidate(13, geojson_monterrey_l1ad = $$props.geojson_monterrey_l1ad);
+    		if ('geojson_monterrey_unbuilt' in $$props) $$invalidate(14, geojson_monterrey_unbuilt = $$props.geojson_monterrey_unbuilt);
+    		if ('geojson_monterrey_l2' in $$props) $$invalidate(15, geojson_monterrey_l2 = $$props.geojson_monterrey_l2);
+    		if ('geojson_rio_cuarto_l1ad' in $$props) $$invalidate(16, geojson_rio_cuarto_l1ad = $$props.geojson_rio_cuarto_l1ad);
+    		if ('geojson_rio_cuarto_l1ux' in $$props) $$invalidate(17, geojson_rio_cuarto_l1ux = $$props.geojson_rio_cuarto_l1ux);
+    		if ('geojson_rio_cuarto_l2' in $$props) $$invalidate(18, geojson_rio_cuarto_l2 = $$props.geojson_rio_cuarto_l2);
+    		if ('style_l1' in $$props) $$invalidate(32, style_l1 = $$props.style_l1);
+    		if ('style_l2' in $$props) $$invalidate(33, style_l2 = $$props.style_l2);
+    		if ('style_ux' in $$props) $$invalidate(34, style_ux = $$props.style_ux);
+    		if ('style_unurban' in $$props) $$invalidate(35, style_unurban = $$props.style_unurban);
+    		if ('style_metro' in $$props) $$invalidate(36, style_metro = $$props.style_metro);
+    		if ('actions' in $$props) $$invalidate(45, actions = $$props.actions);
     		if ('idPrev' in $$props) idPrev = $$props.idPrev;
-    		if ('custom_1' in $$props) $$invalidate(18, custom_1 = $$props.custom_1);
-    		if ('actions' in $$props) $$invalidate(39, actions = $$props.actions);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -11887,6 +14459,7 @@ uniform `+P+" "+z+" u_"+k+`;
     		zoom,
     		center,
     		hovered,
+    		custom_1,
     		geojson_municipio_centroid,
     		geojson_municipio,
     		geojson_metro,
@@ -11900,7 +14473,7 @@ uniform `+P+" "+z+" u_"+k+`;
     		geojson_rio_cuarto_l1ad,
     		geojson_rio_cuarto_l1ux,
     		geojson_rio_cuarto_l2,
-    		custom_1,
+    		threshold,
     		src_municipio,
     		src_metro,
     		src_l1ux,
@@ -11913,6 +14486,11 @@ uniform `+P+" "+z+" u_"+k+`;
     		src_rio_cuarto_l1ad,
     		src_rio_cuarto_l1ux,
     		src_rio_cuarto_l2,
+    		style_l1,
+    		style_l2,
+    		style_ux,
+    		style_unurban,
+    		style_metro,
     		map_hovered_binding,
     		map_map_binding,
     		map_zoom_binding,
@@ -11924,1981 +14502,20 @@ uniform `+P+" "+z+" u_"+k+`;
     class CityBoundariesScrolly extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$k, create_fragment$k, safe_not_equal, { id: 0 }, null, [-1, -1]);
+    		init(this, options, instance$m, create_fragment$m, safe_not_equal, {}, null, [-1, -1]);
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "CityBoundariesScrolly",
     			options,
-    			id: create_fragment$k.name
+    			id: create_fragment$m.name
     		});
-
-    		const { ctx } = this.$$;
-    		const props = options.props || {};
-
-    		if (/*id*/ ctx[0] === undefined && !('id' in props)) {
-    			console.warn("<CityBoundariesScrolly> was created without expected prop 'id'");
-    		}
-    	}
-
-    	get id() {
-    		throw new Error("<CityBoundariesScrolly>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set id(value) {
-    		throw new Error("<CityBoundariesScrolly>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-    }
-
-    /* src\components\scrolly\GeographicHierarchyScrolly.svelte generated by Svelte v3.44.1 */
-
-    const { Object: Object_1$2 } = globals;
-    const file$h = "src\\components\\scrolly\\GeographicHierarchyScrolly.svelte";
-
-    // (312:10) <MapSource              map_id="map_scrolly_2"              id="municipio_centroid"              type="geojson"              data={geojson_municipio_centroid}              promoteId={'municipio_centroid'}              maxzoom={13}            >
-    function create_default_slot_10$1(ctx) {
-    	let maplayer;
-    	let current;
-
-    	maplayer = new MapLayer({
-    			props: {
-    				map_id: "map_scrolly_2",
-    				id: "municipio_centroid",
-    				custom: /*custom_2*/ ctx[14],
-    				type: "circle"
-    			},
-    			$$inline: true
-    		});
-
-    	const block = {
-    		c: function create() {
-    			create_component(maplayer.$$.fragment);
-    		},
-    		m: function mount(target, anchor) {
-    			mount_component(maplayer, target, anchor);
-    			current = true;
-    		},
-    		p: function update(ctx, dirty) {
-    			const maplayer_changes = {};
-    			if (dirty[0] & /*custom_2*/ 16384) maplayer_changes.custom = /*custom_2*/ ctx[14];
-    			maplayer.$set(maplayer_changes);
-    		},
-    		i: function intro(local) {
-    			if (current) return;
-    			transition_in(maplayer.$$.fragment, local);
-    			current = true;
-    		},
-    		o: function outro(local) {
-    			transition_out(maplayer.$$.fragment, local);
-    			current = false;
-    		},
-    		d: function destroy(detaching) {
-    			destroy_component(maplayer, detaching);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_default_slot_10$1.name,
-    		type: "slot",
-    		source: "(312:10) <MapSource              map_id=\\\"map_scrolly_2\\\"              id=\\\"municipio_centroid\\\"              type=\\\"geojson\\\"              data={geojson_municipio_centroid}              promoteId={'municipio_centroid'}              maxzoom={13}            >",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (327:10) <MapSource              map_id="map_scrolly_2"              id="municipio"              type="geojson"              data={geojson_municipio}              promoteId={src_municipio.code}              maxzoom={13}            >
-    function create_default_slot_9$1(ctx) {
-    	let maplayer;
-    	let current;
-
-    	maplayer = new MapLayer({
-    			props: {
-    				map_id: "map_scrolly_2",
-    				id: "municipio",
-    				custom: /*custom_2*/ ctx[14],
-    				type: "line"
-    			},
-    			$$inline: true
-    		});
-
-    	const block = {
-    		c: function create() {
-    			create_component(maplayer.$$.fragment);
-    		},
-    		m: function mount(target, anchor) {
-    			mount_component(maplayer, target, anchor);
-    			current = true;
-    		},
-    		p: function update(ctx, dirty) {
-    			const maplayer_changes = {};
-    			if (dirty[0] & /*custom_2*/ 16384) maplayer_changes.custom = /*custom_2*/ ctx[14];
-    			maplayer.$set(maplayer_changes);
-    		},
-    		i: function intro(local) {
-    			if (current) return;
-    			transition_in(maplayer.$$.fragment, local);
-    			current = true;
-    		},
-    		o: function outro(local) {
-    			transition_out(maplayer.$$.fragment, local);
-    			current = false;
-    		},
-    		d: function destroy(detaching) {
-    			destroy_component(maplayer, detaching);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_default_slot_9$1.name,
-    		type: "slot",
-    		source: "(327:10) <MapSource              map_id=\\\"map_scrolly_2\\\"              id=\\\"municipio\\\"              type=\\\"geojson\\\"              data={geojson_municipio}              promoteId={src_municipio.code}              maxzoom={13}            >",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (342:10) <MapSource              map_id="map_scrolly_2"              id="l3"              type="geojson"              data={geojson_l3}              promoteId={src_l3.code}              maxzoom={13}            >
-    function create_default_slot_8$1(ctx) {
-    	let maplayer;
-    	let current;
-
-    	maplayer = new MapLayer({
-    			props: {
-    				map_id: "map_scrolly_2",
-    				id: "l3_line",
-    				custom: /*custom_2*/ ctx[14],
-    				type: "line"
-    			},
-    			$$inline: true
-    		});
-
-    	const block = {
-    		c: function create() {
-    			create_component(maplayer.$$.fragment);
-    		},
-    		m: function mount(target, anchor) {
-    			mount_component(maplayer, target, anchor);
-    			current = true;
-    		},
-    		p: function update(ctx, dirty) {
-    			const maplayer_changes = {};
-    			if (dirty[0] & /*custom_2*/ 16384) maplayer_changes.custom = /*custom_2*/ ctx[14];
-    			maplayer.$set(maplayer_changes);
-    		},
-    		i: function intro(local) {
-    			if (current) return;
-    			transition_in(maplayer.$$.fragment, local);
-    			current = true;
-    		},
-    		o: function outro(local) {
-    			transition_out(maplayer.$$.fragment, local);
-    			current = false;
-    		},
-    		d: function destroy(detaching) {
-    			destroy_component(maplayer, detaching);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_default_slot_8$1.name,
-    		type: "slot",
-    		source: "(342:10) <MapSource              map_id=\\\"map_scrolly_2\\\"              id=\\\"l3\\\"              type=\\\"geojson\\\"              data={geojson_l3}              promoteId={src_l3.code}              maxzoom={13}            >",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (357:10) <MapSource              map_id="map_scrolly_2"              id="l25"              type="geojson"              data={geojson_l25}              promoteId={src_l25.code}              maxzoom={13}            >
-    function create_default_slot_7$1(ctx) {
-    	let maplayer;
-    	let current;
-
-    	maplayer = new MapLayer({
-    			props: {
-    				map_id: "map_scrolly_2",
-    				id: "l25_line",
-    				custom: /*custom_2*/ ctx[14],
-    				type: "line"
-    			},
-    			$$inline: true
-    		});
-
-    	const block = {
-    		c: function create() {
-    			create_component(maplayer.$$.fragment);
-    		},
-    		m: function mount(target, anchor) {
-    			mount_component(maplayer, target, anchor);
-    			current = true;
-    		},
-    		p: function update(ctx, dirty) {
-    			const maplayer_changes = {};
-    			if (dirty[0] & /*custom_2*/ 16384) maplayer_changes.custom = /*custom_2*/ ctx[14];
-    			maplayer.$set(maplayer_changes);
-    		},
-    		i: function intro(local) {
-    			if (current) return;
-    			transition_in(maplayer.$$.fragment, local);
-    			current = true;
-    		},
-    		o: function outro(local) {
-    			transition_out(maplayer.$$.fragment, local);
-    			current = false;
-    		},
-    		d: function destroy(detaching) {
-    			destroy_component(maplayer, detaching);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_default_slot_7$1.name,
-    		type: "slot",
-    		source: "(357:10) <MapSource              map_id=\\\"map_scrolly_2\\\"              id=\\\"l25\\\"              type=\\\"geojson\\\"              data={geojson_l25}              promoteId={src_l25.code}              maxzoom={13}            >",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (372:10) <MapSource              map_id="map_scrolly_2"              id="l2"              type="geojson"              data={geojson_l2}              promoteId={src_l2.code}              maxzoom={13}            >
-    function create_default_slot_6$1(ctx) {
-    	let maplayer0;
-    	let t;
-    	let maplayer1;
-    	let current;
-
-    	maplayer0 = new MapLayer({
-    			props: {
-    				map_id: "map_scrolly_2",
-    				id: "l2_line",
-    				custom: /*custom_2*/ ctx[14],
-    				type: "line"
-    			},
-    			$$inline: true
-    		});
-
-    	maplayer1 = new MapLayer({
-    			props: {
-    				map_id: "map_scrolly_2",
-    				id: "l2_fill",
-    				custom: /*custom_2*/ ctx[14],
-    				type: "fill"
-    			},
-    			$$inline: true
-    		});
-
-    	const block = {
-    		c: function create() {
-    			create_component(maplayer0.$$.fragment);
-    			t = space();
-    			create_component(maplayer1.$$.fragment);
-    		},
-    		m: function mount(target, anchor) {
-    			mount_component(maplayer0, target, anchor);
-    			insert_dev(target, t, anchor);
-    			mount_component(maplayer1, target, anchor);
-    			current = true;
-    		},
-    		p: function update(ctx, dirty) {
-    			const maplayer0_changes = {};
-    			if (dirty[0] & /*custom_2*/ 16384) maplayer0_changes.custom = /*custom_2*/ ctx[14];
-    			maplayer0.$set(maplayer0_changes);
-    			const maplayer1_changes = {};
-    			if (dirty[0] & /*custom_2*/ 16384) maplayer1_changes.custom = /*custom_2*/ ctx[14];
-    			maplayer1.$set(maplayer1_changes);
-    		},
-    		i: function intro(local) {
-    			if (current) return;
-    			transition_in(maplayer0.$$.fragment, local);
-    			transition_in(maplayer1.$$.fragment, local);
-    			current = true;
-    		},
-    		o: function outro(local) {
-    			transition_out(maplayer0.$$.fragment, local);
-    			transition_out(maplayer1.$$.fragment, local);
-    			current = false;
-    		},
-    		d: function destroy(detaching) {
-    			destroy_component(maplayer0, detaching);
-    			if (detaching) detach_dev(t);
-    			destroy_component(maplayer1, detaching);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_default_slot_6$1.name,
-    		type: "slot",
-    		source: "(372:10) <MapSource              map_id=\\\"map_scrolly_2\\\"              id=\\\"l2\\\"              type=\\\"geojson\\\"              data={geojson_l2}              promoteId={src_l2.code}              maxzoom={13}            >",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (393:10) <MapSource              map_id="map_scrolly_2"              id="l1ux"              type="geojson"              data={geojson_l1ux}              promoteId={src_l1ux.code}              maxzoom={13}            >
-    function create_default_slot_5$1(ctx) {
-    	let maplayer;
-    	let current;
-
-    	maplayer = new MapLayer({
-    			props: {
-    				map_id: "map_scrolly_2",
-    				id: "l1ux",
-    				custom: /*custom_2*/ ctx[14],
-    				type: "line"
-    			},
-    			$$inline: true
-    		});
-
-    	const block = {
-    		c: function create() {
-    			create_component(maplayer.$$.fragment);
-    		},
-    		m: function mount(target, anchor) {
-    			mount_component(maplayer, target, anchor);
-    			current = true;
-    		},
-    		p: function update(ctx, dirty) {
-    			const maplayer_changes = {};
-    			if (dirty[0] & /*custom_2*/ 16384) maplayer_changes.custom = /*custom_2*/ ctx[14];
-    			maplayer.$set(maplayer_changes);
-    		},
-    		i: function intro(local) {
-    			if (current) return;
-    			transition_in(maplayer.$$.fragment, local);
-    			current = true;
-    		},
-    		o: function outro(local) {
-    			transition_out(maplayer.$$.fragment, local);
-    			current = false;
-    		},
-    		d: function destroy(detaching) {
-    			destroy_component(maplayer, detaching);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_default_slot_5$1.name,
-    		type: "slot",
-    		source: "(393:10) <MapSource              map_id=\\\"map_scrolly_2\\\"              id=\\\"l1ux\\\"              type=\\\"geojson\\\"              data={geojson_l1ux}              promoteId={src_l1ux.code}              maxzoom={13}            >",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (408:10) <MapSource              map_id="map_scrolly_2"              id="l1ad"              type="geojson"              data={geojson_l1ad}              promoteId={src_l1ad.code}              maxzoom={13}            >
-    function create_default_slot_4$1(ctx) {
-    	let maplayer0;
-    	let t;
-    	let maplayer1;
-    	let current;
-
-    	maplayer0 = new MapLayer({
-    			props: {
-    				map_id: "map_scrolly_2",
-    				id: "l1ad_line",
-    				custom: /*custom_2*/ ctx[14],
-    				type: "line"
-    			},
-    			$$inline: true
-    		});
-
-    	maplayer1 = new MapLayer({
-    			props: {
-    				map_id: "map_scrolly_2",
-    				id: "l1_fill",
-    				custom: /*custom_2*/ ctx[14],
-    				type: "fill"
-    			},
-    			$$inline: true
-    		});
-
-    	const block = {
-    		c: function create() {
-    			create_component(maplayer0.$$.fragment);
-    			t = space();
-    			create_component(maplayer1.$$.fragment);
-    		},
-    		m: function mount(target, anchor) {
-    			mount_component(maplayer0, target, anchor);
-    			insert_dev(target, t, anchor);
-    			mount_component(maplayer1, target, anchor);
-    			current = true;
-    		},
-    		p: function update(ctx, dirty) {
-    			const maplayer0_changes = {};
-    			if (dirty[0] & /*custom_2*/ 16384) maplayer0_changes.custom = /*custom_2*/ ctx[14];
-    			maplayer0.$set(maplayer0_changes);
-    			const maplayer1_changes = {};
-    			if (dirty[0] & /*custom_2*/ 16384) maplayer1_changes.custom = /*custom_2*/ ctx[14];
-    			maplayer1.$set(maplayer1_changes);
-    		},
-    		i: function intro(local) {
-    			if (current) return;
-    			transition_in(maplayer0.$$.fragment, local);
-    			transition_in(maplayer1.$$.fragment, local);
-    			current = true;
-    		},
-    		o: function outro(local) {
-    			transition_out(maplayer0.$$.fragment, local);
-    			transition_out(maplayer1.$$.fragment, local);
-    			current = false;
-    		},
-    		d: function destroy(detaching) {
-    			destroy_component(maplayer0, detaching);
-    			if (detaching) detach_dev(t);
-    			destroy_component(maplayer1, detaching);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_default_slot_4$1.name,
-    		type: "slot",
-    		source: "(408:10) <MapSource              map_id=\\\"map_scrolly_2\\\"              id=\\\"l1ad\\\"              type=\\\"geojson\\\"              data={geojson_l1ad}              promoteId={src_l1ad.code}              maxzoom={13}            >",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (429:10) <MapSource              map_id="map_scrolly_2"              id="ex_l3"              type="geojson"              data={geojson_ex_l3}              promoteId={src_ex_l3.code}              maxzoom={13}            >
-    function create_default_slot_3$2(ctx) {
-    	let maplayer;
-    	let current;
-
-    	maplayer = new MapLayer({
-    			props: {
-    				map_id: "map_scrolly_2",
-    				id: "ex_l3",
-    				custom: /*custom_2*/ ctx[14],
-    				type: "line"
-    			},
-    			$$inline: true
-    		});
-
-    	const block = {
-    		c: function create() {
-    			create_component(maplayer.$$.fragment);
-    		},
-    		m: function mount(target, anchor) {
-    			mount_component(maplayer, target, anchor);
-    			current = true;
-    		},
-    		p: function update(ctx, dirty) {
-    			const maplayer_changes = {};
-    			if (dirty[0] & /*custom_2*/ 16384) maplayer_changes.custom = /*custom_2*/ ctx[14];
-    			maplayer.$set(maplayer_changes);
-    		},
-    		i: function intro(local) {
-    			if (current) return;
-    			transition_in(maplayer.$$.fragment, local);
-    			current = true;
-    		},
-    		o: function outro(local) {
-    			transition_out(maplayer.$$.fragment, local);
-    			current = false;
-    		},
-    		d: function destroy(detaching) {
-    			destroy_component(maplayer, detaching);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_default_slot_3$2.name,
-    		type: "slot",
-    		source: "(429:10) <MapSource              map_id=\\\"map_scrolly_2\\\"              id=\\\"ex_l3\\\"              type=\\\"geojson\\\"              data={geojson_ex_l3}              promoteId={src_ex_l3.code}              maxzoom={13}            >",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (444:10) <MapSource              map_id="map_scrolly_2"              id="ex_l25"              type="geojson"              data={geojson_ex_l25}              promoteId={src_ex_l25.code}              maxzoom={13}            >
-    function create_default_slot_2$2(ctx) {
-    	let maplayer;
-    	let current;
-
-    	maplayer = new MapLayer({
-    			props: {
-    				map_id: "map_scrolly_2",
-    				id: "ex_l25",
-    				custom: /*custom_2*/ ctx[14],
-    				type: "line"
-    			},
-    			$$inline: true
-    		});
-
-    	const block = {
-    		c: function create() {
-    			create_component(maplayer.$$.fragment);
-    		},
-    		m: function mount(target, anchor) {
-    			mount_component(maplayer, target, anchor);
-    			current = true;
-    		},
-    		p: function update(ctx, dirty) {
-    			const maplayer_changes = {};
-    			if (dirty[0] & /*custom_2*/ 16384) maplayer_changes.custom = /*custom_2*/ ctx[14];
-    			maplayer.$set(maplayer_changes);
-    		},
-    		i: function intro(local) {
-    			if (current) return;
-    			transition_in(maplayer.$$.fragment, local);
-    			current = true;
-    		},
-    		o: function outro(local) {
-    			transition_out(maplayer.$$.fragment, local);
-    			current = false;
-    		},
-    		d: function destroy(detaching) {
-    			destroy_component(maplayer, detaching);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_default_slot_2$2.name,
-    		type: "slot",
-    		source: "(444:10) <MapSource              map_id=\\\"map_scrolly_2\\\"              id=\\\"ex_l25\\\"              type=\\\"geojson\\\"              data={geojson_ex_l25}              promoteId={src_ex_l25.code}              maxzoom={13}            >",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (459:10) <MapSource              map_id="map_scrolly_2"              id="ex_l2"              type="geojson"              data={geojson_ex_l2}              promoteId={src_ex_l2.code}              maxzoom={13}            >
-    function create_default_slot_1$2(ctx) {
-    	let maplayer;
-    	let current;
-
-    	maplayer = new MapLayer({
-    			props: {
-    				map_id: "map_scrolly_2",
-    				id: "ex_l2",
-    				custom: /*custom_2*/ ctx[14],
-    				type: "line"
-    			},
-    			$$inline: true
-    		});
-
-    	const block = {
-    		c: function create() {
-    			create_component(maplayer.$$.fragment);
-    		},
-    		m: function mount(target, anchor) {
-    			mount_component(maplayer, target, anchor);
-    			current = true;
-    		},
-    		p: function update(ctx, dirty) {
-    			const maplayer_changes = {};
-    			if (dirty[0] & /*custom_2*/ 16384) maplayer_changes.custom = /*custom_2*/ ctx[14];
-    			maplayer.$set(maplayer_changes);
-    		},
-    		i: function intro(local) {
-    			if (current) return;
-    			transition_in(maplayer.$$.fragment, local);
-    			current = true;
-    		},
-    		o: function outro(local) {
-    			transition_out(maplayer.$$.fragment, local);
-    			current = false;
-    		},
-    		d: function destroy(detaching) {
-    			destroy_component(maplayer, detaching);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_default_slot_1$2.name,
-    		type: "slot",
-    		source: "(459:10) <MapSource              map_id=\\\"map_scrolly_2\\\"              id=\\\"ex_l2\\\"              type=\\\"geojson\\\"              data={geojson_ex_l2}              promoteId={src_ex_l2.code}              maxzoom={13}            >",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (302:8) <Map            id="map_scrolly_2"            style="./data/style-esri-world-imagery.json"            location={{ bounds: bounds.l1ad }}            controls={false}            scales={true}            bind:map={map_scrolly_2}            bind:zoom            bind:center          >
-    function create_default_slot$8(ctx) {
-    	let mapsource0;
-    	let t0;
-    	let mapsource1;
-    	let t1;
-    	let mapsource2;
-    	let t2;
-    	let mapsource3;
-    	let t3;
-    	let mapsource4;
-    	let t4;
-    	let mapsource5;
-    	let t5;
-    	let mapsource6;
-    	let t6;
-    	let mapsource7;
-    	let t7;
-    	let mapsource8;
-    	let t8;
-    	let mapsource9;
-    	let current;
-
-    	mapsource0 = new MapSource({
-    			props: {
-    				map_id: "map_scrolly_2",
-    				id: "municipio_centroid",
-    				type: "geojson",
-    				data: /*geojson_municipio_centroid*/ ctx[4],
-    				promoteId: 'municipio_centroid',
-    				maxzoom: 13,
-    				$$slots: { default: [create_default_slot_10$1] },
-    				$$scope: { ctx }
-    			},
-    			$$inline: true
-    		});
-
-    	mapsource1 = new MapSource({
-    			props: {
-    				map_id: "map_scrolly_2",
-    				id: "municipio",
-    				type: "geojson",
-    				data: /*geojson_municipio*/ ctx[5],
-    				promoteId: /*src_municipio*/ ctx[15].code,
-    				maxzoom: 13,
-    				$$slots: { default: [create_default_slot_9$1] },
-    				$$scope: { ctx }
-    			},
-    			$$inline: true
-    		});
-
-    	mapsource2 = new MapSource({
-    			props: {
-    				map_id: "map_scrolly_2",
-    				id: "l3",
-    				type: "geojson",
-    				data: /*geojson_l3*/ ctx[8],
-    				promoteId: /*src_l3*/ ctx[18].code,
-    				maxzoom: 13,
-    				$$slots: { default: [create_default_slot_8$1] },
-    				$$scope: { ctx }
-    			},
-    			$$inline: true
-    		});
-
-    	mapsource3 = new MapSource({
-    			props: {
-    				map_id: "map_scrolly_2",
-    				id: "l25",
-    				type: "geojson",
-    				data: /*geojson_l25*/ ctx[7],
-    				promoteId: /*src_l25*/ ctx[17].code,
-    				maxzoom: 13,
-    				$$slots: { default: [create_default_slot_7$1] },
-    				$$scope: { ctx }
-    			},
-    			$$inline: true
-    		});
-
-    	mapsource4 = new MapSource({
-    			props: {
-    				map_id: "map_scrolly_2",
-    				id: "l2",
-    				type: "geojson",
-    				data: /*geojson_l2*/ ctx[6],
-    				promoteId: /*src_l2*/ ctx[16].code,
-    				maxzoom: 13,
-    				$$slots: { default: [create_default_slot_6$1] },
-    				$$scope: { ctx }
-    			},
-    			$$inline: true
-    		});
-
-    	mapsource5 = new MapSource({
-    			props: {
-    				map_id: "map_scrolly_2",
-    				id: "l1ux",
-    				type: "geojson",
-    				data: /*geojson_l1ux*/ ctx[9],
-    				promoteId: /*src_l1ux*/ ctx[19].code,
-    				maxzoom: 13,
-    				$$slots: { default: [create_default_slot_5$1] },
-    				$$scope: { ctx }
-    			},
-    			$$inline: true
-    		});
-
-    	mapsource6 = new MapSource({
-    			props: {
-    				map_id: "map_scrolly_2",
-    				id: "l1ad",
-    				type: "geojson",
-    				data: /*geojson_l1ad*/ ctx[10],
-    				promoteId: /*src_l1ad*/ ctx[20].code,
-    				maxzoom: 13,
-    				$$slots: { default: [create_default_slot_4$1] },
-    				$$scope: { ctx }
-    			},
-    			$$inline: true
-    		});
-
-    	mapsource7 = new MapSource({
-    			props: {
-    				map_id: "map_scrolly_2",
-    				id: "ex_l3",
-    				type: "geojson",
-    				data: /*geojson_ex_l3*/ ctx[13],
-    				promoteId: /*src_ex_l3*/ ctx[23].code,
-    				maxzoom: 13,
-    				$$slots: { default: [create_default_slot_3$2] },
-    				$$scope: { ctx }
-    			},
-    			$$inline: true
-    		});
-
-    	mapsource8 = new MapSource({
-    			props: {
-    				map_id: "map_scrolly_2",
-    				id: "ex_l25",
-    				type: "geojson",
-    				data: /*geojson_ex_l25*/ ctx[12],
-    				promoteId: /*src_ex_l25*/ ctx[22].code,
-    				maxzoom: 13,
-    				$$slots: { default: [create_default_slot_2$2] },
-    				$$scope: { ctx }
-    			},
-    			$$inline: true
-    		});
-
-    	mapsource9 = new MapSource({
-    			props: {
-    				map_id: "map_scrolly_2",
-    				id: "ex_l2",
-    				type: "geojson",
-    				data: /*geojson_ex_l2*/ ctx[11],
-    				promoteId: /*src_ex_l2*/ ctx[21].code,
-    				maxzoom: 13,
-    				$$slots: { default: [create_default_slot_1$2] },
-    				$$scope: { ctx }
-    			},
-    			$$inline: true
-    		});
-
-    	const block = {
-    		c: function create() {
-    			create_component(mapsource0.$$.fragment);
-    			t0 = space();
-    			create_component(mapsource1.$$.fragment);
-    			t1 = space();
-    			create_component(mapsource2.$$.fragment);
-    			t2 = space();
-    			create_component(mapsource3.$$.fragment);
-    			t3 = space();
-    			create_component(mapsource4.$$.fragment);
-    			t4 = space();
-    			create_component(mapsource5.$$.fragment);
-    			t5 = space();
-    			create_component(mapsource6.$$.fragment);
-    			t6 = space();
-    			create_component(mapsource7.$$.fragment);
-    			t7 = space();
-    			create_component(mapsource8.$$.fragment);
-    			t8 = space();
-    			create_component(mapsource9.$$.fragment);
-    		},
-    		m: function mount(target, anchor) {
-    			mount_component(mapsource0, target, anchor);
-    			insert_dev(target, t0, anchor);
-    			mount_component(mapsource1, target, anchor);
-    			insert_dev(target, t1, anchor);
-    			mount_component(mapsource2, target, anchor);
-    			insert_dev(target, t2, anchor);
-    			mount_component(mapsource3, target, anchor);
-    			insert_dev(target, t3, anchor);
-    			mount_component(mapsource4, target, anchor);
-    			insert_dev(target, t4, anchor);
-    			mount_component(mapsource5, target, anchor);
-    			insert_dev(target, t5, anchor);
-    			mount_component(mapsource6, target, anchor);
-    			insert_dev(target, t6, anchor);
-    			mount_component(mapsource7, target, anchor);
-    			insert_dev(target, t7, anchor);
-    			mount_component(mapsource8, target, anchor);
-    			insert_dev(target, t8, anchor);
-    			mount_component(mapsource9, target, anchor);
-    			current = true;
-    		},
-    		p: function update(ctx, dirty) {
-    			const mapsource0_changes = {};
-    			if (dirty[0] & /*geojson_municipio_centroid*/ 16) mapsource0_changes.data = /*geojson_municipio_centroid*/ ctx[4];
-
-    			if (dirty[0] & /*custom_2*/ 16384 | dirty[1] & /*$$scope*/ 4) {
-    				mapsource0_changes.$$scope = { dirty, ctx };
-    			}
-
-    			mapsource0.$set(mapsource0_changes);
-    			const mapsource1_changes = {};
-    			if (dirty[0] & /*geojson_municipio*/ 32) mapsource1_changes.data = /*geojson_municipio*/ ctx[5];
-
-    			if (dirty[0] & /*custom_2*/ 16384 | dirty[1] & /*$$scope*/ 4) {
-    				mapsource1_changes.$$scope = { dirty, ctx };
-    			}
-
-    			mapsource1.$set(mapsource1_changes);
-    			const mapsource2_changes = {};
-    			if (dirty[0] & /*geojson_l3*/ 256) mapsource2_changes.data = /*geojson_l3*/ ctx[8];
-
-    			if (dirty[0] & /*custom_2*/ 16384 | dirty[1] & /*$$scope*/ 4) {
-    				mapsource2_changes.$$scope = { dirty, ctx };
-    			}
-
-    			mapsource2.$set(mapsource2_changes);
-    			const mapsource3_changes = {};
-    			if (dirty[0] & /*geojson_l25*/ 128) mapsource3_changes.data = /*geojson_l25*/ ctx[7];
-
-    			if (dirty[0] & /*custom_2*/ 16384 | dirty[1] & /*$$scope*/ 4) {
-    				mapsource3_changes.$$scope = { dirty, ctx };
-    			}
-
-    			mapsource3.$set(mapsource3_changes);
-    			const mapsource4_changes = {};
-    			if (dirty[0] & /*geojson_l2*/ 64) mapsource4_changes.data = /*geojson_l2*/ ctx[6];
-
-    			if (dirty[0] & /*custom_2*/ 16384 | dirty[1] & /*$$scope*/ 4) {
-    				mapsource4_changes.$$scope = { dirty, ctx };
-    			}
-
-    			mapsource4.$set(mapsource4_changes);
-    			const mapsource5_changes = {};
-    			if (dirty[0] & /*geojson_l1ux*/ 512) mapsource5_changes.data = /*geojson_l1ux*/ ctx[9];
-
-    			if (dirty[0] & /*custom_2*/ 16384 | dirty[1] & /*$$scope*/ 4) {
-    				mapsource5_changes.$$scope = { dirty, ctx };
-    			}
-
-    			mapsource5.$set(mapsource5_changes);
-    			const mapsource6_changes = {};
-    			if (dirty[0] & /*geojson_l1ad*/ 1024) mapsource6_changes.data = /*geojson_l1ad*/ ctx[10];
-
-    			if (dirty[0] & /*custom_2*/ 16384 | dirty[1] & /*$$scope*/ 4) {
-    				mapsource6_changes.$$scope = { dirty, ctx };
-    			}
-
-    			mapsource6.$set(mapsource6_changes);
-    			const mapsource7_changes = {};
-    			if (dirty[0] & /*geojson_ex_l3*/ 8192) mapsource7_changes.data = /*geojson_ex_l3*/ ctx[13];
-
-    			if (dirty[0] & /*custom_2*/ 16384 | dirty[1] & /*$$scope*/ 4) {
-    				mapsource7_changes.$$scope = { dirty, ctx };
-    			}
-
-    			mapsource7.$set(mapsource7_changes);
-    			const mapsource8_changes = {};
-    			if (dirty[0] & /*geojson_ex_l25*/ 4096) mapsource8_changes.data = /*geojson_ex_l25*/ ctx[12];
-
-    			if (dirty[0] & /*custom_2*/ 16384 | dirty[1] & /*$$scope*/ 4) {
-    				mapsource8_changes.$$scope = { dirty, ctx };
-    			}
-
-    			mapsource8.$set(mapsource8_changes);
-    			const mapsource9_changes = {};
-    			if (dirty[0] & /*geojson_ex_l2*/ 2048) mapsource9_changes.data = /*geojson_ex_l2*/ ctx[11];
-
-    			if (dirty[0] & /*custom_2*/ 16384 | dirty[1] & /*$$scope*/ 4) {
-    				mapsource9_changes.$$scope = { dirty, ctx };
-    			}
-
-    			mapsource9.$set(mapsource9_changes);
-    		},
-    		i: function intro(local) {
-    			if (current) return;
-    			transition_in(mapsource0.$$.fragment, local);
-    			transition_in(mapsource1.$$.fragment, local);
-    			transition_in(mapsource2.$$.fragment, local);
-    			transition_in(mapsource3.$$.fragment, local);
-    			transition_in(mapsource4.$$.fragment, local);
-    			transition_in(mapsource5.$$.fragment, local);
-    			transition_in(mapsource6.$$.fragment, local);
-    			transition_in(mapsource7.$$.fragment, local);
-    			transition_in(mapsource8.$$.fragment, local);
-    			transition_in(mapsource9.$$.fragment, local);
-    			current = true;
-    		},
-    		o: function outro(local) {
-    			transition_out(mapsource0.$$.fragment, local);
-    			transition_out(mapsource1.$$.fragment, local);
-    			transition_out(mapsource2.$$.fragment, local);
-    			transition_out(mapsource3.$$.fragment, local);
-    			transition_out(mapsource4.$$.fragment, local);
-    			transition_out(mapsource5.$$.fragment, local);
-    			transition_out(mapsource6.$$.fragment, local);
-    			transition_out(mapsource7.$$.fragment, local);
-    			transition_out(mapsource8.$$.fragment, local);
-    			transition_out(mapsource9.$$.fragment, local);
-    			current = false;
-    		},
-    		d: function destroy(detaching) {
-    			destroy_component(mapsource0, detaching);
-    			if (detaching) detach_dev(t0);
-    			destroy_component(mapsource1, detaching);
-    			if (detaching) detach_dev(t1);
-    			destroy_component(mapsource2, detaching);
-    			if (detaching) detach_dev(t2);
-    			destroy_component(mapsource3, detaching);
-    			if (detaching) detach_dev(t3);
-    			destroy_component(mapsource4, detaching);
-    			if (detaching) detach_dev(t4);
-    			destroy_component(mapsource5, detaching);
-    			if (detaching) detach_dev(t5);
-    			destroy_component(mapsource6, detaching);
-    			if (detaching) detach_dev(t6);
-    			destroy_component(mapsource7, detaching);
-    			if (detaching) detach_dev(t7);
-    			destroy_component(mapsource8, detaching);
-    			if (detaching) detach_dev(t8);
-    			destroy_component(mapsource9, detaching);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_default_slot$8.name,
-    		type: "slot",
-    		source: "(302:8) <Map            id=\\\"map_scrolly_2\\\"            style=\\\"./data/style-esri-world-imagery.json\\\"            location={{ bounds: bounds.l1ad }}            controls={false}            scales={true}            bind:map={map_scrolly_2}            bind:zoom            bind:center          >",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (299:2) 
-    function create_background_slot$1(ctx) {
-    	let div1;
-    	let figure;
-    	let div0;
-    	let map;
-    	let updating_map;
-    	let updating_zoom;
-    	let updating_center;
-    	let current;
-
-    	function map_map_binding(value) {
-    		/*map_map_binding*/ ctx[24](value);
-    	}
-
-    	function map_zoom_binding(value) {
-    		/*map_zoom_binding*/ ctx[25](value);
-    	}
-
-    	function map_center_binding(value) {
-    		/*map_center_binding*/ ctx[26](value);
-    	}
-
-    	let map_props = {
-    		id: "map_scrolly_2",
-    		style: "./data/style-esri-world-imagery.json",
-    		location: { bounds: bounds.l1ad },
-    		controls: false,
-    		scales: true,
-    		$$slots: { default: [create_default_slot$8] },
-    		$$scope: { ctx }
-    	};
-
-    	if (/*map_scrolly_2*/ ctx[1] !== void 0) {
-    		map_props.map = /*map_scrolly_2*/ ctx[1];
-    	}
-
-    	if (/*zoom*/ ctx[2] !== void 0) {
-    		map_props.zoom = /*zoom*/ ctx[2];
-    	}
-
-    	if (/*center*/ ctx[3] !== void 0) {
-    		map_props.center = /*center*/ ctx[3];
-    	}
-
-    	map = new Map$1({ props: map_props, $$inline: true });
-    	binding_callbacks.push(() => bind(map, 'map', map_map_binding));
-    	binding_callbacks.push(() => bind(map, 'zoom', map_zoom_binding));
-    	binding_callbacks.push(() => bind(map, 'center', map_center_binding));
-
-    	const block = {
-    		c: function create() {
-    			div1 = element("div");
-    			figure = element("figure");
-    			div0 = element("div");
-    			create_component(map.$$.fragment);
-    			attr_dev(div0, "class", "col-full height-full");
-    			add_location(div0, file$h, 300, 6, 7404);
-    			add_location(figure, file$h, 299, 4, 7388);
-    			attr_dev(div1, "slot", "background");
-    			add_location(div1, file$h, 298, 2, 7359);
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, div1, anchor);
-    			append_dev(div1, figure);
-    			append_dev(figure, div0);
-    			mount_component(map, div0, null);
-    			current = true;
-    		},
-    		p: function update(ctx, dirty) {
-    			const map_changes = {};
-
-    			if (dirty[0] & /*geojson_ex_l2, custom_2, geojson_ex_l25, geojson_ex_l3, geojson_l1ad, geojson_l1ux, geojson_l2, geojson_l25, geojson_l3, geojson_municipio, geojson_municipio_centroid*/ 32752 | dirty[1] & /*$$scope*/ 4) {
-    				map_changes.$$scope = { dirty, ctx };
-    			}
-
-    			if (!updating_map && dirty[0] & /*map_scrolly_2*/ 2) {
-    				updating_map = true;
-    				map_changes.map = /*map_scrolly_2*/ ctx[1];
-    				add_flush_callback(() => updating_map = false);
-    			}
-
-    			if (!updating_zoom && dirty[0] & /*zoom*/ 4) {
-    				updating_zoom = true;
-    				map_changes.zoom = /*zoom*/ ctx[2];
-    				add_flush_callback(() => updating_zoom = false);
-    			}
-
-    			if (!updating_center && dirty[0] & /*center*/ 8) {
-    				updating_center = true;
-    				map_changes.center = /*center*/ ctx[3];
-    				add_flush_callback(() => updating_center = false);
-    			}
-
-    			map.$set(map_changes);
-    		},
-    		i: function intro(local) {
-    			if (current) return;
-    			transition_in(map.$$.fragment, local);
-    			current = true;
-    		},
-    		o: function outro(local) {
-    			transition_out(map.$$.fragment, local);
-    			current = false;
-    		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div1);
-    			destroy_component(map);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_background_slot$1.name,
-    		type: "slot",
-    		source: "(299:2) ",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (479:2) 
-    function create_foreground_slot$1(ctx) {
-    	let div6;
-    	let section0;
-    	let div0;
-    	let strong0;
-    	let t1;
-    	let p0;
-    	let t2;
-    	let span0;
-    	let t3;
-    	let span0_style_value;
-    	let t4;
-    	let em0;
-    	let t6;
-    	let t7;
-    	let section1;
-    	let div1;
-    	let strong1;
-    	let t9;
-    	let p1;
-    	let t10;
-    	let span1;
-    	let t11;
-    	let span1_style_value;
-    	let t12;
-    	let em1;
-    	let t14;
-    	let span2;
-    	let t15;
-    	let span2_style_value;
-    	let t16;
-    	let t17;
-    	let section2;
-    	let div2;
-    	let strong2;
-    	let t19;
-    	let p2;
-    	let span3;
-    	let t20;
-    	let span3_style_value;
-    	let t21;
-    	let t22;
-    	let section3;
-    	let div3;
-    	let strong3;
-    	let t24;
-    	let p3;
-    	let t25;
-    	let span4;
-    	let t26;
-    	let span4_style_value;
-    	let t27;
-    	let em2;
-    	let t29;
-    	let t30;
-    	let section4;
-    	let div4;
-    	let p4;
-    	let t31;
-    	let span5;
-    	let t32;
-    	let span5_style_value;
-    	let t33;
-    	let em3;
-    	let t35;
-    	let span6;
-    	let t36;
-    	let span6_style_value;
-    	let t37;
-    	let t38;
-    	let section5;
-    	let div5;
-    	let p5;
-    	let t39;
-    	let span7;
-    	let t40;
-    	let span7_style_value;
-    	let t41;
-    	let span8;
-    	let t42;
-    	let span8_style_value;
-    	let t43;
-    	let span9;
-    	let t44;
-    	let span9_style_value;
-    	let t45;
-
-    	const block = {
-    		c: function create() {
-    			div6 = element("div");
-    			section0 = element("section");
-    			div0 = element("div");
-    			strong0 = element("strong");
-    			strong0.textContent = "Level 1: \"Cities\"";
-    			t1 = space();
-    			p0 = element("p");
-    			t2 = text("The SALURBAL ");
-    			span0 = element("span");
-    			t3 = text("Level 1");
-    			t4 = text(" for São Paulo\r\n          encompasses all administrative units or\r\n          ");
-    			em0 = element("em");
-    			em0.textContent = "municípios";
-    			t6 = text(" that have any overlap with the visually apparent built-up\r\n          urban area in and around the core city of São Paulo.");
-    			t7 = space();
-    			section1 = element("section");
-    			div1 = element("div");
-    			strong1 = element("strong");
-    			strong1.textContent = "Level 2: \"Sub-cities\"";
-    			t9 = space();
-    			p1 = element("p");
-    			t10 = text("Within the São Paulo SALURBAL city ");
-    			span1 = element("span");
-    			t11 = text("(São Paulo L1)");
-    			t12 = text(", we defined sub-city units as each of the\r\n          ");
-    			em1 = element("em");
-    			em1.textContent = "municípios";
-    			t14 = text(" that compose the São Paulo urban agglomeration.\r\n          These are the\r\n          ");
-    			span2 = element("span");
-    			t15 = text("L2s");
-    			t16 = text(".");
-    			t17 = space();
-    			section2 = element("section");
-    			div2 = element("div");
-    			strong2 = element("strong");
-    			strong2.textContent = "Level 3: \"Neighborhoods\"";
-    			t19 = space();
-    			p2 = element("p");
-    			span3 = element("span");
-    			t20 = text("Level 3 units or neighborhoods");
-    			t21 = text(" are the smallest\r\n          administrative units for which census data is available in each country.");
-    			t22 = space();
-    			section3 = element("section");
-    			div3 = element("div");
-    			strong3 = element("strong");
-    			strong3.textContent = "Level 3: \"Neighborhoods\"";
-    			t24 = space();
-    			p3 = element("p");
-    			t25 = text("As shown here, each ");
-    			span4 = element("span");
-    			t26 = text("L3 unit");
-    			t27 = text(" in a\r\n          Brazilian city like São Paulo corresponds to a\r\n          ");
-    			em2 = element("em");
-    			em2.textContent = "setor censitario";
-    			t29 = text(".");
-    			t30 = space();
-    			section4 = element("section");
-    			div4 = element("div");
-    			p4 = element("p");
-    			t31 = text("These ");
-    			span5 = element("span");
-    			t32 = text("L3 units");
-    			t33 = text(" were sometimes too small\r\n          to support meaningful neighborhood-level analysis. To address this\r\n          issue, we used larger Brazil census geographic units (");
-    			em3 = element("em");
-    			em3.textContent = "Áreas de Ponderação";
-    			t35 = text(") and labeled them\r\n          ");
-    			span6 = element("span");
-    			t36 = text("L2.5's");
-    			t37 = text(".");
-    			t38 = space();
-    			section5 = element("section");
-    			div5 = element("div");
-    			p5 = element("p");
-    			t39 = text("The SALURBAL hierarchy of geographic units for Sao Paulo, Brazil\r\n          consists of 621 ");
-    			span7 = element("span");
-    			t40 = text("L2.5 neighborhood units");
-    			t41 = text(", within 31 ");
-    			span8 = element("span");
-    			t42 = text("L2 sub-city units");
-    			t43 = text(", within\r\n          a single ");
-    			span9 = element("span");
-    			t44 = text("L1 city unit");
-    			t45 = text(".");
-    			add_location(strong0, file$h, 481, 8, 12362);
-    			attr_dev(span0, "style", span0_style_value = textStyles.l1);
-    			add_location(span0, file$h, 483, 23, 12434);
-    			add_location(em0, file$h, 485, 10, 12553);
-    			add_location(p0, file$h, 482, 8, 12406);
-    			attr_dev(div0, "class", "col-medium");
-    			add_location(div0, file$h, 480, 6, 12328);
-    			attr_dev(section0, "data-id", "map01");
-    			add_location(section0, file$h, 479, 4, 12295);
-    			add_location(strong1, file$h, 492, 8, 12811);
-    			attr_dev(span1, "style", span1_style_value = textStyles.l1);
-    			add_location(span1, file$h, 494, 45, 12909);
-    			add_location(em1, file$h, 497, 10, 13038);
-    			attr_dev(span2, "style", span2_style_value = textStyles.l2);
-    			add_location(span2, file$h, 499, 10, 13142);
-    			add_location(p1, file$h, 493, 8, 12859);
-    			attr_dev(div1, "class", "col-medium");
-    			add_location(div1, file$h, 491, 6, 12777);
-    			attr_dev(section1, "data-id", "map02");
-    			add_location(section1, file$h, 490, 4, 12744);
-    			add_location(strong2, file$h, 505, 8, 13298);
-    			attr_dev(span3, "style", span3_style_value = textStyles.l3);
-    			add_location(span3, file$h, 507, 10, 13364);
-    			add_location(p2, file$h, 506, 8, 13349);
-    			attr_dev(div2, "class", "col-medium");
-    			add_location(div2, file$h, 504, 6, 13264);
-    			attr_dev(section2, "data-id", "map03");
-    			add_location(section2, file$h, 503, 4, 13231);
-    			add_location(strong3, file$h, 514, 8, 13647);
-    			attr_dev(span4, "style", span4_style_value = textStyles.l3);
-    			add_location(span4, file$h, 516, 30, 13733);
-    			add_location(em2, file$h, 518, 10, 13850);
-    			add_location(p3, file$h, 515, 8, 13698);
-    			attr_dev(div3, "class", "col-medium");
-    			add_location(div3, file$h, 513, 6, 13613);
-    			attr_dev(section3, "data-id", "map04");
-    			add_location(section3, file$h, 512, 4, 13580);
-    			attr_dev(span5, "style", span5_style_value = textStyles.l3);
-    			add_location(span5, file$h, 525, 16, 14014);
-    			add_location(em3, file$h, 527, 64, 14227);
-    			attr_dev(span6, "style", span6_style_value = textStyles.l25);
-    			add_location(span6, file$h, 530, 10, 14311);
-    			add_location(p4, file$h, 524, 8, 13993);
-    			attr_dev(div4, "class", "col-medium");
-    			add_location(div4, file$h, 523, 6, 13959);
-    			attr_dev(section4, "data-id", "map05");
-    			add_location(section4, file$h, 522, 4, 13926);
-    			attr_dev(span7, "style", span7_style_value = textStyles.l25);
-    			add_location(span7, file$h, 538, 26, 14579);
-    			attr_dev(span8, "style", span8_style_value = textStyles.l2);
-    			add_location(span8, file$h, 540, 23, 14676);
-    			attr_dev(span9, "style", span9_style_value = textStyles.l1);
-    			add_location(span9, file$h, 541, 19, 14758);
-    			add_location(p5, file$h, 536, 8, 14472);
-    			attr_dev(div5, "class", "col-medium");
-    			add_location(div5, file$h, 535, 6, 14438);
-    			attr_dev(section5, "data-id", "map06");
-    			add_location(section5, file$h, 534, 4, 14405);
-    			attr_dev(div6, "slot", "foreground");
-    			add_location(div6, file$h, 478, 2, 12266);
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, div6, anchor);
-    			append_dev(div6, section0);
-    			append_dev(section0, div0);
-    			append_dev(div0, strong0);
-    			append_dev(div0, t1);
-    			append_dev(div0, p0);
-    			append_dev(p0, t2);
-    			append_dev(p0, span0);
-    			append_dev(span0, t3);
-    			append_dev(p0, t4);
-    			append_dev(p0, em0);
-    			append_dev(p0, t6);
-    			append_dev(div6, t7);
-    			append_dev(div6, section1);
-    			append_dev(section1, div1);
-    			append_dev(div1, strong1);
-    			append_dev(div1, t9);
-    			append_dev(div1, p1);
-    			append_dev(p1, t10);
-    			append_dev(p1, span1);
-    			append_dev(span1, t11);
-    			append_dev(p1, t12);
-    			append_dev(p1, em1);
-    			append_dev(p1, t14);
-    			append_dev(p1, span2);
-    			append_dev(span2, t15);
-    			append_dev(p1, t16);
-    			append_dev(div6, t17);
-    			append_dev(div6, section2);
-    			append_dev(section2, div2);
-    			append_dev(div2, strong2);
-    			append_dev(div2, t19);
-    			append_dev(div2, p2);
-    			append_dev(p2, span3);
-    			append_dev(span3, t20);
-    			append_dev(p2, t21);
-    			append_dev(div6, t22);
-    			append_dev(div6, section3);
-    			append_dev(section3, div3);
-    			append_dev(div3, strong3);
-    			append_dev(div3, t24);
-    			append_dev(div3, p3);
-    			append_dev(p3, t25);
-    			append_dev(p3, span4);
-    			append_dev(span4, t26);
-    			append_dev(p3, t27);
-    			append_dev(p3, em2);
-    			append_dev(p3, t29);
-    			append_dev(div6, t30);
-    			append_dev(div6, section4);
-    			append_dev(section4, div4);
-    			append_dev(div4, p4);
-    			append_dev(p4, t31);
-    			append_dev(p4, span5);
-    			append_dev(span5, t32);
-    			append_dev(p4, t33);
-    			append_dev(p4, em3);
-    			append_dev(p4, t35);
-    			append_dev(p4, span6);
-    			append_dev(span6, t36);
-    			append_dev(p4, t37);
-    			append_dev(div6, t38);
-    			append_dev(div6, section5);
-    			append_dev(section5, div5);
-    			append_dev(div5, p5);
-    			append_dev(p5, t39);
-    			append_dev(p5, span7);
-    			append_dev(span7, t40);
-    			append_dev(p5, t41);
-    			append_dev(p5, span8);
-    			append_dev(span8, t42);
-    			append_dev(p5, t43);
-    			append_dev(p5, span9);
-    			append_dev(span9, t44);
-    			append_dev(p5, t45);
-    		},
-    		p: noop,
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div6);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_foreground_slot$1.name,
-    		type: "slot",
-    		source: "(479:2) ",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    function create_fragment$l(ctx) {
-    	let div;
-    	let t;
-    	let scroller;
-    	let updating_id;
-    	let current;
-
-    	function scroller_id_binding(value) {
-    		/*scroller_id_binding*/ ctx[27](value);
-    	}
-
-    	let scroller_props = {
-    		threshold: threshold$1,
-    		splitscreen: true,
-    		$$slots: {
-    			foreground: [create_foreground_slot$1],
-    			background: [create_background_slot$1]
-    		},
-    		$$scope: { ctx }
-    	};
-
-    	if (/*id*/ ctx[0]['map_scrolly_2'] !== void 0) {
-    		scroller_props.id = /*id*/ ctx[0]['map_scrolly_2'];
-    	}
-
-    	scroller = new Scroller({ props: scroller_props, $$inline: true });
-    	binding_callbacks.push(() => bind(scroller, 'id', scroller_id_binding));
-
-    	const block = {
-    		c: function create() {
-    			div = element("div");
-    			t = space();
-    			create_component(scroller.$$.fragment);
-    			set_style(div, "height", "3rem");
-    			add_location(div, file$h, 296, 0, 7254);
-    		},
-    		l: function claim(nodes) {
-    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			insert_dev(target, t, anchor);
-    			mount_component(scroller, target, anchor);
-    			current = true;
-    		},
-    		p: function update(ctx, dirty) {
-    			const scroller_changes = {};
-
-    			if (dirty[0] & /*map_scrolly_2, zoom, center, geojson_ex_l2, custom_2, geojson_ex_l25, geojson_ex_l3, geojson_l1ad, geojson_l1ux, geojson_l2, geojson_l25, geojson_l3, geojson_municipio, geojson_municipio_centroid*/ 32766 | dirty[1] & /*$$scope*/ 4) {
-    				scroller_changes.$$scope = { dirty, ctx };
-    			}
-
-    			if (!updating_id && dirty[0] & /*id*/ 1) {
-    				updating_id = true;
-    				scroller_changes.id = /*id*/ ctx[0]['map_scrolly_2'];
-    				add_flush_callback(() => updating_id = false);
-    			}
-
-    			scroller.$set(scroller_changes);
-    		},
-    		i: function intro(local) {
-    			if (current) return;
-    			transition_in(scroller.$$.fragment, local);
-    			current = true;
-    		},
-    		o: function outro(local) {
-    			transition_out(scroller.$$.fragment, local);
-    			current = false;
-    		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div);
-    			if (detaching) detach_dev(t);
-    			destroy_component(scroller, detaching);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_fragment$l.name,
-    		type: "component",
-    		source: "",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    const threshold$1 = 0.7; // Different threshold for this scrolly (example)
-
-    // Map bounds function
-    function fitBounds$1(map, bounds) {
-    	if (map) {
-    		map.fitBounds(bounds, { animate: true, padding: 30 });
-    	}
-    }
-
-    function instance$l($$self, $$props, $$invalidate) {
-    	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots('GeographicHierarchyScrolly', slots, []);
-    	let { id } = $$props;
-
-    	// Internal state
-    	let map_scrolly_2;
-
-    	let zoom;
-    	let center;
-
-    	// Data loading for this scrolly
-    	// municipio centroid (shared)
-    	const src__municipio_centroid = {
-    		url: './data/sao_paolo_municipio_centroid.json',
-    		layer: 'geog',
-    		code: 'salid2'
-    	};
-
-    	let geojson_municipio_centroid;
-
-    	getTopo(src__municipio_centroid.url, src__municipio_centroid.layer).then(res => {
-    		$$invalidate(4, geojson_municipio_centroid = res);
-    	});
-
-    	// Municipio boundaries (shared)
-    	const src_municipio = {
-    		url: './data/sao_paolo_municipio.json',
-    		layer: 'geog',
-    		code: 'salid2'
-    	};
-
-    	let geojson_municipio;
-
-    	getTopo(src_municipio.url, src_municipio.layer).then(res => {
-    		$$invalidate(5, geojson_municipio = res);
-    	});
-
-    	// Geographic hierarchy data
-    	const src_l2 = {
-    		url: './data/sao_paolo_l2.json',
-    		layer: 'geog',
-    		code: 'salid2'
-    	};
-
-    	let geojson_l2;
-
-    	getTopo(src_l2.url, src_l2.layer).then(res => {
-    		$$invalidate(6, geojson_l2 = res);
-    	});
-
-    	const src_l25 = {
-    		url: './data/sao_paolo_l25.json',
-    		layer: 'geog',
-    		code: 'salid2'
-    	};
-
-    	let geojson_l25;
-
-    	getTopo(src_l25.url, src_l25.layer).then(res => {
-    		$$invalidate(7, geojson_l25 = res);
-    	});
-
-    	const src_l3 = {
-    		url: './data/sao_paolo_l3.json',
-    		layer: 'geog',
-    		code: 'salid2'
-    	};
-
-    	let geojson_l3;
-
-    	getTopo(src_l3.url, src_l3.layer).then(res => {
-    		$$invalidate(8, geojson_l3 = res);
-    	});
-
-    	const src_l1ux = {
-    		url: './data/sao_paolo_l1ux.json',
-    		layer: 'geog',
-    		code: 'salid1'
-    	};
-
-    	let geojson_l1ux;
-
-    	getTopo(src_l1ux.url, src_l1ux.layer).then(res => {
-    		$$invalidate(9, geojson_l1ux = res);
-    	});
-
-    	const src_l1ad = {
-    		url: './data/sao_paolo_l1ad.json',
-    		layer: 'geog',
-    		code: 'salid1'
-    	};
-
-    	let geojson_l1ad;
-
-    	getTopo(src_l1ad.url, src_l1ad.layer).then(res => {
-    		$$invalidate(10, geojson_l1ad = res);
-    	});
-
-    	// Example data
-    	const src_ex_l2 = {
-    		url: './data/sao_paolo_ex_l2.json',
-    		layer: 'geog',
-    		code: 'salid2'
-    	};
-
-    	let geojson_ex_l2;
-
-    	getTopo(src_ex_l2.url, src_ex_l2.layer).then(res => {
-    		$$invalidate(11, geojson_ex_l2 = res);
-    	});
-
-    	const src_ex_l25 = {
-    		url: './data/sao_paolo_ex_l25.json',
-    		layer: 'geog',
-    		code: 'salid2'
-    	};
-
-    	let geojson_ex_l25;
-
-    	getTopo(src_ex_l25.url, src_ex_l25.layer).then(res => {
-    		$$invalidate(12, geojson_ex_l25 = res);
-    	});
-
-    	const src_ex_l3 = {
-    		url: './data/sao_paolo_ex_l3.json',
-    		layer: 'geog',
-    		code: 'salid2'
-    	};
-
-    	let geojson_ex_l3;
-
-    	getTopo(src_ex_l3.url, src_ex_l3.layer).then(res => {
-    		$$invalidate(13, geojson_ex_l3 = res);
-    	});
-
-    	// Scroller setup
-    	let idPrev = {};
-
-    	onMount(() => {
-    		idPrev = { ...id };
-    	});
-
-    	// Initial step configuration
-    	const custom_2_map01 = {
-    		mapid: 'map01',
-    		layers: {
-    			l2_line: {
-    				'line-color': levelColors.l2,
-    				'line-width': 2,
-    				'line-opacity': 1
-    			},
-    			l2_fill: {
-    				'fill-color': levelColors.l1,
-    				'fill-opacity': 0.5
-    			},
-    			l1ad_line: {
-    				'line-color': levelColors.l1,
-    				'line-width': 5
-    			}
-    		}
-    	};
-
-    	let custom_2 = custom_2_map01;
-
-    	// Actions for this scrolly
-    	let actions = {
-    		map_scrolly_2: {
-    			map01: () => {
-    				fitBounds$1(map_scrolly_2, bounds.l1ad);
-    				$$invalidate(14, custom_2 = custom_2_map01);
-    			},
-    			map02: () => {
-    				fitBounds$1(map_scrolly_2, bounds.l1ad);
-
-    				$$invalidate(14, custom_2 = {
-    					mapid: 'map02',
-    					layers: {
-    						l2_line: {
-    							'line-color': levelColors.l2,
-    							'line-width': 5,
-    							'line-opacity': 1
-    						},
-    						l2_fill: {
-    							'fill-color': levelColors.l1,
-    							'fill-opacity': 0.15
-    						},
-    						l1ad_line: {
-    							'line-color': levelColors.l1,
-    							'line-width': 7,
-    							'line-opacity': 1
-    						}
-    					}
-    				});
-    			},
-    			map03: () => {
-    				fitBounds$1(map_scrolly_2, bounds.l1ad);
-
-    				$$invalidate(14, custom_2 = {
-    					mapid: 'map03',
-    					layers: {
-    						l2_line: {
-    							'line-color': levelColors.l2,
-    							'line-width': 5,
-    							'line-opacity': 1
-    						},
-    						l2_fill: {
-    							'fill-color': levelColors.l1,
-    							'fill-opacity': 0.1
-    						},
-    						l1ad_line: {
-    							'line-color': levelColors.l1,
-    							'line-width': 7,
-    							'line-opacity': 1
-    						},
-    						l3_line: {
-    							'line-color': levelColors.l3,
-    							'line-width': 0.2,
-    							'line-opacity': 1
-    						}
-    					}
-    				});
-    			},
-    			map04: () => {
-    				fitBounds$1(map_scrolly_2, bounds.ex_l2);
-
-    				$$invalidate(14, custom_2 = {
-    					mapid: 'map04',
-    					layers: {
-    						ex_l3: {
-    							'line-color': levelColors.l3,
-    							'line-width': 2
-    						},
-    						ex_l2: {
-    							'line-color': levelColors.l2,
-    							'line-width': 8
-    						}
-    					}
-    				});
-    			},
-    			map05: () => {
-    				fitBounds$1(map_scrolly_2, bounds.ex_l2);
-
-    				$$invalidate(14, custom_2 = {
-    					mapid: 'map05',
-    					layers: {
-    						ex_l3: {
-    							'line-color': levelColors.l3,
-    							'line-width': 2
-    						},
-    						ex_l25: {
-    							'line-color': levelColors.l25,
-    							'line-width': 4
-    						},
-    						ex_l2: {
-    							'line-color': levelColors.l2,
-    							'line-width': 8
-    						}
-    					}
-    				});
-    			},
-    			map06: () => {
-    				fitBounds$1(map_scrolly_2, bounds.l1ad);
-
-    				$$invalidate(14, custom_2 = {
-    					mapid: 'map06',
-    					layers: {
-    						l1ad_line: {
-    							'line-color': levelColors.l1,
-    							'line-width': 6,
-    							'line-opacity': 1
-    						},
-    						l2_line: {
-    							'line-color': levelColors.l2,
-    							'line-width': 4
-    						},
-    						l25_line: {
-    							'line-color': levelColors.l25,
-    							'line-width': 2
-    						}
-    					}
-    				});
-    			}
-    		}
-    	};
-
-    	function runActions(codes = []) {
-    		codes.forEach(code => {
-    			if (id[code] != idPrev[code]) {
-    				if (actions[code][id[code]]) {
-    					actions[code][id[code]]();
-    				}
-
-    				idPrev[code] = id[code];
-    			}
-    		});
-    	}
-
-    	const writable_props = ['id'];
-
-    	Object_1$2.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<GeographicHierarchyScrolly> was created with unknown prop '${key}'`);
-    	});
-
-    	function map_map_binding(value) {
-    		map_scrolly_2 = value;
-    		$$invalidate(1, map_scrolly_2);
-    	}
-
-    	function map_zoom_binding(value) {
-    		zoom = value;
-    		$$invalidate(2, zoom);
-    	}
-
-    	function map_center_binding(value) {
-    		center = value;
-    		$$invalidate(3, center);
-    	}
-
-    	function scroller_id_binding(value) {
-    		if ($$self.$$.not_equal(id['map_scrolly_2'], value)) {
-    			id['map_scrolly_2'] = value;
-    			$$invalidate(0, id);
-    		}
-    	}
-
-    	$$self.$$set = $$props => {
-    		if ('id' in $$props) $$invalidate(0, id = $$props.id);
-    	};
-
-    	$$self.$capture_state = () => ({
-    		onMount,
-    		Scroller,
-    		Map: Map$1,
-    		MapSource,
-    		MapLayer,
-    		getTopo,
-    		colors,
-    		levelColors,
-    		textStyles,
-    		bounds,
-    		id,
-    		threshold: threshold$1,
-    		map_scrolly_2,
-    		zoom,
-    		center,
-    		src__municipio_centroid,
-    		geojson_municipio_centroid,
-    		src_municipio,
-    		geojson_municipio,
-    		src_l2,
-    		geojson_l2,
-    		src_l25,
-    		geojson_l25,
-    		src_l3,
-    		geojson_l3,
-    		src_l1ux,
-    		geojson_l1ux,
-    		src_l1ad,
-    		geojson_l1ad,
-    		src_ex_l2,
-    		geojson_ex_l2,
-    		src_ex_l25,
-    		geojson_ex_l25,
-    		src_ex_l3,
-    		geojson_ex_l3,
-    		fitBounds: fitBounds$1,
-    		idPrev,
-    		custom_2_map01,
-    		custom_2,
-    		actions,
-    		runActions
-    	});
-
-    	$$self.$inject_state = $$props => {
-    		if ('id' in $$props) $$invalidate(0, id = $$props.id);
-    		if ('map_scrolly_2' in $$props) $$invalidate(1, map_scrolly_2 = $$props.map_scrolly_2);
-    		if ('zoom' in $$props) $$invalidate(2, zoom = $$props.zoom);
-    		if ('center' in $$props) $$invalidate(3, center = $$props.center);
-    		if ('geojson_municipio_centroid' in $$props) $$invalidate(4, geojson_municipio_centroid = $$props.geojson_municipio_centroid);
-    		if ('geojson_municipio' in $$props) $$invalidate(5, geojson_municipio = $$props.geojson_municipio);
-    		if ('geojson_l2' in $$props) $$invalidate(6, geojson_l2 = $$props.geojson_l2);
-    		if ('geojson_l25' in $$props) $$invalidate(7, geojson_l25 = $$props.geojson_l25);
-    		if ('geojson_l3' in $$props) $$invalidate(8, geojson_l3 = $$props.geojson_l3);
-    		if ('geojson_l1ux' in $$props) $$invalidate(9, geojson_l1ux = $$props.geojson_l1ux);
-    		if ('geojson_l1ad' in $$props) $$invalidate(10, geojson_l1ad = $$props.geojson_l1ad);
-    		if ('geojson_ex_l2' in $$props) $$invalidate(11, geojson_ex_l2 = $$props.geojson_ex_l2);
-    		if ('geojson_ex_l25' in $$props) $$invalidate(12, geojson_ex_l25 = $$props.geojson_ex_l25);
-    		if ('geojson_ex_l3' in $$props) $$invalidate(13, geojson_ex_l3 = $$props.geojson_ex_l3);
-    		if ('idPrev' in $$props) idPrev = $$props.idPrev;
-    		if ('custom_2' in $$props) $$invalidate(14, custom_2 = $$props.custom_2);
-    		if ('actions' in $$props) $$invalidate(31, actions = $$props.actions);
-    	};
-
-    	if ($$props && "$$inject" in $$props) {
-    		$$self.$inject_state($$props.$$inject);
-    	}
-
-    	$$self.$$.update = () => {
-    		if ($$self.$$.dirty[0] & /*id*/ 1) {
-    			 {
-    				if (id) {
-    					runActions(Object.keys(actions));
-    				}
-    			}
-    		}
-    	};
-
-    	return [
-    		id,
-    		map_scrolly_2,
-    		zoom,
-    		center,
-    		geojson_municipio_centroid,
-    		geojson_municipio,
-    		geojson_l2,
-    		geojson_l25,
-    		geojson_l3,
-    		geojson_l1ux,
-    		geojson_l1ad,
-    		geojson_ex_l2,
-    		geojson_ex_l25,
-    		geojson_ex_l3,
-    		custom_2,
-    		src_municipio,
-    		src_l2,
-    		src_l25,
-    		src_l3,
-    		src_l1ux,
-    		src_l1ad,
-    		src_ex_l2,
-    		src_ex_l25,
-    		src_ex_l3,
-    		map_map_binding,
-    		map_zoom_binding,
-    		map_center_binding,
-    		scroller_id_binding
-    	];
-    }
-
-    class GeographicHierarchyScrolly extends SvelteComponentDev {
-    	constructor(options) {
-    		super(options);
-    		init(this, options, instance$l, create_fragment$l, safe_not_equal, { id: 0 }, null, [-1, -1]);
-
-    		dispatch_dev("SvelteRegisterComponent", {
-    			component: this,
-    			tagName: "GeographicHierarchyScrolly",
-    			options,
-    			id: create_fragment$l.name
-    		});
-
-    		const { ctx } = this.$$;
-    		const props = options.props || {};
-
-    		if (/*id*/ ctx[0] === undefined && !('id' in props)) {
-    			console.warn("<GeographicHierarchyScrolly> was created without expected prop 'id'");
-    		}
-    	}
-
-    	get id() {
-    		throw new Error("<GeographicHierarchyScrolly>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set id(value) {
-    		throw new Error("<GeographicHierarchyScrolly>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
 
     /* src\App.svelte generated by Svelte v3.44.1 */
 
-    function create_fragment$m(ctx) {
+    function create_fragment$n(ctx) {
     	let uhcheader;
     	let t0;
     	let herosection;
@@ -13906,21 +14523,16 @@ uniform `+P+" "+z+" u_"+k+`;
     	let introsection;
     	let t2;
     	let steponesection;
-    	let updating_map_static_1;
-    	let updating_center;
-    	let updating_hovered;
     	let t3;
     	let steptwosection;
     	let t4;
     	let stepthreesection;
     	let t5;
     	let cityboundariesscrolly;
-    	let updating_id;
     	let t6;
     	let stepfoursection;
     	let t7;
     	let geographichierarchyscrolly;
-    	let updating_id_1;
     	let t8;
     	let divider;
     	let t9;
@@ -13936,78 +14548,12 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	herosection = new HeroSection({ $$inline: true });
     	introsection = new IntroSection({ $$inline: true });
-
-    	function steponesection_map_static_1_binding(value) {
-    		/*steponesection_map_static_1_binding*/ ctx[4](value);
-    	}
-
-    	function steponesection_center_binding(value) {
-    		/*steponesection_center_binding*/ ctx[5](value);
-    	}
-
-    	function steponesection_hovered_binding(value) {
-    		/*steponesection_hovered_binding*/ ctx[6](value);
-    	}
-
-    	let steponesection_props = {};
-
-    	if (/*map_static_1*/ ctx[0] !== void 0) {
-    		steponesection_props.map_static_1 = /*map_static_1*/ ctx[0];
-    	}
-
-    	if (/*center*/ ctx[1] !== void 0) {
-    		steponesection_props.center = /*center*/ ctx[1];
-    	}
-
-    	if (/*hovered*/ ctx[2] !== void 0) {
-    		steponesection_props.hovered = /*hovered*/ ctx[2];
-    	}
-
-    	steponesection = new StepOneSection({
-    			props: steponesection_props,
-    			$$inline: true
-    		});
-
-    	binding_callbacks.push(() => bind(steponesection, 'map_static_1', steponesection_map_static_1_binding));
-    	binding_callbacks.push(() => bind(steponesection, 'center', steponesection_center_binding));
-    	binding_callbacks.push(() => bind(steponesection, 'hovered', steponesection_hovered_binding));
+    	steponesection = new StepOneSection({ $$inline: true });
     	steptwosection = new StepTwoSection({ $$inline: true });
     	stepthreesection = new StepThreeSection({ $$inline: true });
-
-    	function cityboundariesscrolly_id_binding(value) {
-    		/*cityboundariesscrolly_id_binding*/ ctx[7](value);
-    	}
-
-    	let cityboundariesscrolly_props = {};
-
-    	if (/*id*/ ctx[3] !== void 0) {
-    		cityboundariesscrolly_props.id = /*id*/ ctx[3];
-    	}
-
-    	cityboundariesscrolly = new CityBoundariesScrolly({
-    			props: cityboundariesscrolly_props,
-    			$$inline: true
-    		});
-
-    	binding_callbacks.push(() => bind(cityboundariesscrolly, 'id', cityboundariesscrolly_id_binding));
+    	cityboundariesscrolly = new CityBoundariesScrolly({ $$inline: true });
     	stepfoursection = new StepFourSection({ $$inline: true });
-
-    	function geographichierarchyscrolly_id_binding(value) {
-    		/*geographichierarchyscrolly_id_binding*/ ctx[8](value);
-    	}
-
-    	let geographichierarchyscrolly_props = {};
-
-    	if (/*id*/ ctx[3] !== void 0) {
-    		geographichierarchyscrolly_props.id = /*id*/ ctx[3];
-    	}
-
-    	geographichierarchyscrolly = new GeographicHierarchyScrolly({
-    			props: geographichierarchyscrolly_props,
-    			$$inline: true
-    		});
-
-    	binding_callbacks.push(() => bind(geographichierarchyscrolly, 'id', geographichierarchyscrolly_id_binding));
+    	geographichierarchyscrolly = new GeographicHierarchyScrolly({ $$inline: true });
     	divider = new Divider({ $$inline: true });
     	conclusionsection = new ConclusionSection({ $$inline: true });
     	uhcfooter = new UHCFooter({ $$inline: true });
@@ -14067,47 +14613,7 @@ uniform `+P+" "+z+" u_"+k+`;
     			mount_component(uhcfooter, target, anchor);
     			current = true;
     		},
-    		p: function update(ctx, [dirty]) {
-    			const steponesection_changes = {};
-
-    			if (!updating_map_static_1 && dirty & /*map_static_1*/ 1) {
-    				updating_map_static_1 = true;
-    				steponesection_changes.map_static_1 = /*map_static_1*/ ctx[0];
-    				add_flush_callback(() => updating_map_static_1 = false);
-    			}
-
-    			if (!updating_center && dirty & /*center*/ 2) {
-    				updating_center = true;
-    				steponesection_changes.center = /*center*/ ctx[1];
-    				add_flush_callback(() => updating_center = false);
-    			}
-
-    			if (!updating_hovered && dirty & /*hovered*/ 4) {
-    				updating_hovered = true;
-    				steponesection_changes.hovered = /*hovered*/ ctx[2];
-    				add_flush_callback(() => updating_hovered = false);
-    			}
-
-    			steponesection.$set(steponesection_changes);
-    			const cityboundariesscrolly_changes = {};
-
-    			if (!updating_id && dirty & /*id*/ 8) {
-    				updating_id = true;
-    				cityboundariesscrolly_changes.id = /*id*/ ctx[3];
-    				add_flush_callback(() => updating_id = false);
-    			}
-
-    			cityboundariesscrolly.$set(cityboundariesscrolly_changes);
-    			const geographichierarchyscrolly_changes = {};
-
-    			if (!updating_id_1 && dirty & /*id*/ 8) {
-    				updating_id_1 = true;
-    				geographichierarchyscrolly_changes.id = /*id*/ ctx[3];
-    				add_flush_callback(() => updating_id_1 = false);
-    			}
-
-    			geographichierarchyscrolly.$set(geographichierarchyscrolly_changes);
-    		},
+    		p: noop,
     		i: function intro(local) {
     			if (current) return;
     			transition_in(uhcheader.$$.fragment, local);
@@ -14168,7 +14674,7 @@ uniform `+P+" "+z+" u_"+k+`;
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$m.name,
+    		id: create_fragment$n.name,
     		type: "component",
     		source: "",
     		ctx
@@ -14177,55 +14683,19 @@ uniform `+P+" "+z+" u_"+k+`;
     	return block;
     }
 
-    function instance$m($$self, $$props, $$invalidate) {
+    function instance$n($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('App', slots, []);
     	let theme = 'light';
     	setContext('theme', theme);
     	setColors(themes, theme);
-
-    	// State - only what's needed for coordination between components
-    	let map_static_1;
-
-    	let center = {};
-    	let hovered;
-
-    	// Scroller coordination - shared state between multiple scrolly components
-    	let id = {}; // Object to hold visible section IDs of Scroller components
-
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<App> was created with unknown prop '${key}'`);
     	});
 
-    	function steponesection_map_static_1_binding(value) {
-    		map_static_1 = value;
-    		$$invalidate(0, map_static_1);
-    	}
-
-    	function steponesection_center_binding(value) {
-    		center = value;
-    		$$invalidate(1, center);
-    	}
-
-    	function steponesection_hovered_binding(value) {
-    		hovered = value;
-    		$$invalidate(2, hovered);
-    	}
-
-    	function cityboundariesscrolly_id_binding(value) {
-    		id = value;
-    		$$invalidate(3, id);
-    	}
-
-    	function geographichierarchyscrolly_id_binding(value) {
-    		id = value;
-    		$$invalidate(3, id);
-    	}
-
     	$$self.$capture_state = () => ({
-    		getTopo,
     		setContext,
     		themes,
     		setColors,
@@ -14233,10 +14703,6 @@ uniform `+P+" "+z+" u_"+k+`;
     		UHCFooter,
     		Divider,
     		theme,
-    		map_static_1,
-    		center,
-    		hovered,
-    		id,
     		HeroSection,
     		IntroSection,
     		StepOneSection,
@@ -14244,45 +14710,31 @@ uniform `+P+" "+z+" u_"+k+`;
     		StepThreeSection,
     		StepFourSection,
     		ConclusionSection,
-    		CityBoundariesScrolly,
-    		GeographicHierarchyScrolly
+    		GeographicHierarchyScrolly,
+    		CityBoundariesScrolly
     	});
 
     	$$self.$inject_state = $$props => {
     		if ('theme' in $$props) theme = $$props.theme;
-    		if ('map_static_1' in $$props) $$invalidate(0, map_static_1 = $$props.map_static_1);
-    		if ('center' in $$props) $$invalidate(1, center = $$props.center);
-    		if ('hovered' in $$props) $$invalidate(2, hovered = $$props.hovered);
-    		if ('id' in $$props) $$invalidate(3, id = $$props.id);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [
-    		map_static_1,
-    		center,
-    		hovered,
-    		id,
-    		steponesection_map_static_1_binding,
-    		steponesection_center_binding,
-    		steponesection_hovered_binding,
-    		cityboundariesscrolly_id_binding,
-    		geographichierarchyscrolly_id_binding
-    	];
+    	return [];
     }
 
     class App extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$m, create_fragment$m, safe_not_equal, {});
+    		init(this, options, instance$n, create_fragment$n, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "App",
     			options,
-    			id: create_fragment$m.name
+    			id: create_fragment$n.name
     		});
     	}
     }
