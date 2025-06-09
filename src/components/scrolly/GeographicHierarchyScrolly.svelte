@@ -1,44 +1,273 @@
 <script>
+  import { onMount } from 'svelte';
   import Scroller from '../../layout/Scroller.svelte';
   import { Map, MapSource, MapLayer } from '../../../libs/@onsvisual/svelte-maps';
-
-  // Props passed from parent
-  export let threshold;
-  export let id;
-  export let bounds;
-  export let map_scrolly_2;
-  export let zoom;
-  export let center;
-  export let custom_2;
+  import { bounds } from '../../data/mapBounds.js';
+  import { getTopo } from '../../utils.js';
+  // Local state instead of props from parent
+  let threshold = 0.5;
+  let id = { map_scrolly_2: null }; // Initialize with scrolly key
+  let map_scrolly_2;
+  let zoom;
+  let center;
+  let custom_2;
   
-  // Data props
-  export let geojson_municipio_centroid;
-  export let geojson_municipio;
-  export let geojson_l3;
-  export let geojson_l25;
-  export let geojson_l2;
-  export let geojson_l1ux;
-  export let geojson_l1ad;
-  export let geojson_ex_l3;
-  export let geojson_ex_l25;
-  export let geojson_ex_l2;
+  // Colors
+  const hex_primary = '#2F8FBC';
+  const hex_secondary = '#00BB9E';
+  const hex_error = '#BC3B2F';
+  const hex_warning = '#BC812F';
+  const hex_teal = '#00BB9E';
   
-  // Source configs
-  export let src_municipio;
-  export let src_l3;
-  export let src_l25;
-  export let src_l2;
-  export let src_l1ux;
-  export let src_l1ad;
-  export let src_ex_l3;
-  export let src_ex_l25;
-  export let src_ex_l2;
+  // Data sources and geojson variables
+  const src_municipio = {
+    url: './data/sao_paolo_municipio_centroid.json',
+    layer: 'geog',
+    code: 'salid2',
+  };
+  let geojson_municipio_centroid;
+  
+  const src_municipio_boundaries = {
+    url: './data/sao_paolo_municipio.json',
+    layer: 'geog', 
+    code: 'salid2',
+  };
+  let geojson_municipio;
+  
+  const src_l3 = {
+    url: './data/sao_paolo_l3.json',
+    layer: 'geog',
+    code: 'salid2',
+  };
+  let geojson_l3;
+  
+  const src_l25 = {
+    url: './data/sao_paolo_l25.json',
+    layer: 'geog',
+    code: 'salid2',
+  };
+  let geojson_l25;
+  
+  const src_l2 = {
+    url: './data/sao_paolo_l2.json',
+    layer: 'geog',
+    code: 'salid2',
+  };
+  let geojson_l2;
+  
+  const src_l1ux = {
+    url: './data/sao_paolo_l1ux.json',
+    layer: 'geog',
+    code: 'salid1',
+  };
+  let geojson_l1ux;
+  
+  const src_l1ad = {
+    url: './data/sao_paolo_l1ad.json',
+    layer: 'geog',
+    code: 'salid1',
+  };
+  let geojson_l1ad;
+  
+  const src_ex_l3 = {
+    url: './data/sao_paolo_ex_l3.json',
+    layer: 'geog',
+    code: 'salid2',
+  };
+  let geojson_ex_l3;
+  
+  const src_ex_l25 = {
+    url: './data/sao_paolo_ex_l25.json',
+    layer: 'geog',
+    code: 'salid2',
+  };
+  let geojson_ex_l25;
+  
+  const src_ex_l2 = {
+    url: './data/sao_paolo_ex_l2.json',
+    layer: 'geog',
+    code: 'salid2',
+  };
+  let geojson_ex_l2;
   
   // Style props
-  export let style_l1;
-  export let style_l2;
-  export let style_l25;
-  export let style_l3;
+  let style_l1 = 'color: #bc3b2f; font-weight: bold;';
+  let style_l2 = 'color: #2f8fbc; font-weight: bold;';
+  let style_l25 = 'color: #4caf50; font-weight: bold;';
+  let style_l3 = 'color: #ff9800; font-weight: bold;';
+  
+  // Load data on mount
+  onMount(() => {
+    getTopo(src_municipio.url, src_municipio.layer).then((res) => {
+      geojson_municipio_centroid = res;
+    });
+    getTopo(src_municipio_boundaries.url, src_municipio_boundaries.layer).then((res) => {
+      geojson_municipio = res;
+    });
+    getTopo(src_l3.url, src_l3.layer).then((res) => {
+      geojson_l3 = res;
+    });
+    getTopo(src_l25.url, src_l25.layer).then((res) => {
+      geojson_l25 = res;
+    });
+    getTopo(src_l2.url, src_l2.layer).then((res) => {
+      geojson_l2 = res;
+    });
+    getTopo(src_l1ux.url, src_l1ux.layer).then((res) => {
+      geojson_l1ux = res;
+    });
+    getTopo(src_l1ad.url, src_l1ad.layer).then((res) => {
+      geojson_l1ad = res;
+    });
+    getTopo(src_ex_l3.url, src_ex_l3.layer).then((res) => {
+      geojson_ex_l3 = res;
+    });
+    getTopo(src_ex_l25.url, src_ex_l25.layer).then((res) => {
+      geojson_ex_l25 = res;
+    });
+    getTopo(src_ex_l2.url, src_ex_l2.layer).then((res) => {
+      geojson_ex_l2 = res;
+    });
+  });
+  
+  // Actions for scrolly steps
+  function fitBounds(map, bounds) {
+    if (map) {
+      map.fitBounds(bounds, { animate: true, padding: 30 });
+    }
+  }
+  
+  // Custom styles for different map steps
+  const custom_2_map01 = {
+    mapid: 'map01',
+    layers: {
+      l2_line: {
+        'line-color': hex_primary,
+        'line-width': 2,
+        'line-opacity': 1,
+      },
+      l2_fill: {
+        'fill-color': hex_error,
+        'fill-opacity': 0.5,
+      },
+      l1ad_line: {
+        'line-color': hex_error,
+        'line-width': 5,
+      },
+    },
+  };
+  
+  let actions = {
+    map_scrolly_2: {
+      map01: () => {
+        fitBounds(map_scrolly_2, bounds.l1ad);
+        custom_2 = custom_2_map01;
+      },
+      map02: () => {
+        fitBounds(map_scrolly_2, bounds.l1ad);
+        custom_2 = {
+          mapid: 'map02',
+          layers: {
+            l2_line: {
+              'line-color': hex_primary,
+              'line-width': 5,
+              'line-opacity': 1,
+            },
+            l2_fill: {
+              'fill-color': hex_primary,
+              'fill-opacity': 0.5,
+            },
+          },
+        };
+      },
+      map03: () => {
+        fitBounds(map_scrolly_2, bounds.l1ad);
+        custom_2 = {
+          mapid: 'map03',
+          layers: {
+            l3_line: {
+              'line-color': hex_teal,
+              'line-width': 2,
+            },
+          },
+        };
+      },
+      map04: () => {
+        fitBounds(map_scrolly_2, bounds.ex_l2);
+        custom_2 = {
+          mapid: 'map04',
+          layers: {
+            ex_l3: {
+              'line-color': hex_teal,
+              'line-width': 2,
+            },
+            ex_l2: {
+              'line-color': hex_primary,
+              'line-width': 8,
+            },
+          },
+        };
+      },
+      map05: () => {
+        fitBounds(map_scrolly_2, bounds.ex_l2);
+        custom_2 = {
+          mapid: 'map05',
+          layers: {
+            ex_l25: {
+              'line-color': '#4caf50',
+              'line-width': 4,
+            },
+            ex_l2: {
+              'line-color': hex_primary,
+              'line-width': 8,
+            },
+          },
+        };
+      },
+      map06: () => {
+        fitBounds(map_scrolly_2, bounds.l1ad);
+        custom_2 = {
+          mapid: 'map06',
+          layers: {
+            l25_line: {
+              'line-color': '#4caf50',
+              'line-width': 2,
+            },
+            l2_line: {
+              'line-color': hex_primary,
+              'line-width': 3,
+            },
+            l1ad_line: {
+              'line-color': hex_error,
+              'line-width': 5,
+            },
+          },
+        };
+      },
+    },
+  };
+  
+  // Initialize custom styles
+  custom_2 = custom_2_map01;
+    // Track previous IDs for actions
+  let idPrev = { map_scrolly_2: null };
+  
+  function runActions(codes = []) {
+    codes.forEach((code) => {
+      if (id[code] != idPrev[code]) {
+        if (actions[code][id[code]]) {
+          actions[code][id[code]]();
+        }
+        idPrev[code] = id[code];
+      }
+    });
+  }
+  
+  $: {
+    if (id) {
+      runActions(Object.keys(actions));
+    }
+  }
 </script>
 
 <div style="height: 3rem" />
