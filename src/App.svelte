@@ -485,19 +485,15 @@
     },
   };
 
-  const style_l3 = `color: ${hex_teal}; font-weight: 900;`;
-  const style_l2 = `color: ${hex_primary}; font-weight: 900;`;
-  const style_l25 = `color: ${hex_purple}; font-weight: 900;`;
-  const style_ux = `color: ${hex_warning}; font-weight: 900;`;
-  const style_l1 = `color: ${hex_error}; font-weight: 900;`;
-  const style_unurban = `color: ${hex_teal}; font-weight: 900;`;
-  const style_metro = `color: ${hex_purple}; font-weight: 900;`;
 
   // Component imports
   import HeroSection from './components/sections/HeroSection.svelte';
   import IntroSection from './components/sections/IntroSection.svelte';
   import StepOneSection from './components/sections/StepOneSection.svelte';
-  import StepFourSection from './components/sections/StepFourSection.svelte';  import ConclusionSection from './components/sections/ConclusionSection.svelte';
+  import StepTwoSection from './components/sections/StepTwoSection.svelte';
+  import StepThreeSection from './components/sections/StepThreeSection.svelte';
+  import StepFourSection from './components/sections/StepFourSection.svelte';
+  import ConclusionSection from './components/sections/ConclusionSection.svelte';
   import GeographicHierarchyScrolly from './components/scrolly/GeographicHierarchyScrolly.svelte';
   import CityBoundariesScrolly from './components/scrolly/CityBoundariesScrolly.svelte';
 </script>
@@ -525,41 +521,11 @@
   {hex_warning}
 />
 
-<!-- Keep Step 2 and 3 inline for now -->
-<Section>
-  <h3>Step 2: Combining neighboring cities</h3>
-  <p class="text-medium">
-    Cities that were initially considered separate cities were combined into one
-    city if they were part of the same agglomeration, that is, if their built-up
-    areas were connected. We used the name of the city with the larger
-    population to label these units. In a few cases where the populations were
-    nearly equal, we assigned a hyphenated name (e.g., Valparaiso-Viña del Mar,
-    Chile). This process resulted in 371 cities, which we refer to as “SALURBAL
-    cities.”
-  </p>
-</Section>
+<StepTwoSection />
 
-<Section>
-  <h3>Step 3: Defining the geographic boundaries of each city.</h3>
-  <p class="text-medium">
-    We operationalized - or geographically defined - each SALURBAL city using
-    existing administrative units to which health and other data could be easily
-    linked. These administrative units included <em>municipios</em>,
-    <em>departamentos</em>, or similar units in each country.
-  </p>
-  <div style="display: flex; justify-content: center; align-items: center;">
-    <Arrow color="black" animation={true} />
-  </div>
-</Section>
-<div style="height: 3rem" />
+<StepThreeSection />
 
-<!-- 
-  # ============================================================================ #
-  # Scrolly 1  (define city boundaries)
--->
 <CityBoundariesScrolly />
-
-
 
 <StepFourSection/>
 <GeographicHierarchyScrolly />
@@ -569,11 +535,6 @@
 <ConclusionSection />
 
 <UHCFooter />
-
-<!-- 
-  # ============================================================================ #
-  #  ............... style ............... 
--->
 
 <style>
   /* Styles specific to elements within the demo */
