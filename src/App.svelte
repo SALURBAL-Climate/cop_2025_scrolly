@@ -20,7 +20,6 @@
   import StepThreeSection from './components/sections/StepThreeSection.svelte';
   import StepFourSection from './components/sections/StepFourSection.svelte';
   import ConclusionSection from './components/sections/ConclusionSection.svelte';
-  import Step4Scrolly from './components/scrolly/step4_scrolly/Step4Scrolly.svelte';
   import Step3Scrolly from './components/scrolly/step3_scrolly/Step3Scrolly.svelte';
 </script>
 
@@ -34,7 +33,6 @@
 <StepThreeSection />
 <Step3Scrolly />
 <StepFourSection/>
-<Step4Scrolly />
 <Divider />
 <ConclusionSection />
 <UHCFooter />
