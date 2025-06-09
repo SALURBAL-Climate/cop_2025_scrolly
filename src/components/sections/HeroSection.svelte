@@ -3,7 +3,7 @@
 </script>
 
 <Filler theme="lightblue" short={true} wide={true} center={false}>
-  <h1>What is a SALURBAL city?</h1>
+  <h1>Boilerplate Scrolly</h1>
   <p class="text-big" style="margin-top: 5px">
     SALURBAL city, sub-city, and neighborhood definition and selection
   </p>
