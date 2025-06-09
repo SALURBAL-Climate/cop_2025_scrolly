@@ -1,9 +1,10 @@
 <script>
   import { onMount } from 'svelte';
   import Scroller from '../../layout/Scroller.svelte';
-  import { Map, MapSource, MapLayer } from '../../../libs/@onsvisual/svelte-maps';
+  import { Map, MapSource, MapLayer } from '../../../libs/@onsvisual/svelte-maps/index.mjs';
   import { bounds } from '../../data/mapBounds.js';
   import { getTopo } from '../../utils.js';
+  import { hex_primary, hex_secondary, hex_error, hex_warning, hex_teal, hex_purple } from '../../layout/branding.js';
   // Local state instead of props from parent
   let threshold = 0.5;
   let id = { map_scrolly_2: null }; // Initialize with scrolly key
@@ -11,14 +12,7 @@
   let zoom;
   let center;
   let custom_2;
-  
-  // Colors
-  const hex_primary = '#2F8FBC';
-  const hex_secondary = '#00BB9E';
-  const hex_error = '#BC3B2F';
-  const hex_warning = '#BC812F';
-  const hex_teal = '#00BB9E';
-  
+   
   // Data sources and geojson variables
   const src_municipio = {
     url: './data/sao_paolo_municipio_centroid.json',
