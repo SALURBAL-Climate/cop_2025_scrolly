@@ -105,19 +105,19 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <div slot="foreground">
+      </div>      <div slot="foreground">
         <div class="story-content">
           {#each timelineData as step, i}
             <section class="story-section">
-              <div class="story-text">
-                <div class="step-header">
-                  <span class="step-badge">{step.step_name}</span>
-                  <h3 class="step-title">{step.step_title}</h3>
+              <div class="content-layout">
+                <!-- Content area -->
+                <div class="content-area">
+                  <div class="title-row">
+                    <h3 class="step-title">{step.step_title}</h3>
+                    <div class="location-tag">{step.location}</div>
+                  </div>
+                  <p class="story-paragraph">{step.description}</p>
                 </div>
-                <div class="location-tag">{step.location}</div>
-                <p class="story-paragraph">{step.description}</p>
               </div>
             </section>
           {/each}
@@ -279,13 +279,12 @@
     opacity: 1;
     filter: grayscale(0%) brightness(1.2) contrast(1.1); /* Only current step gets full color */
   }
-
   .story-content {
     position: relative;
     z-index: 5;
     margin-left: 50%; /* Start after the 50% timeline area */
     width: 50%; /* Take remaining 50% */
-    padding: 0 3rem; /* Add padding for better readability */
+    padding: 0 2rem; /* Reduced padding for wider content */
     box-sizing: border-box;
   }
 
@@ -297,40 +296,28 @@
     padding: 2rem 0;
   }
 
-  .story-text {
-    max-width: 600px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 16px;
-    padding: 2.5rem;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+  .content-layout {
+    width: 100%;
+    max-width: none; /* Remove max-width constraint */
   }
 
-  .step-header {
-    margin-bottom: 1rem; /* Add spacing between header and location */
+  .content-area {
+    width: 100%;
+  }
+
+  .title-row {
     display: flex;
     align-items: center;
-    gap: 1rem;
-  }
-
-  .step-badge {
-    display: inline-block;
-    background: #2f7ed3;
-    color: white;
-    padding: 0.25rem 0.75rem;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    margin-bottom: 0; /* Remove bottom margin since they're now horizontal */
-    flex-shrink: 0; /* Prevent badge from shrinking */
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
   }
 
   .step-title {
-    font-size: 1.75rem;
+    font-size: 2rem;
     font-weight: 700;
     color: #1e293b;
-    margin: 0; /* Remove all margins since they're now horizontal */
+    margin: 0;
     line-height: 1.2;
   }
 
@@ -338,23 +325,21 @@
     display: inline-block;
     background: #10b981;
     color: white;
-    padding: 0.5rem 1rem;
+    padding: 0.4rem 1rem;
     border-radius: 20px;
     font-size: 0.9rem;
     font-weight: 600;
-    margin-bottom: 1.5rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
 
   .story-paragraph {
     font-size: 1.1rem;
-    line-height: 1.7; /* Improved readability */
+    line-height: 1.7;
     color: #374151;
     margin: 0;
-  }
-
-  /* Responsive design */
+    width: 100%; /* Full width text */
+  }  /* Responsive design */
   @media (max-width: 768px) {
     .timeline-visualization {
       position: relative;
@@ -372,11 +357,11 @@
 
     .story-section {
       min-height: auto;
-      padding: 1rem 0;
+      padding: 2rem 0;
     }
 
-    .story-text {
-      padding: 1.5rem;
+    .content-layout {
+      text-align: center;
     }
 
     .timeline-track {
@@ -385,7 +370,13 @@
     }
 
     .step-title {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
+    }
+
+    .title-row {
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
     }
 
     .dot-flag {
@@ -397,30 +388,33 @@
       width: 55px;
       height: 55px;
     }
-
-    .step-header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.5rem;
-    }
   }
 
   @media (max-width: 480px) {
     .step-title {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
     }
 
     .story-paragraph {
       font-size: 1rem;
-    }
-
-    .story-text {
-      padding: 1.25rem;
+      text-align: left;
     }
 
     .location-tag {
       font-size: 0.8rem;
-      padding: 0.4rem 0.8rem;
+      padding: 0.3rem 0.8rem;
+    }
+
+    .content-layout {
+      text-align: left;
+    }
+
+    .story-section {
+      padding: 1.5rem 0;
+    }
+
+    .title-row {
+      align-items: flex-start;
     }
   }
 </style>
