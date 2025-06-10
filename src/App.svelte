@@ -22,7 +22,7 @@
   <HeroSection />
   <Section_1_WhatAreCOPs />
   <Section_2_WhatHappensAtCOP />
-  <RouteWhatHappensAtCop/>
+
   <Divider />
   <Footer />
 </main>

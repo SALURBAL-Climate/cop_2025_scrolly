@@ -11,9 +11,9 @@
   </div>
   
   <!-- Scrolly Row -->
-  <!-- <div class="scrolly-row"  >
+  <div class="scrolly-row"  >
     <RouteWhatHappensAtCop />
-  </div> -->
+  </div>
 </section>
 
 <style>  .what-happens-section {
@@ -22,7 +22,7 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    border: 3px solid blue;
+    /* border: 3px solid blue; */
   }
 
   .title-row {
