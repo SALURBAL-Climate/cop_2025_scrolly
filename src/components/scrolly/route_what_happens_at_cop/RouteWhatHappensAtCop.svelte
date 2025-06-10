@@ -76,13 +76,12 @@
                     class="location-dot {progress >=
                     i / (copRouteData.length - 1)
                       ? 'visited'
-                      : ''}"
-                    style="top: {(i / (copRouteData.length - 1)) * 80 + 10}%"
+                      : ''} {currentStep === i ? 'current' : ''}"
+                    style="top: {20 + (i / (copRouteData.length - 1)) * 60}%"
                   >
                     <div class="dot-icon">
                       <img src={step.icon} alt={step.step_name} class="step-icon" />
                     </div>
-                    <div class="location-name">{step.step_name}</div>
                   </div>
                 {/each}
               </div>
@@ -206,18 +205,16 @@
     width: 100%;
     height: 100%;
   }
-
   .location-dot {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     align-items: center;
-    gap: 1rem;
-  }
-  .dot-icon {
-    width: 40px;
-    height: 40px;
+    justify-content: center;
+  }  .dot-icon {
+    width: 75px;
+    height: 75px;
     border-radius: 50%;
     background: #ffffff;
     border: 3px solid #cbd5e1;
@@ -237,36 +234,43 @@
     box-shadow: 0 4px 12px rgba(47, 126, 211, 0.3);
   }
 
-  .step-icon {
-    width: 24px;
-    height: 24px;
+  /* Current step effect - make it bigger and more prominent */
+  .location-dot.current .dot-icon {
+    width: 90px;
+    height: 90px;
+    transform: scale(1.1);
+    border-color: #2f7ed3;
+    background: #ffffff;
+    box-shadow: 0 6px 20px rgba(47, 126, 211, 0.4);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      box-shadow: 0 6px 20px rgba(47, 126, 211, 0.4);
+    }
+    50% {
+      box-shadow: 0 8px 25px rgba(47, 126, 211, 0.6);
+    }
+  }  .step-icon {
+    width: 75px;
+    height: 75px;
     object-fit: contain;
     opacity: 0.7;
     transition: all 0.3s ease;
+    filter: grayscale(100%) brightness(0.6); /* Grey filter for non-active steps */
   }
 
   .location-dot.visited .step-icon {
+    opacity: 0.8;
+    filter: grayscale(100%) brightness(0.7); /* Keep grey filter for visited steps, slightly brighter */
+  }
+
+  .location-dot.current .step-icon {
+    width: 90px;
+    height: 90px;
     opacity: 1;
-    filter: brightness(1.1);
-  }
-
-  .location-name {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #374151;
-    white-space: nowrap;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-  }
-
-  .location-dot.visited .location-name {
-    background: rgba(47, 126, 211, 0.1);
-    color: #2f7ed3;
-    border-color: rgba(47, 126, 211, 0.3);
+    filter: grayscale(0%) brightness(1.2) contrast(1.1); /* Only current step gets full color */
   }
   .story-content {
     position: relative;
@@ -372,23 +376,18 @@
 
     .route-title {
       font-size: 1.5rem;
-    }
-
-    .step-title {
+    }    .step-title {
       font-size: 1.5rem;
-    }    .location-name {
-      font-size: 0.8rem;
-      padding: 0.25rem 0.75rem;
     }
 
     .dot-icon {
-      width: 32px;
-      height: 32px;
+      width: 70px;
+      height: 70px;
     }
 
     .step-icon {
-      width: 18px;
-      height: 18px;
+      width: 70px;
+      height: 70px;
     }
   }
 
