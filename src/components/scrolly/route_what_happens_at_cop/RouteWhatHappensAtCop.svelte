@@ -176,9 +176,9 @@
   }
   .route-track {
     position: relative;
+    margin-top: 10vh;
     width: 6px;
-    height: 70vh; /* Use 70vh for good proportion within 90vh container */
-    max-height: none; /* Remove max-height restriction */
+    height: 80vh; /* Consistent proportion of the 90vh visualization container */
   }
 
   .track-background {
