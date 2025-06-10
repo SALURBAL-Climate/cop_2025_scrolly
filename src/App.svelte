@@ -10,16 +10,17 @@
   // Set up theming
   let theme = 'light';
   setContext('theme', theme);
-  setColors(themes, theme);
-  // Component imports
+  setColors(themes, theme);  // Component imports
   import HeroSection from './components/sections/0_Hero.svelte';
   import Section_1_WhatAreCOPs from './components/sections/1_WhatAreCOPs.svelte';
+  import { RouteWhatHappensAtCop } from './components/scrolly/route_what_happens_at_cop/index.js';
 </script>
 
 <Header filled={true} center={false} />
 <main style="padding-top: 30px;"> <!-- Add padding to account for fixed header -->
   <HeroSection />
   <Section_1_WhatAreCOPs />
+  <RouteWhatHappensAtCop />
   <Footer />
 </main>
 
