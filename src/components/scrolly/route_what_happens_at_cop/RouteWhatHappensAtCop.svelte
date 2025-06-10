@@ -106,42 +106,46 @@
   </div>
 </div>
 
-<style>
-  .route-wrapper {
+<style>  .route-wrapper {
     position: relative;
     width: 100%;
-    min-height: 300vh; /* Ensure enough scrolling space */
+    overflow: hidden;
+    z-index: 1;
   }
 
   .continuous-route-container {
     position: relative;
     width: 100%;
-    height: 100%;
+    height: 300vh; /* Ensure enough scrolling space */
+    background: #fff;
+    overflow: hidden;
+    z-index: 1;
+    box-sizing: border-box;
   }
+
   .route-visualization {
     position: fixed;
-    top: 10vh; /* Add space for the title section */
     left: 0;
-    width: 50%;
-    height: 90vh; /* Reduce height to account for top offset */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    top: 0; /* Start at the very top of the scrolly container */
+    height: 100vh; /* Full viewport height */
+    width: 50%; /* Take 50% of screen width */
+    z-index: 2;
+    pointer-events: none;
     opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    z-index: 1;
+    transition: opacity 0.3s ease;
+    display: flex;
+    justify-content: center; /* Horizontally center the route line within the 50% */
+    align-items: flex-start;
+    padding-top: 2rem; /* Small top padding for breathing room */
+    box-sizing: border-box;
   }
 
   .route-visualization.visible {
     opacity: 1;
   }
-
   .route-header {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem; /* Reduced from 3rem */
     max-width: 400px;
   }
 
@@ -252,11 +256,13 @@
     color: #2f7ed3;
     border-color: rgba(47, 126, 211, 0.3);
   }
-
   .story-content {
-    margin-left: 50%;
-    width: 50%;
-    padding: 2rem;
+    position: relative;
+    z-index: 5;
+    margin-left: 50%; /* Start after the 50% route area */
+    width: 50%; /* Take remaining 50% */
+    padding: 0 3rem; /* Add padding for better readability */
+    box-sizing: border-box;
   }
 
   .story-section {

@@ -11,7 +11,7 @@
   </div>
   
   <!-- Scrolly Row -->
-  <div class="scrolly-row">
+  <div class="scrolly-row"  >
     <RouteWhatHappensAtCop />
   </div>
 </section>
@@ -33,11 +33,11 @@
     position: relative;
     z-index: 2; /* Ensure title stays above scrolly */
   }
-
   .scrolly-row {
     width: 100%;
     flex: 1;
     position: relative;
+    border: 13px solid red;
   }
   .section-header {
     text-align: center;
