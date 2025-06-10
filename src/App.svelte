@@ -13,7 +13,7 @@
   setColors(themes, theme);
   // Component imports
   import HeroSection from './components/sections/0_Hero.svelte';
-  import Section_1_WhatAreCOPs from './components/sections/0_WhatAreCOPs.svelte';
+  import Section_1_WhatAreCOPs from './components/sections/1_WhatAreCOPs.svelte';
 </script>
 
 <Header filled={true} center={false} />
