@@ -84,7 +84,7 @@
                     <div class="dot-circle">
                       <span class="step-number">{i + 1}</span>
                     </div>
-                    <div class="location-name">{step.name}</div>
+                    <div class="location-name">{step.step_name}</div>
                   </div>
                 {/each}
               </div>
@@ -100,7 +100,7 @@
               <div class="story-text">
                 <div class="step-header">
                   <span class="step-badge">Step {i + 1}</span>
-                  <h3 class="step-title">{step.name}</h3>
+                  <h3 class="step-title">{step.step_title}</h3>
                 </div>
                 <p class="story-paragraph">{step.description}</p>
               </div>
