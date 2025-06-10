@@ -7,8 +7,8 @@
   <div class="zones-content">
     <!-- Satellite Image with Zone Labels -->
     <div class="zones-image-container">
-      <img 
-        src="/img/cop30/cop_zones.png" 
+      <img
+        src="/img/cop30/cop_zones.png"
         alt="COP zones satellite view showing Blue Zone and Green Zone areas"
         class="zones-image"
       />
@@ -19,9 +19,8 @@
       <div class="zone-card blue-zone">
         <h3 class="zone-title blue-title">"Blue zone activities"</h3>
         <p class="zone-description">
-          Access restricted to accredited delegates only. 
-          Formal negotiations, country pavilions, and 
-          official side events take place and are managed 
+          Access restricted to accredited delegates only. Formal negotiations,
+          country pavilions, and official side events take place and are managed
           by the UNFCCC.
         </p>
       </div>
@@ -29,9 +28,8 @@
       <div class="zone-card green-zone">
         <h3 class="zone-title green-title">"Green zone activities"</h3>
         <p class="zone-description">
-          Open to the public, managed by the host 
-          country, includes additional events, workshops, 
-          and exhibitions by private sector and NGO 
+          Open to the public, managed by the host country, includes additional
+          events, workshops, and exhibitions by private sector and NGO
           representatives.
         </p>
       </div>
@@ -39,7 +37,8 @@
   </div>
 </div>
 
-<style>  .zones-explainer {
+<style>
+  .zones-explainer {
     width: 100%;
     padding: 2rem 0;
     background: transparent;
@@ -70,7 +69,8 @@
     flex-direction: column;
     gap: 1.5rem;
     align-items: stretch;
-  }  .zone-card {
+  }
+  .zone-card {
     background: transparent;
     padding: 1rem 0;
     border-left: 4px solid;
@@ -119,7 +119,8 @@
 
     .zones-descriptions {
       gap: 1.5rem;
-    }    .zone-card {
+    }
+    .zone-card {
       padding: 1rem 0;
       padding-left: 1.5rem;
     }
@@ -137,9 +138,9 @@
     .zones-explainer {
       padding: 1.5rem 0;
     }
-
     .zone-card {
-      padding: 1.25rem;
+      padding: 1rem 0;
+      padding-left: 1.5rem;
     }
 
     .zone-title {
