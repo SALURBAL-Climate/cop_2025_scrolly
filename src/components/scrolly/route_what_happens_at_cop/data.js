@@ -8,15 +8,14 @@ export const copRouteData = [
   },
   {
     name: "Core Negotiation", 
-    description: "Delegates of the Parties participate in official sessions of the governing bodies, and in open and closed negotiating meetings. Delegates can include government officials from relevant ministries; experts and scientists; and civil society organization representatives. Sometimes, this negotiation results in a binding agreement (e.g., Kyoto Protocol, Paris Agreement), which must then be ratified by individual governments. More often, the Parties agree to some form of public declaration."
+    description: "Delegates of the Parties participate in official sessions of the governing bodies, and in open and closed negotiating groups. They work to reach consensus on a range of climate issues. Occasionally, the Parties will agree to a new legally binding agreement (e.g., Kyoto Protocol, Paris Agreement), which must then be ratified by individual governments. More often, the Parties agree to some form of public declaration."
   },
   {
     name: "High-level COP",
     description: "This public stage, open to delegates and observers, includes speeches by heads of state, announcements of coalitions, public denunciations, or calls to action. Observers can include intergovernmental & nongovernmental organizations, United Nations and related agencies, as well as media representatives. This is where major climate commitments and declarations are typically announced."
-  },
-  {
-    name: "Third COP",
-    description: "Additional activities include side events, pavilions, panel talks, presentations, and protests, where participants can include scientists, NGOs, private sector representatives, and activists. This parallel track allows for broader participation and engagement beyond the formal negotiations, creating space for innovation, advocacy, and knowledge sharing."
+  },  {
+    name: "Side Events & Civil Society",
+    description: "Additional activities include side events, pavilions, panel talks, presentations, and protests, where participants can include scientists, NGOs, private sector representatives, and civil society groups. These activities focus on collaboration, advocacy, and knowledge sharing beyond the formal negotiations."
   }
 ];
 
@@ -24,5 +23,5 @@ export const copRouteData = [
 export const prepSessions = copRouteData[0];
 export const coreNegotiation = copRouteData[1]; 
 export const highLevelCop = copRouteData[2];
-export const thirdCop = copRouteData[3];
+export const sideEvents = copRouteData[3];
  

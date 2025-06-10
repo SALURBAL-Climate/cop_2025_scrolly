@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import Scroller from '../../../layout/Scroller.svelte';
   import { copRouteData } from './data.js';
-  
+
   let y = 0;
   let innerHeight = 0;
   let containerElement;
@@ -11,27 +11,27 @@
   // Track scroll within the component bounds
   function updateProgress() {
     if (!containerElement) return;
-    
+
     const rect = containerElement.getBoundingClientRect();
     const windowHeight = window.innerHeight;
-    
+
     // Component is visible only when the container is in view
     const isCompletelyAbove = rect.bottom < 0;
     const isCompletelyBelow = rect.top > windowHeight;
     isInView = !isCompletelyAbove && !isCompletelyBelow;
-    
+
     // Only calculate progress when the component is in view
     if (isCompletelyAbove || isCompletelyBelow) {
       if (isCompletelyAbove) progress = 1; // Completed
       if (isCompletelyBelow) progress = 0; // Not started
       return;
     }
-    
+
     // Calculate how much of the component has been scrolled through
     const scrollStart = Math.max(0, -rect.top);
     const scrollableHeight = Math.max(1, rect.height - windowHeight);
-    
-    // Calculate progress 
+
+    // Calculate progress
     let rawProgress = scrollStart / scrollableHeight;
     progress = Math.min(1, Math.max(0, rawProgress));
   }
@@ -55,17 +55,20 @@
             <!-- Vertical route line with dots -->
             <div class="route-track">
               <div class="track-background"></div>
-              <div 
-                class="track-progress" 
+              <div
+                class="track-progress"
                 style="height: {Math.min(100, progress * 100)}%"
               ></div>
-              
+
               <!-- COP process steps positioned within the track -->
               <div class="location-dots">
                 {#each copRouteData as step, i}
-                  <div 
-                    class="location-dot {progress >= (i / (copRouteData.length - 1)) ? 'visited' : ''}" 
-                    style="top: {(i / (copRouteData.length - 1)) * 85 + 7.5}%"
+                  <div
+                    class="location-dot {progress >=
+                    i / (copRouteData.length - 1)
+                      ? 'visited'
+                      : ''}"
+                    style="top: {(i / (copRouteData.length - 1)) * 80 + 10}%"
                   >
                     <div class="dot-circle">
                       <span class="step-number">{i + 1}</span>
@@ -92,21 +95,26 @@
               </div>
             </section>
           {/each}
+
+      
         </div>
       </div>
     </Scroller>
   </div>
 </div>
 
-<style>  .route-wrapper {
+<style>
+  .route-wrapper {
     position: relative;
     width: 100%;
     overflow: hidden;
     z-index: 1;
-  }  .continuous-route-container {
+    border: 14px solid green;
+  }
+  .continuous-route-container {
     position: relative;
     width: 100%;
-    height: 300vh; /* Ensure enough scrolling space */
+    height: 450vh; /* Ensure enough scrolling space */
     background: #fff;
     overflow: hidden;
     z-index: 1;
@@ -117,7 +125,8 @@
     position: relative;
     width: 100%;
     height: 100%;
-  }.route-visualization {
+  }
+  .route-visualization {
     position: sticky;
     left: 0;
     top: 5vh; /* Stick 5vh from the top of viewport */
@@ -155,7 +164,8 @@
     color: #64748b;
     margin: 0;
     font-weight: 500;
-  }  .route-track {
+  }
+  .route-track {
     position: relative;
     width: 6px;
     height: 70vh; /* Use 70vh for good proportion within 90vh container */
@@ -274,7 +284,7 @@
     border: 1px solid rgba(255, 255, 255, 0.3);
   }
   .step-header {
-    /* margin-bottom: 1.5rem; */
+    margin-bottom: 1.5rem; /* Add spacing between header and paragraph */
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -299,10 +309,9 @@
     margin: 0; /* Remove all margins since they're now horizontal */
     line-height: 1.2;
   }
-
   .story-paragraph {
     font-size: 1.1rem;
-    line-height: 1.2;
+    line-height: 1.7; /* Improved readability */
     color: #374151;
     margin: 0;
   }
