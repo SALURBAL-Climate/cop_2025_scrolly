@@ -31,22 +31,21 @@
         <img src="/img/cop30/stats_fraction.png" alt="One in ten fraction" class="stat-image" />
         <p class="stat-label">only one in ten quantify and monitor these benefits<sup>1</sup></p>
       </div>
-    </div>
-      <div class="stats-caption"> 
-    </div>
-
+    </div>    
     <div class="stats-credit">
       <p>1. WHO review of health in NDCs</p>
     </div>
   </div>
 </section>
 
-<style>
-  .governments-section {
+<style>  .governments-section {
     width: 100%;
+    max-width: 100vw; /* Prevent overflow */
     padding: 4rem 0;
     background: #f8fafc;
     margin: 2rem 0;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    box-sizing: border-box;
   }
 
   .governments-content {

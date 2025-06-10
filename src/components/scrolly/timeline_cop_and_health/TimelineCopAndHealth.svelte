@@ -127,10 +127,10 @@
   </div>
 </div>
 
-<style>
-  .timeline-wrapper {
+<style>  .timeline-wrapper {
     position: relative;
     width: 100%;
+    max-width: 100vw; /* Prevent overflow */
     overflow: hidden;
     z-index: 1;
   }
@@ -138,6 +138,7 @@
   .continuous-timeline-container {
     position: relative;
     width: 100%;
+    max-width: 100vw; /* Prevent overflow */
     height: var(--container-height); /* Dynamically calculated based on steps */
     background: #fff;
     overflow: hidden;

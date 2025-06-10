@@ -50,12 +50,14 @@
   </div>
 </section>
 
-<style>
-  .agreements-section {
+<style>  .agreements-section {
     width: 100%;
+    max-width: 100vw; /* Prevent overflow */
     padding: 4rem 0;
     background: #f8fafc;
     margin: 2rem 0;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    box-sizing: border-box;
   }
 
   .agreements-content {
