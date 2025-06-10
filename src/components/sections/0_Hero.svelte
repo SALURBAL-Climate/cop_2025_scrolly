@@ -40,7 +40,7 @@
 <style>
   .hero-section {
     height: calc(100vh - 30px);
-    background-image: url('/img/cop30/hero_image.jpg');
+    background-image: url('./img/cop30/hero_image.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
