@@ -19,13 +19,17 @@
       <h1 class="main-title">
         Bringing <span class="highlight-yellow">urban health</span> to the table
         at <span class="highlight-green">COP30</span>: A guide for
-        <span class="highlight-blue"> public health researchers and practitioners</span>
+        <span class="highlight-blue">public health</span> researchers and practitioners
       </h1>
 
       <div class="subtitle-questions">
         <p class="subtitle-italic">How do "COPs" work?</p>
-        <p class="subtitle-italic">What role does public health research play?</p>
-        <p class="subtitle-italic">How can researchers translate health evidence to drive climate action?</p>
+        <p class="subtitle-italic">
+          What role does public health research play?
+        </p>
+        <p class="subtitle-italic">
+          How can researchers translate health evidence to drive climate action?
+        </p>
       </div>
     </div>
   </div>
@@ -52,7 +56,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(168, 168, 168, 0.83);
     z-index: 1;
   }
 
@@ -98,7 +102,7 @@
   }
 
   .main-title {
-    font-size: 3.5rem;
+    font-size: 3.2rem;
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: 2.5rem;
@@ -106,19 +110,29 @@
   }
 
   .highlight-yellow {
-    color: #f59e0b;
+    background-color: rgba(244, 214, 116, 0.6);
+    padding: 0em  0em 0em 0em;
+    border-radius: 2px;
+    color: #1a365d;
   }
 
   .highlight-green {
-    color: #10b981;
+    background-color: rgba(111, 209, 166, 0.6);
+    padding: 0em  0em 0em 0em;
+    border-radius: 2px;
+    color: #1a365d;
   }
 
   .highlight-blue {
-    color: #3b82f6;
+    background-color: rgb(116, 161, 210);
+    padding: 0em  0em 0em 0em;
+    border-radius: 2px;
+    color: #1a365d;
   }
 
   .subtitle-questions {
-    margin-top: 2rem;
+    
+    padding-bottom: 5rem;
   }
 
   .subtitle-italic {
