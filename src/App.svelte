@@ -3,7 +3,7 @@
   import { setContext } from 'svelte';
   import { themes } from './config.js';
   import { setColors } from './utils.js';
-  import UHCHeader from './layout/UHCHeader.svelte';
+  import Header from './layout/Header.svelte';
   import UHCFooter from './layout/UHCFooter.svelte';
   import Divider from './layout/Divider.svelte';
   
@@ -21,7 +21,7 @@
   import ConclusionSection from './components/sections/99_ConclusionText.svelte';
 </script>
 
-<UHCHeader filled={true} center={false} />
+<Header filled={true} center={false} />
 <HeroSection />
 <IntroSection />
 <SectionOneText />

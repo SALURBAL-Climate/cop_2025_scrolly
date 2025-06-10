@@ -1,51 +1,134 @@
 <script>
   import { themes } from '../config.js';
   import { getContext } from 'svelte';
+  import Icon from '@iconify/svelte';
 
   export let theme = getContext('theme');
-  export let bgimage = null;
-  export let bgcolor = null;
-  export let bgfixed = false;
+  export let filled = false;
   export let center = true;
-  export let short = false;
-
-  let style = '';
-
-  if (bgimage) {
-    style += `background-image: url(${bgimage});`;
-  } else {
-    style += 'background-image: none;';
-  }
-
-  if (bgfixed) {
-    style += ' background-attachment: fixed;';
-  }
 </script>
 
-<header
-  style="color: {themes[theme]['text']}; background-color: {bgcolor
-    ? bgcolor
-    : themes[theme]['background']}; {style}"
-  class:short
+<nav
+  class="parent"
+  style="border-bottom-color: {themes[theme]['muted']}; {filled
+    ? 'background-color: ' + themes[theme]['background'] + ';'
+    : ''}"
 >
-  <div
-    class="v-padded col-wide middle"
-    style="position: relative"
-    class:short
-    class:height-full={!short}
-  >
-    <div class:center>
-      <slot />
+  <div class="float-container">    <div class="float-child col-wide middle" class:center>      <a href="https://lacurbanhealth.org">
+        <div id="svg-container">
+          <img
+            id="my-svg"
+            src="./img/cop30/EN_Logo_SALURBAL-Climate_png.png"
+            alt="SALURBAL Climate"
+          />
+        </div>
+      </a>
+    </div>
+
+    <div class="float-child container_container">      <div class="container">
+        <!-- <a href="https://github.com/Drexel-UHC">
+        <div class="social-icon"><Icon icon="mdi:github" /></div>
+      </a> -->
+        <a href="https://www.facebook.com/LACUrbanHealth">
+          <div class="social-icon"><Icon icon="il:facebook" /></div>
+        </a>
+        <a href="https://x.com/lacurbanhealth">
+          <div class="social-icon"><Icon icon="mdi:twitter" /></div>
+        </a>        <a href="https://www.instagram.com/salurbalclimate/">
+          <div class="social-icon"><Icon icon="mdi:instagram" /></div>
+        </a>
+        <a href="https://www.youtube.com/@salurbal">
+          <div class="social-icon"><Icon icon="mdi:youtube" /></div>
+        </a>
+        <a
+          href="https://www.linkedin.com/company/salurbal-project"
+        >
+          <div class="social-icon"><Icon icon="mdi:linkedin" /></div>
+        </a>
+      </div>
     </div>
   </div>
-</header>
+</nav>
 
-<style>
-  .short {
-    min-height: 1rem;
+<style>  #svg-container {
+    width: 50px; /* Increased width for better visibility */
+    height: 25px; /* Set height to 25px as requested */
+    display: flex;
+    align-items: center; /* Vertically center the logo */
   }
-  .v-padded {
+
+  #my-svg {
+    width: 100%; /* Make the SVG width fill the container */
+    height: 100%; /* Make the SVG height fill the container */
+    object-fit: contain; /* Adjust the object-fit property as per your needs */
+  }
+  
+  .parent {
+    height: 30px; /* Reset to original height for smaller logo */
+  }
+  nav {
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    padding: 80px 0;
+    position: relative;
+
+    margin-bottom: -40px;
+    border-bottom: 1px solid #777;
+    z-index: 1;
+  }
+  a img:hover {
+    cursor: pointer;
+  }
+  .container_container {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-between;
+  }  .container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%; /* Take full height of parent */
+    /* border: 1px solid black; */
+  }
+  .social-icon {
+    font-size: 1rem; /* Reduced from 1.5rem */
+    padding: 0.25rem; /* Reduced padding */
+    display: flex;
+    align-items: center; /* Vertically center icons */
+  }
+  .float-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center; /* Vertically center all children */
+    height: 100%; /* Take full height of parent */
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .float-child {
+    width: min-content;
+  }
+
+  @media (max-width: 400px) {
+    .parent {
+      height: 120px;
+    }
+
+    .float-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-left: 5%;
+      padding-right: 5%;
+    }
+
+    .float-child {
+      width: min-content;
+    }
   }
 </style>
