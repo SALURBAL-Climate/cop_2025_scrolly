@@ -22,7 +22,8 @@
   <HeroSection />
   <Section_1_WhatAreCOPs />
   <Section_2_WhatHappensAtCOP />
-
+  <Section_1_WhatAreCOPs />
+  <Section_1_WhatAreCOPs />
   <Divider />
   <Footer />
 </main>

@@ -1,5 +1,6 @@
 <script>
   import { RouteWhatHappensAtCop } from '../scrolly/route_what_happens_at_cop/index.js';
+  import COPZonesExplainer from './COPZonesExplainer.svelte';
 </script>
 
 <section class="what-happens-section">
@@ -9,10 +10,14 @@
       <h1 class="section-title">What Happens at UNFCCC COPs?</h1>
     </div>
   </div>
-  
-  <!-- Scrolly Row -->
+    <!-- Scrolly Row -->
   <div class="scrolly-row"  >
     <RouteWhatHappensAtCop />
+  </div>
+  
+  <!-- Zones Explainer Row -->
+  <div class="zones-row">
+    <COPZonesExplainer />
   </div>
 </section>
 
@@ -38,6 +43,14 @@
     flex: 1;
     position: relative;
   }
+
+  .zones-row {
+    width: 100%;
+    padding: 2rem;
+    background: transparent;
+    position: relative;
+    z-index: 2;
+  }
   .section-header {
     text-align: center;
     padding: 2rem 2rem 1rem 2rem; /* Reduced top/bottom padding */
@@ -59,8 +72,7 @@
     margin: 0;
     font-weight: 500;
     line-height: 1.4;
-  }
-  /* Responsive design */
+  }  /* Responsive design */
   @media (max-width: 768px) {
     .section-header {
       padding: 1.5rem 1.5rem 1rem 1.5rem;
@@ -73,8 +85,11 @@
     .section-subtitle {
       font-size: 1.1rem;
     }
-  }
 
+    .zones-row {
+      padding: 1.5rem;
+    }
+  }
   @media (max-width: 480px) {
     .section-header {
       padding: 1rem 1rem 0.5rem 1rem;
@@ -86,6 +101,10 @@
 
     .section-subtitle {
       font-size: 1rem;
+    }
+
+    .zones-row {
+      padding: 1rem;
     }
   }
 </style>
