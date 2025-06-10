@@ -8,7 +8,7 @@
     <!-- Satellite Image with Zone Labels -->
     <div class="zones-image-container">
       <img
-        src="/img/cop30/cop_zones.png"
+        src="./img/cop30/cop_zones.png"
         alt="COP zones satellite view showing Blue Zone and Green Zone areas"
         class="zones-image"
       />
