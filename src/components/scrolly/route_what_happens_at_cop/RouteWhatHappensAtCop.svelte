@@ -1,19 +1,19 @@
 <script>
   import { onMount } from 'svelte';
   import Scroller from '../../../layout/Scroller.svelte';
-  import { copRouteData } from './data.js';
-  let y = 0;
+  import { copRouteData } from './data.js';  let y = 0;
   let innerHeight = 0;
   let containerElement;
   let progress = 0;
   let isInView = false;
+  let currentStep = 0;
+  let currentStep = 0;
   // Calculate container height based on number of steps
   // Each step gets a full viewport height for comfortable scrolling
   // Plus additional space for smooth transitions and conclusion
   // Formula: (number_of_steps × 100vh) + buffer
   // This ensures each step has enough scroll space to be fully appreciated
-  $: containerHeight = copRouteData.length * 100 + 50; // Base: 100vh per step + 50vh buffer
-  // Track scroll within the component bounds
+  $: containerHeight = copRouteData.length * 100 + 50; // Base: 100vh per step + 50vh buffer  // Track scroll within the component bounds
   function updateProgress() {
     if (!containerElement) return;
 
@@ -25,10 +25,18 @@
     const isCompletelyBelow = rect.top > windowHeight;
     isInView = !isCompletelyAbove && !isCompletelyBelow;
 
-    // Only calculate progress when the component is in view
-    if (isCompletelyAbove || isCompletelyBelow) {
-      if (isCompletelyAbove) progress = 1; // Completed
-      if (isCompletelyBelow) progress = 0; // Not started
+    // Handle progress and currentStep calculation
+    if (isCompletelyAbove) {
+      // When scrolled completely past, keep the last step as current
+      progress = 1;
+      currentStep = copRouteData.length - 1;
+      return;
+    }
+    
+    if (isCompletelyBelow) {
+      // Not started yet
+      progress = 0;
+      currentStep = 0;
       return;
     }
 
@@ -39,9 +47,10 @@
     // Calculate progress
     let rawProgress = scrollStart / scrollableHeight;
     progress = Math.min(1, Math.max(0, rawProgress));
+    
+    // Calculate current step based on progress
+    currentStep = Math.min(copRouteData.length - 1, Math.floor(progress * copRouteData.length));
   }
-
-  $: currentStep = Math.floor(progress * copRouteData.length);
   $: if (typeof window !== 'undefined') updateProgress();
   onMount(() => {
     updateProgress();
