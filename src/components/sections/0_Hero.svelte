@@ -5,7 +5,7 @@
 <section class="hero-section">
   <div class="hero-content">
     <div class="hero-header">
-      <div class="update-text">Updated: May 2025</div>
+      <!-- <div class="update-text">Updated: May 2025</div> -->
       <div class="logos">
         <img
           src="./img/cop30/EN_Logo_SALURBAL-Climate_png.png"
@@ -33,14 +33,14 @@
 
 <style>
   .hero-section {
-    min-height: 100vh;
+    height: calc(100vh - 30px);
     background-image: url('/img/cop30/hero_image.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex;
     position: relative;
     font-family: 'Lato', sans-serif;
   }
@@ -69,7 +69,8 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 3rem;
+    justify-content: flex-end;
+    margin-top: 1rem;
   }
 
   .update-text {
