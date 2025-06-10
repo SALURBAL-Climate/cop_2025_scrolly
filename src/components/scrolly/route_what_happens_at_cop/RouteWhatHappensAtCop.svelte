@@ -71,13 +71,12 @@
                 style="height: {Math.min(100, progress * 100)}%"
               ></div>              <!-- COP process steps positioned within the track -->
               <div class="location-dots">
-                {#each copRouteData as step, i}
-                  <div
+                {#each copRouteData as step, i}                  <div
                     class="location-dot {progress >=
                     i / (copRouteData.length - 1)
                       ? 'visited'
                       : ''} {currentStep === i ? 'current' : ''}"
-                    style="top: {20 + (i / (copRouteData.length - 1)) * 60}%"
+                    style="top: calc({8 + (i / (copRouteData.length - 1)) * 84}% - 37.5px)"
                   >
                     <div class="dot-icon">
                       <img src={step.icon} alt={step.step_name} class="step-icon" />
