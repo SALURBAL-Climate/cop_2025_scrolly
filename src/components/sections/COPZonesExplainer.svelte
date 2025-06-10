@@ -1,17 +1,33 @@
 <script>
+  import { copRouteData } from '../scrolly/route_what_happens_at_cop/data.js';
+  
   // COP Zones Explainer Component
   // Shows the Blue Zone and Green Zone differences with satellite imagery
+  // Displays activity icons directly on the zones image
+  
+  // Filter out Pre-COP activities, only show activities that happen at the COP venue
+  $: copActivities = copRouteData.filter(step => step.location !== 'Pre-COP');
 </script>
 
 <div class="zones-explainer">
-  <div class="zones-content">
-    <!-- Satellite Image with Zone Labels -->
+  <div class="zones-content">    <!-- Satellite Image with Zone Labels and Activity Icons -->
     <div class="zones-image-container">
-      <img
-        src="./img/cop30/cop_zones.png"
-        alt="COP zones satellite view showing Blue Zone and Green Zone areas"
-        class="zones-image"
-      />
+      <div class="image-with-icons">
+        <img
+          src="/img/cop30/cop_zones.png"
+          alt="COP zones satellite view showing Blue Zone and Green Zone areas"
+          class="zones-image"
+        />        <!-- Activity icons positioned on their respective zones -->
+        {#each copActivities as activity, index}
+          <div class="zone-icon-overlay" 
+               style="top: {activity.coordinates.top}%; left: {activity.coordinates.left}%;">
+            <div class="icon-circle">
+              <img src={activity.icon} alt={activity.step_name} />
+            </div>
+            <span class="icon-tooltip">{activity.step_title}</span>
+          </div>
+        {/each}
+      </div>
     </div>
 
     <!-- Zone Descriptions -->
@@ -53,15 +69,72 @@
     gap: 3rem;
     align-items: center;
   }
-
   .zones-image-container {
     text-align: center;
+    position: relative;
   }
+
+  .image-with-icons {
+    position: relative;
+    display: inline-block;
+  }
+
   .zones-image {
     width: 100%;
     max-width: 500px;
     height: auto;
     border-radius: 8px;
+    display: block;
+  }
+  /* Icon overlays positioned on the zones using coordinate data */
+  .zone-icon-overlay {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+  }
+
+  .icon-circle {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    /* border: 1px solid #fff; */
+    transition: all 0.3s ease;
+  }
+
+  .icon-circle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .icon-circle img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+  }
+
+  .icon-tooltip {
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .zone-icon-overlay:hover .icon-tooltip {
+    opacity: 1;
   }
 
   .zones-descriptions {
@@ -115,10 +188,23 @@
       padding: 0 1rem;
       grid-template-columns: 1fr;
       gap: 2rem;
+    }    .zones-descriptions {
+      gap: 1.5rem;
     }
 
-    .zones-descriptions {
-      gap: 1.5rem;
+    .icon-circle {
+      width: 40px;
+      height: 40px;
+    }
+
+    .icon-circle img {
+      width: 26px;
+      height: 26px;
+    }
+
+    .icon-tooltip {
+      font-size: 0.7rem;
+      top: 50px;
     }
     .zone-card {
       padding: 1rem 0;
@@ -133,7 +219,6 @@
       font-size: 0.95rem;
     }
   }
-
   @media (max-width: 480px) {
     .zones-explainer {
       padding: 1.5rem 0;
@@ -145,6 +230,21 @@
 
     .zone-title {
       font-size: 1.2rem;
+    }
+
+    .icon-circle {
+      width: 35px;
+      height: 35px;
+    }
+
+    .icon-circle img {
+      width: 22px;
+      height: 22px;
+    }
+
+    .icon-tooltip {
+      font-size: 0.65rem;
+      top: 45px;
     }
   }
 </style>
