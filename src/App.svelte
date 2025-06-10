@@ -15,16 +15,16 @@
   import HeroSection from './components/sections/0_Hero.svelte';
   import IntroSection from './components/sections/1_Intro.svelte';  import SectionOneText from './components/sections/1_SectionText.svelte';
   import GenericSection from './components/sections/GenericSection.svelte';
-  import SectionTwoScrolly from './components/scrolly/step_map/StepMapScrolly.svelte';
-  import StepCardScrolly from './components/scrolly/step_card/StepCardScrolly.svelte';
+  import SectionTwoScrolly from './components/scrolly/step_map/StepMapScrolly.svelte';  import StepCardScrolly from './components/scrolly/step_card/StepCardScrolly.svelte';
   import ContinuousRouteScrolly from './components/scrolly/continuous_route/ContinuousRouteScrolly.svelte';
   import ConclusionSection from './components/sections/99_ConclusionText.svelte';
+  import WhatAreCOPs from './components/sections/WhatAreCOPs.svelte';
 </script>
 
 <Header filled={true} center={false} />
 <main style="padding-top: 30px;"> <!-- Add padding to account for fixed header -->
   <HeroSection />
- 
+  <WhatAreCOPs />
   <UHCFooter />
 </main>
 
