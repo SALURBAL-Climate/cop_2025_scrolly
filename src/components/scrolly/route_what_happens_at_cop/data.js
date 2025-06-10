@@ -25,13 +25,4 @@ export const prepSessions = copRouteData[0];
 export const coreNegotiation = copRouteData[1]; 
 export const highLevelCop = copRouteData[2];
 export const thirdCop = copRouteData[3];
-
-// Export route metadata
-export const copRouteMetadata = {
-  title: "What Happens at UNFCCC COPs?",
-  subtitle: "The Four Key Components of Climate Conferences",
-  theme: "UNFCCC COP Process",
-  description: "Understanding the structured approach of international climate negotiations, from preparatory work to parallel activities that shape global climate action.",
-  totalSteps: 4,
-  estimatedReadTime: "5 minutes"
-};
+ 

@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import Scroller from '../../../layout/Scroller.svelte';
-  import { copRouteData, copRouteMetadata } from './data.js';
+  import { copRouteData } from './data.js';
   
   let y = 0;
   let innerHeight = 0;
@@ -58,12 +58,7 @@
     <Scroller top={0} bottom={1} threshold={0.5}>
       <div slot="background">
         <div class="route-visualization" class:visible={isInView}>
-          <!-- Header section -->
-          <div class="route-header">
-            <h2 class="route-title">{copRouteMetadata.title}</h2>
-            <p class="route-subtitle">{copRouteMetadata.subtitle}</p>
-          </div>
-          
+        
           <!-- Vertical route line with dots -->
           <div class="route-track">
             <div class="track-background"></div>
@@ -104,17 +99,7 @@
             </section>
           {/each}
           
-          <!-- Conclusion section -->
-          <section class="story-section conclusion">
-            <div class="story-text">
-              <h3 class="conclusion-title">The Complete COP Process</h3>
-              <p class="story-paragraph">
-                These four interconnected components work together to create a comprehensive platform for global climate action. 
-                From careful preparation to formal negotiations, public engagement, and parallel activities, 
-                each element plays a crucial role in advancing international climate cooperation and commitment.
-              </p>
-            </div>
-          </section>
+ 
         </div>
       </div>
     </Scroller>
@@ -133,13 +118,12 @@
     width: 100%;
     height: 100%;
   }
-
   .route-visualization {
     position: fixed;
-    top: 0;
+    top: 10vh; /* Add space for the title section */
     left: 0;
     width: 50%;
-    height: 100vh;
+    height: 90vh; /* Reduce height to account for top offset */
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -13,14 +13,14 @@
   setColors(themes, theme);  // Component imports
   import HeroSection from './components/sections/0_Hero.svelte';
   import Section_1_WhatAreCOPs from './components/sections/1_WhatAreCOPs.svelte';
-  import { RouteWhatHappensAtCop } from './components/scrolly/route_what_happens_at_cop/index.js';
+  import Section_2_WhatHappensAtCOP from './components/sections/2_WhatHappensAtCOP.svelte';
 </script>
 
 <Header filled={true} center={false} />
 <main style="padding-top: 30px;"> <!-- Add padding to account for fixed header -->
   <HeroSection />
   <Section_1_WhatAreCOPs />
-  <RouteWhatHappensAtCop />
+  <Section_2_WhatHappensAtCOP />
   <Footer />
 </main>
 
