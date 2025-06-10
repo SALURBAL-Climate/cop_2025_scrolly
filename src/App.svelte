@@ -14,6 +14,7 @@
   import HeroSection from './components/sections/0_Hero.svelte';
   import Section_1_WhatAreCOPs from './components/sections/1_WhatAreCOPs.svelte';
   import Section_2_WhatHappensAtCOP from './components/sections/2_WhatHappensAtCOP.svelte';
+  import RouteWhatHappensAtCop from './components/scrolly/route_what_happens_at_cop/RouteWhatHappensAtCop.svelte';
 </script>
 
 <Header filled={true} center={false} />
@@ -21,6 +22,7 @@
   <HeroSection />
   <Section_1_WhatAreCOPs />
   <Section_2_WhatHappensAtCOP />
+  <RouteWhatHappensAtCop/>
   <Divider />
  <div style="border: 12px solid red; margin: 2rem auto; padding: 2rem; max-width: 900px;">
   <h1>THE NEXT SECTION</h1>
