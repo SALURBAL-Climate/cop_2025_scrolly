@@ -32,12 +32,10 @@
     min-height: 10vh; /* Fixed height for title section */
     position: relative;
     z-index: 2; /* Ensure title stays above scrolly */
-  }
-  .scrolly-row {
+  }  .scrolly-row {
     width: 100%;
     flex: 1;
     position: relative;
-    border: 13px solid red;
   }
   .section-header {
     text-align: center;

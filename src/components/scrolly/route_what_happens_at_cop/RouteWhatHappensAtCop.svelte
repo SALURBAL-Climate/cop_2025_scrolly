@@ -122,12 +122,11 @@
     z-index: 1;
     box-sizing: border-box;
   }
-
   .route-visualization {
     position: fixed;
     left: 0;
-    top: 0; /* Start at the very top of the scrolly container */
-    height: 100vh; /* Full viewport height */
+    top: 5vh; /* Add 5% padding at top */
+    height: 90vh; /* Use 90% viewport height for equal top/bottom padding */
     width: 50%; /* Take 50% of screen width */
     z-index: 2;
     pointer-events: none;
@@ -135,8 +134,7 @@
     transition: opacity 0.3s ease;
     display: flex;
     justify-content: center; /* Horizontally center the route line within the 50% */
-    align-items: flex-start;
-    padding-top: 2rem; /* Small top padding for breathing room */
+    align-items: center; /* Vertically center the content */
     box-sizing: border-box;
   }
 
@@ -163,12 +161,11 @@
     margin: 0;
     font-weight: 500;
   }
-
   .route-track {
     position: relative;
     width: 6px;
-    height: 60vh;
-    max-height: 500px;
+    height: 70vh; /* Use 70% of viewport height for the track */
+    max-height: none; /* Remove max-height restriction */
   }
 
   .track-background {
