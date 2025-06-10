@@ -8,7 +8,6 @@
   let containerElement;
   let progress = 0;
   let isInView = false;
-  
   // Track scroll within the component bounds
   function updateProgress() {
     if (!containerElement) return;
@@ -16,9 +15,9 @@
     const rect = containerElement.getBoundingClientRect();
     const windowHeight = window.innerHeight;
     
-    // Check if component is in view with more precise bounds
-    const isCompletelyAbove = rect.bottom < windowHeight * 0.2;
-    const isCompletelyBelow = rect.top > windowHeight * 0.8;
+    // Component is visible only when the container is in view
+    const isCompletelyAbove = rect.bottom < 0;
+    const isCompletelyBelow = rect.top > windowHeight;
     isInView = !isCompletelyAbove && !isCompletelyBelow;
     
     // Only calculate progress when the component is in view
@@ -32,15 +31,9 @@
     const scrollStart = Math.max(0, -rect.top);
     const scrollableHeight = Math.max(1, rect.height - windowHeight);
     
-    // Add some easing at the end to prevent abrupt cutoff
+    // Calculate progress 
     let rawProgress = scrollStart / scrollableHeight;
     progress = Math.min(1, Math.max(0, rawProgress));
-    
-    // Fade out when approaching the end
-    if (rawProgress > 0.85) {
-      const fadeProgress = (rawProgress - 0.85) / 0.15;
-      isInView = isInView && fadeProgress < 0.8;
-    }
   }
 
   $: currentStep = Math.floor(progress * copRouteData.length);
@@ -57,29 +50,30 @@
   <div class="continuous-route-container" bind:this={containerElement}>
     <Scroller top={0} bottom={1} threshold={0.5}>
       <div slot="background">
-        <div class="route-visualization" class:visible={isInView}>
-        
-          <!-- Vertical route line with dots -->
-          <div class="route-track">
-            <div class="track-background"></div>
-            <div 
-              class="track-progress" 
-              style="height: {Math.min(100, progress * 100)}%"
-            ></div>
-            
-            <!-- COP process steps positioned within the track -->
-            <div class="location-dots">
-              {#each copRouteData as step, i}
-                <div 
-                  class="location-dot {progress >= (i / (copRouteData.length - 1)) ? 'visited' : ''}" 
-                  style="top: {(i / (copRouteData.length - 1)) * 85 + 7.5}%"
-                >
-                  <div class="dot-circle">
-                    <span class="step-number">{i + 1}</span>
+        <div class="background-wrapper">
+          <div class="route-visualization" class:visible={isInView}>
+            <!-- Vertical route line with dots -->
+            <div class="route-track">
+              <div class="track-background"></div>
+              <div 
+                class="track-progress" 
+                style="height: {Math.min(100, progress * 100)}%"
+              ></div>
+              
+              <!-- COP process steps positioned within the track -->
+              <div class="location-dots">
+                {#each copRouteData as step, i}
+                  <div 
+                    class="location-dot {progress >= (i / (copRouteData.length - 1)) ? 'visited' : ''}" 
+                    style="top: {(i / (copRouteData.length - 1)) * 85 + 7.5}%"
+                  >
+                    <div class="dot-circle">
+                      <span class="step-number">{i + 1}</span>
+                    </div>
+                    <div class="location-name">{step.name}</div>
                   </div>
-                  <div class="location-name">{step.name}</div>
-                </div>
-              {/each}
+                {/each}
+              </div>
             </div>
           </div>
         </div>
@@ -98,8 +92,6 @@
               </div>
             </section>
           {/each}
-          
- 
         </div>
       </div>
     </Scroller>
@@ -111,9 +103,7 @@
     width: 100%;
     overflow: hidden;
     z-index: 1;
-  }
-
-  .continuous-route-container {
+  }  .continuous-route-container {
     position: relative;
     width: 100%;
     height: 300vh; /* Ensure enough scrolling space */
@@ -122,11 +112,16 @@
     z-index: 1;
     box-sizing: border-box;
   }
-  .route-visualization {
-    position: fixed;
+
+  .background-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }.route-visualization {
+    position: sticky;
     left: 0;
-    top: 5vh; /* Add 5% padding at top */
-    height: 90vh; /* Use 90% viewport height for equal top/bottom padding */
+    top: 5vh; /* Stick 5vh from the top of viewport */
+    height: 90vh; /* Use 90vh for proper sizing */
     width: 50%; /* Take 50% of screen width */
     z-index: 2;
     pointer-events: none;
@@ -160,11 +155,10 @@
     color: #64748b;
     margin: 0;
     font-weight: 500;
-  }
-  .route-track {
+  }  .route-track {
     position: relative;
     width: 6px;
-    height: 70vh; /* Use 70% of viewport height for the track */
+    height: 70vh; /* Use 70vh for good proportion within 90vh container */
     max-height: none; /* Remove max-height restriction */
   }
 
@@ -279,9 +273,11 @@
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.3);
   }
-
   .step-header {
-    margin-bottom: 1.5rem;
+    /* margin-bottom: 1.5rem; */
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
 
   .step-badge {
@@ -292,20 +288,21 @@
     border-radius: 12px;
     font-size: 0.8rem;
     font-weight: 600;
-    margin-bottom: 1rem;
+    margin-bottom: 0; /* Remove bottom margin since they're now horizontal */
+    flex-shrink: 0; /* Prevent badge from shrinking */
   }
 
   .step-title {
     font-size: 1.75rem;
     font-weight: 700;
     color: #1e293b;
-    margin: 0.5rem 0 0 0;
+    margin: 0; /* Remove all margins since they're now horizontal */
     line-height: 1.2;
   }
 
   .story-paragraph {
     font-size: 1.1rem;
-    line-height: 1.7;
+    line-height: 1.2;
     color: #374151;
     margin: 0;
   }

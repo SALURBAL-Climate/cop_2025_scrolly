@@ -21,8 +21,35 @@
   <HeroSection />
   <Section_1_WhatAreCOPs />
   <Section_2_WhatHappensAtCOP />
-  <Section_1_WhatAreCOPs />
-
+  <Divider />
+ <div style="border: 12px solid red; margin: 2rem auto; padding: 2rem; max-width: 900px;">
+  <h1>THE NEXT SECTION</h1>
+  <p> epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque quia ipsa in, doloremque maxime fugit quibusdam debitis tempore quaerat odio consectetur quos nesciunt repellat, dolor odit ducimus sit ratione?epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque quia ipsa in, doloremque maxime fugit quibusdam debitis tempore quaerat odio consectetur quos nesciunt repellat, dolor odit ducimus sit ratione?epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque quia ipsa in, doloremque maxime fugit quibusdam debitis tempore quaerat odio consectetur quos nesciunt repellat, dolor odit ducimus sit ratione?epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque quia ipsa in, doloremque maxime fugit quibusdam debitis tempore quaerat odio consectetur quos nesciunt repellat, dolor odit ducimus sit ratione?</p>
+ </div>
+ <div style="border: 12px solid red; margin: 2rem auto; padding: 2rem; max-width: 900px;">
+  <h1>THE NEXT SECTION</h1>
+  <p> epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque quia ipsa in, doloremque maxime fugit quibusdam debitis tempore quaerat odio consectetur quos nesciunt repellat, dolor odit ducimus sit ratione?epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque quia ipsa in, doloremque maxime fugit quibusdam debitis tempore quaerat odio consectetur quos nesciunt repellat, dolor odit ducimus sit ratione?epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque quia ipsa in, doloremque maxime fugit quibusdam debitis tempore quaerat odio consectetur quos nesciunt repellat, dolor odit ducimus sit ratione?epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque quia ipsa in, doloremque maxime fugit quibusdam debitis tempore quaerat odio consectetur quos nesciunt repellat, dolor odit ducimus sit ratione?</p>
+ </div>
+ <div style="border: 12px solid red; margin: 2rem auto; padding: 2rem; max-width: 900px;">
+  <h1>THE NEXT SECTION</h1>
+  <p> epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque quia ipsa in, doloremque maxime fugit quibusdam debitis tempore quaerat odio consectetur quos nesciunt repellat, dolor odit ducimus sit ratione?epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque quia ipsa in, doloremque maxime fugit quibusdam debitis tempore quaerat odio consectetur quos nesciunt repellat, dolor odit ducimus sit ratione?epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque quia ipsa in, doloremque maxime fugit quibusdam debitis tempore quaerat odio consectetur quos nesciunt repellat, dolor odit ducimus sit ratione?epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque quia ipsa in, doloremque maxime fugit quibusdam debitis tempore quaerat odio consectetur quos nesciunt repellat, dolor odit ducimus sit ratione?</p>
+ </div>
+ <div style="border: 12px solid red; margin: 2rem auto; padding: 2rem; max-width: 900px;">
+  <h1>THE NEXT SECTION</h1>
+  <p> epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque quia ipsa in, doloremque maxime fugit quibusdam debitis tempore quaerat odio consectetur quos nesciunt repellat, dolor odit ducimus sit ratione?epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque quia ipsa in, doloremque maxime fugit quibusdam debitis tempore quaerat odio consectetur quos nesciunt repellat, dolor odit ducimus sit ratione?epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque quia ipsa in, doloremque maxime fugit quibusdam debitis tempore quaerat odio consectetur quos nesciunt repellat, dolor odit ducimus sit ratione?epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque quia ipsa in, doloremque maxime fugit quibusdam debitis tempore quaerat odio consectetur quos nesciunt repellat, dolor odit ducimus sit ratione?</p>
+ </div>
+ <div style="border: 12px solid red; margin: 2rem auto; padding: 2rem; max-width: 900px;">
+  <h1>THE NEXT SECTION</h1>
+  <p> epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque quia ipsa in, doloremque maxime fugit quibusdam debitis tempore quaerat odio consectetur quos nesciunt repellat, dolor odit ducimus sit ratione?epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque quia ipsa in, doloremque maxime fugit quibusdam debitis tempore quaerat odio consectetur quos nesciunt repellat, dolor odit ducimus sit ratione?epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque quia ipsa in, doloremque maxime fugit quibusdam debitis tempore quaerat odio consectetur quos nesciunt repellat, dolor odit ducimus sit ratione?epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque quia ipsa in, doloremque maxime fugit quibusdam debitis tempore quaerat odio consectetur quos nesciunt repellat, dolor odit ducimus sit ratione?</p>
+ </div>
+ <div style="border: 12px solid red; margin: 2rem auto; padding: 2rem; max-width: 900px;">
+  <h1>THE NEXT SECTION</h1>
+  <p> epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque quia ipsa in, doloremque maxime fugit quibusdam debitis tempore quaerat odio consectetur quos nesciunt repellat, dolor odit ducimus sit ratione?epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque quia ipsa in, doloremque maxime fugit quibusdam debitis tempore quaerat odio consectetur quos nesciunt repellat, dolor odit ducimus sit ratione?epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque quia ipsa in, doloremque maxime fugit quibusdam debitis tempore quaerat odio consectetur quos nesciunt repellat, dolor odit ducimus sit ratione?epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque quia ipsa in, doloremque maxime fugit quibusdam debitis tempore quaerat odio consectetur quos nesciunt repellat, dolor odit ducimus sit ratione?</p>
+ </div>
+ <div style="border: 12px solid red; margin: 2rem auto; padding: 2rem; max-width: 900px;">
+  <h1>THE NEXT SECTION</h1>
+  <p> epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque quia ipsa in, doloremque maxime fugit quibusdam debitis tempore quaerat odio consectetur quos nesciunt repellat, dolor odit ducimus sit ratione?epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque quia ipsa in, doloremque maxime fugit quibusdam debitis tempore quaerat odio consectetur quos nesciunt repellat, dolor odit ducimus sit ratione?epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque quia ipsa in, doloremque maxime fugit quibusdam debitis tempore quaerat odio consectetur quos nesciunt repellat, dolor odit ducimus sit ratione?epsom Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque quia ipsa in, doloremque maxime fugit quibusdam debitis tempore quaerat odio consectetur quos nesciunt repellat, dolor odit ducimus sit ratione?</p>
+ </div>
   <Footer />
 </main>
 
