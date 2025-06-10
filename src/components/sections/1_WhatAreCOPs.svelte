@@ -1,8 +1,9 @@
 <script>
-  // No props needed for this static component
+  import { brandColors } from '../../config.js';
+  // No other props needed for this static component
 </script>
 
-<section class="component_container">
+<section class="component_container" style="--hex-blue: {brandColors.hex_blue}; --green-zone: {brandColors.green_zone}; --dark-text: {brandColors.dark_text}; --medium-text: {brandColors.medium_text}">
   <div class="title-section">
     <h1 class="main-title">What are COPs?</h1>
     <p class="main-description">
@@ -66,11 +67,10 @@
   .text-content {
     padding-right: 2rem;
   }
-
   .main-title {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #2f7ed3;
+    color: var(--hex-blue);
     margin-bottom: 2rem;
     line-height: 1.2;
   }
@@ -88,9 +88,8 @@
     color: #1f2937;
     margin: 0;
     text-align: justify;
-  }
-  .highlight-link {
-    color: #2f7ed3;
+  }  .highlight-link {
+    color: var(--hex-blue);
     font-weight: 600;
   }
 

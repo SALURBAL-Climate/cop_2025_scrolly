@@ -14,7 +14,7 @@
   import HeroSection from './components/sections/0_Hero.svelte';
   import Section_1_WhatAreCOPs from './components/sections/1_WhatAreCOPs.svelte';
   import Section_2_WhatHappensAtCOP from './components/sections/2_WhatHappensAtCOP.svelte';
-  import RouteWhatHappensAtCop from './components/scrolly/route_what_happens_at_cop/RouteWhatHappensAtCop.svelte';
+  import Section_3_WhereDoesHealthFitIn from './components/sections/3_WhereDoesHealthFitIn.svelte';
 </script>
 
 <Header filled={true} center={false} />
@@ -22,8 +22,7 @@
   <HeroSection />
   <Section_1_WhatAreCOPs />
   <Section_2_WhatHappensAtCOP />
-  <Section_1_WhatAreCOPs />
-  <Section_1_WhatAreCOPs />
+  <Section_3_WhereDoesHealthFitIn />
   <Divider />
   <Footer />
 </main>
