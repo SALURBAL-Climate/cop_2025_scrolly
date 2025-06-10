@@ -1,6 +1,6 @@
 <script>
   import { RouteWhatHappensAtCop } from '../scrolly/route_what_happens_at_cop/index.js';
-  import COPZonesExplainer from './COPZonesExplainer.svelte';
+  import COPZonesExplainer from './2.1_COPZonesExplainer.svelte';
 </script>
 
 <section class="what-happens-section">
