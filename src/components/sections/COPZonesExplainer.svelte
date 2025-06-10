@@ -107,13 +107,13 @@
   }
 
   .icon-circle:hover {
-    transform: scale(1.1);
+    transform: scale(1.2);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
   }
 
   .icon-circle img {
-    width: 60px;
-    height: 60px;
+    width: 90px;
+    height: 90px;
     object-fit: contain;
   }
 
@@ -126,7 +126,7 @@
     color: white;
     padding: 0.25rem 0.5rem;
     border-radius: 4px;
-    font-size: 0.75rem;
+    font-size: 1rem;
     white-space: nowrap;
     opacity: 0;
     transition: opacity 0.3s ease;
