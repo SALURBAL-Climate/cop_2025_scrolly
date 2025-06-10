@@ -55,6 +55,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 2%;
+    font-family: 'Lato', sans-serif;
   }
 
   .logo-section {
@@ -87,6 +88,7 @@
     text-overflow: ellipsis;
     min-width: 0;
     margin-left: 1rem;
+    font-family: 'Lato', sans-serif;
   }
 
   .social-section {
