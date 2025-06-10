@@ -1,13 +1,17 @@
-<script>
-  import { onMount } from 'svelte';
+<script>  import { onMount } from 'svelte';
   import Scroller from '../../../layout/Scroller.svelte';
   import { copRouteData } from './data.js';
-
   let y = 0;
   let innerHeight = 0;
   let containerElement;
   let progress = 0;
   let isInView = false;
+    // Calculate container height based on number of steps
+  // Each step gets a full viewport height for comfortable scrolling
+  // Plus additional space for smooth transitions and conclusion
+  // Formula: (number_of_steps × 100vh) + buffer
+  // This ensures each step has enough scroll space to be fully appreciated
+  $: containerHeight = (copRouteData.length * 100) + 50; // Base: 100vh per step + 50vh buffer
   // Track scroll within the component bounds
   function updateProgress() {
     if (!containerElement) return;
@@ -38,16 +42,16 @@
 
   $: currentStep = Math.floor(progress * copRouteData.length);
   $: if (typeof window !== 'undefined') updateProgress();
-
   onMount(() => {
     updateProgress();
+    console.log(`Container height auto-calculated: ${containerHeight}vh for ${copRouteData.length} steps`);
   });
 </script>
 
 <svelte:window bind:scrollY={y} bind:innerHeight on:scroll={updateProgress} />
 
 <div class="route-wrapper">
-  <div class="continuous-route-container" bind:this={containerElement}>
+  <div class="continuous-route-container" bind:this={containerElement} style="--container-height: {containerHeight}vh;">
     <Scroller top={0} bottom={1} threshold={0.5}>
       <div slot="background">
         <div class="background-wrapper">
@@ -109,12 +113,11 @@
     width: 100%;
     overflow: hidden;
     z-index: 1;
-    border: 14px solid green;
-  }
-  .continuous-route-container {
+    border: 1px solid green; 
+  }  .continuous-route-container {
     position: relative;
     width: 100%;
-    height: 450vh; /* Ensure enough scrolling space */
+    height: var(--container-height); /* Dynamically calculated based on steps */
     background: #fff;
     overflow: hidden;
     z-index: 1;
