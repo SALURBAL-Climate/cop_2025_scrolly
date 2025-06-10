@@ -7,7 +7,6 @@
   let progress = 0;
   let isInView = false;
   let currentStep = 0;
-  let currentStep = 0;
   // Calculate container height based on number of steps
   // Each step gets a full viewport height for comfortable scrolling
   // Plus additional space for smooth transitions and conclusion
