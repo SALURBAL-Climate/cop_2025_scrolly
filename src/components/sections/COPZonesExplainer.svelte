@@ -92,29 +92,39 @@
     transform: translate(-50%, -50%);
     z-index: 5;
   }
-
   .icon-circle {
-    width: 60px;
-    height: 60px;
-    background: rgba(255, 255, 255, 0.95);
+    width: 70px;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.98);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    /* border: 1px solid #fff; */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    /* border: 3px solid #fff; */
     transition: all 0.3s ease;
+    animation: pulse 2s ease-in-out infinite;
   }
 
   .icon-circle:hover {
-    transform: scale(1.2);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    transform: scale(1.3);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    /* animation-play-state: paused; */
   }
 
   .icon-circle img {
-    width: 90px;
-    height: 90px;
+    width: 100px;
+    height: 100px;
     object-fit: contain;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
   }
 
   .icon-tooltip {
@@ -190,16 +200,14 @@
       gap: 2rem;
     }    .zones-descriptions {
       gap: 1.5rem;
-    }
-
-    .icon-circle {
-      width: 40px;
-      height: 40px;
+    }    .icon-circle {
+      width: 50px;
+      height: 50px;
     }
 
     .icon-circle img {
-      width: 26px;
-      height: 26px;
+      width: 100px;
+      height: 100px;
     }
 
     .icon-tooltip {
@@ -230,16 +238,14 @@
 
     .zone-title {
       font-size: 1.2rem;
-    }
-
-    .icon-circle {
-      width: 35px;
-      height: 35px;
+    }    .icon-circle {
+      width: 45px;
+      height: 45px;
     }
 
     .icon-circle img {
-      width: 22px;
-      height: 22px;
+      width: 28px;
+      height: 28px;
     }
 
     .icon-tooltip {
