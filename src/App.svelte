@@ -15,6 +15,7 @@
   import Section_1_WhatAreCOPs from './components/sections/1_WhatAreCOPs.svelte';
   import Section_2_WhatHappensAtCOP from './components/sections/2_WhatHappensAtCOP.svelte';
   import Section_3_WhereDoesHealthFitIn from './components/sections/3_WhereDoesHealthFitIn.svelte';
+  import Section_4_HowAreGovernmentsCommitting from './components/sections/4_HowAreGovernmentsCommitting.svelte';
 </script>
 
 <Header filled={true} center={false} />
@@ -23,6 +24,7 @@
   <Section_1_WhatAreCOPs />
   <Section_2_WhatHappensAtCOP />
   <Section_3_WhereDoesHealthFitIn />
+  <Section_4_HowAreGovernmentsCommitting />
   <Divider />
   <Footer />
 </main>
