@@ -22,20 +22,22 @@
 </script>
 
 <Header filled={true} center={false} />
-<HeroSection />
-<IntroSection />
-<SectionOneText />
-<GenericSection title = "1. Step Map Scrolly"  arrow={true}  />
-<SectionTwoScrolly />
-<Divider />
-<GenericSection title = "2. Step Card Scrolly"    arrow={false}  />
-<StepCardScrolly />
-<Divider />
-<GenericSection title = "3. Continuous Route Journey" arrow={true} />
-<ContinuousRouteScrolly />
-<Divider /> 
-<ConclusionSection />
-<UHCFooter />
+<main style="padding-top: 30px;"> <!-- Add padding to account for fixed header -->
+  <HeroSection />
+  <IntroSection />
+  <SectionOneText />
+  <GenericSection title = "1. Step Map Scrolly"  arrow={true}  />
+  <SectionTwoScrolly />
+  <Divider />
+  <GenericSection title = "2. Step Card Scrolly"    arrow={false}  />
+  <StepCardScrolly />
+  <Divider />
+  <GenericSection title = "3. Continuous Route Journey" arrow={true} />
+  <ContinuousRouteScrolly />
+  <Divider /> 
+  <ConclusionSection />
+  <UHCFooter />
+</main>
 
 <style>
   /* Global scrolly styles */

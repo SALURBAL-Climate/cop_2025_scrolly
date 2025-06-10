@@ -10,9 +10,7 @@
 
 <nav
   class="parent"
-  style="border-bottom-color: {themes[theme]['muted']}; {filled
-    ? 'background-color: ' + themes[theme]['background'] + ';'
-    : ''}"
+
 >
   <div class="float-container">    <div class="float-child col-wide middle" class:center>      <a href="https://lacurbanhealth.org">
         <div id="svg-container">
@@ -65,15 +63,19 @@
   
   .parent {
     height: 30px; /* Reset to original height for smaller logo */
-  }
-  nav {
+  }  nav {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    position: relative;
+    position: fixed; /* Changed from relative to fixed */
+    top: 0; /* Stick to the top */
+    left: 0; /* Full width from left edge */
+    right: 0; /* Full width to right edge */
+    width: 100%; /* Ensure full width */
 
-    margin-bottom: -40px;
-    border-bottom: 1px solid #777;
-    z-index: 1;
+    margin-bottom: 0; /* Remove negative margin */
+    border-bottom: 1px solid #cdcdcd7d;
+    z-index: 9999; /* High z-index to stay above scrolly content */
+    background-color: white; /* Add background to prevent content showing through */
   }
   a img:hover {
     cursor: pointer;
