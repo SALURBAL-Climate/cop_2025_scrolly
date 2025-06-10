@@ -106,8 +106,8 @@
     justify-content: space-between;
     align-items: center; /* Vertically center all children */
     height: 100%; /* Take full height of parent */
-    padding-left: 5%;
-    padding-right: 5%;
+    padding-left: 2%;
+    padding-right: 2%;
   }
 
   .float-child {
