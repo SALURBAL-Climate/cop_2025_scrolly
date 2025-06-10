@@ -69,9 +69,7 @@
               <div
                 class="track-progress"
                 style="height: {Math.min(100, progress * 100)}%"
-              ></div>
-
-              <!-- COP process steps positioned within the track -->
+              ></div>              <!-- COP process steps positioned within the track -->
               <div class="location-dots">
                 {#each copRouteData as step, i}
                   <div
@@ -81,8 +79,8 @@
                       : ''}"
                     style="top: {(i / (copRouteData.length - 1)) * 80 + 10}%"
                   >
-                    <div class="dot-circle">
-                      <span class="step-number">{i + 1}</span>
+                    <div class="dot-icon">
+                      <img src={step.icon} alt={step.step_name} class="step-icon" />
                     </div>
                     <div class="location-name">{step.step_name}</div>
                   </div>
@@ -217,10 +215,9 @@
     align-items: center;
     gap: 1rem;
   }
-
-  .dot-circle {
-    width: 24px;
-    height: 24px;
+  .dot-icon {
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background: #ffffff;
     border: 3px solid #cbd5e1;
@@ -230,22 +227,27 @@
     transition: all 0.3s ease;
     position: relative;
     z-index: 2;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
 
-  .location-dot.visited .dot-circle {
+  .location-dot.visited .dot-icon {
     border-color: #2f7ed3;
-    background: #2f7ed3;
+    background: #ffffff;
     transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(47, 126, 211, 0.3);
   }
 
-  .step-number {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: #64748b;
+  .step-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    opacity: 0.7;
+    transition: all 0.3s ease;
   }
 
-  .location-dot.visited .step-number {
-    color: #ffffff;
+  .location-dot.visited .step-icon {
+    opacity: 1;
+    filter: brightness(1.1);
   }
 
   .location-name {
@@ -374,11 +376,19 @@
 
     .step-title {
       font-size: 1.5rem;
-    }
-
-    .location-name {
+    }    .location-name {
       font-size: 0.8rem;
       padding: 0.25rem 0.75rem;
+    }
+
+    .dot-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .step-icon {
+      width: 18px;
+      height: 18px;
     }
   }
 

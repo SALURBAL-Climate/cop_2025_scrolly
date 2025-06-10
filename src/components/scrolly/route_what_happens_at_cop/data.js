@@ -5,21 +5,25 @@ export const copRouteData = [
   {
     step_name: "Pre-COPs",
     step_title: "Preparatory Sessions & Pre-COPs",
+    icon: "/img/cop30/icon_ballot.png",
     description: "COP agendas are developed during preparatory meetings hosted by the COP presidency (host country) and convene official country representatives, content experts, and other actors over the year or two prior to each Conference. Pre-COPs are informal meetings that traditionally take place in the month or so before each COP to set the stage for negotiations."
   },
   {
     step_name: "Core Negotiations",
     step_title: "Core Negotiation", 
+    icon: "/img/cop30/icon_handshake.png",
     description: "Delegates of the Parties participate in official sessions of the governing bodies, and in open and closed negotiating groups. They work to reach consensus on a range of climate issues. Occasionally, the Parties will agree to a new legally binding agreement (e.g., Kyoto Protocol, Paris Agreement), which must then be ratified by individual governments. More often, the Parties agree to some form of public declaration."
   },
   {
     step_name: "High-level COP",
     step_title: "High-level COP",
+    icon: "/img/cop30/icon_microphone.png",
     description: "This public stage, open to delegates and observers, includes speeches by heads of state, announcements of coalitions, public denunciations, or calls to action. Observers can include intergovernmental & nongovernmental organizations, United Nations and related agencies, as well as media representatives. This is where major climate commitments and declarations are typically announced."
   },
   {
     step_name: "Third COP",
     step_title: "Third COP (Side Events & Civil Society)",
+    icon: "/img/cop30/icon_megaphone.png",
     description: "Additional activities include side events, pavilions, panel talks, presentations, and protests, where participants can include scientists, NGOs, private sector representatives, and civil society groups. These activities focus on collaboration, advocacy, and knowledge sharing beyond the formal negotiations."
   }
 ];
