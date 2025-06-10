@@ -9,7 +9,7 @@
 
 <nav class="header-container">
   <div class="logo-section">
-    <a href="https://lacurbanhealth.org">
+    <a href="https://drexel.edu/lac/" target="_blank">
       <img
         src="./img/cop30/EN_Logo_SALURBAL-Climate_png.png"
         alt="SALURBAL Climate"

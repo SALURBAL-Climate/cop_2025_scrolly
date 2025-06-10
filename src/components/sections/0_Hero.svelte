@@ -7,11 +7,13 @@
     <div class="hero-header">
       <!-- <div class="update-text">Updated: May 2025</div> -->
       <div class="logos">
-        <img
-          src="./img/cop30/EN_Logo_SALURBAL-Climate_png.png"
-          alt="SALURBAL Climate"
-          class="logo-right"
-        />
+        <a href="https://drexel.edu/lac/" target="_blank">
+          <img
+            src="./img/cop30/EN_Logo_SALURBAL-Climate_png.png"
+            alt="SALURBAL Climate"
+            class="logo-right"
+          />
+        </a>
       </div>
     </div>
 
