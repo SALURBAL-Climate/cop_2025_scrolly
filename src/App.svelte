@@ -20,7 +20,7 @@
 </script>
 
 <Header filled={true} center={false} />
-<main style="padding-top: 30px; max-width: 100vw; overflow-x: hidden;"> <!-- Add padding to account for fixed header and prevent horizontal overflow -->
+<main style="padding-top: 30px;"> <!-- Add padding to account for fixed header -->
   <HeroSection />
   <Section_1_WhatAreCOPs />
   <Section_2_WhatHappensAtCOP />

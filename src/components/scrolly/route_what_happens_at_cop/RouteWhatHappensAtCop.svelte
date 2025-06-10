@@ -116,10 +116,10 @@
   </div>
 </div>
 
-<style>  .route-wrapper {
+<style>
+  .route-wrapper {
     position: relative;
     width: 100%;
-    max-width: 100vw; /* Prevent overflow */
     overflow: hidden;
     z-index: 1;
     /* border: 1px solid green; */
@@ -127,7 +127,6 @@
   .continuous-route-container {
     position: relative;
     width: 100%;
-    max-width: 100vw; /* Prevent overflow */
     height: var(--container-height); /* Dynamically calculated based on steps */
     background: #fff;
     overflow: hidden;
