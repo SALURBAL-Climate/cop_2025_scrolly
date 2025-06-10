@@ -4,7 +4,7 @@
   import { themes } from './config.js';
   import { setColors } from './utils.js';
   import Header from './layout/Header.svelte';
-  import UHCFooter from './layout/UHCFooter.svelte';
+  import Footer from './layout/Footer.svelte';
   import Divider from './layout/Divider.svelte';
   
   // Set up theming
@@ -20,7 +20,7 @@
 <main style="padding-top: 30px;"> <!-- Add padding to account for fixed header -->
   <HeroSection />
   <Section_1_WhatAreCOPs />
-  <UHCFooter />
+  <Footer />
 </main>
 
 <style>

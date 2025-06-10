@@ -10,84 +10,60 @@
   style="color: {themes[theme]['text']}; background-color: {themes[theme][
     'pale'
   ]};"
->
-  <div class="col-wide" data-analytics="footer">
+>  <div class="col-wide" data-analytics="footer">
     <div class="container_container">
       <div class="item">
-        <a href="https://drexel.edu/uhc/">
+        <a href="https://drexel.edu/lac/" target="_blank">
           <div id="svg-container">
             <img
               id="my-svg"
-              src="./img/uhc-primary-blue_black.svg"
-              alt="Drexel Urban Health Collaborative"
+              src="./img/cop30/EN_Logo_SALURBAL-Climate_png.png"
+              alt="SALURBAL Climate"
             />
           </div>
         </a>
-        <div class="link-tree">
-          <ul>
-            <li>
-              <a
-                href="https://drexel.edu/uhc/about/contact/"
-                class="link"
-                style="color: {themes[theme]['text']}">Contact us</a
-              >
-            </li>
-
-            <li>
-              <a
-                href="https://drexel.edu/privacy"
-                class="link"
-                style="color: {themes[theme]['text']}">Privacy and legal</a
-              >
-            </li>
-          </ul>
-        </div>
       </div>
       <div>
-        <div class="item" id="follow-uhc">
-          Follow UHC:
+        <div class="item" id="follow-section">
+          Follow us:
           <div class="container">
-            <a href="https://github.com/Drexel-UHC">
-              <div class="social-icon"><Icon icon="mdi:github" /></div>
-            </a>
-            <a href="https://www.facebook.com/DrexelUHC/">
+            <a href="https://www.facebook.com/LACUrbanHealth">
               <div class="social-icon"><Icon icon="il:facebook" /></div>
             </a>
-            <a href="https://twitter.com/drexeluhc">
+            <a href="https://x.com/lacurbanhealth">
               <div class="social-icon"><Icon icon="mdi:twitter" /></div>
             </a>
-            <a href="https://www.instagram.com/drexeluhc">
+            <a href="https://www.instagram.com/salurbalclimate/">
               <div class="social-icon"><Icon icon="mdi:instagram" /></div>
             </a>
-            <a href="https://www.youtube.com/@urbanhealthcollaborative8928">
+            <a href="https://www.youtube.com/@salurbal">
               <div class="social-icon"><Icon icon="mdi:youtube" /></div>
             </a>
-            <a
-              href="https://www.linkedin.com/company/drexel-urban-health-collaborative/"
-            >
+            <a href="https://www.linkedin.com/company/salurbal-project">
               <div class="social-icon"><Icon icon="mdi:linkedin" /></div>
             </a>
           </div>
         </div>
       </div>
     </div>
-    <hr style="border-top-color: {themes[theme]['muted']}" />
-    <div class="license">
-      This template was forked and modified from the <a
-        href="https://github.com/ONSvisual/svelte-scrolly"
-        class="link"
-        target="_blank"
-        rel="noopener"
-        style="color: {themes[theme]['text']}"
-        >UK Office of National Statistics</a
-      >. All content is available under the
-      <a
-        href="https://opensource.org/licenses/MIT"
-        class="link"
-        target="_blank"
-        rel="noopener"
-        style="color: {themes[theme]['text']}">MIT License</a
-      >, except where otherwise stated
+    
+    <div class="link-tree">
+      <ul>
+        <li>
+          <a
+            href="https://drexel.edu/uhc/about/contact/"
+            class="link"
+            style="color: {themes[theme]['text']}">Contact us</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://drexel.edu/privacy"
+            class="link"
+            style="color: {themes[theme]['text']}">Privacy and legal</a
+          >
+        </li>
+      </ul>
     </div>
   </div>
 </footer>
@@ -111,8 +87,7 @@
     .link-tree {
       padding-bottom: 1rem;
     }
-  }
-  #follow-uhc {
+  }  #follow-section {
     min-width: 200px;
   }
 
@@ -123,13 +98,12 @@
     padding-bottom: 72px;
     padding-top: 36px;
     font-size: 18px;
-  }
-  #svg-container {
-    width: 200px; /* Set the desired width of the container */
-    height: 80px; /* Set the desired height of the container */
+  }  #svg-container {
+    width: 150px; /* Set the desired width of the container */
+    height: 60px; /* Set the desired height of the container */
   }
   .link-tree {
-    margin-top: 27px;
+    margin-top: 3rem;
   }
   footer a.link {
     -webkit-box-sizing: border-box;
