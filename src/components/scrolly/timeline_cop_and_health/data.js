@@ -3,6 +3,7 @@
 
 export const timelineData = [
   {
+    year: "2017",
     step_name: "COP23",
     step_title: "2017 COP23",
     flag_image: "./img/cop30/timeline_1.png",
@@ -10,6 +11,7 @@ export const timelineData = [
     description: "At the 2017 COP23 hosted by Fiji and held in Germany, WHO launched a Special Initiative on Climate Change and Health in Small Island Developing States (SIDS)."
   },
   {
+    year: "2021",
     step_name: "COP26",
     step_title: "2021 COP26", 
     flag_image: "./img/cop30/timeline_2.png",
@@ -17,6 +19,7 @@ export const timelineData = [
     description: "The 'COP26 Special Report on Climate Change and Health' was developed in the lead up to the 2021 COP26 in Glasgow, where WHO also hosted the first Health Pavilion. "
   },
   {
+    year: "2023",
     step_name: "COP28",
     step_title: "2023 COP28",
     flag_image: "./img/cop30/timeline_3.png",
@@ -24,6 +27,7 @@ export const timelineData = [
     description: "The 2023 COP28 in Dubai also featured a Health Pavilion, hosted by WHO and the Wellcome Trust, as well as the first-ever Health Day, which culminated in the endorsement of the Declaration on Climate and Health. COP28 elevated the role of health in the climate change agenda and secured a global commitment to addressing climate-related health impacts."
   },
   {
+    year: "2024",
     step_name: "COP29",
     step_title: "2024 COP29",
     flag_image: "./img/cop30/timeline_4.png",
@@ -31,6 +35,7 @@ export const timelineData = [
     description: "The 2023 COP28 in Dubai also featured a Health Pavilion, hosted by WHO and the Wellcome Trust, as well as the first-ever Health Day, which culminated in the endorsement of the Declaration on Climate and Health. COP28 elevated the role of health in the climate change agenda and secured a global commitment to addressing climate-related health impacts. "
   },
   {
+    year: "2025",
     step_name: "COP30",
     step_title: "2025 COP30",
     flag_image: "./img/cop30/timeline_5.png",

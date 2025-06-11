@@ -84,9 +84,7 @@
               <div
                 class="track-progress"
                 style="height: {Math.min(100, progress * 100)}%"
-              ></div>
-
-              <!-- COP timeline steps positioned within the track -->
+              ></div>              <!-- COP timeline steps positioned within the track -->
               <div class="timeline-dots">
                 {#each timelineData as step, i}
                   <div
@@ -95,10 +93,10 @@
                       ? 'visited'
                       : ''} {currentStep === i ? 'current' : ''}"
                     style="top: calc({8 + (i / (timelineData.length - 1)) * 84}% - 37.5px)"
-                  >
-                    <div class="dot-flag">
+                  >                    <div class="dot-flag">
                       <img src={step.flag_image} alt={step.step_name} class="flag-icon" />
                     </div>
+                    <div class="dot-text">{step.year} {step.location}</div>
                   </div>
                 {/each}
               </div>
@@ -113,7 +111,7 @@
                 <!-- Content area -->
                 <div class="content-area">
                   <div class="title-row">
-                    <h3 class="step-title">{step.step_title}</h3>
+                    <h3 class="step-title">{step.step_name}</h3>
                     <div class="location-tag">{step.location}</div>
                   </div>
                   <p class="story-paragraph">{step.description}</p>
@@ -203,15 +201,12 @@
     left: 0;
     width: 100%;
     height: 100%;
-  }
-
-  .timeline-dot {
+  }  .timeline-dot {
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .dot-flag {
@@ -228,18 +223,18 @@
     z-index: 2;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    transform: translateX(-50%);
   }
-
   .timeline-dot.visited .dot-flag {
     border-color: #2f7ed3;
     background: #ffffff;
-    transform: scale(1.1);
+    transform: translateX(-50%) scale(1.1);
     box-shadow: 0 4px 12px rgba(47, 126, 211, 0.3);
   }
 
   /* Current step effect - make it bigger and more prominent */
   .timeline-dot.current .dot-flag {
-    transform: scale(1.3);
+    transform: translateX(-50%) scale(1.3);
     border-color: #2f7ed3;
     background: #ffffff;
     box-shadow: 0 6px 20px rgba(47, 126, 211, 0.4);
@@ -269,12 +264,18 @@
     opacity: 0.8;
     filter: grayscale(100%) brightness(0.7); /* Keep grey filter for visited steps, slightly brighter */
   }
-
   .timeline-dot.current .flag-icon {
     width: 65px;
     height: 65px;
     opacity: 1;
     filter: grayscale(0%) brightness(1.2) contrast(1.1); /* Only current step gets full color */
+  }
+  .dot-text {
+    margin-left: 2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #374151;
+    white-space: nowrap;
   }
   .story-content {
     position: relative;
