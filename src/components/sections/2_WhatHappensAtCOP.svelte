@@ -14,7 +14,11 @@
   <div class="scrolly-row"  >
     <RouteWhatHappensAtCop />
   </div>
-  
+  <div class="title-row">
+    <div class="section-header">
+      <h1 class="section-title">COP Zones Explained</h1>
+    </div>
+  </div>
   <!-- Zones Explainer Row -->
   <div class="zones-row">
     <COPZonesExplainer />
