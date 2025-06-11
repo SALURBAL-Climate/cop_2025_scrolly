@@ -15,7 +15,7 @@
   // Plus additional space for smooth transitions and conclusion
   // Formula: (number_of_steps × 100vh) + buffer
   // This ensures each step has enough scroll space to be fully appreciated
-  $: containerHeight = timelineData.length * 100 + 50; // Base: 100vh per step + 50vh buffer
+  $: containerHeight = timelineData.length * 100 + 60; // Base: 100vh per step + 60vh buffer
 
   // Track scroll within the component bounds
   function updateProgress() {
@@ -172,7 +172,7 @@
 
   .timeline-track {
     position: relative;
-    margin-top: 10vh;
+    margin-top: 14vh;
     width: 6px;
     height: 80vh; /* Consistent proportion of the 90vh visualization container */
   }
@@ -215,8 +215,8 @@
   }
 
   .dot-flag {
-    width: 75px;
-    height: 75px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     background: #ffffff;
     border: 3px solid #cbd5e1;
@@ -239,9 +239,7 @@
 
   /* Current step effect - make it bigger and more prominent */
   .timeline-dot.current .dot-flag {
-    width: 90px;
-    height: 90px;
-    transform: scale(1.1);
+    transform: scale(1.3);
     border-color: #2f7ed3;
     background: #ffffff;
     box-shadow: 0 6px 20px rgba(47, 126, 211, 0.4);
@@ -273,8 +271,8 @@
   }
 
   .timeline-dot.current .flag-icon {
-    width: 75px;
-    height: 75px;
+    width: 65px;
+    height: 65px;
     opacity: 1;
     filter: grayscale(0%) brightness(1.2) contrast(1.1); /* Only current step gets full color */
   }
