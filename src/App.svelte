@@ -1,7 +1,7 @@
 <script>
   // Layout and theming
   import { setContext } from 'svelte';
-  import { themes } from './config.js';
+  import { themes, brandColors } from './config.js';
   import { setColors } from './utils.js';
   import Header from './layout/Header.svelte';
   import Footer from './layout/Footer.svelte';
@@ -20,14 +20,13 @@
 </script>
 
 <Header filled={true} center={false} />
-<main style="padding-top: 30px;"> <!-- Add padding to account for fixed header -->
+<main style="padding-top: 30px; max-width: 100vw; overflow-x: hidden; --salurbal-light-blue: {brandColors.hex_salurbal_light_blue};"> <!-- Add brand colors as CSS custom properties -->
   <HeroSection />
   <Section_1_WhatAreCOPs />
   <Section_2_WhatHappensAtCOP />
   <Section_3_WhereDoesHealthFitIn />
   <Section_4_HowAreGovernmentsCommitting />
   <Section_5_NotableAgreements />
-  <Divider />
   <Footer />
 </main>
 

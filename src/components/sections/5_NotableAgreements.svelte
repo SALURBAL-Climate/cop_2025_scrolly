@@ -54,7 +54,7 @@
   .agreements-section {
     width: 100%;
     padding: 4rem 0;
-    background: #f8fafc;
+    /* background: #f8fafc; */
     margin: 2rem 0;
   }
 

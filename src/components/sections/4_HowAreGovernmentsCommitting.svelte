@@ -45,7 +45,7 @@
   .governments-section {
     width: 100%;
     padding: 4rem 0;
-    background: #f8fafc;
+    /* background: #f8fafc; */
     margin: 2rem 0;
   }
 
@@ -81,14 +81,15 @@
     line-height: 1.6;
     color: var(--medium-text);
     margin: 0;
-  }
-  .stats-row {
+  }  .stats-row {
     display: flex;
     justify-content: center;
     align-items: flex-end;
     gap: 4rem;
     margin: 3rem 0 1.5rem 0;
     flex-wrap: wrap;
+    max-width: 100%;
+    overflow: visible; /* Allow content to wrap instead of overflow */
   }
 
   .stat-item {

@@ -134,12 +134,11 @@
     overflow: hidden;
     z-index: 1;
   }
-
   .continuous-timeline-container {
     position: relative;
     width: 100%;
     height: var(--container-height); /* Dynamically calculated based on steps */
-    background: #fff;
+    background: #d8e6ed;
     overflow: hidden;
     z-index: 1;
     box-sizing: border-box;
