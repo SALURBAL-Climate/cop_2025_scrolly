@@ -5,6 +5,7 @@ import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import babel from 'rollup-plugin-babel';
 import alias from '@rollup/plugin-alias';
+import postcss from 'rollup-plugin-postcss';
 import path from 'path';
 
 const production = !process.env.ROLLUP_WATCH;
@@ -30,8 +31,7 @@ function serve() {
 	};
 }
 
-export default [
-	{
+export default [	{
 		input: 'src/main.js',		output: {
 			sourcemap: true,
 			format: 'iife',
@@ -46,6 +46,11 @@ export default [
 					{ find: '@scrolly', replacement: path.resolve('./src/components/scrolly') },
 					{ find: '@data', replacement: path.resolve('./src/components/scrolly') }
 				]
+			}),
+			postcss({
+				extract: true,
+				minimize: production,
+				sourceMap: !production
 			}),
 			svelte({
 				// enable run-time checks when not in production
@@ -78,8 +83,7 @@ export default [
 			clearScreen: false
 		}
 	},
-	{
-		// Output legacy code bundle for ES5 / IE11 / Chromium 59 support
+	{		// Output legacy code bundle for ES5 / IE11 / Chromium 59 support
 		input: 'src/main.js',		output: {
 			sourcemap: true,
 			format: 'iife',
@@ -94,6 +98,11 @@ export default [
 					{ find: '@scrolly', replacement: path.resolve('./src/components/scrolly') },
 					{ find: '@data', replacement: path.resolve('./src/components/scrolly') }
 				]
+			}),
+			postcss({
+				extract: true,
+				minimize: true,
+				sourceMap: false
 			}),
 			svelte({
 				dev: false,
