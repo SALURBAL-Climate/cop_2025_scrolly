@@ -25,6 +25,7 @@ export const themes = {
 // BRAND COLOR PALETTE
 export const brandColors = {
   hex_blue: '#2f7ed3',
+  hex_salurbal_light_blue: '#d8e6ed',
   green_zone: '#10b981',
   dark_text: '#1f2937',
   medium_text: '#374151',
