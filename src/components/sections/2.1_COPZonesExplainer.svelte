@@ -14,7 +14,7 @@
     <div class="zones-image-container">
       <div class="image-with-icons">
         <img
-          src="/img/cop30/cop_zones.png"
+          src="./img/cop30/cop_zones.png"
           alt="COP zones satellite view showing Blue Zone and Green Zone areas"
           class="zones-image"
         />        <!-- Activity icons positioned on their respective zones -->

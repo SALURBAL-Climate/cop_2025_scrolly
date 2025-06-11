@@ -18,17 +18,17 @@
     <div class="stats-row">
       <!-- 90% Stat -->
       <div class="stat-item">
-        <img src="/img/cop30/stats_pct.png" alt="90 percent" class="stat-image" />
+        <img src="./img/cop30/stats_pct.png" alt="90 percent" class="stat-image" />
         <p class="stat-label">almost all (90%) NDCs include health considerations</p>
       </div>
 
       <!-- Pie Chart Stat -->
       <div class="stat-item">
-        <img src="/img/cop30/stats_pie.png" alt="About a third pie chart" class="stat-image" />
+        <img src="./img/cop30/stats_pie.png" alt="About a third pie chart" class="stat-image" />
         <p class="stat-label">about a third identify health co-benefits of mitigation</p>
       </div>      <!-- Fraction Stat -->
       <div class="stat-item">
-        <img src="/img/cop30/stats_fraction.png" alt="One in ten fraction" class="stat-image" />
+        <img src="./img/cop30/stats_fraction.png" alt="One in ten fraction" class="stat-image" />
         <p class="stat-label">only one in ten quantify and monitor these benefits<sup>1</sup></p>
       </div>
     </div>
