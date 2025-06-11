@@ -32,7 +32,7 @@ export const timelineData = [
     step_title: "2024 COP29",
     flag_image: "./img/cop30/timeline_4.png",
     location: "BAKU",
-    description: "The 2023 COP28 in Dubai also featured a Health Pavilion, hosted by WHO and the Wellcome Trust, as well as the first-ever Health Day, which culminated in the endorsement of the Declaration on Climate and Health. COP28 elevated the role of health in the climate change agenda and secured a global commitment to addressing climate-related health impacts. "
+    description: "At the 2024 COP29 in Baku, delegates committed to the Baku COP Presidencies Continuity Coalition for Climate and Health, securing a permanent space for health within future COP agendas. "
   },
   {
     year: "2025",
