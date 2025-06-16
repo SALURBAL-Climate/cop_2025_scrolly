@@ -8,34 +8,32 @@
 </script>
 
 <nav class="header-container">
-  <div class="logo-section">
-    <a href="https://drexel.edu/lac/" target="_blank">
+  <div class="logo-section">    <a href="https://drexel.edu/lac/" target="_blank" aria-label="Visit SALURBAL Climate website">
       <img
         src="./img/cop30/EN_Logo_SALURBAL-Climate_png.png"
-        alt="SALURBAL Climate"
+        alt="SALURBAL Climate logo - Climate Change and Urban Health in Latin America"
         class="logo"
       />
-    </a>    <!-- <div class="separator">|</div> -->
+    </a><!-- <div class="separator">|</div> -->
     <div class="title-text">
       <span class="title-full">Bringing urban health to the table at COP30</span>
       <span class="title-mobile">Urban Health at COP30</span>
     </div>
   </div>
-
   <div class="social-section">
-    <a href="https://www.facebook.com/LACUrbanHealth">
+    <a href="https://www.facebook.com/LACUrbanHealth" aria-label="Visit SALURBAL Climate on Facebook" target="_blank">
       <Icon icon="il:facebook" />
     </a>
-    <a href="https://x.com/lacurbanhealth">
+    <a href="https://x.com/lacurbanhealth" aria-label="Follow SALURBAL Climate on Twitter/X" target="_blank">
       <Icon icon="mdi:twitter" />
     </a>
-    <a href="https://www.instagram.com/salurbalclimate/">
+    <a href="https://www.instagram.com/salurbalclimate/" aria-label="Follow SALURBAL Climate on Instagram" target="_blank">
       <Icon icon="mdi:instagram" />
     </a>
-    <a href="https://www.youtube.com/@salurbal">
+    <a href="https://www.youtube.com/@salurbal" aria-label="Subscribe to SALURBAL on YouTube" target="_blank">
       <Icon icon="mdi:youtube" />
     </a>
-    <a href="https://www.linkedin.com/company/salurbal-project">
+    <a href="https://www.linkedin.com/company/salurbal-project" aria-label="Connect with SALURBAL Project on LinkedIn" target="_blank">
       <Icon icon="mdi:linkedin" />
     </a>
   </div>
