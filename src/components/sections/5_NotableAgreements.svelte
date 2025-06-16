@@ -23,12 +23,10 @@
         <div class="agreement-years">
           <span class="year-badge cop3">COP3</span>
           <span class="year-badge cop11">COP11</span>
-        </div>
-        <div class="agreement-content">
+        </div>        <div class="agreement-content">
           <h3 class="agreement-title">The Kyoto Protocol</h3>
-          <p class="agreement-years-detail">(1997, 2005)</p>
-          <p class="agreement-description">
-            The Kyoto Protocol was negotiated during COP3 and entered into force during COP11 in 2005, setting mitigation targets for reducing greenhouse gas (GHG) emissions and mandating regular progress reviews.
+          <p class="agreement-years-detail">(1997, 2005)</p>          <p class="agreement-description">
+            The <a href="https://unfccc.int/kyoto_protocol" target="_blank" class="agreement-link">Kyoto Protocol</a> was negotiated during COP3 and entered into force during COP11 in 2005, setting mitigation targets for reducing greenhouse gas (GHG) emissions and mandating regular progress reviews.
           </p>
         </div>
       </div>
@@ -37,12 +35,10 @@
       <div class="agreement-item">
         <div class="agreement-years">
           <span class="year-badge cop21">COP21</span>
-        </div>
-        <div class="agreement-content">
+        </div>        <div class="agreement-content">
           <h3 class="agreement-title">The Paris Agreement</h3>
-          <p class="agreement-years-detail">(2015)</p>
-          <p class="agreement-description">
-            COP21 resulted in the landmark Paris Agreement (195 parties), which replaced the Kyoto Protocol and seeks to limit global warming to below 2 degrees Celsius.
+          <p class="agreement-years-detail">(2015)</p>          <p class="agreement-description">
+            COP21 resulted in the landmark <a href="https://unfccc.int/process-and-meetings/the-paris-agreement" target="_blank" class="agreement-link">Paris Agreement</a> (195 parties), which replaced the Kyoto Protocol and seeks to limit global warming to below 2 degrees Celsius.
           </p>
         </div>
       </div>
@@ -164,12 +160,20 @@
     font-weight: 600;
     font-style: italic;
   }
-
   .agreement-description {
     font-size: 1.1rem;
     line-height: 1.6;
     color: var(--dark-text);
     margin: 0;
+  }
+
+  .agreement-link {
+    color: var(--hex-blue);
+    text-decoration: none;
+  }
+
+  .agreement-link:hover {
+    text-decoration: underline;
   }
 
   /* Responsive design */
