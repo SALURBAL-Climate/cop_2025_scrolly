@@ -4,8 +4,7 @@
   import { themes, brandColors } from './config.js';
   import { setColors } from './utils.js';
   import Header from './layout/Header.svelte';
-  import Footer from './layout/Footer.svelte';
-  import Divider from './layout/Divider.svelte';
+  import Footer from './layout/Footer.svelte'; 
   
   // Set up theming
   let theme = 'light';
@@ -16,7 +15,7 @@
   import Section_2_WhatHappensAtCOP from './components/sections/2_WhatHappensAtCOP.svelte';
   import Section_3_WhereDoesHealthFitIn from './components/sections/3_WhereDoesHealthFitIn.svelte';
   import Section_4_HowAreGovernmentsCommitting from './components/sections/4_HowAreGovernmentsCommitting.svelte';
-  import Section_5_NotableAgreements from './components/sections/5_NotableAgreements.svelte';
+  // import Section_5_NotableAgreements from './components/sections/5_NotableAgreements.svelte';
 </script>
 
 <Header filled={true} center={false} />
@@ -26,7 +25,7 @@
   <Section_2_WhatHappensAtCOP />
   <Section_3_WhereDoesHealthFitIn />
   <Section_4_HowAreGovernmentsCommitting />
-  <Section_5_NotableAgreements />
+  <!-- <Section_5_NotableAgreements /> -->
   <Footer />
 </main>
 
