@@ -108,11 +108,10 @@
                       : ''} {currentStep === i ? 'current' : ''}"
                     style="top: calc({8 +
                       (i / (timelineData.length - 1)) * 84}% - 37.5px)"
-                  >
-                    <div class="dot-flag">
+                  >                    <div class="dot-flag">
                       <img
                         src={step.flag_image}
-                        alt={step.step_name}
+                        alt={step.flagAlt || step.step_name}
                         class="flag-icon"
                       />
                     </div>
@@ -135,11 +134,10 @@
                     <div class="title-location-group">
                       <h3 class="step-title">{step.step_title}</h3>
                       <div class="location-tag">{step.location}</div>
-                    </div>
-                    <div class="step-icon-mobile">
+                    </div>                    <div class="step-icon-mobile">
                       <img
                         src={step.flag_image}
-                        alt={step.step_name}
+                        alt={step.flagAlt || step.step_name}
                         class="mobile-flag-icon"
                       />
                     </div>
