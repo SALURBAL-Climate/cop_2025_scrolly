@@ -3,19 +3,30 @@
   // No other props needed for this static component
 </script>
 
-<section class="component_container" style="--hex-blue: {brandColors.hex_blue}; --green-zone: {brandColors.green_zone}; --dark-text: {brandColors.dark_text}; --medium-text: {brandColors.medium_text}">
+<section
+  class="component_container"
+  style="--hex-blue: {brandColors.hex_blue}; --green-zone: {brandColors.green_zone}; --dark-text: {brandColors.dark_text}; --medium-text: {brandColors.medium_text}"
+>
   <div class="title-section">
-    <h1 class="main-title">What are COPs?</h1>    <p class="main-description">
-      A "<a href="https://unfccc.int/process/bodies/supreme-bodies/conference-of-the-parties-cop" target="_blank" class="highlight-link">Conference of the Parties</a>" (COP) refers to a meeting ("conference") of
-      the countries, or governments, ("parties") who have signed an
-      international agreement, convention, or treaty. "COPs" take place within
-      the context of agreements surrounding many topics.
+    <h1 class="main-title">What are COPs?</h1>
+    <p class="main-description">
+      A "<a
+        href="https://unfccc.int/process/bodies/supreme-bodies/conference-of-the-parties-cop"
+        target="_blank"
+        class="highlight-link">Conference of the Parties</a
+      >" (COP) refers to a meeting ("conference") of the countries, or
+      governments, ("parties") who have signed an international agreement,
+      convention, or treaty. "COPs" take place within the context of agreements
+      surrounding many topics.
     </p>
   </div>
 
   <div class="unfccc-row">
-    <div class="unfccc-text-content">      <p class="unfccc-text">
-        The <a href="https://unfccc.int/" target="_blank" class="highlight-link">United Nations Framework Convention on Climate Change (UNFCCC)</a> holds annual COPs to negotiate global actions to address climate change.
+    <div class="unfccc-text-content">
+      <p class="unfccc-text">
+        The <a href="https://unfccc.int/" target="_blank" class="highlight-link"
+          >United Nations Framework Convention on Climate Change (UNFCCC)</a
+        > holds annual COPs to negotiate global actions to address climate change.
         The 30th annual Conference of the Parties ("COP30") will take place in November
         2025, hosted by Brazil.
       </p>
@@ -42,15 +53,14 @@
     max-width: 900px;
     display: flex;
     flex-direction: column;
- 
   }
 
   .title-section {
-    text-align: left;     
+    text-align: left;
   }
 
   .unfccc-row {
-    display: grid;     
+    display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 3rem;
     align-items: center;
@@ -84,7 +94,8 @@
     color: #1f2937;
     margin: 0;
     text-align: justify;
-  }  .highlight-link {
+  }
+  .highlight-link {
     color: var(--hex-blue);
     font-weight: 600;
     text-decoration: none;
