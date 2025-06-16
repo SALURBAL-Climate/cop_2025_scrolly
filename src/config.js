@@ -20,6 +20,35 @@ export const themes = {
   }
 }
 
+// PROJECT METADATA
+export const projectInfo = {
+  title: 'Bringing Urban Health to the Table at COP30: A Guide for Public Health Researchers and Practitioners',
+  shortTitle: 'Urban Health at COP30',
+  description: 'A comprehensive guide for public health researchers and practitioners preparing for COP30 in Brazil, November 2025.',
+  authors: [
+    'Kay Tookey',
+    'Elizabeth Cardona', 
+    'Carolina Rendon',
+    'Mariana Lazo',
+    'Nelson Gouveia',
+    'Waleska Caiaffa',
+    'Ana Roux'
+  ],
+  organization: 'Climate Change and Urban Health Research Center',
+  publisher: 'SALURBAL Climate',
+  contact: {
+    media: 'Carolina Rendon',
+     
+  },
+  social: {
+    twitter: '@lacurbanhealth',
+    facebook: 'LACUrbanHealth',
+    instagram: 'salurbalclimate',
+    youtube: '@salurbal',
+    linkedin: 'salurbal-project'
+  } 
+}
+
 // DEMO-SPECIFIC CONFIG
 
 // BRAND COLOR PALETTE
