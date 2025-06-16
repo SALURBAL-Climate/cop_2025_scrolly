@@ -10,8 +10,7 @@
 </script>
 
 <div class="zones-explainer">
-  <div class="zones-content">
-    <!-- Desktop Layout (side by side) -->
+  <div class="zones-content">    <!-- Desktop Layout (side by side) -->
     <div class="desktop-layout">
       <!-- Satellite Image with Zone Labels and Activity Icons -->
       <div class="zones-image-container">
@@ -29,7 +28,7 @@
                 .coordinates.left}%;"
             >
               <div class="icon-circle">
-                <img src={activity.icon} alt={activity.step_name} />
+                <img src={activity.icon} alt={activity.iconAlt || activity.step_name} />
               </div>
               <span class="icon-tooltip">{activity.step_title}</span>
             </div>
@@ -70,9 +69,7 @@
           Formal negotiations, country pavilions, and official side events take
           place here and are managed by the UNFCCC.
         </p>
-      </div>
-
-      <!-- Image in the middle -->
+      </div>      <!-- Image in the middle -->
       <div class="zones-image-container">
         <div class="image-with-icons">
           <img
@@ -88,7 +85,7 @@
                 .coordinates.left}%;"
             >
               <div class="icon-circle">
-                <img src={activity.icon} alt={activity.step_name} />
+                <img src={activity.icon} alt={activity.iconAlt || activity.step_name} />
               </div>
               <span class="icon-tooltip">{activity.step_title}</span>
             </div>
