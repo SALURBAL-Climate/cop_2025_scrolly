@@ -91,7 +91,6 @@
     align-items: center;
   }
 
-  .logo-left,
   .logo-right {
     height: 60px;
     width: auto;
@@ -146,11 +145,18 @@
     line-height: 1.4;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 450px) {
+
+    .hero-section {
+      height: 660px;
+
+    }
+
     .hero-header {
       flex-direction: column;
-      gap: 1rem;
+      /* gap: 1rem; */
       align-items: center;
+      margin-top: 3rem;
     }
 
     .main-title {
@@ -165,7 +171,6 @@
       gap: 1rem;
     }
 
-    .logo-left,
     .logo-right {
       height: 40px;
     }
