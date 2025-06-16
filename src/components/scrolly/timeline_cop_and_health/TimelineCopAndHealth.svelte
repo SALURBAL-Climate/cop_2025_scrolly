@@ -1,7 +1,7 @@
-<script>  import { onMount } from 'svelte';
+<script>
+  import { onMount } from 'svelte';
   import Scroller from '../../../layout/Scroller.svelte';
   import { timelineData } from './data.js';
-
   let y = 0;
   let innerHeight = 0;
   let containerElement;
@@ -9,12 +9,15 @@
   let isInView = false;
   let currentStep = 0;
 
-  // Calculate container height based on number of steps
-  // Each step gets a full viewport height for comfortable scrolling
-  // Plus additional space for smooth transitions and conclusion
-  // Formula: (number_of_steps × 100vh) + buffer
-  // This ensures each step has enough scroll space to be fully appreciated
-  $: containerHeight = timelineData.length * 100 + 60; // Base: 100vh per step + 60vh buffer
+  // Calculate container height based on screen size
+  // Desktop: Fixed height for scrolly experience
+  // Mobile/Tablet: Auto height to fit content
+  let windowWidth = 0;
+
+  $: isMobile = windowWidth <= 900;
+  $: containerHeight = isMobile
+    ? 'auto' // Mobile: Let content determine height
+    : timelineData.length * 100 + 60; // Desktop: Fixed scrolly height
 
   // Track scroll within the component bounds
   function updateProgress() {
@@ -35,7 +38,7 @@
       currentStep = timelineData.length - 1;
       return;
     }
-    
+
     if (isCompletelyBelow) {
       // Not started yet
       progress = 0;
@@ -50,28 +53,39 @@
     // Calculate progress
     let rawProgress = scrollStart / scrollableHeight;
     progress = Math.min(1, Math.max(0, rawProgress));
-    
+
     // Calculate current step based on progress
-    currentStep = Math.min(timelineData.length - 1, Math.floor(progress * timelineData.length));
+    currentStep = Math.min(
+      timelineData.length - 1,
+      Math.floor(progress * timelineData.length),
+    );
   }
 
   $: if (typeof window !== 'undefined') updateProgress();
-
   onMount(() => {
     updateProgress();
     console.log(
-      `Timeline container height auto-calculated: ${containerHeight}vh for ${timelineData.length} steps`,
+      `Timeline container height: ${containerHeight}${typeof containerHeight === 'string' ? '' : 'vh'} for ${timelineData.length} steps`,
+      `Device: ${windowWidth}px wide`,
+      `Type: ${isMobile ? 'Mobile/Tablet' : 'Desktop'}`,
     );
   });
 </script>
 
-<svelte:window bind:scrollY={y} bind:innerHeight on:scroll={updateProgress} />
+<svelte:window
+  bind:scrollY={y}
+  bind:innerHeight
+  bind:innerWidth={windowWidth}
+  on:scroll={updateProgress}
+/>
 
 <div class="timeline-wrapper">
   <div
     class="continuous-timeline-container"
     bind:this={containerElement}
-    style="--container-height: {containerHeight}vh;"
+    style="--container-height: {typeof containerHeight === 'string'
+      ? containerHeight
+      : containerHeight + 'vh'};"
   >
     <Scroller top={0} bottom={1} threshold={0.5}>
       <div slot="background">
@@ -83,7 +97,8 @@
               <div
                 class="track-progress"
                 style="height: {Math.min(100, progress * 100)}%"
-              ></div>              <!-- COP timeline steps positioned within the track -->
+              ></div>
+              <!-- COP timeline steps positioned within the track -->
               <div class="timeline-dots">
                 {#each timelineData as step, i}
                   <div
@@ -91,9 +106,15 @@
                     i / (timelineData.length - 1)
                       ? 'visited'
                       : ''} {currentStep === i ? 'current' : ''}"
-                    style="top: calc({8 + (i / (timelineData.length - 1)) * 84}% - 37.5px)"
-                  >                    <div class="dot-flag">
-                      <img src={step.flag_image} alt={step.step_name} class="flag-icon" />
+                    style="top: calc({8 +
+                      (i / (timelineData.length - 1)) * 84}% - 37.5px)"
+                  >
+                    <div class="dot-flag">
+                      <img
+                        src={step.flag_image}
+                        alt={step.step_name}
+                        class="flag-icon"
+                      />
                     </div>
                     <div class="dot-text">{step.year} {step.location}</div>
                   </div>
@@ -102,15 +123,26 @@
             </div>
           </div>
         </div>
-      </div>      <div slot="foreground">
+      </div>
+      <div slot="foreground">
         <div class="story-content">
           {#each timelineData as step, i}
             <section class="story-section">
               <div class="content-layout">
-                <!-- Content area -->                <div class="content-area">
-                  <div class="title-row">
-                    <h3 class="step-title">{step.step_title}</h3>
-                    <div class="location-tag">{step.location}</div>
+                <!-- Content area -->
+                <div class="content-area">
+                  <div class="step-header" >
+                    <div class="title-location-group">
+                      <h3 class="step-title">{step.step_title}</h3>
+                      <div class="location-tag">{step.location}</div>
+                    </div>
+                    <div class="step-icon-mobile">
+                      <img
+                        src={step.flag_image}
+                        alt={step.step_name}
+                        class="mobile-flag-icon"
+                      />
+                    </div>
                   </div>
                   <p class="story-paragraph">{@html step.description}</p>
                 </div>
@@ -199,7 +231,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-  }  .timeline-dot {
+  }
+  .timeline-dot {
     position: absolute;
     left: 50%;
     display: flex;
@@ -240,7 +273,8 @@
   }
 
   @keyframes pulse {
-    0%, 100% {
+    0%,
+    100% {
       box-shadow: 0 6px 20px rgba(47, 126, 211, 0.4);
     }
     50% {
@@ -296,19 +330,44 @@
     width: 100%;
     max-width: none; /* Remove max-width constraint */
   }
-
   .content-area {
     width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
   }
-
-  .title-row {
+  .step-header {
+    margin-bottom: 0.25rem;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 1.5rem;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
   }
 
+  .title-location-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex: 1;
+  }
+
+  .step-icon-mobile {
+    display: none; /* Hidden on desktop */
+  }
+
+  .mobile-flag-icon {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 2px solid #2f7ed3;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
   .step-title {
     font-size: 2rem;
     font-weight: 700;
@@ -327,6 +386,7 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    align-self: flex-start;
   }
   .story-paragraph {
     font-size: 1.1rem;
@@ -344,14 +404,11 @@
 
   .story-paragraph a:hover {
     text-decoration: underline;
-  }/* Responsive design */
-  @media (max-width: 768px) {
+  } /* Responsive design - Mobile and Tablet (consolidated) */
+  @media (max-width: 900px) {
+    /* Hide timeline visualization for mobile/tablet */
     .timeline-visualization {
-      position: relative;
-      width: 100%;
-      height: auto;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
+      display: none;
     }
 
     .story-content {
@@ -362,64 +419,64 @@
 
     .story-section {
       min-height: auto;
-      padding: 2rem 0;
+      padding: 1rem 0;
+      /* Center the cards horizontally */
+      display: flex;
+      justify-content: center;
     }
 
     .content-layout {
-      text-align: center;
+      width: 100%;
+      max-width: 600px;
     }
 
-    .timeline-track {
-      height: 40vh;
-      max-height: 300px;
+    .content-area {
+      padding: 1.5rem;
+    } /* Step header maintains horizontal layout on mobile */
+    .step-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .title-location-group {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem; /* Keep title and badge close together */
+      flex: 1;
+    }
+
+    .step-icon-mobile {
+      display: flex; /* Show icon on mobile */
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
     }
 
     .step-title {
       font-size: 1.6rem;
     }
 
-    .title-row {
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .dot-flag {
-      width: 70px;
-      height: 70px;
-    }
-
-    .flag-icon {
-      width: 55px;
-      height: 55px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .step-title {
-      font-size: 1.4rem;
-    }
-
     .story-paragraph {
       font-size: 1rem;
-      text-align: left;
     }
 
     .location-tag {
       font-size: 0.8rem;
       padding: 0.3rem 0.8rem;
     }
+  }
 
-    .content-layout {
-      text-align: left;
+  /* Phone-specific adjustments only */
+  @media (max-width: 480px) {
+    .step-title {
+      font-size: 1.4rem;
     }
 
-    .story-section {
-      padding: 1.5rem 0;
-    }
-
-    .title-row {
-      align-items: flex-start;
+    .content-area {
+      padding: 1.25rem;
     }
   }
 </style>
