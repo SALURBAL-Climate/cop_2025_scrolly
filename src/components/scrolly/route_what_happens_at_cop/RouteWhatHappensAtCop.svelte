@@ -376,7 +376,7 @@
   } /* Responsive design - Mobile and Tablet (consolidated) */
   @media (max-width: 900px) {
     .continuous-route-container {
-      border: 5px solid green;
+      /* border: 5px solid green; */
     }
 
     /* Hide route visualization for mobile/tablet */
