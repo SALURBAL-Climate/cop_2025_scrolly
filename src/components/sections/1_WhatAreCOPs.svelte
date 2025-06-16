@@ -122,43 +122,9 @@
     height: 180px;
     object-fit: contain;
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
-  } /* Responsive design */
-  @media (max-width: 768px) {
-    .component_container {
-      padding: 3rem 2rem;
-      margin: 1rem;
-      gap: 2rem;
-    }
-
-    .unfccc-row {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      text-align: center;
-    }
-
-    .unfccc-text-content {
-      padding-right: 0;
-    }
-
-    .main-title {
-      font-size: 2rem;
-    }
-
-    .main-description,
-    .unfccc-text {
-      font-size: 1rem;
-      text-align: left;
-    }
-
-    .un-logo {
-      width: 150px;
-      height: 150px;
-    }
-    .component_container {
-      padding: 2rem 1rem;
-      margin: 0.5rem;
-    }
   }
+
+  /* Responsive design */
   @media (max-width: 480px) {
     .component_container {
       padding: 1.5rem 1rem;
