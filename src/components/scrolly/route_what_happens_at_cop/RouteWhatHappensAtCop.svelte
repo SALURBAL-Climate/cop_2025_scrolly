@@ -103,11 +103,10 @@
                       : ''} {currentStep === i ? 'current' : ''}"
                     style="top: calc({8 +
                       (i / (copRouteData.length - 1)) * 84}% - 37.5px)"
-                  >
-                    <div class="dot-icon">
+                  >                    <div class="dot-icon">
                       <img
                         src={step.icon}
-                        alt={step.step_name}
+                        alt={step.iconAlt || step.step_name}
                         class="step-icon"
                       />
                     </div>
@@ -128,11 +127,10 @@
                   <div class="step-text-content" >
                     <span class="step-badge">Step {i + 1}</span>
                     <h3 class="step-title">{step.step_title}</h3>
-                  </div>
-                  <div class="step-icon-mobile" >
+                  </div>                  <div class="step-icon-mobile" >
                     <img
                       src={step.icon}
-                      alt={step.step_name}
+                      alt={step.iconAlt || step.step_name}
                       class="mobile-step-icon"
                     />
                   </div>
