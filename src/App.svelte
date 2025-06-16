@@ -24,7 +24,6 @@
   <Section_1_WhatAreCOPs />
   <Section_2_WhatHappensAtCOP />
   <Section_5_NotableAgreements />
-
   <Section_3_WhereDoesHealthFitIn />
   <Section_4_HowAreGovernmentsCommitting />
   <Footer />

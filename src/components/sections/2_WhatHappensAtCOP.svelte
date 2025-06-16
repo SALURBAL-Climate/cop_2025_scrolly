@@ -10,8 +10,8 @@
       <h1 class="section-title">What Happens at UNFCCC COPs?</h1>
     </div>
   </div>
-    <!-- Scrolly Row -->
-  <div class="scrolly-row"  >
+  <!-- Scrolly Row -->
+  <div class="scrolly-row">
     <RouteWhatHappensAtCop />
   </div>
   <div class="title-row">
@@ -25,7 +25,8 @@
   </div>
 </section>
 
-<style>  .what-happens-section {
+<style>
+  .what-happens-section {
     width: 100%;
     background: transparent;
     display: flex;
@@ -42,7 +43,8 @@
     min-height: 10vh; /* Fixed height for title section */
     position: relative;
     z-index: 2; /* Ensure title stays above scrolly */
-  }  .scrolly-row {
+  }
+  .scrolly-row {
     width: 100%;
     flex: 1;
     position: relative;
@@ -76,7 +78,7 @@
     margin: 0;
     font-weight: 500;
     line-height: 1.4;
-  }  /* Responsive design */
+  } /* Responsive design */
   @media (max-width: 768px) {
     .section-header {
       padding: 1.5rem 1.5rem 1rem 1.5rem;
