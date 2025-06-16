@@ -112,27 +112,26 @@
 
   .highlight-yellow {
     background-color: rgba(244, 214, 116, 0.6);
-    padding: 0em  0em 0em 0em;
+    padding: 0em 0em 0em 0em;
     border-radius: 2px;
     color: #1a365d;
   }
 
   .highlight-green {
     background-color: rgba(111, 209, 166, 0.6);
-    padding: 0em  0em 0em 0em;
+    padding: 0em 0em 0em 0em;
     border-radius: 2px;
     color: #1a365d;
   }
 
   .highlight-blue {
     background-color: rgb(116, 161, 210);
-    padding: 0em  0em 0em 0em;
+    padding: 0em 0em 0em 0em;
     border-radius: 2px;
     color: #1a365d;
   }
 
   .subtitle-questions {
-    
     padding-bottom: 5rem;
   }
 
@@ -144,12 +143,14 @@
     font-weight: 400;
     line-height: 1.4;
   }
-
-  @media (max-width: 450px) {
-
+  @media (max-width: 900px) {
     .hero-section {
-      height: 660px;
-
+      height: 120vh;
+    }
+  }
+  @media (max-width: 480px) {
+    .hero-section {
+      height: 100vh;
     }
 
     .hero-header {
