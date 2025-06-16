@@ -13,34 +13,32 @@
 >
   <div class="col-wide" data-analytics="footer">
     <div class="container_container">
-      <div class="item">
-        <a href="https://drexel.edu/lac/" target="_blank">
+      <div class="item">        <a href="https://drexel.edu/lac/" target="_blank" aria-label="Visit SALURBAL Climate website">
           <div id="svg-container">
             <img
               id="my-svg"
               src="./img/cop30/EN_Logo_SALURBAL-Climate_png.png"
-              alt="SALURBAL Climate"
+              alt="SALURBAL Climate logo - Climate Change and Urban Health in Latin America"
             />
           </div>
         </a>
       </div>
       <div>
         <div class="item" id="follow-section">
-          Follow us:
-          <div class="container">
-            <a href="https://www.facebook.com/LACUrbanHealth">
+          Follow us:          <div class="container">
+            <a href="https://www.facebook.com/LACUrbanHealth" aria-label="Visit SALURBAL Climate on Facebook" target="_blank">
               <div class="social-icon"><Icon icon="il:facebook" /></div>
             </a>
-            <a href="https://x.com/lacurbanhealth">
+            <a href="https://x.com/lacurbanhealth" aria-label="Follow SALURBAL Climate on Twitter/X" target="_blank">
               <div class="social-icon"><Icon icon="mdi:twitter" /></div>
             </a>
-            <a href="https://www.instagram.com/salurbalclimate/">
+            <a href="https://www.instagram.com/salurbalclimate/" aria-label="Follow SALURBAL Climate on Instagram" target="_blank">
               <div class="social-icon"><Icon icon="mdi:instagram" /></div>
             </a>
-            <a href="https://www.youtube.com/@salurbal">
+            <a href="https://www.youtube.com/@salurbal" aria-label="Subscribe to SALURBAL on YouTube" target="_blank">
               <div class="social-icon"><Icon icon="mdi:youtube" /></div>
             </a>
-            <a href="https://www.linkedin.com/company/salurbal-project">
+            <a href="https://www.linkedin.com/company/salurbal-project" aria-label="Connect with SALURBAL Project on LinkedIn" target="_blank">
               <div class="social-icon"><Icon icon="mdi:linkedin" /></div>
             </a>
           </div>
