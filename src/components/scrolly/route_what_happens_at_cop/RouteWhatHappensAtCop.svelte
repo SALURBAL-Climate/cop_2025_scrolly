@@ -1,7 +1,8 @@
 <script>
   import { onMount } from 'svelte';
   import Scroller from '../../../layout/Scroller.svelte';
-  import { copRouteData } from './data.js';  let y = 0;
+  import { copRouteData } from './data.js';
+  let y = 0;
   let innerHeight = 0;
   let containerElement;
   let progress = 0;
@@ -31,7 +32,7 @@
       currentStep = copRouteData.length - 1;
       return;
     }
-    
+
     if (isCompletelyBelow) {
       // Not started yet
       progress = 0;
@@ -46,9 +47,12 @@
     // Calculate progress
     let rawProgress = scrollStart / scrollableHeight;
     progress = Math.min(1, Math.max(0, rawProgress));
-    
+
     // Calculate current step based on progress
-    currentStep = Math.min(copRouteData.length - 1, Math.floor(progress * copRouteData.length));
+    currentStep = Math.min(
+      copRouteData.length - 1,
+      Math.floor(progress * copRouteData.length),
+    );
   }
   $: if (typeof window !== 'undefined') updateProgress();
   onMount(() => {
@@ -77,17 +81,24 @@
               <div
                 class="track-progress"
                 style="height: {Math.min(100, progress * 100)}%"
-              ></div>              <!-- COP process steps positioned within the track -->
+              ></div>
+              <!-- COP process steps positioned within the track -->
               <div class="location-dots">
-                {#each copRouteData as step, i}                  <div
+                {#each copRouteData as step, i}
+                  <div
                     class="location-dot {progress >=
                     i / (copRouteData.length - 1)
                       ? 'visited'
                       : ''} {currentStep === i ? 'current' : ''}"
-                    style="top: calc({8 + (i / (copRouteData.length - 1)) * 84}% - 37.5px)"
+                    style="top: calc({8 +
+                      (i / (copRouteData.length - 1)) * 84}% - 37.5px)"
                   >
                     <div class="dot-icon">
-                      <img src={step.icon} alt={step.step_name} class="step-icon" />
+                      <img
+                        src={step.icon}
+                        alt={step.step_name}
+                        class="step-icon"
+                      />
                     </div>
                   </div>
                 {/each}
@@ -123,7 +134,8 @@
     overflow: hidden;
     z-index: 1;
     /* border: 1px solid green; */
-  }  .continuous-route-container {
+  }
+  .continuous-route-container {
     position: relative;
     width: 100%;
     height: var(--container-height); /* Dynamically calculated based on steps */
@@ -157,26 +169,8 @@
   .route-visualization.visible {
     opacity: 1;
   }
-  .route-header {
-    text-align: center;
-    margin-bottom: 2rem; /* Reduced from 3rem */
-    max-width: 400px;
-  }
 
-  .route-title {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #2f7ed3;
-    margin-bottom: 0.5rem;
-    line-height: 1.2;
-  }
 
-  .route-subtitle {
-    font-size: 1rem;
-    color: #64748b;
-    margin: 0;
-    font-weight: 500;
-  }
   .route-track {
     position: relative;
     margin-top: 10vh;
@@ -218,7 +212,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-  }  .dot-icon {
+  }
+  .dot-icon {
     width: 75px;
     height: 75px;
     border-radius: 50%;
@@ -252,13 +247,15 @@
   }
 
   @keyframes pulse {
-    0%, 100% {
+    0%,
+    100% {
       box-shadow: 0 6px 20px rgba(47, 126, 211, 0.4);
     }
     50% {
       box-shadow: 0 8px 25px rgba(47, 126, 211, 0.6);
     }
-  }  .step-icon {
+  }
+  .step-icon {
     width: 75px;
     height: 75px;
     object-fit: contain;
@@ -337,21 +334,10 @@
     margin: 0;
   }
 
-  .conclusion {
-    border-top: 2px solid #e2e8f0;
-    margin-top: 2rem;
-  }
-
-  .conclusion-title {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: #2f7ed3;
-    margin-bottom: 1.5rem;
-    line-height: 1.2;
-  }
+ 
 
   /* Responsive design */
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     .route-visualization {
       position: relative;
       width: 100%;
@@ -380,10 +366,8 @@
       max-height: 300px;
     }
 
-    .route-title {
-      font-size: 1.5rem;
-    }    .step-title {
-      font-size: 1.5rem;
+    .step-title {
+      font-size: 0.1rem;
     }
 
     .dot-icon {
@@ -398,13 +382,6 @@
   }
 
   @media (max-width: 480px) {
-    .route-header {
-      margin-bottom: 2rem;
-    }
-
-    .route-title {
-      font-size: 1.3rem;
-    }
 
     .step-title {
       font-size: 1.3rem;
