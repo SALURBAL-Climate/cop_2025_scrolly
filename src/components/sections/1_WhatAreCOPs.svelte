@@ -6,8 +6,7 @@
 <section
   class="component_container"
   style="--hex-blue: {brandColors.hex_blue}; --green-zone: {brandColors.green_zone}; --dark-text: {brandColors.dark_text}; --medium-text: {brandColors.medium_text}"
->
-  <div class="title-section">
+>  <div class="title-section">
     <h1 class="main-title">What are COPs?</h1>
     <p class="main-description">
       A "<a
@@ -21,7 +20,8 @@
     </p>
   </div>
 
-  <div class="unfccc-row">
+  <!-- Desktop layout -->
+  <div class="unfccc-row desktop-layout">
     <div class="unfccc-text-content">
       <p class="unfccc-text">
         The <a href="https://unfccc.int/" target="_blank" class="highlight-link"
@@ -39,6 +39,28 @@
           class="un-logo"
         />
       </div>
+    </div>
+  </div>
+
+  <!-- Mobile layout -->
+  <div class="mobile-layout">
+    <div class="visual-content">
+      <div class="un-logo-container">
+        <img
+          src="img/cop30/icon_UN.png"
+          alt="United Nations Logo"
+          class="un-logo"
+        />
+      </div>
+    </div>
+    <div class="unfccc-text-content">
+      <p class="unfccc-text">
+        The <a href="https://unfccc.int/" target="_blank" class="highlight-link"
+          >United Nations Framework Convention on Climate Change (UNFCCC)</a
+        > holds annual COPs to negotiate global actions to address climate change.
+        The 30th annual Conference of the Parties ("COP30") will take place in November
+        2025, hosted by Brazil.
+      </p>
     </div>
   </div>
 </section>
@@ -116,26 +138,52 @@
     padding: 0;
     box-shadow: none;
     border: none;
-  }
-  .un-logo {
+  }  .un-logo {
     width: 180px;
     height: 180px;
     object-fit: contain;
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
   }
+  /* Layout visibility controls */
+  .desktop-layout {
+    display: grid;
+  }
 
-  /* Responsive design */
-  @media (max-width: 480px) {
+  .mobile-layout {
+    display: none;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  /* Mobile responsive design */
+  @media (max-width: 800px) {
     .component_container {
       padding: 1.5rem 1rem;
       margin: 0.5rem;
     }
 
+    /* Hide desktop layout, show mobile layout */
+    .desktop-layout {
+      display: none;
+    }
+
+    .mobile-layout {
+      display: flex;
+    }
+
+    .unfccc-text-content {
+      padding-right: 0;
+    }
+
     .main-title {
       font-size: 1.75rem;
     }
-    .unfccc-section {
-      padding: 1rem 0;
+
+    .main-description,
+    .unfccc-text {
+      font-size: 1rem;
+      text-align: left;
     }
 
     .un-logo {
