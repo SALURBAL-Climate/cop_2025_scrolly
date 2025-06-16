@@ -10,7 +10,8 @@
   style="color: {themes[theme]['text']}; background-color: {themes[theme][
     'pale'
   ]};"
->  <div class="col-wide" data-analytics="footer">
+>
+  <div class="col-wide" data-analytics="footer">
     <div class="container_container">
       <div class="item">
         <a href="https://drexel.edu/lac/" target="_blank">
@@ -46,7 +47,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="link-tree">
       <ul>
         <li>
@@ -80,14 +81,8 @@
     justify-content: space-between;
   }
 
-  @media (max-width: 600px) {
-    .container_container {
-      flex-direction: column;
-    }
-    .link-tree {
-      padding-bottom: 1rem;
-    }
-  }  #follow-section {
+ 
+  #follow-section {
     min-width: 200px;
   }
 
@@ -98,7 +93,8 @@
     padding-bottom: 72px;
     padding-top: 36px;
     font-size: 18px;
-  }  #svg-container {
+  }
+  #svg-container {
     width: 150px; /* Set the desired width of the container */
     height: 60px; /* Set the desired height of the container */
   }
@@ -117,17 +113,15 @@
   footer a.link:active {
     outline: 3px solid transparent;
     background-color: #fd0;
-    -webkit-box-shadow: 0 -2px #fd0, 0 4px #222;
-    box-shadow: 0 -2px #fd0, 0 4px #222;
+    -webkit-box-shadow:
+      0 -2px #fd0,
+      0 4px #222;
+    box-shadow:
+      0 -2px #fd0,
+      0 4px #222;
     color: #222;
     text-decoration: none;
-  }
-  footer hr {
-    margin-bottom: 27px;
-    margin-top: 36px;
-    border: none;
-    border-top: 1px solid #777;
-  }
+  } 
   ul {
     padding: 0;
     margin: 0;
@@ -135,19 +129,7 @@
   li {
     margin-right: 18px;
     display: inline-block;
-  }
-  .logo-img {
-    margin-bottom: 27px;
-  }
-  .ogl-img {
-    margin: 0 0.5rem 0.2rem 0;
-    width: 59px;
-    height: 24px;
-    vertical-align: middle;
-  }
-  .license {
-    vertical-align: top;
-  }
+  } 
   a img:hover {
     cursor: pointer;
   }
