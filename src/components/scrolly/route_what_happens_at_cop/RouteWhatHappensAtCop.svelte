@@ -7,14 +7,15 @@
   let containerElement;
   let progress = 0;
   let isInView = false;
-  let currentStep = 0;
-  // Calculate container height based on number of steps
-  // Each step gets a full viewport height for comfortable scrolling
-  // Plus additional space for smooth transitions and conclusion
-  // Formula: (number_of_steps × 100vh) + buffer
-  // This ensures each step has enough scroll space to be fully appreciated
-  // $: containerHeight = copRouteData.length * 100 + 50; // Base: 100vh per step + 50vh buffer  // Track scroll within the component bounds
-  $: containerHeight = copRouteData.length * 100 + 50; // Base: 100vh per step + 50vh buffer  // Track scroll within the component bounds
+  let currentStep = 0;  // Calculate container height based on screen size
+  // Desktop: Fixed height for scrolly experience
+  // Mobile/Tablet: Auto height to fit content
+  let windowWidth = 0;
+  
+  $: isMobile = windowWidth <= 900;
+  $: containerHeight = isMobile 
+    ? 'auto'  // Mobile: Let content determine height
+    : copRouteData.length * 100 + 50; // Desktop: Fixed scrolly height
   function updateProgress() {
     if (!containerElement) return;
 
@@ -55,22 +56,23 @@
       Math.floor(progress * copRouteData.length),
     );
   }
-  $: if (typeof window !== 'undefined') updateProgress();
-  onMount(() => {
+  $: if (typeof window !== 'undefined') updateProgress();  onMount(() => {
     updateProgress();
     console.log(
-      `Container height auto-calculated: ${containerHeight}vh for ${copRouteData.length} steps`,
+      `Container height: ${containerHeight}${typeof containerHeight === 'string' ? '' : 'vh'} for ${copRouteData.length} steps`,
+      `Device: ${windowWidth}px wide`,
+      `Type: ${isMobile ? 'Mobile/Tablet' : 'Desktop'}`
     );
   });
 </script>
 
-<svelte:window bind:scrollY={y} bind:innerHeight on:scroll={updateProgress} />
+<svelte:window bind:scrollY={y} bind:innerHeight bind:innerWidth={windowWidth} on:scroll={updateProgress} />
 
 <div class="route-wrapper">
   <div
     class="continuous-route-container"
     bind:this={containerElement}
-    style="--container-height: {containerHeight}vh; border: 5px solid green;"
+    style="--container-height: {typeof containerHeight === 'string' ? containerHeight : containerHeight + 'vh'}; "
   >
     <Scroller top={0} bottom={1} threshold={0.5}>
       <div slot="background">
@@ -136,7 +138,7 @@
     z-index: 1;
     /* border: 1px solid green; */
   }
-  .continuous-route-container {
+  .continuous-route-container { 
     position: relative;
     width: 100%;
     height: var(--container-height); /* Dynamically calculated based on steps */
@@ -333,19 +335,17 @@
     line-height: 1.7; /* Improved readability */
     color: #374151;
     margin: 0;
-  }
-
- 
-  /* Responsive design */
+  }   /* Responsive design - Mobile and Tablet (consolidated) */
   @media (max-width: 900px) {
-    .route-visualization {
-      position: relative;
-      width: 100%;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-      border: 5px solid red;
+    .continuous-route-container {
+      border: 5px solid green;
     }
-
+    
+    /* Hide route visualization for mobile/tablet */
+    .route-visualization {
+      display: none;
+    }
+    
     .story-content {
       margin-left: 0;
       width: 100%;
@@ -355,15 +355,16 @@
     .story-section {
       min-height: auto;
       padding: 1rem 0;
+      /* Center the cards horizontally */
+      display: flex;
+      justify-content: center;
     }
 
     .story-text {
       padding: 1.5rem;
-    }
-
-    .route-track {
-      height: 40vh;
-      max-height: 300px;
+      /* Ensure cards don't get too wide on tablets */
+      max-width: 600px;
+      width: 100%;
     }
 
     /* Change step header from horizontal to vertical layout */
@@ -381,25 +382,15 @@
       font-size: 1.5rem;
     }
 
-    .dot-icon {
-      width: 70px;
-      height: 70px;
-    }
-
-    .step-icon {
-      width: 70px;
-      height: 70px;
+    .story-paragraph {
+      font-size: 1rem;
     }
   }
 
+  /* Phone-specific adjustments only */
   @media (max-width: 480px) {
-
     .step-title {
       font-size: 1.3rem;
-    }
-
-    .story-paragraph {
-      font-size: 1rem;
     }
 
     .story-text {
