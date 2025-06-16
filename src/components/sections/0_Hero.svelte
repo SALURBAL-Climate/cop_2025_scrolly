@@ -2,7 +2,11 @@
   // Add any necessary imports or logic here
 </script>
 
-<section class="hero-section">
+<section 
+  class="hero-section" 
+  role="banner"
+  aria-label="Hero section with background image showing a panoramic view of Belém, Brazil with the Amazon rainforest and urban skyline, representing the host city for COP30 climate conference"
+>
   <div class="hero-content">
     <div class="hero-header">
       <!-- <div class="update-text">Updated: May 2025</div> -->
@@ -10,7 +14,7 @@
         <a href="https://drexel.edu/lac/" target="_blank">
           <img
             src="./img/cop30/EN_Logo_SALURBAL-Climate_png.png"
-            alt="SALURBAL Climate"
+            alt="SALURBAL Climate Logo"
             class="logo-right"
           />
         </a>
