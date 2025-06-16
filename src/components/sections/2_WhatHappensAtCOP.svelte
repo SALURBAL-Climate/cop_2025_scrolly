@@ -14,13 +14,13 @@
   <div class="scrolly-row">
     <RouteWhatHappensAtCop />
   </div>
-  <div class="title-row">
+  <div class="title-row" >
     <div class="section-header">
-      <h1 class="section-title">COP Zones Explained</h1>
+      <h1 class="section-title" >COP Zones Explained</h1>
     </div>
   </div>
   <!-- Zones Explainer Row -->
-  <div class="zones-row">
+  <div class="zones-row"  >
     <COPZonesExplainer />
   </div>
 </section>
@@ -42,7 +42,8 @@
     align-items: center;
     min-height: 10vh; /* Fixed height for title section */
     position: relative;
-    z-index: 2; /* Ensure title stays above scrolly */
+    z-index: 2; /* Ensure title stays above scrolly */ 
+
   }
   .scrolly-row {
     width: 100%;
@@ -53,6 +54,8 @@
   .zones-row {
     width: 100%;
     padding: 2rem;
+    padding-bottom: 0;
+    padding-top: 0;
     background: transparent;
     position: relative;
     z-index: 2;
