@@ -1,5 +1,4 @@
-<script>
-  import { onMount } from 'svelte';
+<script>  import { onMount } from 'svelte';
   import Scroller from '../../../layout/Scroller.svelte';
   import { timelineData } from './data.js';
 
@@ -108,13 +107,12 @@
           {#each timelineData as step, i}
             <section class="story-section">
               <div class="content-layout">
-                <!-- Content area -->
-                <div class="content-area">
+                <!-- Content area -->                <div class="content-area">
                   <div class="title-row">
-                    <h3 class="step-title">{step.step_name}</h3>
+                    <h3 class="step-title">{step.step_title}</h3>
                     <div class="location-tag">{step.location}</div>
                   </div>
-                  <p class="story-paragraph">{step.description}</p>
+                  <p class="story-paragraph">{@html step.description}</p>
                 </div>
               </div>
             </section>
@@ -330,14 +328,23 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
-
   .story-paragraph {
     font-size: 1.1rem;
     line-height: 1.7;
     color: #374151;
     margin: 0;
     width: 100%; /* Full width text */
-  }  /* Responsive design */
+  }
+
+  .story-paragraph a {
+    color: #2f7ed3;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .story-paragraph a:hover {
+    text-decoration: underline;
+  }/* Responsive design */
   @media (max-width: 768px) {
     .timeline-visualization {
       position: relative;
