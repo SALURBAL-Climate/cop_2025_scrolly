@@ -13,6 +13,7 @@
   // Plus additional space for smooth transitions and conclusion
   // Formula: (number_of_steps × 100vh) + buffer
   // This ensures each step has enough scroll space to be fully appreciated
+  // $: containerHeight = copRouteData.length * 100 + 50; // Base: 100vh per step + 50vh buffer  // Track scroll within the component bounds
   $: containerHeight = copRouteData.length * 100 + 50; // Base: 100vh per step + 50vh buffer  // Track scroll within the component bounds
   function updateProgress() {
     if (!containerElement) return;
@@ -69,7 +70,7 @@
   <div
     class="continuous-route-container"
     bind:this={containerElement}
-    style="--container-height: {containerHeight}vh;"
+    style="--container-height: {containerHeight}vh; border: 5px solid green;"
   >
     <Scroller top={0} bottom={1} threshold={0.5}>
       <div slot="background">
@@ -335,15 +336,14 @@
   }
 
  
-
   /* Responsive design */
   @media (max-width: 900px) {
     .route-visualization {
       position: relative;
       width: 100%;
-      height: auto;
       padding: 1.5rem;
       margin-bottom: 2rem;
+      border: 5px solid red;
     }
 
     .story-content {
@@ -366,8 +366,19 @@
       max-height: 300px;
     }
 
+    /* Change step header from horizontal to vertical layout */
+    .step-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .step-badge {
+      margin-bottom: 0.5rem;
+    }
+
     .step-title {
-      font-size: 0.1rem;
+      font-size: 1.5rem;
     }
 
     .dot-icon {
