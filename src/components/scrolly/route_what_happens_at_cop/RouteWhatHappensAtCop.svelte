@@ -7,14 +7,14 @@
   let containerElement;
   let progress = 0;
   let isInView = false;
-  let currentStep = 0;  // Calculate container height based on screen size
+  let currentStep = 0; // Calculate container height based on screen size
   // Desktop: Fixed height for scrolly experience
   // Mobile/Tablet: Auto height to fit content
   let windowWidth = 0;
-  
+
   $: isMobile = windowWidth <= 900;
-  $: containerHeight = isMobile 
-    ? 'auto'  // Mobile: Let content determine height
+  $: containerHeight = isMobile
+    ? 'auto' // Mobile: Let content determine height
     : copRouteData.length * 100 + 50; // Desktop: Fixed scrolly height
   function updateProgress() {
     if (!containerElement) return;
@@ -56,23 +56,31 @@
       Math.floor(progress * copRouteData.length),
     );
   }
-  $: if (typeof window !== 'undefined') updateProgress();  onMount(() => {
+  $: if (typeof window !== 'undefined') updateProgress();
+  onMount(() => {
     updateProgress();
     console.log(
       `Container height: ${containerHeight}${typeof containerHeight === 'string' ? '' : 'vh'} for ${copRouteData.length} steps`,
       `Device: ${windowWidth}px wide`,
-      `Type: ${isMobile ? 'Mobile/Tablet' : 'Desktop'}`
+      `Type: ${isMobile ? 'Mobile/Tablet' : 'Desktop'}`,
     );
   });
 </script>
 
-<svelte:window bind:scrollY={y} bind:innerHeight bind:innerWidth={windowWidth} on:scroll={updateProgress} />
+<svelte:window
+  bind:scrollY={y}
+  bind:innerHeight
+  bind:innerWidth={windowWidth}
+  on:scroll={updateProgress}
+/>
 
 <div class="route-wrapper">
   <div
     class="continuous-route-container"
     bind:this={containerElement}
-    style="--container-height: {typeof containerHeight === 'string' ? containerHeight : containerHeight + 'vh'}; "
+    style="--container-height: {typeof containerHeight === 'string'
+      ? containerHeight
+      : containerHeight + 'vh'}; "
   >
     <Scroller top={0} bottom={1} threshold={0.5}>
       <div slot="background">
@@ -117,8 +125,17 @@
             <section class="story-section">
               <div class="story-text">
                 <div class="step-header">
-                  <span class="step-badge">Step {i + 1}</span>
-                  <h3 class="step-title">{step.step_title}</h3>
+                  <div class="step-text-content" >
+                    <span class="step-badge">Step {i + 1}</span>
+                    <h3 class="step-title">{step.step_title}</h3>
+                  </div>
+                  <div class="step-icon-mobile" >
+                    <img
+                      src={step.icon}
+                      alt={step.step_name}
+                      class="mobile-step-icon"
+                    />
+                  </div>
                 </div>
                 <p class="story-paragraph">{step.description}</p>
               </div>
@@ -138,7 +155,7 @@
     z-index: 1;
     /* border: 1px solid green; */
   }
-  .continuous-route-container { 
+  .continuous-route-container {
     position: relative;
     width: 100%;
     height: var(--container-height); /* Dynamically calculated based on steps */
@@ -172,7 +189,6 @@
   .route-visualization.visible {
     opacity: 1;
   }
-
 
   .route-track {
     position: relative;
@@ -311,6 +327,28 @@
     gap: 1rem;
   }
 
+  .step-text-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+  }
+
+  .step-icon-mobile {
+    display: none; /* Hidden on desktop */
+  }
+
+  .mobile-step-icon {
+    width: 75px;
+    height: 75px;
+    object-fit: contain;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 2px solid #2f7ed3;
+    /* padding: 8px; */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
   .step-badge {
     display: inline-block;
     background: #2f7ed3;
@@ -335,17 +373,17 @@
     line-height: 1.7; /* Improved readability */
     color: #374151;
     margin: 0;
-  }   /* Responsive design - Mobile and Tablet (consolidated) */
+  } /* Responsive design - Mobile and Tablet (consolidated) */
   @media (max-width: 900px) {
     .continuous-route-container {
       border: 5px solid green;
     }
-    
+
     /* Hide route visualization for mobile/tablet */
     .route-visualization {
       display: none;
     }
-    
+
     .story-content {
       margin-left: 0;
       width: 100%;
@@ -365,13 +403,26 @@
       /* Ensure cards don't get too wide on tablets */
       max-width: 600px;
       width: 100%;
+    } /* Change step header layout for mobile */
+    .step-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
     }
 
-    /* Change step header from horizontal to vertical layout */
-    .step-header {
+    .step-text-content {
       flex-direction: column;
       align-items: flex-start;
       gap: 0.5rem;
+      flex: 1;
+    }
+
+    .step-icon-mobile {
+      display: flex; /* Show icon on mobile */
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
     }
 
     .step-badge {
