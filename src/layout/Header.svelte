@@ -15,10 +15,10 @@
         alt="SALURBAL Climate"
         class="logo"
       />
-    </a>
-    <!-- <div class="separator">|</div> -->
+    </a>    <!-- <div class="separator">|</div> -->
     <div class="title-text">
-      Bringing urban health to the table at COP30
+      <span class="title-full">Bringing urban health to the table at COP30</span>
+      <span class="title-mobile">Urban Health at COP30</span>
     </div>
   </div>
 
@@ -78,7 +78,6 @@
     font-size: 1.1rem;
     flex-shrink: 0;
   }
-
   .title-text {
     font-size: 0.85rem;
     font-weight: 500;
@@ -89,6 +88,25 @@
     min-width: 0;
     margin-left: 1rem;
     font-family: 'Lato', sans-serif;
+  }
+
+  .title-mobile {
+    display: none;
+  }
+
+  .title-full {
+    display: inline;
+  }
+
+  /* Mobile breakpoint */
+  @media (max-width: 768px) {
+    .title-full {
+      display: none;
+    }
+    
+    .title-mobile {
+      display: inline;
+    }
   }
 
   .social-section {
