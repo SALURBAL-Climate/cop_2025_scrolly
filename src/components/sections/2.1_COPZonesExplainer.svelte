@@ -10,7 +10,8 @@
 </script>
 
 <div class="zones-explainer">
-  <div class="zones-content">    <!-- Desktop Layout (side by side) -->
+  <div class="zones-content">
+    <!-- Desktop Layout (side by side) -->
     <div class="desktop-layout">
       <!-- Satellite Image with Zone Labels and Activity Icons -->
       <div class="zones-image-container">
@@ -28,7 +29,10 @@
                 .coordinates.left}%;"
             >
               <div class="icon-circle">
-                <img src={activity.icon} alt={activity.iconAlt || activity.step_name} />
+                <img
+                  src={activity.icon}
+                  alt={activity.iconAlt || activity.step_name}
+                />
               </div>
               <span class="icon-tooltip">{activity.step_title}</span>
             </div>
@@ -69,7 +73,8 @@
           Formal negotiations, country pavilions, and official side events take
           place here and are managed by the UNFCCC.
         </p>
-      </div>      <!-- Image in the middle -->
+      </div>
+      <!-- Image in the middle -->
       <div class="zones-image-container">
         <div class="image-with-icons">
           <img
@@ -85,7 +90,10 @@
                 .coordinates.left}%;"
             >
               <div class="icon-circle">
-                <img src={activity.icon} alt={activity.iconAlt || activity.step_name} />
+                <img
+                  src={activity.icon}
+                  alt={activity.iconAlt || activity.step_name}
+                />
               </div>
               <span class="icon-tooltip">{activity.step_title}</span>
             </div>
@@ -112,11 +120,13 @@
     padding: 2rem 0;
     background: transparent;
     margin: 2rem 0;
+    box-sizing: border-box;
   }
   .zones-content {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0;
+    box-sizing: border-box;
   }
 
   /* Desktop Layout */
@@ -256,11 +266,11 @@
   @media (max-width: 900px) {
     .zones-explainer {
       padding: 2rem 0;
-      margin: 1.5rem 0;
+      margin: 1.5rem 0; 
     }
-
     .zones-content {
-      padding: 0 1rem;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     /* Hide desktop layout, show mobile layout */
@@ -279,6 +289,8 @@
     .zone-card {
       padding: 1rem 0;
       padding-left: 1.5rem;
+      padding-right: 0.5rem;
+      box-sizing: border-box;
     }
 
     .zone-title {
@@ -303,12 +315,18 @@
       font-size: 0.7rem;
       top: 50px;
     }
-  }
-
-  /* Phone-specific adjustments only */
+  } /* Phone-specific adjustments only */
   @media (max-width: 480px) {
     .zones-explainer {
       padding: 1.5rem 0;
+    }
+
+    .zones-content {
+      padding: 0;
+    }
+
+    .zone-card {
+      padding-right: 0.75rem;
     }
 
     .icon-circle {
@@ -324,6 +342,56 @@
     .icon-tooltip {
       font-size: 0.65rem;
       top: 45px;
+    }
+  } /* Very narrow screens (Galaxy S22, etc.) */
+  @media (max-width: 380px) {
+    .zones-explainer {
+      padding: 1rem 0;
+    }
+
+    .zones-content {
+      padding: 0;
+    }
+
+    .mobile-layout {
+      gap: 1.5rem;
+    }
+
+    .zone-card {
+      padding: 0.75rem 0;
+      padding-left: 1rem;
+      padding-right: 0.5rem;
+    }
+
+    .zone-title {
+      font-size: 1.1rem;
+      word-wrap: break-word;
+      hyphens: auto;
+    }
+
+    .zone-description {
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .zones-image {
+      max-width: 100%;
+    }
+
+    .icon-circle {
+      width: 40px;
+      height: 40px;
+    }
+
+    .icon-circle img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .icon-tooltip {
+      font-size: 0.6rem;
+      top: 40px;
+      padding: 0.2rem 0.4rem;
     }
   }
 </style>

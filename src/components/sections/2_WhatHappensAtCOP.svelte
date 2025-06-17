@@ -50,15 +50,15 @@
     flex: 1;
     position: relative;
   }
-
   .zones-row {
     width: 100%;
-    padding: 2rem;
+    padding: 0 2rem;
     padding-bottom: 0;
     padding-top: 0;
     background: transparent;
     position: relative;
     z-index: 2;
+    box-sizing: border-box;
   }
   .section-header {
     text-align: center;
@@ -81,7 +81,7 @@
     margin: 0;
     font-weight: 500;
     line-height: 1.4;
-  } /* Responsive design */
+  }  /* Responsive design */
   @media (max-width: 768px) {
     .section-header {
       padding: 1.5rem 1.5rem 1rem 1.5rem;
@@ -96,9 +96,10 @@
     }
 
     .zones-row {
-      padding: 1.5rem;
+      padding: 0 1.5rem;
     }
   }
+  
   @media (max-width: 480px) {
     .section-header {
       padding: 1rem 1rem 0.5rem 1rem;
@@ -113,7 +114,24 @@
     }
 
     .zones-row {
-      padding: 1rem;
+      padding: 0 1.25rem;
+    }
+  }
+
+  /* Very narrow screens (Galaxy S22, etc.) */
+  @media (max-width: 380px) {
+    .section-header {
+      padding: 0.75rem 1rem 0.5rem 1rem;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      word-wrap: break-word;
+      hyphens: auto;
+    }
+
+    .zones-row {
+      padding: 0 1rem;
     }
   }
 </style>
