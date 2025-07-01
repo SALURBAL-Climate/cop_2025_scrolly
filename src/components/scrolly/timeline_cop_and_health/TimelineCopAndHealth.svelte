@@ -125,24 +125,26 @@
         </div>
       </div>
       <div slot="foreground">
-        <div class="story-content" >
-          {#each timelineData as step, i}            <section class="story-section" >
+        <div class="story-content">
+          {#each timelineData as step, i}
+            <section class="story-section">
               <!-- Content area -->
               <div class="content-area">
-                <div class="step-header" >
-                    <div class="title-location-group">
-                      <h3 class="step-title">{step.step_title}</h3>
-                      <div class="location-tag">{step.location}</div>
-                    </div>
-                    <div class="step-icon-mobile">
-                      <img
-                        src={step.flag_image}
-                        alt={step.flagAlt || step.step_name}
-                        class="mobile-flag-icon"
-                      />
-                    </div>
-                  </div>                  <p class="story-paragraph">{@html step.description}</p>
+                <div class="step-header">
+                  <div class="title-location-group">
+                    <h3 class="step-title">{step.step_title}</h3>
+                    <div class="location-tag">{step.location}</div>
+                  </div>
+                  <div class="step-icon-mobile">
+                    <img
+                      src={step.flag_image}
+                      alt={step.flagAlt || step.step_name}
+                      class="mobile-flag-icon"
+                    />
+                  </div>
                 </div>
+                <p class="story-paragraph">{@html step.description}</p>
+              </div>
             </section>
           {/each}
         </div>
@@ -415,17 +417,18 @@
       /* Center the cards horizontally */
       display: flex;
       justify-content: center;
-    }    .content-area {
+    }
+    .content-area {
       width: 100%;
       max-width: 600px;
       padding: 1.5rem;
-    }/* Step header maintains horizontal layout on mobile */
+    } /* Step header maintains horizontal layout on mobile */
     .step-header {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0;
-      margin:0;
+      margin: 0;
       padding: 0 0;
     }
 
