@@ -18,16 +18,16 @@
           <div class="flag-container">
             <img src="/img/cop30/japan_flag.png" alt="Japan Flag" class="flag-icon" />
           </div>
+          <div class="timeline-location">KYOTO</div>
         </div>
         <div class="column-details">
           <div class="year-location">
             <div class="timeline-year">1997 COP3</div>
-            <div class="timeline-location">KYOTO</div>
           </div>
         </div>
         <div class="column-description">
           <h3>Setting the stage for global climate action:</h3>
-          <p>The <strong>Kyoto Protocol</strong> was negotiated during COP3 and entered into force during COP11 in 2005, setting mitigation targets for reducing greenhouse gas (GHG) emissions and mandating regular progress reviews.</p>
+          <p>The <strong><a href="https://unfccc.int/kyoto_protocol" target="_blank" class="protocol-link">Kyoto Protocol</a></strong> was negotiated during COP3 and entered into force during COP11 in 2005, setting mitigation targets for reducing greenhouse gas (GHG) emissions and mandating regular progress reviews.</p>
         </div>
       </div>
 
@@ -37,16 +37,16 @@
           <div class="flag-container">
             <img src="/img/cop30/france_flag.png" alt="France Flag" class="flag-icon" />
           </div>
+          <div class="timeline-location">PARIS</div>
         </div>
         <div class="column-details">
           <div class="year-location">
             <div class="timeline-year">2015 COP21</div>
-            <div class="timeline-location">PARIS</div>
           </div>
         </div>
         <div class="column-description">
           <h3>Expanding global climate commitments:</h3>
-          <p>COP21 resulted in the landmark <strong>Paris Agreement</strong> (195 parties), which replaced the Kyoto Protocol and seeks to limit global warming to below 2 degrees Celsius.</p>
+          <p>COP21 resulted in the landmark <strong><a href="https://unfccc.int/process-and-meetings/the-paris-agreement" target="_blank" class="protocol-link">Paris Agreement</a></strong> (195 parties), which replaced the Kyoto Protocol and seeks to limit global warming to below 2 degrees Celsius.</p>
         </div>
       </div>
     </div>
@@ -95,37 +95,34 @@
 
   .timeline-row {
     display: grid;
-    grid-template-columns: 120px 200px 1fr;
-    gap: 2rem;
-    align-items: flex-start;
+    grid-template-columns: 120px 140px 1fr;
+    gap: 3rem;
+    align-items: center;
     padding: 2rem;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e2e8f0;
+    background: transparent;
   }
 
   .column-flag {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
+    gap: 0.5rem;
   }
 
   .flag-container {
     width: 80px;
     height: 80px;
-    background: white;
+    background: transparent;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 4px solid var(--hex-blue);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
   .flag-icon {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     object-fit: cover;
   }
@@ -140,6 +137,13 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    background: #e5e7eb;
+    border: 3px solid #6b7280;
+    border-radius: 12px;
+    padding: 0.2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    text-align: center;
   }
 
   .timeline-year {
@@ -156,6 +160,7 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin: 0;
+    text-align: center;
   }
 
   .column-description {
@@ -184,6 +189,15 @@
     font-weight: 700;
   }
 
+  .protocol-link {
+    color: var(--hex-blue);
+    text-decoration: none;
+  }
+
+  .protocol-link:hover {
+    text-decoration: underline;
+  }
+
   /* Responsive design */
   @media (max-width: 768px) {
     .history-content {
@@ -203,6 +217,7 @@
       gap: 1.5rem;
       text-align: center;
       padding: 1.5rem;
+      background: transparent;
     }
 
     .column-flag {
@@ -215,8 +230,8 @@
     }
 
     .flag-icon {
-      width: 50px;
-      height: 50px;
+      width: 70px;
+      height: 70px;
     }
 
     .column-details {
@@ -256,8 +271,8 @@
     }
 
     .flag-icon {
-      width: 40px;
-      height: 40px;
+      width: 60px;
+      height: 60px;
     }
 
     .timeline-year {
