@@ -23,18 +23,20 @@
 
     <div class="hero-text">
       <h1 class="main-title">
-        Bringing <span class="highlight-yellow">urban health</span> to the table
+        Bringing <span class="highlight-yellow">public health</span> to the table
         at <span class="highlight-green">COP30</span>: A guide for
-        <span class="highlight-blue">public health</span> researchers and practitioners
+        <span class="highlight-blue">researchers</span> and practitioners
       </h1>
 
       <div class="subtitle-questions">
-        <p class="subtitle-italic">How do "COPs" work?</p>
         <p class="subtitle-italic">
-          What role does public health research play?
+          How does a Climate COP work?
         </p>
         <p class="subtitle-italic">
-          How can researchers translate health evidence to drive climate action?
+          What role does urban health research play in this space?
+        </p>
+        <p class="subtitle-italic">
+          How can researchers engage with the COP process?
         </p>
       </div>
     </div>
@@ -115,21 +117,22 @@
   }
 
   .highlight-yellow {
-    background-color: rgba(244, 214, 116, 0.6);
+    background-color: #f7db78;
     padding: 0em 0em 0em 0em;
     border-radius: 2px;
     color: #1a365d;
+    z-index: 444;
   }
 
   .highlight-green {
-    background-color: rgba(111, 209, 166, 0.6);
+    background-color: #6ecea5;
     padding: 0em 0em 0em 0em;
     border-radius: 2px;
     color: #1a365d;
   }
 
   .highlight-blue {
-    background-color: rgb(116, 161, 210);
+    background-color: #76a3d3;
     padding: 0em 0em 0em 0em;
     border-radius: 2px;
     color: #1a365d;
