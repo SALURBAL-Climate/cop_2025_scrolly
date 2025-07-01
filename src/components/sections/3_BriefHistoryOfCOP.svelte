@@ -1,44 +1,84 @@
 <script>
   import { brandColors } from '../../config.js';
-  import { TimelineClimateCOP } from '../scrolly/timeline_climate_cop/index.js';
+  // Brief History of Climate COPs Component
+  // Shows timeline with flags and key events
 </script>
 
-<section class="health-fit-section" style="--hex-blue: {brandColors.hex_blue}; --dark-text: {brandColors.dark_text}; --medium-text: {brandColors.medium_text}">
-  <div class="health-content">
+<section class="history-section" style="--hex-blue: {brandColors.hex_blue}; --dark-text: {brandColors.dark_text}; --medium-text: {brandColors.medium_text}">
+  <div class="history-content">
     <div class="section-header">
       <h1 class="section-title">A brief history of Climate COPs</h1>
     </div>
-      <div class="intro-text">
-      <p class="intro-paragraph">
-        Throughout the history of COPs, several landmark agreements have shaped global climate action and established frameworks for international cooperation on reducing greenhouse gas emissions.
-      </p>
-    </div>
-    
-    <!-- Timeline Component -->
+
+    <!-- Timeline Container -->
     <div class="timeline-container">
-      <TimelineClimateCOP />
+      <!-- Timeline Row 1 -->
+      <div class="timeline-row">
+        <div class="column-flag">
+          <div class="flag-container">
+            <img src="/img/cop30/japan_flag.png" alt="Japan Flag" class="flag-icon" />
+          </div>
+        </div>
+        <div class="column-details">
+          <div class="year-location">
+            <div class="timeline-year">1997 COP3</div>
+            <div class="timeline-location">KYOTO</div>
+          </div>
+        </div>
+        <div class="column-description">
+          <h3>Setting the stage for global climate action:</h3>
+          <p>The <strong>Kyoto Protocol</strong> was negotiated during COP3 and entered into force during COP11 in 2005, setting mitigation targets for reducing greenhouse gas (GHG) emissions and mandating regular progress reviews.</p>
+        </div>
+      </div>
+
+      <!-- Timeline Row 2 -->
+      <div class="timeline-row">
+        <div class="column-flag">
+          <div class="flag-container">
+            <img src="/img/cop30/france_flag.png" alt="France Flag" class="flag-icon" />
+          </div>
+        </div>
+        <div class="column-details">
+          <div class="year-location">
+            <div class="timeline-year">2015 COP21</div>
+            <div class="timeline-location">PARIS</div>
+          </div>
+        </div>
+        <div class="column-description">
+          <h3>Expanding global climate commitments:</h3>
+          <p>COP21 resulted in the landmark <strong>Paris Agreement</strong> (195 parties), which replaced the Kyoto Protocol and seeks to limit global warming to below 2 degrees Celsius.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-  .health-fit-section {
+  .history-section {
     width: 100%;
-    padding: 4rem 0;
     background: transparent;
+    display: flex;
+    flex-direction: column;
+    position: relative;
     margin: 2rem 0;
   }
 
-  .health-content {
-    max-width: 1000px;
+  .history-content {
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 0 2rem;
-    text-align: center;
+    padding: 0 4rem;
   }
 
   .section-header {
-    margin-bottom: 2rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem 2rem 1rem 2rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 3rem;
   }
+
   .section-title {
     font-size: 2.5rem;
     font-weight: 700;
@@ -47,58 +87,210 @@
     line-height: 1.2;
   }
 
-  .intro-text {
-    max-width: 800px;
-    margin: 0 auto;
-  }  .intro-paragraph {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    color: var(--medium-text);
-    margin: 0;
-    text-align: left;
+  .timeline-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
   }
 
-  .timeline-container {
-    margin-top: 3rem;
-    width: 100%;
+  .timeline-row {
+    display: grid;
+    grid-template-columns: 120px 200px 1fr;
+    gap: 2rem;
+    align-items: flex-start;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+  }
+
+  .column-flag {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .flag-container {
+    width: 80px;
+    height: 80px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 4px solid var(--hex-blue);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .flag-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .column-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .year-location {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .timeline-year {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--dark-text);
+    margin: 0;
+  }
+
+  .timeline-location {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--medium-text);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+  }
+
+  .column-description {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .column-description h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--hex-blue);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .column-description p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--dark-text);
+    margin: 0;
+  }
+
+  .column-description strong {
+    color: var(--hex-blue);
+    font-weight: 700;
   }
 
   /* Responsive design */
   @media (max-width: 768px) {
-    .health-fit-section {
-      padding: 3rem 0;
+    .history-content {
+      padding: 0 2rem;
     }
 
-    .health-content {
-      padding: 0 1.5rem;
+    .section-header {
+      padding: 1.5rem 1.5rem 1rem 1.5rem;
     }
 
     .section-title {
       font-size: 2rem;
     }
 
-    .intro-paragraph {
-      font-size: 1.1rem;
-      line-height: 1.5;
+    .timeline-row {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      text-align: center;
+      padding: 1.5rem;
+    }
+
+    .column-flag {
+      justify-content: center;
+    }
+
+    .flag-container {
+      width: 70px;
+      height: 70px;
+    }
+
+    .flag-icon {
+      width: 50px;
+      height: 50px;
+    }
+
+    .column-details {
+      align-items: center;
+    }
+
+    .column-description h3 {
+      font-size: 1.2rem;
+    }
+
+    .column-description p {
+      font-size: 0.95rem;
     }
   }
 
   @media (max-width: 480px) {
-    .health-fit-section {
-      padding: 2rem 0;
-    }
-
-    .health-content {
+    .history-content {
       padding: 0 1rem;
     }
 
-    .section-title {
-      font-size: 1.8rem;
+    .section-header {
+      padding: 1rem 1rem 0.5rem 1rem;
     }
 
-    .intro-paragraph {
+    .section-title {
+      font-size: 1.75rem;
+    }
+
+    .timeline-row {
+      padding: 1rem;
+      gap: 1rem;
+    }
+
+    .flag-container {
+      width: 60px;
+      height: 60px;
+    }
+
+    .flag-icon {
+      width: 40px;
+      height: 40px;
+    }
+
+    .timeline-year {
+      font-size: 1.1rem;
+    }
+
+    .timeline-location {
       font-size: 1rem;
-      line-height: 1.5;
+    }
+
+    .column-description h3 {
+      font-size: 1.1rem;
+    }
+
+    .column-description p {
+      font-size: 0.9rem;
+    }
+  }
+
+  /* Very narrow screens (Galaxy S22, etc.) */
+  @media (max-width: 380px) {
+    .history-content {
+      padding: 0 0.5rem;
+    }
+
+    .section-header {
+      padding: 0.75rem 1rem 0.5rem 1rem;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      word-wrap: break-word;
+      hyphens: auto;
     }
   }
 </style>
