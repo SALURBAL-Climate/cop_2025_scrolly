@@ -43,21 +43,16 @@
       <!-- Zone Descriptions -->
       <div class="zones-descriptions">
         <div class="zone-card blue-zone">
-          <h3 class="zone-title blue-title">"Blue zone activities"</h3>
+          <h3 class="zone-title blue-title">"Blue zone" activities:</h3>
           <p class="zone-description">
-            Access to the Blue Zone is restricted to accredited delegates only.
-            Formal negotiations, country pavilions, and official side events
-            take place here and are managed by the UNFCCC.
+            Access to the Blue Zone is restricted to accredited delegates only. Formal negotiations, country pavilions, and official side events take place here and are managed by the UNFCCC.
           </p>
         </div>
 
         <div class="zone-card green-zone">
-          <h3 class="zone-title green-title">"Green zone activities"</h3>
+          <h3 class="zone-title green-title">Green zone" activities:</h3>
           <p class="zone-description">
-            The Green Zone is open to the public, managed by the host country,
-            and includes additional events, workshops, and exhibitions,
-            including activities organized by private sector and NGO
-            representatives.
+            Open to the public, managed by the host country, and includes additional events, workshops, and exhibitions hosted by private sector and NGO representatives.
           </p>
         </div>
       </div>
