@@ -15,7 +15,7 @@
   import Section_2_WhatHappensAtCOP from './components/sections/2_WhatHappensAtCOP.svelte';
   import Section_3_WhereDoesHealthFitIn from './components/sections/3_WhereDoesHealthFitIn.svelte';
   import Section_4_HowAreGovernmentsCommitting from './components/sections/4_HowAreGovernmentsCommitting.svelte';
-  import Section_5_NotableAgreements from './components/sections/5_NotableAgreements.svelte';
+  import Section_3_BriefHistoryOfCOP from './components/sections/3_BriefHistoryOfCOP.svelte';
 </script>
 
 <Header filled={true} center={false} />
@@ -23,7 +23,7 @@
   <HeroSection />
   <Section_1_WhatAreCOPs />
   <Section_2_WhatHappensAtCOP />
-  <Section_5_NotableAgreements />
+  <Section_3_BriefHistoryOfCOP />
   <Section_3_WhereDoesHealthFitIn />
   <Section_4_HowAreGovernmentsCommitting />
   <Footer />
