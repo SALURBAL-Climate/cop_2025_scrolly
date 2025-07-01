@@ -388,6 +388,8 @@
     color: #374151;
     margin: 0;
     width: 100%; /* Full width text */
+    text-align: justify; /* Justify text for better alignment */
+
   }
 
   .story-paragraph a {

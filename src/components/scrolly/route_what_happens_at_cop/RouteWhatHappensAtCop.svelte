@@ -137,7 +137,7 @@
                     />
                   </div>
                 </div>
-                <p class="story-paragraph">{step.description}</p>
+                <p class="story-paragraph">{@html step.description}</p>
               </div>
             </section>
           {/each}
@@ -373,6 +373,7 @@
     line-height: 1.7; /* Improved readability */
     color: #374151;
     margin: 0;
+    text-align: justify; /* Justify text for better alignment */
   } /* Responsive design - Mobile and Tablet (consolidated) */
   @media (max-width: 900px) {
     .continuous-route-container {
