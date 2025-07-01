@@ -18,12 +18,12 @@
           <div class="flag-container">
             <img src="/img/cop30/japan_flag.png" alt="Japan Flag" class="flag-icon" />
           </div>
-          <div class="timeline-location">KYOTO</div>
         </div>
         <div class="column-details">
           <div class="year-location">
             <div class="timeline-year">1997 COP3</div>
           </div>
+          <div class="timeline-location">KYOTO</div>
         </div>
         <div class="column-description">
           <h3>Setting the stage for global climate action:</h3>
@@ -37,12 +37,12 @@
           <div class="flag-container">
             <img src="/img/cop30/france_flag.png" alt="France Flag" class="flag-icon" />
           </div>
-          <div class="timeline-location">PARIS</div>
         </div>
         <div class="column-details">
           <div class="year-location">
             <div class="timeline-year">2015 COP21</div>
           </div>
+          <div class="timeline-location">PARIS</div>
         </div>
         <div class="column-description">
           <h3>Expanding global climate commitments:</h3>
@@ -131,6 +131,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    align-items: center;
   }
 
   .year-location {
