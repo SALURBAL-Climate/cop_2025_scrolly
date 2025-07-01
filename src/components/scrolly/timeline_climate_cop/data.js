@@ -8,7 +8,7 @@ export const timelineData = [{
   flag_image: "./img/cop30/timeline_1.png",
   flagAlt: "Fiji flag with blue background and coat of arms, representing COP23 hosted by Fiji",
   location: "FIJI",
-  description: "At the 2017 COP23 hosted by Fiji and held in Germany, WHO launched a <a href=\"https://www.who.int/publications/i/item/9789290618669\" target=\"_blank\">Special Initiative on Climate Change and Health in Small Island Developing States (SIDS)</a>."
+  description: "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD."
 }, {
   year: "2021",
   step_name: "COP26",
