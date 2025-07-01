@@ -9,9 +9,16 @@
       <h1 class="section-title">Where does health fit in?</h1>
     </div>
       <div class="intro-text">
-      <p class="intro-paragraph">
-        Since 2014, the World Health Organization (WHO) has hosted regular Global Conferences on Health and Climate Change. Historically, these events have taken place on the sidelines of the UNFCCC COPs. In recent years, the connections between climate change and health have received increased attention within the context of international negotiations during annual COPs.
-      </p>
+      <div class="intro-content">
+        <!-- <div class="icon-container"> -->
+          <img src="/img/cop30/icon_microscope.png" alt="Microscope Icon" class="intro-icon" />
+        <!-- </div> -->
+        <div class="text-content">
+          <p class="intro-paragraph">
+            Since 2014, the <strong>World Health Organization (WHO)</strong> has hosted regular Global Conferences on Health and Climate Change. Historically, <strong>these events have taken place on the sidelines of the UNFCCC COPs</strong>. In recent years, the connections between climate change and health have received increased attention.
+          </p>
+        </div>
+      </div>
     </div>
     
     <!-- Timeline Component -->
@@ -48,14 +55,45 @@
   }
 
   .intro-text {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
-  }  .intro-paragraph {
+  }
+
+  .intro-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    text-align: left;
+  }
+
+  .icon-container {
+    flex-shrink: 0;
+  }
+
+  .intro-icon {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    /* background: var(--hex-blue); */
+    /* padding: 20px; */
+    object-fit: contain;
+  }
+
+  .text-content {
+    flex: 1;
+  }
+
+  .intro-paragraph {
     font-size: 1.2rem;
     line-height: 1.6;
-    color: var(--medium-text);
+    color: var(--dark-text);
     margin: 0;
     text-align: left;
+  }
+
+  .intro-paragraph strong {
+    color: var(--hex-blue);
+    font-weight: 700;
   }
 
   .timeline-container {
@@ -77,6 +115,18 @@
       font-size: 2rem;
     }
 
+    .intro-content {
+      flex-direction: column;
+      text-align: center;
+      gap: 1.5rem;
+    }
+
+    .intro-icon {
+      width: 100px;
+      height: 100px;
+      padding: 15px;
+    }
+
     .intro-paragraph {
       font-size: 1.1rem;
       line-height: 1.5;
@@ -94,6 +144,12 @@
 
     .section-title {
       font-size: 1.8rem;
+    }
+
+    .intro-icon {
+      width: 80px;
+      height: 80px;
+      padding: 12px;
     }
 
     .intro-paragraph {
