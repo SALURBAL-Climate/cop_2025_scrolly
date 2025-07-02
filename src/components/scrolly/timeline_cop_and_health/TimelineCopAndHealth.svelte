@@ -17,7 +17,7 @@
   $: isMobile = windowWidth <= 900;
   $: containerHeight = isMobile
     ? 'auto' // Mobile: Let content determine height
-    : timelineData.length * 100 + 60; // Desktop: Fixed scrolly height
+    : timelineData.length * 100 + 100; // Desktop: Fixed scrolly height
 
   // Track scroll within the component bounds
   function updateProgress() {
@@ -106,8 +106,8 @@
                     i / (timelineData.length - 1)
                       ? 'visited'
                       : ''} {currentStep === i ? 'current' : ''}"
-                    style="top: calc({8 +
-                      (i / (timelineData.length - 1)) * 84}% - 37.5px)"
+                    style="top: calc({5 +
+                      (i / (timelineData.length - 1)) * 84}% )"
                   >
                     <div class="dot-flag">
                       <img
