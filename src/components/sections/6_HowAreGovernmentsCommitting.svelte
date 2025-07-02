@@ -24,6 +24,7 @@
         every five years
       </p>
     </div>
+
     <!-- Stats Section -->
     <div class="stats-row">
       <!-- 90% Stat -->
@@ -34,7 +35,8 @@
           class="stat-image"
         />
         <p class="stat-label">
-          almost all (90%) NDCs include health considerations
+          In 2023, almost all (90%) NDCs to the Paris Agreement include health
+          considerations.
         </p>
       </div>
       <!-- Pie Chart Stat -->
@@ -45,7 +47,7 @@
           class="stat-image"
         />
         <p class="stat-label">
-          about a third identify health co-benefits of mitigation
+          About a third identify the health co-benefits of mitigation action.
         </p>
       </div>
       <!-- Fraction Stat -->
@@ -56,14 +58,17 @@
           class="stat-image"
         />
         <p class="stat-label">
-          only one in ten quantify and monitor these benefits<sup>1</sup>
+          Only about one in ten quantify and/or monitor these benefits. (<a href="https://www.who.int/publications/i/item/9789240074729" target="_blank" rel="noopener noreferrer" class="text-link">WHO
+            2023 Review of Health in NDCs</a>)
         </p>
       </div>
     </div>
     <div class="stats-caption"></div>
-
-    <div class="stats-credit">
-      <p>1. WHO review of health in NDCs</p>
+    <br />
+    <div class="intro-text">
+      <p class="intro-paragraph">
+        The Global Climate and Health Alliance's <a href="https://climateandhealthalliance.org/resource/healthy-ndcs-3-0-embedding-health-in-national-climate-plans-for-2035/" target="_blank" rel="noopener noreferrer" class="text-link">Healthy NDCs Scorecards</a> ranks countries' Nationally Determined Contributions based on how well they address the health threats of climate change and minimize future harm.
+      </p>
     </div>
   </div>
 </section>
@@ -108,6 +113,17 @@
     line-height: 1.6;
     color: var(--medium-text);
     margin: 0;
+  }
+
+  .text-link {
+    color: var(--hex-blue);
+    text-decoration: underline;
+    font-weight: 600;
+    transition: opacity 0.2s ease;
+  }
+
+  .text-link:hover {
+    opacity: 0.8;
   }
   .stats-row {
     display: flex;
