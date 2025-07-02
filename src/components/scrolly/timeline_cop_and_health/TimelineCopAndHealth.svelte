@@ -17,7 +17,7 @@
   $: isMobile = windowWidth <= 900;
   $: containerHeight = isMobile
     ? 'auto' // Mobile: Let content determine height
-    : timelineData.length * 100 + 100; // Desktop: Fixed scrolly height
+    : timelineData.length * 100 + 120; // Desktop: Fixed scrolly height
 
   // Track scroll within the component bounds
   function updateProgress() {
@@ -129,7 +129,7 @@
           {#each timelineData as step, i}
             <section class="story-section">
               <!-- Content area -->
-              <div class="content-area">
+              <div class="content-area {currentStep === i ? 'current' : ''}">
                 <div class="step-header">
                   <div class="title-location-group">
                     <h3 class="step-title">
@@ -140,7 +140,7 @@
                       {/if}
                     </h3>
                     {#if step.location}
-                      <div class="location-tag">{step.location}</div>
+                      <div class="location-tag">{step.year} {step.location}</div>
                     {/if}
                   </div>
                   <div class="step-icon-mobile">
@@ -266,6 +266,7 @@
   }
   .timeline-dot.visited .dot-flag {
     border-color: #2f7ed3;
+    border-width: 1px;
     background: #ffffff;
     transform: translateX(-50%) scale(1.1);
     box-shadow: 0 4px 12px rgba(47, 126, 211, 0.3);
@@ -350,6 +351,7 @@
     justify-content: flex-start;
     padding: 2rem 0;
   }
+  
   .content-area {
     width: 100%;
     max-width: none; /* Remove max-width constraint */
@@ -359,7 +361,15 @@
     padding: 2.5rem;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    overflow: hidden;
   }
+
+  .content-area.current {
+    border: 5px solid #2f7ed3;
+    box-shadow: 0 12px 30px rgba(145, 147, 150, 0.15);
+  }
+  
   .step-header {
     margin-bottom: 0.25rem;
     display: flex;
@@ -399,8 +409,8 @@
 
   .location-tag {
     display: inline-block;
-    background: #10b981;
-    color: white;
+    /* background: #; */
+    color: #2f7ed3;
     padding: 0.4rem 1rem;
     border-radius: 20px;
     font-size: 0.9rem;
