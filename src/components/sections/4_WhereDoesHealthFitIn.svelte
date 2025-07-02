@@ -32,8 +32,8 @@
           </p>
         </div>
       </div>
-    </div>
-
+    </div> 
+   
     <!-- Timeline Component -->
     <div class="timeline-container">
       <TimelineCopAndHealth />

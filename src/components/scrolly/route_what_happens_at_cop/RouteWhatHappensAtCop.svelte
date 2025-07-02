@@ -153,7 +153,7 @@
     width: 100%;
     overflow: hidden;
     z-index: 1;
-    /* border: 1px solid green; */
+    border: 1px solid green;
   }
   .continuous-route-container {
     position: relative;

@@ -79,7 +79,7 @@
   on:scroll={updateProgress}
 />
 
-<div class="timeline-wrapper">
+<div class="timeline-wrapper" >
   <div
     class="continuous-timeline-container"
     bind:this={containerElement}
@@ -159,7 +159,9 @@
     width: 100%;
     overflow: hidden;
     z-index: 1;
+    border: 3px solid red;
   }
+
   .continuous-timeline-container {
     position: relative;
     width: 100%;
@@ -388,7 +390,7 @@
     color: #374151;
     margin: 0;
     width: 100%; /* Full width text */
-    text-align: justify; /* Justify text for better alignment */
+    text-align: left; /* Justify text for better alignment */
 
   }
 
