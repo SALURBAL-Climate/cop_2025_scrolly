@@ -159,7 +159,7 @@
     width: 100%;
     overflow: hidden;
     z-index: 1;
-    border: 3px solid red;
+    /* border: 3px solid red; */
   }
 
   .continuous-timeline-container {
