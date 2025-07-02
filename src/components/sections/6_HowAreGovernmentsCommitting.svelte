@@ -4,33 +4,63 @@
   // Shows statistics about NDCs and government commitments
 </script>
 
-<section class="governments-section" style="--hex-blue: {brandColors.hex_blue}; --dark-text: {brandColors.dark_text}; --medium-text: {brandColors.medium_text}">
+<section
+  class="governments-section"
+  style="--hex-blue: {brandColors.hex_blue}; --dark-text: {brandColors.dark_text}; --medium-text: {brandColors.medium_text}"
+>
   <div class="governments-content">
     <div class="section-header">
-      <h1 class="section-title">How are national and local governments committing to climate and health?</h1>
+      <h1 class="section-title">
+        How are national and local governments committing to climate and health?
+      </h1>
     </div>
-    
+
     <div class="intro-text">
       <p class="intro-paragraph">
-        Nationally Determined Contributions (NDCs) are national climate action plans that outline each country's commitments to reducing greenhouse gas emissions and adapting to the impacts of climate change. As part of the 2015 Paris Agreement, countries committed to submitting an updated NDC every five years.
+        Nationally Determined Contributions (NDCs) are national climate action
+        plans that outline each country’s commitments to reducing greenhouse gas
+        emissions and adapting to the impacts of climate change. As part of the
+        2015 Paris Agreement, countries committed to submitting an updated NDC
+        every five years
       </p>
-    </div>    <!-- Stats Section -->
-    <div class="stats-row">      <!-- 90% Stat -->
+    </div>
+    <!-- Stats Section -->
+    <div class="stats-row">
+      <!-- 90% Stat -->
       <div class="stat-item">
-        <img src="./img/cop30/stats_pct.png" alt="Statistical visualization showing 90 percent of NDCs include health considerations" class="stat-image" />
-        <p class="stat-label">almost all (90%) NDCs include health considerations</p>
-      </div>      <!-- Pie Chart Stat -->
+        <img
+          src="./img/cop30/stats_pct.png"
+          alt="Statistical visualization showing 90 percent of NDCs include health considerations"
+          class="stat-image"
+        />
+        <p class="stat-label">
+          almost all (90%) NDCs include health considerations
+        </p>
+      </div>
+      <!-- Pie Chart Stat -->
       <div class="stat-item">
-        <img src="./img/cop30/stats_pie.png" alt="Pie chart showing about one third of NDCs identify health co-benefits of mitigation" class="stat-image" />
-        <p class="stat-label">about a third identify health co-benefits of mitigation</p>
-      </div>      <!-- Fraction Stat -->
+        <img
+          src="./img/cop30/stats_pie.png"
+          alt="Pie chart showing about one third of NDCs identify health co-benefits of mitigation"
+          class="stat-image"
+        />
+        <p class="stat-label">
+          about a third identify health co-benefits of mitigation
+        </p>
+      </div>
+      <!-- Fraction Stat -->
       <div class="stat-item">
-        <img src="./img/cop30/stats_fraction.png" alt="Fraction diagram showing only one in ten NDCs quantify and monitor health benefits" class="stat-image" />
-        <p class="stat-label">only one in ten quantify and monitor these benefits<sup>1</sup></p>
+        <img
+          src="./img/cop30/stats_fraction.png"
+          alt="Fraction diagram showing only one in ten NDCs quantify and monitor health benefits"
+          class="stat-image"
+        />
+        <p class="stat-label">
+          only one in ten quantify and monitor these benefits<sup>1</sup>
+        </p>
       </div>
     </div>
-      <div class="stats-caption"> 
-    </div>
+    <div class="stats-caption"></div>
 
     <div class="stats-credit">
       <p>1. WHO review of health in NDCs</p>
@@ -78,7 +108,8 @@
     line-height: 1.6;
     color: var(--medium-text);
     margin: 0;
-  }  .stats-row {
+  }
+  .stats-row {
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -134,7 +165,7 @@
     color: var(--medium-text);
     margin: 0;
     font-weight: 400;
-  }  /* Responsive design */
+  } /* Responsive design */
   @media (max-width: 768px) {
     .governments-section {
       padding: 3rem 0;
