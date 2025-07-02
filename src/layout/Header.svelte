@@ -36,6 +36,12 @@
     <a href="https://www.linkedin.com/company/salurbal-project" aria-label="Connect with SALURBAL Project on LinkedIn" target="_blank">
       <Icon icon="mdi:linkedin" />
     </a>
+    <div class="pdf-container">
+      <a href="https://drive.google.com/file/d/1768UAX-wSDKQwYeKp2PFfA3jvp2fBgpk/view" target="_blank" aria-label="View PDF guide" class="pdf-link">
+        <Icon icon="material-icon-theme:pdf" />
+        <span class="pdf-text">PDF</span>
+      </a>
+    </div>
   </div>
 </nav>
 
@@ -105,6 +111,10 @@
     .title-mobile {
       display: inline;
     }
+    
+    .pdf-text {
+      display: none;
+    }
   }
 
   .social-section {
@@ -117,6 +127,25 @@
     padding: 0.25rem;
     display: flex;
     align-items: center;
+  }
+
+  .pdf-container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    border-left: 1px solid #cdcdcd7d;
+    padding-left: 0.5rem;
+  }
+
+  .pdf-link {
+    gap: 0.01rem;
+    text-decoration: none;
+  }
+
+  .pdf-text {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #333;
   }
  
 </style>
