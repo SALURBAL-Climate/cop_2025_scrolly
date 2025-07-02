@@ -54,5 +54,40 @@
     margin: 0;
   }
 
- 
+  /* Mobile responsive design */
+  @media (max-width: 768px) {
+    .action-item {
+      flex-direction: column !important;
+      text-align: center;
+      gap: 1.5rem;
+    }
+
+    .action-text {
+      text-align: center !important;
+    }
+
+    .action-icon {
+      width: 150px;
+      height: 150px;
+    }
+
+    .action-description {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .action-item {
+      gap: 1rem;
+    }
+
+    .action-icon {
+      width: 120px;
+      height: 120px;
+    }
+
+    .action-description {
+      font-size: 0.95rem;
+    }
+  }
 </style>
