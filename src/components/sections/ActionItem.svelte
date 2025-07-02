@@ -6,12 +6,10 @@
 </script>
 
 <div class="action-item {alignment}">
-  <div class="action-icon">
-    <img src={iconSrc} alt={iconAlt} class="icon-image" />
-  </div>
+  <img src={iconSrc} alt={iconAlt} class="action-icon" />
   <div class="action-text">
     <p class="action-description">
-      {description}
+      {@html description}
     </p>
   </div>
 </div>
@@ -35,22 +33,9 @@
 
   .action-icon {
     flex-shrink: 0;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: var(--hex-blue);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-
-  .icon-image {
-    width: 80px;
-    height: 80px;
+    width: 220px;
+    height: 220px;
     object-fit: contain;
-    filter: brightness(0) invert(1); /* Make icons white */
   }
 
   .action-text {
@@ -69,48 +54,5 @@
     margin: 0;
   }
 
-  /* Responsive design */
-  @media (max-width: 768px) {
-    .action-item {
-      flex-direction: column !important;
-      text-align: center;
-      gap: 1.5rem;
-    }
-
-    .action-text {
-      text-align: center !important;
-    }
-
-    .action-icon {
-      width: 100px;
-      height: 100px;
-      padding: 15px;
-    }
-
-    .icon-image {
-      width: 70px;
-      height: 70px;
-    }
-
-    .action-description {
-      font-size: 1rem;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .action-icon {
-      width: 80px;
-      height: 80px;
-      padding: 12px;
-    }
-
-    .icon-image {
-      width: 56px;
-      height: 56px;
-    }
-
-    .action-description {
-      font-size: 0.95rem;
-    }
-  }
+ 
 </style>
