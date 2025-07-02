@@ -13,7 +13,7 @@ export const timelineData = [{
 }, {
   year: "2017",
   step_name: "COP23",
-  step_title: "2017: COP23",
+  step_title: "COP23",
   step_title_mobile: "2017 COP23",
   flag_image: "./img/cop30/timeline_1.png",
   flagAlt: "Fiji flag with blue background and coat of arms, representing COP23 hosted by Fiji",
@@ -22,7 +22,7 @@ export const timelineData = [{
 }, {
   year: "2021",
   step_name: "COP26",
-  step_title: "2021: COP26",
+  step_title: "COP26",
   step_title_mobile: "2021 COP26",
   flag_image: "./img/cop30/timeline_2.png",
   flagAlt: "United Kingdom flag with red, white and blue cross pattern, representing COP26 hosted in Glasgow, Scotland",
@@ -31,7 +31,7 @@ export const timelineData = [{
 }, {
   year: "2023",
   step_name: "COP28",
-  step_title: "2023: COP28",
+  step_title: "COP28",
   step_title_mobile: "2023 COP28",
   flag_image: "./img/cop30/timeline_3.png",
   flagAlt: "United Arab Emirates flag with red, green, white and black horizontal stripes, representing COP28 hosted in Dubai",
@@ -40,7 +40,7 @@ export const timelineData = [{
 }, {
   year: "2024",
   step_name: "COP29",
-  step_title: "2024: COP29",
+  step_title: "COP29",
   step_title_mobile: "2024 COP29",
   flag_image: "./img/cop30/timeline_4.png",
   flagAlt: "Azerbaijan flag with blue, red and green horizontal stripes and white crescent moon and star, representing COP29 hosted in Baku",
@@ -50,7 +50,7 @@ export const timelineData = [{
 {
   year: "2025",
   step_name: "COP30",
-  step_title: "2025: COP30",
+  step_title: "COP30",
   step_title_mobile: "2025 COP30",
   flag_image: "./img/cop30/timeline_5.png",
   flagAlt: "Brazil flag with green background, yellow diamond, and blue circle with stars, representing COP30 hosted in Belém, Brazil",

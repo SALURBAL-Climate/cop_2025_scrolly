@@ -132,7 +132,13 @@
               <div class="content-area">
                 <div class="step-header">
                   <div class="title-location-group">
-                    <h3 class="step-title">{step.step_title}</h3>
+                    <h3 class="step-title">
+                      {#if isMobile}
+                        {step.step_title_mobile}
+                      {:else}
+                        {step.step_title}
+                      {/if}
+                    </h3>
                     <div class="location-tag">{step.location}</div>
                   </div>
                   <div class="step-icon-mobile">
@@ -241,8 +247,8 @@
   }
 
   .dot-flag {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background: #ffffff;
     border: 3px solid #cbd5e1;
@@ -265,7 +271,7 @@
 
   /* Current step effect - make it bigger and more prominent */
   .timeline-dot.current .dot-flag {
-    transform: translateX(-50%) scale(1.3);
+    transform: translateX(-50%) scale(1.6);
     border-color: #2f7ed3;
     background: #ffffff;
     box-shadow: 0 6px 20px rgba(47, 126, 211, 0.4);
@@ -283,8 +289,8 @@
   }
 
   .flag-icon {
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
     object-fit: cover;
     border-radius: 50%;
     opacity: 0.7;
@@ -304,10 +310,26 @@
   }
   .dot-text {
     margin-left: 2rem;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #374151;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #9ca3af;
     white-space: nowrap;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+  }
+
+  .timeline-dot.visited .dot-text {
+    color: #6b7280;
+    opacity: 0.8;
+    font-weight: 600;
+  }
+
+  .timeline-dot.current .dot-text {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2f7ed3;
+    opacity: 1;
+    transform: scale(1.1);
   }
   .story-content {
     position: relative;
