@@ -20,7 +20,7 @@ export const timelineData = [{
   location: "PARIS",
   description: "Expanding global climate commitments: COP21 resulted in the landmark <a href=\"https://unfccc.int/process-and-meetings/the-paris-agreement/the-paris-agreement\" target=\"_blank\">Paris Agreement</a> (195 parties), which replaced the Kyoto Protocol and seeks to limit global warming to below 2 degrees Celsius."
 }, {
-  year: "2015 ",
+  year: "2015",
   step_name: "2030 Agenda for Sustainable Development",
   step_title: "UN Sustainable Development Agenda",
   step_title_mobile: "2015: UN 2030 Agenda for Sustainable Development Agenda",
@@ -28,25 +28,25 @@ export const timelineData = [{
   flagAlt: "tbd",
   location: "USA",
   description: "The <a href=\"https://sdgs.un.org/\" target=\"_blank\">2030 Agenda for Sustainable Development</a> was adopted by UN Member States in 2015. Agenda 2030 established the UN's 17 Sustainable Development Goals (SDGs) for achieving peace and prosperity for people and the planet. Many of the SDGs address the shared challenges connecting climate change and health across the globe, including:<br><ul><li>SDG 3: Good health and well-being</li><li>SDG 11: Sustainable cities and communities</li><li>SDG 13: Climate action</li></ul>"
-  }, {
-    year: "2017",
-    step_name: "COP23",
-    step_title: "COP23",
-    step_title_mobile: "2017 COP23",
-    flag_image: "./img/cop30/timeline_1.png",
-    flagAlt: "Fiji flag with blue background and coat of arms, representing COP23 hosted by Fiji",
-    location: "FIJI",
-    description: "At the 2017 COP23 hosted by Fiji and held in Germany, WHO launched a <a href=\"https://www.who.int/publications/i/item/9789290618669\" target=\"_blank\">Special Initiative on Climate Change and Health in Small Island Developing States (SIDS)</a>."
-  }, {
-    year: "2021",
-    step_name: "COP26",
-    step_title: "COP26",
-    step_title_mobile: "2021 COP26",
-    flag_image: "./img/cop30/timeline_2.png",
-    flagAlt: "United Kingdom flag with red, white and blue cross pattern, representing COP26 hosted in Glasgow, Scotland",
-    location: "GLASGOW",
-    description: "The '<a href=\"https://www.who.int/publications/i/item/9789240036727\" target=\"_blank\">COP26 Special Report on Climate Change and Health</a>' was developed in the lead up to the 2021 COP26 in Glasgow, where WHO also hosted the first Health Pavilion. "
-  },{
+}, {
+  year: "2017",
+  step_name: "COP23",
+  step_title: "COP23",
+  step_title_mobile: "2017 COP23",
+  flag_image: "./img/cop30/timeline_1.png",
+  flagAlt: "Fiji flag with blue background and coat of arms, representing COP23 hosted by Fiji",
+  location: "FIJI",
+  description: "At the 2017 COP23 hosted by Fiji and held in Germany, WHO launched a <a href=\"https://www.who.int/publications/i/item/9789290618669\" target=\"_blank\">Special Initiative on Climate Change and Health in Small Island Developing States (SIDS)</a>."
+}, {
+  year: "2021",
+  step_name: "COP26",
+  step_title: "COP26",
+  step_title_mobile: "2021 COP26",
+  flag_image: "./img/cop30/timeline_2.png",
+  flagAlt: "United Kingdom flag with red, white and blue cross pattern, representing COP26 hosted in Glasgow, Scotland",
+  location: "GLASGOW",
+  description: "The '<a href=\"https://www.who.int/publications/i/item/9789240036727\" target=\"_blank\">COP26 Special Report on Climate Change and Health</a>' was developed in the lead up to the 2021 COP26 in Glasgow, where WHO also hosted the first Health Pavilion. "
+}, {
   year: "2021",
   step_name: "COP26",
   step_title: "COP26",

@@ -79,7 +79,7 @@
   on:scroll={updateProgress}
 />
 
-<div class="timeline-wrapper" >
+<div class="timeline-wrapper">
   <div
     class="continuous-timeline-container"
     bind:this={containerElement}
@@ -414,7 +414,6 @@
     margin: 0;
     width: 100%; /* Full width text */
     text-align: left; /* Justify text for better alignment */
-
   }
 
   .story-paragraph a {
