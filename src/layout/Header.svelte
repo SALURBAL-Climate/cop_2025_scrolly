@@ -16,8 +16,8 @@
       />
     </a><!-- <div class="separator">|</div> -->
     <div class="title-text">
-      <span class="title-full">Bringing urban health to the table at COP30</span>
-      <span class="title-mobile">Urban Health at COP30</span>
+      <span class="title-full">Bringing health to the table at COP30</span>
+      <span class="title-mobile">Health at COP30</span>
     </div>
   </div>
   <div class="social-section">
