@@ -3,24 +3,37 @@
   import { TimelineCopAndHealth } from '../scrolly/timeline_cop_and_health/index.js';
 </script>
 
-<section class="health-fit-section" style="--hex-blue: {brandColors.hex_blue}; --dark-text: {brandColors.dark_text}; --medium-text: {brandColors.medium_text}">
+<section
+  class="health-fit-section"
+  style="--hex-blue: {brandColors.hex_blue}; --dark-text: {brandColors.dark_text}; --medium-text: {brandColors.medium_text}"
+>
   <div class="health-content">
     <div class="section-header">
       <h1 class="section-title">Where does health fit in?</h1>
     </div>
-      <div class="intro-text">
+    <div class="intro-text">
       <div class="intro-content">
         <!-- <div class="icon-container"> -->
-          <img src="/img/cop30/icon_microscope.png" alt="Microscope Icon" class="intro-icon" />
+        <img
+          src="/img/cop30/icon_microscope.png"
+          alt="Microscope Icon"
+          class="intro-icon"
+        />
         <!-- </div> -->
         <div class="text-content">
           <p class="intro-paragraph">
-            Since 2014, the <strong>World Health Organization (WHO)</strong> has hosted regular Global Conferences on Health and Climate Change. Historically, <strong>these events have taken place on the sidelines of the UNFCCC COPs</strong>. In recent years, the connections between climate change and health have received increased attention.
+            Since 2014, the <strong>World Health Organization (WHO)</strong> has
+            hosted regular Global Conferences on Health and Climate Change.
+            Historically,
+            <strong
+              >these events have taken place on the sidelines of the UNFCCC COPs</strong
+            >. In recent years, the connections between climate change and
+            health have received increased attention.
           </p>
         </div>
       </div>
     </div>
-    
+
     <!-- Timeline Component -->
     <div class="timeline-container">
       <TimelineCopAndHealth />
