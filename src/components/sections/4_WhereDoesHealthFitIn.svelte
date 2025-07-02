@@ -15,7 +15,7 @@
   <div class="intro-text">
     <div class="intro-content">
       <img
-        src="/img/cop30/icon_microscope.png"
+        src="./img/cop30/icon_microscope.png"
         alt="Microscope Icon"
         class="intro-icon"
       />

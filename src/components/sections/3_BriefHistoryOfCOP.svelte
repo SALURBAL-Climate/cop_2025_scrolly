@@ -16,7 +16,7 @@
       <div class="timeline-row">
         <div class="column-flag">
           <div class="flag-container">
-            <img src="/img/cop30/japan_flag.png" alt="Japan Flag" class="flag-icon" />
+            <img src="./img/cop30/japan_flag.png" alt="Japan Flag" class="flag-icon" />
           </div>
         </div>
         <div class="column-details">
@@ -35,7 +35,7 @@
       <div class="timeline-row">
         <div class="column-flag">
           <div class="flag-container">
-            <img src="/img/cop30/france_flag.png" alt="France Flag" class="flag-icon" />
+            <img src="./img/cop30/france_flag.png" alt="France Flag" class="flag-icon" />
           </div>
         </div>
         <div class="column-details">
