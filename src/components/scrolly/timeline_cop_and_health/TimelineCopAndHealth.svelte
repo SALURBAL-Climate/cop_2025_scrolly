@@ -139,7 +139,9 @@
                         {step.step_title}
                       {/if}
                     </h3>
-                    <!-- <div class="location-tag">{step.location}</div> -->
+                    {#if step.location}
+                      <div class="location-tag">{step.location}</div>
+                    {/if}
                   </div>
                   <div class="step-icon-mobile">
                     <img
@@ -304,8 +306,8 @@
     filter: grayscale(100%) brightness(0.7); /* Keep grey filter for visited steps, slightly brighter */
   }
   .timeline-dot.current .flag-icon {
-    width: 65px;
-    height: 65px;
+    width: 40px;
+    height: 40px;
     opacity: 1;
     filter: grayscale(0%) brightness(1.2) contrast(1.1); /* Only current step gets full color */
   }

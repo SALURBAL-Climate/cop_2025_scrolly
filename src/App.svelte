@@ -24,7 +24,7 @@
   <HeroSection />
   <Section_1_WhatAreCOPs />
   <Section_2_WhatHappensAtCOP />
-  <Section_3_BriefHistoryOfCOP />
+  <!-- <Section_3_BriefHistoryOfCOP /> -->
   <Section_4_WhereDoesHealthFitIn />
   <Section_5_CallToAction />
   <Section_6_HowAreGovernmentsCommitting />

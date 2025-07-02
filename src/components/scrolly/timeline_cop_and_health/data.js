@@ -1,5 +1,5 @@
 // Data for "Timeline of COP and Health" component
-// Shows the evolution of health integration at COP conferences
+ 
 
 export const timelineData = [{
   year: "1997",
@@ -20,11 +20,20 @@ export const timelineData = [{
   location: "PARIS",
   description: "Expanding global climate commitments: COP21 resulted in the landmark <a href=\"https://unfccc.int/process-and-meetings/the-paris-agreement/the-paris-agreement\" target=\"_blank\">Paris Agreement</a> (195 parties), which replaced the Kyoto Protocol and seeks to limit global warming to below 2 degrees Celsius."
 }, {
+  year: "Where does health fit in?",
+  step_name: "Where does health fit in?",
+  step_title: "Where does health fit in?",
+  step_title_mobile: "Where does health fit in?",
+  flag_image: "./img/cop30/icon_microscope.png",
+  flagAlt: "tbd",
+  location: "",
+  description: "Since 2014, the World Health Organization (WHO) has hosted regular Global Conferences on Health and Climate Change. Historically, these events have taken place on the sidelines of the UNFCCC COPs. In recent years, the connections between climate change and health have received increased attention."
+}, {
   year: "2015",
   step_name: "2030 Agenda for Sustainable Development",
   step_title: "UN Sustainable Development Agenda",
   step_title_mobile: "2015: UN 2030 Agenda for Sustainable Development Agenda",
-  flag_image: "./img/cop30/icon_sdg.png",
+  flag_image: "./img/cop30/icon_un_light.png",
   flagAlt: "tbd",
   location: "USA",
   description: "The <a href=\"https://sdgs.un.org/\" target=\"_blank\">2030 Agenda for Sustainable Development</a> was adopted by UN Member States in 2015. Agenda 2030 established the UN's 17 Sustainable Development Goals (SDGs) for achieving peace and prosperity for people and the planet. Many of the SDGs address the shared challenges connecting climate change and health across the globe, including:<br><ul><li>SDG 3: Good health and well-being</li><li>SDG 11: Sustainable cities and communities</li><li>SDG 13: Climate action</li></ul>"
@@ -37,15 +46,6 @@ export const timelineData = [{
   flagAlt: "Fiji flag with blue background and coat of arms, representing COP23 hosted by Fiji",
   location: "FIJI",
   description: "At the 2017 COP23 hosted by Fiji and held in Germany, WHO launched a <a href=\"https://www.who.int/publications/i/item/9789290618669\" target=\"_blank\">Special Initiative on Climate Change and Health in Small Island Developing States (SIDS)</a>."
-}, {
-  year: "2021",
-  step_name: "COP26",
-  step_title: "COP26",
-  step_title_mobile: "2021 COP26",
-  flag_image: "./img/cop30/timeline_2.png",
-  flagAlt: "United Kingdom flag with red, white and blue cross pattern, representing COP26 hosted in Glasgow, Scotland",
-  location: "GLASGOW",
-  description: "The '<a href=\"https://www.who.int/publications/i/item/9789240036727\" target=\"_blank\">COP26 Special Report on Climate Change and Health</a>' was developed in the lead up to the 2021 COP26 in Glasgow, where WHO also hosted the first Health Pavilion. "
 }, {
   year: "2021",
   step_name: "COP26",
@@ -75,14 +75,14 @@ export const timelineData = [{
   description: "At the 2024 COP29 in Baku, delegates committed to the <a href=\"https://www.who.int/news/item/18-11-2024-baku-cop29-advances-health-climate-commitments-with-new-coalition\" target=\"_blank\">Baku COP Presidencies Continuity Coalition for Climate and Health</a>, securing a permanent space for health within future COP agendas. "
 },
 {
-  year: "2025",
+  year: "Road to COP30: Brazil 2025",
   step_name: "COP30",
-  step_title: "COP30",
+  step_title: "Road to COP30: Brazil in 2025",
   step_title_mobile: "2025 COP30",
   flag_image: "./img/cop30/timeline_5.png",
   flagAlt: "Brazil flag with green background, yellow diamond, and blue circle with stars, representing COP30 hosted in Belém, Brazil",
-  location: "BRAZIL",
-  description: "The COP presidency rotates each year on a regional basis. COP30 is scheduled to take place in Latin America, in Belém, Brazil, from November 10-21, 2025. Health-focused plans for COP30 are constantly evolving and include the presentation of the COP 30 Climate & Health Action Plan, led by Brazil, which aims to strengthen health system resilience to climate change impacts and support countries in implementing equitable adaptation strategies." // For an updated list of health-related activities and events, see: [link]
+  location: "",
+  description: "The COP presidency rotates each year on a regional basis. <a href=\"https://cop30.br/en\" target=\"_blank\">COP30</a> is scheduled to take place in Latin America, in Belém, Brazil, from November 10-21, 2025. COP30 will mark 20 years since the entry into force of the Kyoto Protocol, and 10 years since the adoption of the Paris Agreement.</br></br>Health-focused plans for COP30 are constantly evolving and include the <a href=\"https://www.who.int/news-room/events/detail/2025/07/29/default-calendar/2025-global-conference-on-climate-and-health\" target=\"_blank\">2025 Global Conference on Climate and Health</a> (29-31 July 2025) and presentation of the <b>COP 30 Climate & Health Action Plan</b>, led by Brazil, which aims to strengthen health system resilience to climate change impacts and support countries in implementing equitable adaptation strategies." // For an updated list of health-related activities and events, see: [link]
 }
 ];
 
