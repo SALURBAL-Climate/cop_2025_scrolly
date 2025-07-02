@@ -33,7 +33,7 @@
           How does a Climate COP work?
         </p>
         <p class="subtitle-italic">
-          What role does urban health research play in this space?
+          What role does public health research play in this space?
         </p>
         <p class="subtitle-italic">
           How can researchers engage with the COP process?

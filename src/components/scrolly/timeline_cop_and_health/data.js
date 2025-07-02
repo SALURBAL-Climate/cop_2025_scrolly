@@ -24,7 +24,7 @@ export const timelineData = [{
   step_name: "Where does health fit in?",
   step_title: "Where does health fit in?",
   step_title_mobile: "Where does health fit in?",
-  flag_image: "./img/cop30/icon_microscope.png",
+  flag_image: "./img/cop30/icon_un_light.png",
   flagAlt: "tbd",
   location: "",
   description: "Since 2014, the World Health Organization (WHO) has hosted regular Global Conferences on Health and Climate Change. Historically, these events have taken place on the sidelines of the UNFCCC COPs. In recent years, the connections between climate change and health have received increased attention."
@@ -33,7 +33,7 @@ export const timelineData = [{
   step_name: "2030 Agenda for Sustainable Development",
   step_title: "UN Sustainable Development Agenda",
   step_title_mobile: "2015: UN 2030 Agenda for Sustainable Development Agenda",
-  flag_image: "./img/cop30/icon_un_light.png",
+  flag_image: "./img/cop30/icon_sdg.png",
   flagAlt: "tbd",
   location: "USA",
   description: "The <a href=\"https://sdgs.un.org/\" target=\"_blank\">2030 Agenda for Sustainable Development</a> was adopted by UN Member States in 2015. Agenda 2030 established the UN's 17 Sustainable Development Goals (SDGs) for achieving peace and prosperity for people and the planet. Many of the SDGs address the shared challenges connecting climate change and health across the globe, including:<br><ul><li>SDG 3: Good health and well-being</li><li>SDG 11: Sustainable cities and communities</li><li>SDG 13: Climate action</li></ul>"
