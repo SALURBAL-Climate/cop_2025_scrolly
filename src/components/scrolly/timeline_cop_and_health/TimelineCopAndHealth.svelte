@@ -139,7 +139,7 @@
                         {step.step_title}
                       {/if}
                     </h3>
-                    <div class="location-tag">{step.location}</div>
+                    <!-- <div class="location-tag">{step.location}</div> -->
                   </div>
                   <div class="step-icon-mobile">
                     <img
@@ -247,8 +247,8 @@
   }
 
   .dot-flag {
-    width: 40px;
-    height: 40px;
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
     background: #ffffff;
     border: 3px solid #cbd5e1;
@@ -271,11 +271,12 @@
 
   /* Current step effect - make it bigger and more prominent */
   .timeline-dot.current .dot-flag {
-    transform: translateX(-50%) scale(1.6);
+    transform: translateX(-50%) scale(2);
     border-color: #2f7ed3;
     background: #ffffff;
     box-shadow: 0 6px 20px rgba(47, 126, 211, 0.4);
     animation: pulse 2s infinite;
+    z-index: 44;
   }
 
   @keyframes pulse {
