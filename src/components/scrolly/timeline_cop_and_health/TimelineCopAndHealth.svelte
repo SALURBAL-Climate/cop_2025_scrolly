@@ -132,6 +132,9 @@
               <div class="content-area {currentStep === i ? 'current' : ''}">
                 <div class="step-header">
                   <div class="title-location-group">
+                      {#if step.location}
+                      <div class="location-tag">{step.year} {step.location}</div>
+                    {/if}
                     <h3 class="step-title">
                       {#if isMobile}
                         {step.step_title_mobile}
@@ -139,9 +142,7 @@
                         {step.step_title}
                       {/if}
                     </h3>
-                    {#if step.location}
-                      <div class="location-tag">{step.year} {step.location}</div>
-                    {/if}
+                
                   </div>
                   <div class="step-icon-mobile">
                     <img
@@ -371,18 +372,27 @@
   }
   
   .step-header {
-    margin-bottom: 0.25rem;
-    display: flex;
+    /* margin-bottom: 0.25rem; */
+    /* display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
+    justify-content: space-between; */
+    /* gap: 1.5rem; */
+    margin: 0;
+    padding: 0 0;
+    padding-bottom: 1rem;
+    padding-top: 0.5rem;
+    /* border: 1px solid blue; */
   }
 
   .title-location-group {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    /* border: 1px solid red; */
+    /* gap: 0.5rem; */
+    margin: 0;
+    padding: 0;
     flex: 1;
   }
 
@@ -411,7 +421,10 @@
     display: inline-block;
     /* background: #; */
     color: #2f7ed3;
-    padding: 0.4rem 1rem;
+    /* padding: 0.4rem 1rem; */
+    margin: 0;
+    padding: 0 0 ;
+    /* border: 1px solid red; */
     border-radius: 20px;
     font-size: 0.9rem;
     font-weight: 600;
