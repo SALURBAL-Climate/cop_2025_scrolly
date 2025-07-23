@@ -52,16 +52,16 @@ The **2030 Agenda for Sustainable Development** was adopted by UN Member States 
 ### Key Health Milestones in Recent COPs
 
 **2017 COP23 - Fiji (held in Germany)**
-WHO launched a Special Initiative on Climate Change and Health in Small Island Developing States (SIDS).
+At the 2017 COP23 hosted by Fiji and held in Germany, WHO launched a Special Initiative on Climate Change and Health in Small Island Developing States (SIDS).
 
 **2021 COP26 - Glasgow**
-The COP26 Special Report on Climate Change and Health was developed in the lead up to COP26, where WHO also hosted the first Health Pavilion.
+The COP26 Special Report on Climate Change and Health was developed in the lead up to the 2021 COP26 in Glasgow, where WHO also hosted the first Health Pavilion.
 
 **2023 COP28 - Dubai**
-Featured a Health Pavilion, hosted by WHO and the Wellcome Trust, as well as the first-ever Health Day, which culminated in the endorsement of the Declaration on Climate and Health. COP28 elevated the role of health in the climate change agenda and secured a global commitment to addressing climate-related health impacts.
+The 2023 COP28 in Dubai also featured a Health Pavilion, hosted by WHO and the Wellcome Trust, as well as the first-ever Health Day, which culminated in the endorsement of the Declaration on Climate and Health. COP28 elevated the role of health in the climate change agenda and secured a global commitment to addressing climate-related health impacts.
 
 **2024 COP29 - Baku**
-Delegates committed to the Baku COP Presidencies Continuity Coalition for Climate and Health, securing a permanent space for health within future COP agendas.
+At the 2024 COP29 in Baku, delegates committed to the Baku COP Presidencies Continuity Coalition for Climate and Health, securing a permanent space for health within future COP agendas.
 
 ## The Road to COP30: Brazil in 2025
 
@@ -71,19 +71,19 @@ Health-focused plans for COP30 are constantly evolving and include the **2025 Gl
 
 ## Public Health Researchers Can Engage in the UNFCCC Process By:
 
-### Developing User-Friendly Research Products
+### Developing user-friendly research products
 To support advocacy surrounding the health impacts of climate change and the impacts of mitigation and adaptation action.
 
-### Connecting with COP Delegates and Observers
+### Connecting with COP delegates and observers
 To provide input and expertise throughout COP preparatory sessions.
 
-### Advocating for Health Inclusion
+### Advocating for health inclusion
 For the inclusion of health impacts and health arguments within NDCs and other climate policy and planning documents.
 
-### Hosting and Participating in Green Zone Activities
+### Hosting and participating in health-focused green zone activities
 Health-focused green zone activities (pavilions, panels, presentations).
 
-### Forming Partnerships with Municipal Governments
+### Forming partnerships with municipal governments
 And urban practitioners. Local governments worldwide are leading climate action through mitigation and adaptation measures. Many are also leveraging the health co-benefits of these efforts. Researchers can support them by supplying and discussing localized data and evidence.
 
 ## How are National and Local Governments Committing to Climate and Health?
@@ -92,8 +92,8 @@ And urban practitioners. Local governments worldwide are leading climate action 
 
 ### Key Statistics (WHO 2023 Review of Health in NDCs):
 - **90%** - In 2023, almost all NDCs to the Paris Agreement include health considerations
-- **About 1/3** - Identify the health co-benefits of mitigation action
-- **Only 1 in 10** - Quantify and/or monitor these benefits
+- **About a third** - Identify the health co-benefits of mitigation action
+- **Only about one in ten** - Quantify and/or monitor these benefits
 
 The **Global Climate and Health Alliance's Healthy NDCs Scorecards** ranks countries' Nationally Determined Contributions based on how well they address the health threats of climate change and minimize future harm.
 
