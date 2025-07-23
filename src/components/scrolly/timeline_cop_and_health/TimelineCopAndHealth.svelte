@@ -1,7 +1,12 @@
 <script>
   import { onMount } from 'svelte';
   import Scroller from '../../../layout/Scroller.svelte';
-  import { timelineData } from './data.js';
+  import { getTimelineData } from './data.js';
+  import { currentLanguage } from '../../../stores/language.js';
+
+  // Reactive data that updates when language changes
+  $: timelineData = getTimelineData($currentLanguage);
+
   let y = 0;
   let innerHeight = 0;
   let containerElement;
@@ -15,6 +20,7 @@
   let windowWidth = 0;
 
   $: isMobile = windowWidth <= 900;
+  // Use reactive timelineData for height calculation
   $: containerHeight = isMobile
     ? 'auto' // Mobile: Let content determine height
     : timelineData.length * 100 + 120; // Desktop: Fixed scrolly height
