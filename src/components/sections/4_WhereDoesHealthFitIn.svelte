@@ -1,5 +1,4 @@
 <script>
-  import { brandColors } from '../../config.js';
   import { TimelineCopAndHealth } from '../scrolly/timeline_cop_and_health/index.js';
 </script>
 
