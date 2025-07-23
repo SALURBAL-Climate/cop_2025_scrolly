@@ -9,7 +9,7 @@ export const copRouteData = [
     iconAlt: "Ballot box icon representing voting and decision-making processes during preparatory sessions",
     location: "Pre-COP",
     coordinates: { top: 0, left: 0 }, // Not positioned on map
-    description: "COP agendas are developed during preparatory meetings hosted by the COP Presidency(host country), and convene official country representatives, content experts, and other actors over the year or two before each Conference. <br/> <b>Pre-COP</b> are less formal meetings thattraditionally take place in the month or so before each COP to set the stage for formal negotiations."
+    description: "COP agendas are developed during preparatory meetings hosted by the COP Presidency (host country), and convene official country representatives, content experts, and other actors over the year or two before each Conference. <br/><br/><b>Pre-COPs</b> are less formal meetings that traditionally take place in the month or so before each COP to set the stage for formal negotiations."
   },
   {
     step_name: "Core Negotiations",
@@ -18,7 +18,7 @@ export const copRouteData = [
     iconAlt: "Handshake icon representing diplomatic negotiations and agreements between countries",
     location: "Blue Zone",
     coordinates: { top: 57, left: 64 }, // Upper-right area of Blue Zone
-    description: "During each COP, <u>delegates</u> of the Parties participate in official sessions of the governing bodies, and in open and closed negotiating meetings. Delegates can include government officials from relevant ministries, experts and scientists, and civil society organization representatives. Sometimes, this negotiation results in a binding agreement (e.g., Kyoto Protocol, Paris Agreement), which must then be ratified by individual governments. More often, the Parties agree to some form of public declaration."
+    description: "During each COP, delegates of the Parties participate in official sessions of the governing bodies, and in open and closed negotiating meetings. Delegates can include government officials from relevant ministries, experts and scientists, and civil society organization representatives. Sometimes, this negotiation results in a binding agreement (e.g., Kyoto Protocol, Paris Agreement), which must then be ratified by individual governments. More often, the Parties agree to some form of public declaration."
   },
   {
     step_name: "High-level COP",
@@ -36,7 +36,7 @@ export const copRouteData = [
     iconAlt: "Megaphone icon representing civil society advocacy, protests, and grassroots activism",
     location: "Green Zone",
     coordinates: { top: 57, left: 36 }, // Center-left area of Green Zone circle
-    description: "Additional activities include side events, pavilions, panel talks, presentations, and protests, where participants can include researchers and scientists, NGOs, private sector representatives, and activists"
+    description: "Additional activities include side events, pavilions, panel talks, presentations, and protests, where participants can include researchers and scientists, NGOs, private sector representatives, and activists."
   }
 ];
 
