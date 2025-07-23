@@ -1,7 +1,12 @@
 <script>
   import { onMount } from 'svelte';
   import Scroller from '../../../layout/Scroller.svelte';
-  import { copRouteData } from './data.js';
+  import { getCopRouteData } from './data.js';
+  import { currentLanguage } from '../../../stores/language.js';
+
+  // Reactive data that updates when language changes
+  $: copRouteData = getCopRouteData($currentLanguage);
+
   let y = 0;
   let innerHeight = 0;
   let containerElement;
@@ -13,6 +18,7 @@
   let windowWidth = 0;
 
   $: isMobile = windowWidth <= 900;
+  // Use reactive copRouteData for height calculation
   $: containerHeight = isMobile
     ? 'auto' // Mobile: Let content determine height
     : copRouteData.length * 100 + 50; // Desktop: Fixed scrolly height
