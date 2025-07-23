@@ -1,43 +1,99 @@
 <script>
   import { getContext } from 'svelte';
   import Icon from '@iconify/svelte';
+  import LanguageSelector from '../components/ui/LanguageSelector.svelte';
+  import { currentLanguage, setLanguage } from '../stores/language.js';
 
   export let theme = getContext('theme');
   export let filled = false;
   export let center = true;
+
+  // Content for each language
+  const content = {
+    en: {
+      titleFull: "Bringing health to the table at COP30",
+      titleMobile: "Health at COP30",
+      logoAlt: "SALURBAL Climate logo - Climate Change and Urban Health in Latin America",
+      visitWebsite: "Visit SALURBAL Climate website",
+      facebook: "Visit SALURBAL Climate on Facebook",
+      twitter: "Follow SALURBAL Climate on Twitter/X", 
+      instagram: "Follow SALURBAL Climate on Instagram",
+      youtube: "Subscribe to SALURBAL on YouTube",
+      linkedin: "Connect with SALURBAL Project on LinkedIn",
+      pdf: "View PDF guide"
+    },
+    es: {
+      titleFull: "Llevando la salud a la mesa en COP30",
+      titleMobile: "Salud en COP30",
+      logoAlt: "Logo SALURBAL Climate - Cambio Climático y Salud Urbana en América Latina",
+      visitWebsite: "Visitar el sitio web de SALURBAL Climate",
+      facebook: "Visitar SALURBAL Climate en Facebook",
+      twitter: "Seguir SALURBAL Climate en Twitter/X",
+      instagram: "Seguir SALURBAL Climate en Instagram", 
+      youtube: "Suscribirse a SALURBAL en YouTube",
+      linkedin: "Conectar con SALURBAL Project en LinkedIn",
+      pdf: "Ver guía PDF"
+    },
+    pt: {
+      titleFull: "Trazendo saúde à mesa na COP30",
+      titleMobile: "Saúde na COP30",
+      logoAlt: "Logo SALURBAL Climate - Mudanças Climáticas e Saúde Urbana na América Latina",
+      visitWebsite: "Visitar o site SALURBAL Climate",
+      facebook: "Visitar SALURBAL Climate no Facebook",
+      twitter: "Seguir SALURBAL Climate no Twitter/X",
+      instagram: "Seguir SALURBAL Climate no Instagram",
+      youtube: "Inscrever-se no SALURBAL no YouTube", 
+      linkedin: "Conectar com SALURBAL Project no LinkedIn",
+      pdf: "Ver guia PDF"
+    }
+  };
+
+  // Reactive statement to get current content
+  $: currentContent = content[$currentLanguage] || content.en;
+
+  function handleLanguageChange(event) {
+    setLanguage(event.detail.code);
+    console.log('Language changed to:', event.detail);
+    // Here you can add additional logic like reloading content, updating URLs, etc.
+  }
 </script>
 
 <nav class="header-container">
-  <div class="logo-section">    <a href="https://drexel.edu/lac/" target="_blank" aria-label="Visit SALURBAL Climate website">
+  <div class="logo-section">
+    <a href="https://drexel.edu/lac/" target="_blank" aria-label={currentContent.visitWebsite}>
       <img
         src="./img/cop30/EN_Logo_SALURBAL-Climate_png.png"
-        alt="SALURBAL Climate logo - Climate Change and Urban Health in Latin America"
+        alt={currentContent.logoAlt}
         class="logo"
       />
     </a><!-- <div class="separator">|</div> -->
     <div class="title-text">
-      <span class="title-full">Bringing health to the table at COP30</span>
-      <span class="title-mobile">Health at COP30</span>
+      <span class="title-full">{currentContent.titleFull}</span>
+      <span class="title-mobile">{currentContent.titleMobile}</span>
     </div>
   </div>
   <div class="social-section">
-    <a href="https://www.facebook.com/LACUrbanHealth" aria-label="Visit SALURBAL Climate on Facebook" target="_blank">
+    <LanguageSelector 
+      currentLanguage={$currentLanguage} 
+      on:languageChanged={handleLanguageChange} 
+    />
+    <a href="https://www.facebook.com/LACUrbanHealth" aria-label={currentContent.facebook} target="_blank">
       <Icon icon="il:facebook" />
     </a>
-    <a href="https://x.com/lacurbanhealth" aria-label="Follow SALURBAL Climate on Twitter/X" target="_blank">
+    <a href="https://x.com/lacurbanhealth" aria-label={currentContent.twitter} target="_blank">
       <Icon icon="mdi:twitter" />
     </a>
-    <a href="https://www.instagram.com/salurbalclimate/" aria-label="Follow SALURBAL Climate on Instagram" target="_blank">
+    <a href="https://www.instagram.com/salurbalclimate/" aria-label={currentContent.instagram} target="_blank">
       <Icon icon="mdi:instagram" />
     </a>
-    <a href="https://www.youtube.com/@salurbal" aria-label="Subscribe to SALURBAL on YouTube" target="_blank">
+    <a href="https://www.youtube.com/@salurbal" aria-label={currentContent.youtube} target="_blank">
       <Icon icon="mdi:youtube" />
     </a>
-    <a href="https://www.linkedin.com/company/salurbal-project" aria-label="Connect with SALURBAL Project on LinkedIn" target="_blank">
+    <a href="https://www.linkedin.com/company/salurbal-project" aria-label={currentContent.linkedin} target="_blank">
       <Icon icon="mdi:linkedin" />
     </a>
     <div class="pdf-container">
-      <a href="https://drive.google.com/file/d/1768UAX-wSDKQwYeKp2PFfA3jvp2fBgpk/view" target="_blank" aria-label="View PDF guide" class="pdf-link">
+      <a href="https://drive.google.com/file/d/1768UAX-wSDKQwYeKp2PFfA3jvp2fBgpk/view" target="_blank" aria-label={currentContent.pdf} class="pdf-link">
         <Icon icon="material-icon-theme:pdf" />
         <span class="pdf-text">PDF</span>
       </a>
