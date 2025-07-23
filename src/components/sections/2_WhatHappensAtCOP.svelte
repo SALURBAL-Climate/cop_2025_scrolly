@@ -1,13 +1,32 @@
 <script>
   import { RouteWhatHappensAtCop } from '../scrolly/route_what_happens_at_cop/index.js';
   import COPZonesExplainer from './2.1_COPZonesExplainer.svelte';
+  import { currentLanguage } from '../../stores/language.js';
+
+  // Content for each language
+  const content = {
+    en: {
+      whatHappensTitle: "What Happens at UNFCCC COPs?",
+      zonesTitle: "COP Zones Explained"
+    },
+    es: {
+      whatHappensTitle: " ¿Qué ocurre antes y durante una COP sobre el cambio climático?",
+      zonesTitle: "Explicación de las Zonas de la COP"
+    },
+    pt: {
+      whatHappensTitle: "O que acontece antes e durante uma COP do Clima?",
+      zonesTitle: "Zonas da COP Explicadas"
+    }
+  };
+
+  $: currentContent = content[$currentLanguage] || content.en;
 </script>
 
 <section class="what-happens-section">
   <!-- Title Row -->
   <div class="title-row">
     <div class="section-header">
-      <h1 class="section-title">What Happens at UNFCCC COPs?</h1>
+      <h1 class="section-title">{currentContent.whatHappensTitle}</h1>
     </div>
   </div>
   <!-- Scrolly Row -->
@@ -16,7 +35,7 @@
   </div>
   <div class="title-row" >
     <div class="section-header">
-      <h1 class="section-title" >COP Zones Explained</h1>
+      <h1 class="section-title" >{currentContent.zonesTitle}</h1>
     </div>
   </div>
   <!-- Zones Explainer Row -->
