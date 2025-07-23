@@ -23,6 +23,16 @@
         stat2: "Aproximadamente un tercio identifica los beneficios colaterales para la salud de las medidas de mitigación.",
         stat3: `Sólo uno de cada diez cuantifican o controlan estos beneficios. (<a href="https://www.who.int/publications/i/item/9789240074729" target="_blank" rel="noopener noreferrer" class="text-link">Evaluación de la OMS de la salud en las NDC, 2023</a>)`
       }
+    },
+    pt: {
+      title: "Como os governos nacionais e locais estão se comprometendo com o clima e a saúde?",
+      introText: "As Contribuições Nacionalmente Determinadas (NDCs) são planos nacionais de ação climática que descrevem os compromissos de cada país para reduzir as emissões de gases de efeito estufa (GEE) e se adaptar aos impactos das mudanças climáticas. Como parte do Acordo de Paris de 2015, os países se comprometeram a enviar uma NDC atualizada a cada cinco anos.",
+      closingText: `O <a href="https://climateandhealthalliance.org/resource/healthy-ndcs-3-0-embedding-health-in-national-climate-plans-for-2035/" target="_blank" rel="noopener noreferrer" class="text-link">Healthy NDCs Scorecards da Global Climate and Health Alliance</a> classifica as NDCs dos países com base em sua capacidade de enfrentar as ameaças à saúde decorrentes das mudanças climáticas e minimizar danos futuros.`,
+      statLabels: {
+        stat1: "Em 2023, quase todas (90%) as NDCs do Acordo de Paris incluem considerações sobre saúde.",
+        stat2: "Cerca de um terço identifica os co-benefícios para a saúde das ações de mitigação.",
+        stat3: `Apenas cerca de um em cada dez quantifica e/ou monitora esses benefícios. (<a href="https://www.who.int/publications/i/item/9789240074729" target="_blank" rel="noopener noreferrer" class="text-link">Revisão da OMS 2023 sobre Saúde nas NDCs</a>)`
+      }
     }
   };
 
