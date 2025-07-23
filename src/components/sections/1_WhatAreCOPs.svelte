@@ -6,15 +6,21 @@
   const content = {
     en: {
       title: "What is a United Nations Climate COP?",
-      description: "A Conference of the Parties (COP) refers to a meeting..."
+      description: `A <a href="https://unfccc.int/process/bodies/supreme-bodies/conference-of-the-parties-cop" target="_blank" class="highlight-link">Conference of the Parties (COP)</a> refers to a meeting (conference) of the countries, or governments, (parties) who have signed an international agreement, convention, or treaty. COPs take place within the context of agreements surrounding many topics.`,
+      unfcccText: `The <a href="https://unfccc.int/" target="_blank" class="highlight-link">United Nations Framework Convention on Climate Change (UNFCCC)</a> holds annual COPs to negotiate global actions to address climate change. The 30th annual Conference of the Parties ("COP30") will take place in November 2025, hosted by Brazil.`,
+      logoAlt: "United Nations Logo"
     },
     es: {
-      title: "¿Qué es una COP sobre el clima de las Naciones Unidas?",
-      description: "Una Conferencia de las Partes (COP) se refiere a una reunión..."
+      title: "¿Qué es una COP de las Naciones Unidas sobre el cambio climático?",
+      description: `Una <a href="https://unfccc.int/process/bodies/supreme-bodies/conference-of-the-parties-cop" target="_blank" class="highlight-link">Conferencia de las Partes (COP)</a> es una reunión (conferencia) de los países o gobiernos (partes) que han firmado un acuerdo, convenio o tratado internacional. Las COPs se celebran en el contexto de acuerdos sobre muchos temas.`,
+      unfcccText: `La <a href="https://unfccc.int/" target="_blank" class="highlight-link">Convención Marco de las Naciones Unidas sobre el Cambio Climático (CMNUCC)</a> celebra anualmente la Conferencia de las Partes para negociar medidas mundiales para hacer frente al cambio climático. La 30ª Conferencia de las Partes (COP30) se celebrará en noviembre de 2025 en Brasil.`,
+      logoAlt: "Logo de las Naciones Unidas"
     },
     pt: {
-      title: "O que é uma COP sobre clima das Nações Unidas?",
-      description: "Uma Conferência das Partes (COP) refere-se a uma reunião..."
+      title: "O que é uma COP do Clima das Nações Unidas?",
+      description: `Uma <a href="https://unfccc.int/process/bodies/supreme-bodies/conference-of-the-parties-cop" target="_blank" class="highlight-link">Conferência das Partes (COP)</a> refere-se a uma reunião (conferência) dos países, ou governos (partes), que assinaram um acordo, convenção ou tratado internacional. As COPs acontecem no contexto de acordos que envolvem diversos temas.`,
+      unfcccText: `A <a href="https://unfccc.int/" target="_blank" class="highlight-link">Convenção-Quadro das Nações Unidas sobre Mudanças Climáticas (UNFCCC)</a> realiza COPs anuais para negociar ações globais de enfrentamento das mudanças climáticas. A 30ª Conferência das Partes (COP30) acontecerá em novembro de 2025, tendo o Brasil como país anfitrião.`,
+      logoAlt: "Logo das Nações Unidas"
     }
   };
 
@@ -24,17 +30,12 @@
 <section
   class="component_container"
   style="--hex-blue: {brandColors.hex_blue}; --green-zone: {brandColors.green_zone}; --dark-text: {brandColors.dark_text}; --medium-text: {brandColors.medium_text}"
->  <div class="title-section">
+>
+  <div class="title-section">
+    <h1> {$currentLanguage}</h1>
     <h1 class="main-title">{currentContent.title}</h1>
     <p class="main-description">
-      A <a
-        href="https://unfccc.int/process/bodies/supreme-bodies/conference-of-the-parties-cop"
-        target="_blank"
-        class="highlight-link">Conference of the Parties (COP)</a
-      > refers to a meeting (conference) of the
-      countries, or governments, (parties) who have signed an international
-      agreement, convention, or treaty. COPs take place within the context of
-      agreements surrounding many topics.      
+      {@html currentContent.description}
     </p>
   </div>
 
@@ -42,9 +43,7 @@
   <div class="unfccc-row desktop-layout">
     <div class="unfccc-text-content">
       <p class="unfccc-text">
-        The <a href="https://unfccc.int/" target="_blank" class="highlight-link"
-          > United Nations Framework Convention on Climate Change (UNFCCC)</a
-        > holds annual COPs to negotiate global actions to address climate change. The 30th annual Conference of the Parties (“COP30”) will take place in November 2025, hosted by Brazil.
+           {@html currentContent.unfcccText}
       </p>
     </div>
     <div class="visual-content">
@@ -64,18 +63,14 @@
       <div class="un-logo-container">
         <img
           src="img/cop30/icon_UN.png"
-          alt="United Nations Logo"
+          alt={currentContent.logoAlt}
           class="un-logo"
         />
       </div>
     </div>
     <div class="unfccc-text-content">
       <p class="unfccc-text">
-        The <a href="https://unfccc.int/" target="_blank" class="highlight-link"
-          >United Nations Framework Convention on Climate Change (UNFCCC)</a
-        > holds annual COPs to negotiate global actions to address climate change.
-        The 30th annual Conference of the Parties ("COP30") will take place in November
-        2025, hosted by Brazil.
+        {@html currentContent.unfcccText}
       </p>
     </div>
   </div>
