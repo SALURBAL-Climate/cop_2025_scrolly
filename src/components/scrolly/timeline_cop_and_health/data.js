@@ -9,7 +9,7 @@ export const timelineData = [{
   flag_image: "./img/cop30/japan_flag.png",
   flagAlt: "Japan flag with white background and red circle, representing COP3 hosted in Kyoto, Japan",
   location: "KYOTO",
-  description: "Setting the stage for global climate action: The <a href=\"https://unfccc.int/kyoto_protocol\" target=\"_blank\">Kyoto Protocol</a> was negotiated during COP3 and entered into force during COP11 in 2005, setting mitigation targets for reducing greenhouse gas (GHG) emissions and mandating regular progress reviews."
+  description: "The <a href=\"https://unfccc.int/kyoto_protocol\" target=\"_blank\">Kyoto Protocol</a> was negotiated during COP3 and entered into force during COP11 in 2005, setting mitigation targets for reducing greenhouse gas (GHG) emissions and mandating regular progress reviews."
 }, {
   year: "2015",
   step_name: "COP21",
@@ -18,7 +18,7 @@ export const timelineData = [{
   flag_image: "./img/cop30/france_flag.png",
   flagAlt: "France flag with blue, white and red vertical stripes, representing COP21 hosted in Paris, France",
   location: "PARIS",
-  description: "Expanding global climate commitments: COP21 resulted in the landmark <a href=\"https://unfccc.int/process-and-meetings/the-paris-agreement/the-paris-agreement\" target=\"_blank\">Paris Agreement</a> (195 parties), which replaced the Kyoto Protocol and seeks to limit global warming to below 2 degrees Celsius."
+  description: "COP21 resulted in the landmark <a href=\"https://unfccc.int/process-and-meetings/the-paris-agreement/the-paris-agreement\" target=\"_blank\">Paris Agreement</a> (195 parties), which replaced the Kyoto Protocol and seeks to limit global warming to below 2 degrees Celsius."
 }, {
   year: "Where does health fit in?",
   step_name: "Where does health fit in?",
@@ -27,7 +27,7 @@ export const timelineData = [{
   flag_image: "./img/cop30/icon_un_light.png",
   flagAlt: "tbd",
   location: "",
-  description: "Since 2014, the World Health Organization (WHO) has hosted regular Global Conferences on Health and Climate Change. Historically, these events have taken place on the sidelines of the UNFCCC COPs. In recent years, the connections between climate change and health have received increased attention."
+  description: "Since 2014, the <b>World Health Organization (WHO)</b> has hosted regular Global Conferences on Health and Climate Change. Historically, <b>these events have taken place on the sidelines of the UNFCCC COPs</b>. In recent years, the connections between climate change and health have received increased attention."
 }, {
   year: "2015",
   step_name: "2030 Agenda for Sustainable Development",
@@ -54,7 +54,7 @@ export const timelineData = [{
   flag_image: "./img/cop30/timeline_2.png",
   flagAlt: "United Kingdom flag with red, white and blue cross pattern, representing COP26 hosted in Glasgow, Scotland",
   location: "GLASGOW",
-  description: "The '<a href=\"https://www.who.int/publications/i/item/9789240036727\" target=\"_blank\">COP26 Special Report on Climate Change and Health</a>' was developed in the lead up to the 2021 COP26 in Glasgow, where WHO also hosted the first Health Pavilion. "
+  description: "The <a href=\"https://www.who.int/publications/i/item/9789240036727\" target=\"_blank\">COP26 Special Report on Climate Change and Health</a> was developed in the lead up to the 2021 COP26 in Glasgow, where WHO also hosted the first Health Pavilion."
 }, {
   year: "2023",
   step_name: "COP28",
@@ -72,7 +72,7 @@ export const timelineData = [{
   flag_image: "./img/cop30/timeline_4.png",
   flagAlt: "Azerbaijan flag with blue, red and green horizontal stripes and white crescent moon and star, representing COP29 hosted in Baku",
   location: "BAKU",
-  description: "At the 2024 COP29 in Baku, delegates committed to the <a href=\"https://www.who.int/news/item/18-11-2024-baku-cop29-advances-health-climate-commitments-with-new-coalition\" target=\"_blank\">Baku COP Presidencies Continuity Coalition for Climate and Health</a>, securing a permanent space for health within future COP agendas. "
+  description: "At the 2024 COP29 in Baku, delegates committed to the <a href=\"https://www.who.int/news/item/18-11-2024-baku-cop29-advances-health-climate-commitments-with-new-coalition\" target=\"_blank\">Baku COP Presidencies Continuity Coalition for Climate and Health</a>, securing a permanent space for health within future COP agendas."
 },
 {
   year: "Road to COP30: Brazil 2025",
