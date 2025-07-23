@@ -32,7 +32,6 @@
   style="--hex-blue: {brandColors.hex_blue}; --green-zone: {brandColors.green_zone}; --dark-text: {brandColors.dark_text}; --medium-text: {brandColors.medium_text}"
 >
   <div class="title-section">
-    <h1> {$currentLanguage}</h1>
     <h1 class="main-title">{currentContent.title}</h1>
     <p class="main-description">
       {@html currentContent.description}
