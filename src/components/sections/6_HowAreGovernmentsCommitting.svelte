@@ -20,8 +20,7 @@
         Nationally Determined Contributions (NDCs) are national climate action
         plans that outline each country’s commitments to reducing greenhouse gas
         emissions and adapting to the impacts of climate change. As part of the
-        2015 Paris Agreement, countries committed to submitting an updated NDC
-        every five years
+        2015 Paris Agreement, countries committed to submitting an updated NDCs every five years
       </p>
     </div>
 
@@ -35,7 +34,7 @@
           class="stat-image"
         />
         <p class="stat-label">
-          In 2023, almost all (90%) NDCs to the Paris Agreement include health
+          In 2023, almost all NDCs to the Paris Agreement include health
           considerations.
         </p>
       </div>
