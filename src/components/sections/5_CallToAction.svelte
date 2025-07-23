@@ -1,7 +1,27 @@
 <script>
   import { brandColors } from '../../config.js';
   import ActionItem from './ActionItem.svelte';
-  import { actionItems } from './callToActionData.js';
+  import { getActionItems } from './callToActionData.js';
+  import { currentLanguage } from '../../stores/language.js';
+
+  // Content for each language
+  const content = {
+    en: {
+      title: "Public health researchers can engage in the UNFCCC process by:"
+    },
+    es: {
+      title: "Los investigadores de salud pública pueden participar en el proceso de la CMNUCC mediante:"
+    },
+    pt: {
+      title: "Pesquisadores de saúde pública podem se envolver no processo da UNFCCC por meio de:"
+    }
+  };
+
+  $: currentContent = content[$currentLanguage] || content.en;
+
+  // Reactive data that updates when language changes
+  $: actionItems = getActionItems($currentLanguage);
+
   // Call to Action Component
   // Shows how public health researchers can engage in the UNFCCC process
 </script>
@@ -9,7 +29,7 @@
 <section class="call-to-action-section" style="--hex-blue: {brandColors.hex_blue}; --dark-text: {brandColors.dark_text}; --medium-text: {brandColors.medium_text}">
   <div class="call-to-action-content">
     <div class="section-header">
-      <h1 class="section-title">Public health researchers can engage in the UNFCCC process by:</h1>
+      <h1 class="section-title">{currentContent.title}</h1>
     </div>
     
     <!-- Action Items -->
