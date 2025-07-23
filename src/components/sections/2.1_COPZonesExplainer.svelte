@@ -1,12 +1,50 @@
 <script>
-  import { copRouteData } from '../scrolly/route_what_happens_at_cop/data.js';
+  import { getCopRouteData } from '../scrolly/route_what_happens_at_cop/data.js';
+  import { currentLanguage } from '../../stores/language.js';
 
   // COP Zones Explainer Component
   // Shows the Blue Zone and Green Zone differences with satellite imagery
   // Displays activity icons directly on the zones image
 
-  // Filter out Pre-COP activities, only show activities that happen at the COP venue
-  $: copActivities = copRouteData.filter((step) => step.location !== 'Pre-COP');
+  // Content for each language
+  const content = {
+    en: {
+      blueZoneTitle: '"Blue zone" activities:',
+      blueZoneDescription: 'Access to the Blue Zone is restricted to accredited delegates only. Formal negotiations, country pavilions, and official side events take place here and are managed by the UNFCCC.',
+      greenZoneTitle: '"Green zone" activities:',
+      greenZoneDescription: 'Open to the public, managed by the host country, and includes additional events, workshops, and exhibitions hosted by private sector and NGO representatives.',
+      imageAlt: 'COP zones satellite view showing Blue Zone and Green Zone areas'
+    },
+    es: {
+      blueZoneTitle: 'Actividades de la "zona azul":',
+      blueZoneDescription: 'El acceso a la zona azul está restringido exclusivamente a los delegados acreditados. Aquí se celebran las negociaciones oficiales, los pabellones de los países y los actos paralelos oficiales, gestionados por la CMNUCC.',
+      greenZoneTitle: 'Actividades de la "zona verde":',
+      greenZoneDescription: 'Abiertas al público, gestionadas por el país anfitrión. Incluyen eventos adicionales, talleres y exposiciones organizados por representantes del sector privado y ONGs.',
+      imageAlt: 'Vista satelital de las zonas de la COP mostrando la Zona Azul y la Zona Verde'
+    },
+    pt: {
+      blueZoneTitle: 'Atividades da "zona azul":',
+      blueZoneDescription: 'O acesso à zona azul é restrito apenas aos delegados credenciados. As negociações formais, os pavilhões dos países e os eventos paralelos oficiais ocorrem aqui e são gerenciados pela UNFCCC.',
+      greenZoneTitle: 'Atividades da "zona verde":',
+      greenZoneDescription: 'Abertas ao público, gerenciadas pelo país anfitrião e incluem eventos adicionais, oficinas e exposições organizados por representantes do setor privado e de ONGs.',
+      imageAlt: 'Vista de satélite das zonas da COP mostrando a Zona Azul e a Zona Verde'
+    }
+  };
+
+  $: currentContent = content[$currentLanguage] || content.en;
+
+  // Get reactive route data based on current language
+  $: copRouteData = getCopRouteData($currentLanguage);
+
+  // Filter out Pre-COP activities using both step_name and location to ensure consistent filtering
+  // This handles variations in translation (Pre-COPs vs Pré-COPs, Pre-COP vs Pré-COP)
+  $: copActivities = copRouteData.filter((step) => {
+    const isPreCOP = step.step_name.toLowerCase().includes('pré-cop') || 
+                     step.step_name.toLowerCase().includes('pre-cop') ||
+                     step.location.toLowerCase().includes('pré-cop') ||
+                     step.location.toLowerCase().includes('pre-cop');
+    return !isPreCOP;
+  });
 </script>
 
 <div class="zones-explainer">
@@ -18,7 +56,7 @@
         <div class="image-with-icons">
           <img
             src="./img/cop30/cop_zones.png"
-            alt="COP zones satellite view showing Blue Zone and Green Zone areas"
+            alt={currentContent.imageAlt}
             class="zones-image"
           />
           <!-- Activity icons positioned on their respective zones -->
@@ -43,16 +81,16 @@
       <!-- Zone Descriptions -->
       <div class="zones-descriptions">
         <div class="zone-card blue-zone">
-          <h3 class="zone-title blue-title">"Blue zone" activities:</h3>
+          <h3 class="zone-title blue-title">{currentContent.blueZoneTitle}</h3>
           <p class="zone-description">
-            Access to the Blue Zone is restricted to accredited delegates only. Formal negotiations, country pavilions, and official side events take place here and are managed by the UNFCCC.
+            {currentContent.blueZoneDescription}
           </p>
         </div>
 
         <div class="zone-card green-zone">
-          <h3 class="zone-title green-title">"Green zone" activities:</h3>
+          <h3 class="zone-title green-title">{currentContent.greenZoneTitle}</h3>
           <p class="zone-description">
-            Open to the public, managed by the host country, and includes additional events, workshops, and exhibitions hosted by private sector and NGO representatives.
+            {currentContent.greenZoneDescription}
           </p>
         </div>
       </div>
@@ -62,11 +100,9 @@
     <div class="mobile-layout">
       <!-- Blue Zone first -->
       <div class="zone-card blue-zone">
-        <h3 class="zone-title blue-title">"Blue zone activities"</h3>
+        <h3 class="zone-title blue-title">{currentContent.blueZoneTitle}</h3>
         <p class="zone-description">
-          Access to the Blue Zone is restricted to accredited delegates only.
-          Formal negotiations, country pavilions, and official side events take
-          place here and are managed by the UNFCCC.
+          {currentContent.blueZoneDescription}
         </p>
       </div>
       <!-- Image in the middle -->
@@ -74,7 +110,7 @@
         <div class="image-with-icons">
           <img
             src="./img/cop30/cop_zones.png"
-            alt="COP zones satellite view showing Blue Zone and Green Zone areas"
+            alt={currentContent.imageAlt}
             class="zones-image"
           />
           <!-- Activity icons positioned on their respective zones -->
@@ -98,9 +134,9 @@
 
       <!-- Green Zone last -->
       <div class="zone-card green-zone">
-        <h3 class="zone-title green-title">"Green zone activities"</h3>
+        <h3 class="zone-title green-title">{currentContent.greenZoneTitle}</h3>
         <p class="zone-description">
-          Open to the public, managed by the host country, and includes additional events, workshops, and exhibitions hosted by private sector and NGO representatives.
+          {currentContent.greenZoneDescription}
         </p>
       </div>
     </div>
