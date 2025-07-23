@@ -1,12 +1,28 @@
 <script>
   import { TimelineCopAndHealth } from '../scrolly/timeline_cop_and_health/index.js';
+  import { currentLanguage } from '../../stores/language.js';
+
+  // Content for each language
+  const content = {
+    en: {
+      title: "A brief history of Climate COPs"
+    },
+    es: {
+      title: "Breve historia de las COPs sobre el cambio climático"
+    },
+    pt: {
+      title: "Um breve histórico das COPs do Clima"
+    }
+  };
+
+  $: currentContent = content[$currentLanguage] || content.en;
 </script>
 
 <section class="what-happens-section">
   <!-- Title Row -->
   <div class="title-row">
     <div class="section-header">
-      <h1 class="section-title">A brief history of Climate COPs</h1>
+      <h1 class="section-title">{currentContent.title}</h1>
     </div>
   </div>
   
