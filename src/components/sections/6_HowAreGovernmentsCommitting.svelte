@@ -1,5 +1,33 @@
 <script>
   import { brandColors } from '../../config.js';
+  import { currentLanguage } from '../../stores/language.js';
+
+  // Content for each language
+  const content = {
+    en: {
+      title: "How are national and local governments committing to climate and health?",
+      introText: "Nationally Determined Contributions (NDCs) are national climate action plans that outline each country's commitments to reducing greenhouse gas emissions and adapting to the impacts of climate change. As part of the 2015 Paris Agreement, countries committed to submitting an updated NDCs every five years",
+      closingText: `The Global Climate and Health Alliance's <a href="https://climateandhealthalliance.org/resource/healthy-ndcs-3-0-embedding-health-in-national-climate-plans-for-2035/" target="_blank" rel="noopener noreferrer" class="text-link">Healthy NDCs Scorecards</a> ranks countries' Nationally Determined Contributions based on how well they address the health threats of climate change and minimize future harm.`,
+      statLabels: {
+        stat1: "In 2023, almost all NDCs to the Paris Agreement include health considerations.",
+        stat2: "About a third identify the health co-benefits of mitigation action.",
+        stat3: `Only about one in ten quantify and/or monitor these benefits. (<a href="https://www.who.int/publications/i/item/9789240074729" target="_blank" rel="noopener noreferrer" class="text-link">WHO 2023 Review of Health in NDCs</a>)`
+      }
+    },
+    es: {
+      title: "¿Cómo se comprometen los gobiernos nacionales y locales con el clima y la salud?",
+      introText: "Las Contribuciones Determinadas a Nivel Nacional (NDC por sus siglas en Inglés) son planes nacionales de acción por el clima que describen los compromisos de cada país para reducir las emisiones de gases de efecto invernadero y adaptarse a los efectos del cambio climático. Como parte del Acuerdo de París de 2015, los países se comprometieron a presentar sus NDCs actualizados cada cinco años.",
+      closingText: `Las tarjetas de puntuación de las Contribuciones Nacionales a la Salud (NDCs) de la <a href="https://climateandhealthalliance.org/resource/healthy-ndcs-3-0-embedding-health-in-national-climate-plans-for-2035/" target="_blank" rel="noopener noreferrer" class="text-link">Alianza Global para el Clima y la Salud</a> clasifican las NDCs en el sector salud, en función de la capacidad de los países para hacer frente a las amenazas sanitarias del cambio climático y minimizar los daños en el futuros.`,
+      statLabels: {
+        stat1: "En 2023, casi todas (90%) las NDCs del Acuerdo de París incluyen consideraciones de salud.",
+        stat2: "Aproximadamente un tercio identifica los beneficios colaterales para la salud de las medidas de mitigación.",
+        stat3: `Sólo uno de cada diez cuantifican o controlan estos beneficios. (<a href="https://www.who.int/publications/i/item/9789240074729" target="_blank" rel="noopener noreferrer" class="text-link">Evaluación de la OMS de la salud en las NDC, 2023</a>)`
+      }
+    }
+  };
+
+  $: currentContent = content[$currentLanguage] || content.en;
+
   // How Are Governments Committing to Climate and Health Component
   // Shows statistics about NDCs and government commitments
 </script>
@@ -11,16 +39,13 @@
   <div class="governments-content">
     <div class="section-header">
       <h1 class="section-title">
-        How are national and local governments committing to climate and health?
+        {currentContent.title}
       </h1>
     </div>
 
     <div class="intro-text">
       <p class="intro-paragraph">
-        Nationally Determined Contributions (NDCs) are national climate action
-        plans that outline each country’s commitments to reducing greenhouse gas
-        emissions and adapting to the impacts of climate change. As part of the
-        2015 Paris Agreement, countries committed to submitting an updated NDCs every five years
+        {currentContent.introText}
       </p>
     </div>
 
@@ -34,8 +59,7 @@
           class="stat-image"
         />
         <p class="stat-label">
-          In 2023, almost all NDCs to the Paris Agreement include health
-          considerations.
+          {currentContent.statLabels.stat1}
         </p>
       </div>
       <!-- Pie Chart Stat -->
@@ -46,7 +70,7 @@
           class="stat-image"
         />
         <p class="stat-label">
-          About a third identify the health co-benefits of mitigation action.
+          {currentContent.statLabels.stat2}
         </p>
       </div>
       <!-- Fraction Stat -->
@@ -57,8 +81,7 @@
           class="stat-image"
         />
         <p class="stat-label">
-          Only about one in ten quantify and/or monitor these benefits. (<a href="https://www.who.int/publications/i/item/9789240074729" target="_blank" rel="noopener noreferrer" class="text-link">WHO
-            2023 Review of Health in NDCs</a>)
+          {@html currentContent.statLabels.stat3}
         </p>
       </div>
     </div>
@@ -66,7 +89,7 @@
     <br />
     <div class="intro-text">
       <p class="intro-paragraph">
-        The Global Climate and Health Alliance's <a href="https://climateandhealthalliance.org/resource/healthy-ndcs-3-0-embedding-health-in-national-climate-plans-for-2035/" target="_blank" rel="noopener noreferrer" class="text-link">Healthy NDCs Scorecards</a> ranks countries' Nationally Determined Contributions based on how well they address the health threats of climate change and minimize future harm.
+        {@html currentContent.closingText}
       </p>
     </div>
   </div>
