@@ -1,11 +1,72 @@
 <script>
-  // Add any necessary imports or logic here
+  import { currentLanguage } from '../../stores/language.js';
+
+  // Content for each language
+  const content = {
+    en: {
+      ariaLabel: "Hero section with background image showing a panoramic view of Belém, Brazil with the Amazon rainforest and urban skyline, representing the host city for COP30 climate conference",
+      logoAlt: "SALURBAL Climate Logo",
+      mainTitle: {
+        part1: "Bringing",
+        highlight1: "public health", 
+        part2: "to the table at",
+        highlight2: "COP30",
+        part3: ": A guide for",
+        highlight3: "researchers",
+        part4: "and practitioners"
+      },
+      questions: [
+        "How does a Climate COP work?",
+        "What role does public health research play in this space?", 
+        "How can researchers engage with the COP process?"
+      ]
+    },
+    es: {
+      ariaLabel: "Sección principal con imagen de fondo mostrando una vista panorámica de Belém, Brasil con la selva amazónica y el horizonte urbano, representando la ciudad anfitriona de la conferencia climática COP30",
+      logoAlt: "Logo SALURBAL Climate",
+      mainTitle: {
+        part1: "Poniendo la",
+        highlight1: "salud pública",
+        part2: "sobre la mesa en la",
+        highlight2: "COP30",
+        part3: ": Guía para",
+        highlight3: "investigadores",
+        part4: "y profesionales de salud pública"
+      },
+      questions: [
+        "¿Cómo funciona la COP sobre el cambio climático?",
+        "¿Qué papel desempeña la salud pública en este espacio?",
+        "¿Cómo pueden participar los investigadores en el proceso de la COP?"
+      ]
+    },
+    pt: {
+      ariaLabel: "Seção principal com imagem de fundo mostrando uma vista panorâmica de Belém, Brasil com a floresta amazônica e o horizonte urbano, representando a cidade anfitriã da conferência climática COP30",
+      logoAlt: "Logo SALURBAL Climate",
+      mainTitle: {
+        part1: "Levando a",
+        highlight1: "saúde pública",
+        part2: "à mesa na",
+        highlight2: "COP30",
+        part3: ": um guia para",
+        highlight3: "pesquisadores",
+        part4: "e profissionais"
+      },
+      questions: [
+        "Como funciona uma COP do Clima?",
+        "Qual é o papel da pesquisa em saúde pública nesse espaço?",
+        "Como os pesquisadores podem se envolver no processo da COP?"
+      ]
+    }
+  };
+
+  // Reactive statement to get current content
+  $: currentContent = content[$currentLanguage] || content.en;
 </script>
 
 <section 
   class="hero-section" 
   role="banner"
-  aria-label="Hero section with background image showing a panoramic view of Belém, Brazil with the Amazon rainforest and urban skyline, representing the host city for COP30 climate conference"
+  aria-label={currentContent.ariaLabel}
 >
   <div class="hero-content">
     <div class="hero-header">
@@ -14,7 +75,7 @@
         <a href="https://drexel.edu/lac/" target="_blank">
           <img
             src="./img/cop30/EN_Logo_SALURBAL-Climate_png.png"
-            alt="SALURBAL Climate Logo"
+            alt={currentContent.logoAlt}
             class="logo-right"
           />
         </a>
@@ -23,21 +84,17 @@
 
     <div class="hero-text">
       <h1 class="main-title">
-        Bringing <span class="highlight-yellow">public health</span> to the table
-        at <span class="highlight-green">COP30</span>: A guide for
-        <span class="highlight-blue">researchers</span> and practitioners
+        {currentContent.mainTitle.part1} <span class="highlight-yellow">{currentContent.mainTitle.highlight1}</span> {currentContent.mainTitle.part2}
+        <span class="highlight-green">{currentContent.mainTitle.highlight2}</span>{currentContent.mainTitle.part3}
+        <span class="highlight-blue">{currentContent.mainTitle.highlight3}</span> {currentContent.mainTitle.part4}
       </h1>
 
       <div class="subtitle-questions">
-        <p class="subtitle-italic">
-          How does a Climate COP work?
-        </p>
-        <p class="subtitle-italic">
-          What role does public health research play in this space?
-        </p>
-        <p class="subtitle-italic">
-          How can researchers engage with the COP process?
-        </p>
+        {#each currentContent.questions as question}
+          <p class="subtitle-italic">
+            {question}
+          </p>
+        {/each}
       </div>
     </div>
   </div>
