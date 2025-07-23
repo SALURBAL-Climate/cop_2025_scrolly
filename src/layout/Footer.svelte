@@ -1,8 +1,51 @@
 <script>
   import { themes } from '../config.js';
   import { getContext } from 'svelte';
+  import { currentLanguage } from '../stores/language.js';
   import Icon from '@iconify/svelte';
   export let theme = getContext('theme');
+
+  // Content for each language
+  const content = {
+    en: {
+      authors: "Authors: Katy Indvik¹, Elizabeth Cardona², Carolina Rendón¹, Mariana Lazo¹, Nelson Gouveia³, Waleska Caiaffa⁴, Olga Lucia Sarmiento⁵, Ana Diez Roux¹",
+      designedBy: "Designed by: Carolina Rendón and Martin Gillis",
+      engineeredBy: "Engineered by: Ran Li",
+      mediaContact: "Media contact: Carolina Rendon",
+      acknowledgements: "Acknowledgements: José Siri (Consultant, WHO) provided valuable feedback.",
+      funding: "Climate Change and Urban Health in Latin America (\"SALURBAL-Climate\") is funded by the Wellcome Trust (227810/Z/23/Z, AVDR/OLS).",
+      affiliations: "1. Urban Health Collaborative, Drexel University. 2. INCAP, Institute of Nutrition of Central America and Panama. 3. University of São Paulo Medical School. 4. Observatory for Urban Health in Belo Horizonte, Federal University of Minas Gerais. 5. School of Medicine, Universidad de los Andes.",
+      followUs: "Follow us:",
+      contactUs: "Contact us",
+      privacyLegal: "Privacy and legal"
+    },
+    es: {
+      authors: "Autores: Katy Indvik¹, Elizabeth Cardona², Carolina Rendón¹, Mariana Lazo¹, Nelson Gouveia³, Waleska Caiaffa⁴, Olga Lucia Sarmiento⁵, Ana Diez Roux¹",
+      designedBy: "Diseñado por: Carolina Rendón y Martin Gillis",
+      engineeredBy: "Desarrollado por: Ran Li",
+      mediaContact: "Contacto en prensa: Carolina Rendón",
+      acknowledgements: "Agradecimientos: José Siri (Consultor, OMS) aportó comentarios valiosos.",
+      funding: "Cambio Climático y Salud Urbana en América Latina (SALURBAL-Clima) está financiado por el Wellcome Trust (227810/Z/23/Z, AVDR/OLS).",
+      affiliations: "1. Urban Health Collaborative, Drexel University. 2. INCAP, Institute of Nutrition of Central America and Panama. 3. University of São Paulo Medical School. 4. Observatory for Urban Health in Belo Horizonte, Federal University of Minas Gerais. 5. School of Medicine, Universidad de los Andes.",
+      followUs: "Síguenos:",
+      contactUs: "Contáctanos",
+      privacyLegal: "Privacidad y legal"
+    },
+    pt: {
+      authors: "Autores: Katy Indvik¹, Elizabeth Cardona², Carolina Rendón¹, Mariana Lazo¹, Nelson Gouveia³, Waleska Caiaffa⁴, Olga Lucia Sarmiento⁵, Ana Diez Roux¹",
+      designedBy: "Projetado por: Carolina Rendón e Martin Gillis",
+      engineeredBy: "Desenvolvido por: Ran Li",
+      mediaContact: "Contato com a mídia: Carolina Rendón",
+      acknowledgements: "Agradecimentos: José Siri (Consultor, OMS) forneceu contribuições valiosas.",
+      funding: "O projeto Mudanças Climáticas e Saúde Urbana na América Latina (\"SALURBAL-Climate\") é financiado pelo Wellcome Trust (227810/Z/23/Z, AVDR/OLS).",
+      affiliations: "1. Urban Health Collaborative, Drexel University. 2. Instituto de Nutrição da América Central e Panamá (INCAP). 3. Faculdade de Medicina, Universidade de São Paulo. 4. Observatório de Saúde Urbana de Belo Horizonte, Universidade Federal de Minas Gerais. 5. Faculdade de Medicina, Universidad de los Andes.",
+      followUs: "Siga-nos:",
+      contactUs: "Entre em contato",
+      privacyLegal: "Privacidade e legal"
+    }
+  };
+
+  $: currentContent = content[$currentLanguage] || content.en;
 </script>
 
 <footer
@@ -15,27 +58,31 @@
     <!-- Authors and Credits Section -->
     <div class="authors-credits-section">
       <p class="authors-block">
-        <strong>Authors:</strong> Katy Indvik¹, Elizabeth Cardona², Carolina Rendón¹, Mariana Lazo¹, Nelson Gouveia³, Waleska Caiaffa⁴, Olga Lucia Sarmiento⁵, Ana Diez Roux¹
+        <strong>{currentContent.authors.split(':')[0]}:</strong> {currentContent.authors.split(':')[1]}
       </p>
       
       <p class="credits-line">
-        <strong>Designed by:</strong> Carolina Rendón and Martin Gillis
+        <strong>{currentContent.designedBy.split(':')[0]}:</strong> {currentContent.designedBy.split(':')[1]}
       </p>
       
       <p class="credits-line">
-        <strong>Media contact:</strong> Carolina Rendon <a href="mailto:cr3283@drexel.edu" class="email-link">@cr3283@drexel.edu</a>
+        <strong>{currentContent.engineeredBy.split(':')[0]}:</strong> {currentContent.engineeredBy.split(':')[1]}
       </p>
       
       <p class="credits-line">
-        <strong>Acknowledgements:</strong> José Siri (Consultant, WHO) provided valuable feedback.
+        <strong>{currentContent.mediaContact.split(':')[0]}:</strong> {currentContent.mediaContact.split(':')[1]} <a href="mailto:cr3283@drexel.edu" class="email-link">@cr3283@drexel.edu</a>
+      </p>
+      
+      <p class="credits-line">
+        <strong>{currentContent.acknowledgements.split(':')[0]}:</strong> {currentContent.acknowledgements.split(':')[1]}
       </p>
       
       <p class="funding-line">
-        Climate Change and Urban Health in Latin America ("SALURBAL-Climate") is funded by the Wellcome Trust (227810/Z/23/Z, AVDR/OLS).
+        {currentContent.funding}
       </p>
       
       <p class="affiliations-line">
-        1. Urban Health Collaborative, Drexel University. 2. INCAP, Institute of Nutrition of Central America and Panama. 3. University of São Paulo Medical School. 4. Observatory for Urban Health in Belo Horizonte, Federal University of Minas Gerais. 5. School of Medicine, Universidad de los Andes.
+        {currentContent.affiliations}
       </p>
     </div>
 
@@ -53,7 +100,7 @@
       </div>
       <div>
         <div class="item" id="follow-section">
-          Follow us:          <div class="container">
+          {currentContent.followUs}          <div class="container">
             <a href="https://www.facebook.com/LACUrbanHealth" aria-label="Visit SALURBAL Climate on Facebook" target="_blank">
               <div class="social-icon"><Icon icon="il:facebook" /></div>
             </a>
@@ -80,14 +127,14 @@
           <a
             href="https://drexel.edu/uhc/about/contact/"
             class="link"
-            style="color: {themes[theme]['text']}">Contact us</a
+            style="color: {themes[theme]['text']}">{currentContent.contactUs}</a
           >
         </li>
         <li>
           <a
             href="https://drexel.edu/privacy"
             class="link"
-            style="color: {themes[theme]['text']}">Privacy and legal</a
+            style="color: {themes[theme]['text']}">{currentContent.privacyLegal}</a
           >
         </li>
       </ul>
