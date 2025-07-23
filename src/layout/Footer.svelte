@@ -12,6 +12,34 @@
   ]};"
 >
   <div class="col-wide" data-analytics="footer">
+    <!-- Authors and Credits Section -->
+    <div class="authors-credits-section">
+      <p class="authors-block">
+        <strong>Authors:</strong> Katy Indvik¹, Elizabeth Cardona², Carolina Rendón¹, Mariana Lazo¹, Nelson Gouveia³, Waleska Caiaffa⁴, Olga Lucia Sarmiento⁵, Ana Diez Roux¹
+      </p>
+      
+      <p class="credits-line">
+        <strong>Designed by:</strong> Carolina Rendón and Martin Gillis
+      </p>
+      
+      <p class="credits-line">
+        <strong>Media contact:</strong> Carolina Rendon <a href="mailto:cr3283@drexel.edu" class="email-link">@cr3283@drexel.edu</a>
+      </p>
+      
+      <p class="credits-line">
+        <strong>Acknowledgements:</strong> José Siri (Consultant, WHO) provided valuable feedback.
+      </p>
+      
+      <p class="funding-line">
+        Climate Change and Urban Health in Latin America ("SALURBAL-Climate") is funded by the Wellcome Trust (227810/Z/23/Z, AVDR/OLS).
+      </p>
+      
+      <p class="affiliations-line">
+        1. Urban Health Collaborative, Drexel University. 2. INCAP, Institute of Nutrition of Central America and Panama. 3. University of São Paulo Medical School. 4. Observatory for Urban Health in Belo Horizonte, Federal University of Minas Gerais. 5. School of Medicine, Universidad de los Andes.
+      </p>
+    </div>
+
+    <!-- Original Footer Content -->
     <div class="container_container">
       <div class="item">        <a href="https://drexel.edu/lac/" target="_blank" aria-label="Visit SALURBAL Climate website">
           <div id="svg-container">
@@ -92,6 +120,43 @@
     padding-top: 36px;
     font-size: 18px;
   }
+
+  /* Authors and Credits Styling */
+  .authors-credits-section {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: left;
+  }
+
+  .authors-block,
+  .credits-line,
+  .funding-line,
+  .affiliations-line {
+    margin: 0 0 0.8rem 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .funding-line {
+    margin-top: 0.5rem;
+  }
+
+  .affiliations-line {
+    font-size: 0.8rem;
+    margin-top: 1rem;
+  }
+
+  .email-link {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  .email-link:hover {
+    opacity: 0.8;
+  }
+
+  /* Remove old complex styling */
   #svg-container {
     width: 150px; /* Set the desired width of the container */
     height: 60px; /* Set the desired height of the container */
