@@ -12,7 +12,7 @@
       A <a
         href="https://unfccc.int/process/bodies/supreme-bodies/conference-of-the-parties-cop"
         target="_blank"
-        class="highlight-link">Conference of the Parties</a
+        class="highlight-link">Conference of the Parties (COP)</a
       > refers to a meeting (conference) of the
       countries, or governments, (parties) who have signed an international
       agreement, convention, or treaty. COPs take place within the context of
