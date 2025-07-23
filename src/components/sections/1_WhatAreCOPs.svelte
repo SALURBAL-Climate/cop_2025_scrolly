@@ -1,13 +1,31 @@
 <script>
   import { brandColors } from '../../config.js';
-  // No other props needed for this static component
+  import { currentLanguage } from '../../stores/language.js';
+
+  // Content for each language
+  const content = {
+    en: {
+      title: "What is a United Nations Climate COP?",
+      description: "A Conference of the Parties (COP) refers to a meeting..."
+    },
+    es: {
+      title: "¿Qué es una COP sobre el clima de las Naciones Unidas?",
+      description: "Una Conferencia de las Partes (COP) se refiere a una reunión..."
+    },
+    pt: {
+      title: "O que é uma COP sobre clima das Nações Unidas?",
+      description: "Uma Conferência das Partes (COP) refere-se a uma reunião..."
+    }
+  };
+
+  $: currentContent = content[$currentLanguage] || content.en;
 </script>
 
 <section
   class="component_container"
   style="--hex-blue: {brandColors.hex_blue}; --green-zone: {brandColors.green_zone}; --dark-text: {brandColors.dark_text}; --medium-text: {brandColors.medium_text}"
 >  <div class="title-section">
-    <h1 class="main-title">What is a United Nations Climate COP?</h1>
+    <h1 class="main-title">{currentContent.title}</h1>
     <p class="main-description">
       A <a
         href="https://unfccc.int/process/bodies/supreme-bodies/conference-of-the-parties-cop"
