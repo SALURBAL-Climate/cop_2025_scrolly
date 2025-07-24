@@ -69,13 +69,17 @@
         <strong>{currentContent.engineeredBy.split(':')[0]}:</strong> {currentContent.engineeredBy.split(':')[1]}
       </p>
       
-      <p class="credits-line">
-        <strong>{currentContent.mediaContact.split(':')[0]}:</strong> {currentContent.mediaContact.split(':')[1]} <a href="mailto:cr3283@drexel.edu" class="email-link">@cr3283@drexel.edu</a>
-      </p>
+
       
       <p class="credits-line">
         <strong>{currentContent.acknowledgements.split(':')[0]}:</strong> {currentContent.acknowledgements.split(':')[1]}
       </p>
+      
+      {#if $currentLanguage === 'pt'}
+        <p class="credits-line">
+          <strong>Tradução para o português por:</strong> Amanda Magalhães
+        </p>
+      {/if}
       
       <p class="funding-line">
         {currentContent.funding}
