@@ -108,13 +108,16 @@
     height: calc(100vh - 30px);
     background-image: url('https://salurbal-climate.github.io/cop_2025_scrolly/img/cop30/hero_image.jpg');
     background-size: cover;
-    background-position: center;
+    background-position: center center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     display: flex;
     align-items: center;
-    justify-content: flex;
+    justify-content: center;
     position: relative;
     font-family: 'Lato', sans-serif;
+    width: 100%;
+    overflow: hidden;
   }
 
   .hero-section::before {
