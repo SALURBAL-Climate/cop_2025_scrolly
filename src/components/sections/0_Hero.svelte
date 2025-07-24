@@ -61,6 +61,9 @@
 
   // Reactive statement to get current content
   $: currentContent = content[$currentLanguage] || content.en;
+  
+  // Flag for long title (Spanish)
+  $: isLongTitle = $currentLanguage === 'es';
 </script>
 
 <section 
@@ -83,7 +86,7 @@
     </div>
 
     <div class="hero-text">
-      <h1 class="main-title">
+      <h1 class="main-title" class:long-title={isLongTitle}>
         {currentContent.mainTitle.part1} <span class="highlight-yellow">{currentContent.mainTitle.highlight1}</span> {currentContent.mainTitle.part2}
         <span class="highlight-green">{currentContent.mainTitle.highlight2}</span>{currentContent.mainTitle.part3}
         <span class="highlight-blue">{currentContent.mainTitle.highlight3}</span> {currentContent.mainTitle.part4}
@@ -173,6 +176,10 @@
     color: #1a365d;
   }
 
+  .main-title.long-title {
+    font-size: 2.8rem;
+  }
+
   .highlight-yellow {
     background-color: #f7db78;
     padding: 0em 0em 0em 0em;
@@ -227,6 +234,10 @@
     .main-title {
       font-size: 2.5rem;
     }
+
+    /* .main-title.long-title {
+      font-size: 2.2rem;
+    } */
 
     .subtitle-italic {
       font-size: 1.1rem;
