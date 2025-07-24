@@ -1,0 +1,23 @@
+# Robots.txt for SALURBAL Climate COP30 Health Guide
+User-agent: *
+Allow: /
+
+# Allow important content
+Allow: /img/cop30/
+Allow: /build/
+Allow: /?lang=en
+Allow: /?lang=es  
+Allow: /?lang=pt
+
+# Block development files
+Disallow: /src/
+Disallow: /_raw/
+Disallow: /*.map
+Disallow: /rollup.config.js
+Disallow: /postcss.config.js
+Disallow: /tailwind.config.js
+Disallow: /next.config.mjs
+Disallow: /package.json
+
+# Sitemap location
+Sitemap: https://salurbal-climate.github.io/cop_2025_scrolly/sitemap.xml

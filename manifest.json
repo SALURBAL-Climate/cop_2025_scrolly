@@ -1,0 +1,101 @@
+{
+  "name": "COP30 Health Guide: Public Health Researchers Resource",
+  "short_name": "COP30 Health Guide",
+  "description": "Comprehensive guide for public health researchers engaging with COP30 climate conference in Belém, Brazil. Learn UNFCCC processes, health advocacy strategies, and climate-health policy integration.",
+  "start_url": "/?utm_source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#2f7ed3",
+  "background_color": "#ffffff",
+  "lang": "en",
+  "dir": "ltr",
+  
+  "icons": [
+    {
+      "src": "./img/cop30/EN_Logo_SALURBAL-Climate_png.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./favicon.ico",
+      "sizes": "16x16 32x32 48x48",
+      "type": "image/x-icon"
+    }
+  ],
+  
+  "categories": [
+    "education",
+    "health",
+    "research",
+    "policy",
+    "climate"
+  ],
+  
+  "shortcuts": [
+    {
+      "name": "What are COPs?",
+      "short_name": "COPs Info",
+      "description": "Learn about UN Climate Conference structure",
+      "url": "/?lang=en#what-are-cops",
+      "icons": [
+        {
+          "src": "./img/cop30/icon_UN.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Health in Climate Policy",
+      "short_name": "Health & Climate",
+      "description": "How health fits into climate negotiations",
+      "url": "/?lang=en#health-fit",
+      "icons": [
+        {
+          "src": "./img/cop30/sdg_3.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Researcher Engagement",
+      "short_name": "Get Involved",
+      "description": "How researchers can engage with COP30",
+      "url": "/?lang=en#call-to-action",
+      "icons": [
+        {
+          "src": "./img/cop30/icon_action_hand.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Español",
+      "short_name": "ES",
+      "description": "Guía en español",
+      "url": "/?lang=es"
+    },
+    {
+      "name": "Português", 
+      "short_name": "PT",
+      "description": "Guia em português",
+      "url": "/?lang=pt"
+    }
+  ],
+  
+  "related_applications": [
+    {
+      "platform": "web",
+      "url": "https://data.lacurbanhealth.org/",
+      "id": "salurbal-portal"
+    },
+    {
+      "platform": "web",
+      "url": "https://doi.org/10.5281/zenodo.16373280",
+      "id": "zenodo-static-version"
+    }
+  ],
+  
+  "prefer_related_applications": false
+}
