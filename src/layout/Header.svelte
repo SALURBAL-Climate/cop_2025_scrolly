@@ -198,14 +198,18 @@
   .pdf-container {
     display: flex;
     align-items: center;
-    height: 100%;
+    justify-content: center;
+    height: 30px;
     border-left: 1px solid #cdcdcd7d;
-    padding-left: 0.5rem;
+    padding: 0 0.5rem;
   }
 
   .pdf-link {
-    gap: 0.01rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
     text-decoration: none;
+    height: 100%;
   }
 
   .pdf-text {
