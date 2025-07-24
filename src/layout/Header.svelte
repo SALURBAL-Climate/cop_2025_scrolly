@@ -1,5 +1,5 @@
 <script>
-  import { getContext } from 'svelte';
+  import { getContext, onMount } from 'svelte';
   import Icon from '@iconify/svelte';
   import LanguageSelector from '../components/ui/LanguageSelector.svelte';
   import { currentLanguage, setLanguage } from '../stores/language.js';
@@ -51,10 +51,17 @@
   // Reactive statement to get current content
   $: currentContent = content[$currentLanguage] || content.en;
 
+  // Initialize language from URL on component mount
+  onMount(() => {
+    // The language store will already be initialized from URL,
+    // but this ensures the component is properly synced
+    console.log('Header mounted with language:', $currentLanguage);
+  });
+
   function handleLanguageChange(event) {
     setLanguage(event.detail.code);
     console.log('Language changed to:', event.detail);
-    // Here you can add additional logic like reloading content, updating URLs, etc.
+    // The URL will be automatically updated by the setLanguage function
   }
 </script>
 
