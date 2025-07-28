@@ -6,6 +6,13 @@
 
   // Reactive data that updates when language changes
   $: copRouteData = getCopRouteData($currentLanguage);
+  
+  // Language-specific step labels
+  $: stepLabel = {
+    en: 'Step',
+    es: 'Paso',
+    pt: 'Etapa'
+  }[$currentLanguage] || 'Step';
 
   let y = 0;
   let innerHeight = 0;
@@ -132,7 +139,7 @@
               <div class="story-text">
                 <div class="step-header">
                   <div class="step-text-content">
-                    <span class="step-badge">Step {i + 1}</span>
+                    <span class="step-badge">{stepLabel} {i + 1}</span>
                     <h3 class="step-title">{step.step_title}</h3>
                   </div>
                   <div class="step-icon-mobile">
