@@ -23,12 +23,12 @@ export const timelineContent = {
         description: "COP21 resulted in the landmark <a href=\"https://unfccc.int/process-and-meetings/the-paris-agreement/the-paris-agreement\" target=\"_blank\">Paris Agreement</a> (195 parties), which replaced the Kyoto Protocol and seeks to limit global warming to below 2 degrees Celsius."
       },
       {
-        year: "Where does health fit in?",
+        year: "2014",
         step_name: "Where does health fit in?",
         step_title: "Where does health fit in?",
         step_title_mobile: "Where does health fit in?",
         flagAlt: "tbd",
-        location: "",
+        location: "WHO",
         description: "Since 2014, the <b>World Health Organization (WHO)</b> has hosted regular Global Conferences on Health and Climate Change. Historically, <b>these events have taken place on the sidelines of the UNFCCC COPs</b>. In recent years, the connections between climate change and health have received increased attention."
       },
       {
@@ -108,12 +108,12 @@ export const timelineContent = {
         description: "La COP21 dio lugar al histórico <a href=\"https://unfccc.int/process-and-meetings/the-paris-agreement/the-paris-agreement\" target=\"_blank\">Acuerdo de París</a> (195 partes), que sustituyó al Protocolo de Kioto y busca limitar el calentamiento global por debajo de los 2 grados centígrados."
       },
       {
-        year: "¿Dónde encaja la salud?",
+        year: "2014",
         step_name: "¿Dónde encaja la salud?",
         step_title: "¿Dónde encaja la salud?",
         step_title_mobile: "¿Dónde encaja la salud?",
         flagAlt: "tbd",
-        location: "",
+        location: "OMS",
         description: "Desde 2014, la <b>Organización Mundial de la Salud (OMS)</b> organiza periódicamente Conferencias Mundiales sobre Salud y Cambio Climático. Históricamente, <b>estos eventos se han celebrado al margen de las COP de la CMNUCC</b>. En los últimos años, las conexiones entre el cambio climático y la salud han recibido cada vez más atención."
       },
       {
@@ -193,12 +193,12 @@ export const timelineContent = {
         description: "A COP21 resultou no histórico <a href=\"https://unfccc.int/process-and-meetings/the-paris-agreement/the-paris-agreement\" target=\"_blank\">Acordo de Paris</a> (195 partes), que substituiu o Protocolo de Kyoto e busca limitar o aquecimento global a menos de 2 graus Celsius."
       },
       {
-        year: "Onde a saúde se encaixa?",
+        year: "2014",
         step_name: "Onde a saúde se encaixa?",
         step_title: "Onde a saúde se encaixa?",
         step_title_mobile: "Onde a saúde se encaixa?",
         flagAlt: "tbd",
-        location: "",
+        location: "OMS",
         description: "Desde 2014, a <b>Organização Mundial da Saúde (OMS)</b> tem organizado regularmente Conferências Globais sobre Saúde e Mudanças Climáticas. Historicamente, <b>esses eventos ocorreram paralelamente às COPs da UNFCCC</b>. Nos últimos anos, as conexões entre as mudanças climáticas e a saúde têm recebido maior atenção."
       },
       {
