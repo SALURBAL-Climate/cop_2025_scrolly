@@ -5,13 +5,13 @@
   // Content for each language
   const content = {
     en: {
-      title: "A brief history of Climate COPs"
+      title: "A brief history of Climate COPs and health connections"
     },
     es: {
-      title: "Breve historia de las COPs sobre el cambio climático"
+      title: "Breve historia de las COPs sobre cambio climático y su conexión con la salud"
     },
     pt: {
-      title: "Um breve histórico das COPs do Clima"
+      title: "Uma breve história das COPs sobre o clima e suas conexões com a saúde"
     }
   };
 
