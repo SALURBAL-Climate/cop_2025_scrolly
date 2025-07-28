@@ -21,7 +21,7 @@
       youtube: "Subscribe to SALURBAL on YouTube",
       linkedin: "Connect with SALURBAL Project on LinkedIn",
       pdf: "View PDF guide",
-      pdfUrl: "https://zenodo.org/records/16413141/files/EN%20COP%2030%20&%20Health%20June%20Final.pdf?download=1"
+      pdfUrl: "https://zenodo.org/records/16422653/files/EN%20COP%2030%20&%20Health%20July%2025%20Final.pdf?download=1"
     },
     es: {
       titleFull: "Llevando la salud a la mesa en COP30",
@@ -34,7 +34,7 @@
       youtube: "Suscribirse a SALURBAL en YouTube",
       linkedin: "Conectar con SALURBAL Project en LinkedIn",
       pdf: "Ver guía PDF",
-      pdfUrl: "https://zenodo.org/records/16413141/files/ES%20COP%2030%20&%20Health%20July%20Final.pdf?download=1"
+      pdfUrl: "https://zenodo.org/records/16422653/files/ES%20COP%2030%20&%20Health%20July%2025%20Final.pdf?download=1"
     },
     pt: {
       titleFull: "Trazendo saúde à mesa na COP30",
@@ -47,7 +47,7 @@
       youtube: "Inscrever-se no SALURBAL no YouTube", 
       linkedin: "Conectar com SALURBAL Project no LinkedIn",
       pdf: "Ver guia PDF",
-      pdfUrl: "https://zenodo.org/records/16413141/files/PT%20COP%2030%20&%20Health%20July%20Final.pdf?download=1"
+      pdfUrl: "https://zenodo.org/records/16422653/files/PT%20COP%2030%20&%20Health%20July%2025%20Final.pdf?download=1"
     }
   };
 
