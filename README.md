@@ -1,5 +1,7 @@
 # COP30 Health Scrolly SALURBAL
 
+<a href="https://doi.org/10.5281/zenodo.16422653"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.16422653.svg" alt="DOI"></a>
+
 ## Key Links
 
 - Key links:
