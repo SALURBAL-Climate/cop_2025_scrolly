@@ -55,8 +55,12 @@
   ]};"
 >
   <div class="col-wide" data-analytics="footer">
+ 
     <!-- Authors and Credits Section -->
     <div class="authors-credits-section">
+
+  
+
       <p class="authors-block">
         <strong>{currentContent.authors.split(':')[0]}:</strong> {currentContent.authors.split(':')[1]}
       </p>
@@ -80,7 +84,7 @@
           <strong>Tradução para o português por:</strong> Amanda Magalhães
         </p>
       {/if}
-      
+
       <p class="funding-line">
         {currentContent.funding}
       </p>
@@ -88,6 +92,12 @@
       <p class="affiliations-line">
         {currentContent.affiliations}
       </p>
+          <p class="authors-block">
+       <a href="https://doi.org/10.5281/zenodo.16422653" target="_blank" aria-label="Cite this work - DOI on Zenodo">
+        <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.16422653.svg" alt="DOI: 10.5281/zenodo.16422653" class="doi-badge" />
+        </a>
+      </p>
+      
     </div>
 
     <!-- Original Footer Content -->
@@ -120,6 +130,7 @@
             <a href="https://www.linkedin.com/company/salurbal-project" aria-label="Connect with SALURBAL Project on LinkedIn" target="_blank">
               <div class="social-icon"><Icon icon="mdi:linkedin" /></div>
             </a>
+        
           </div>
         </div>
       </div>
@@ -165,6 +176,21 @@
 
   .social-icon {
     font-size: 1.5rem;
+  }
+
+  /* DOI Badge Styling */
+  .doi-badge-container {
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  .doi-badge {
+    height: 20px;
+    transition: opacity 0.3s ease;
+  }
+
+  .doi-badge:hover {
+    opacity: 0.8;
   }
   footer {
     padding-bottom: 72px;
